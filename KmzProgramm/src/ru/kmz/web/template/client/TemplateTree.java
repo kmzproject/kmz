@@ -1,7 +1,7 @@
 package ru.kmz.web.template.client;
 
-import ru.kmz.web.template.shared.TemplateTreeNodeBase;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolder;
+import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -15,9 +15,9 @@ import com.sencha.gxt.widget.core.client.tree.Tree;
 
 public class TemplateTree implements IsWidget {
 
-	private TemplateTreeNodeFolder root;
+	private TemplateTreeNodeFolderProxy root;
 
-	public void setRoot(TemplateTreeNodeFolder root) {
+	public void setRoot(TemplateTreeNodeFolderProxy root) {
 		this.root = root;
 	}
 
@@ -31,16 +31,16 @@ public class TemplateTree implements IsWidget {
 		container = new HorizontalPanel();
 		container.setSpacing(10);
 
-		TreeStore<TemplateTreeNodeBase> store = new TreeStore<TemplateTreeNodeBase>(new KeyProvider());
+		TreeStore<TemplateTreeNodeBaseProxy> store = new TreeStore<TemplateTreeNodeBaseProxy>(new KeyProvider());
 
-		for (TemplateTreeNodeBase base : root.getChildren()) {
+		for (TemplateTreeNodeBaseProxy base : root.getChildren()) {
 			store.add(base);
-			if (base instanceof TemplateTreeNodeFolder) {
-				processFolder(store, (TemplateTreeNodeFolder) base);
+			if (base instanceof TemplateTreeNodeFolderProxy) {
+				processFolder(store, (TemplateTreeNodeFolderProxy) base);
 			}
 		}
 
-		final Tree<TemplateTreeNodeBase, String> tree = getTree(store);
+		final Tree<TemplateTreeNodeBaseProxy, String> tree = getTree(store);
 
 		container.add(tree);
 
@@ -53,17 +53,17 @@ public class TemplateTree implements IsWidget {
 		return container;
 	}
 
-	private Tree<TemplateTreeNodeBase, String> getTree(TreeStore<TemplateTreeNodeBase> store) {
-		final Tree<TemplateTreeNodeBase, String> tree = new Tree<TemplateTreeNodeBase, String>(store,
-				new ValueProvider<TemplateTreeNodeBase, String>() {
+	private Tree<TemplateTreeNodeBaseProxy, String> getTree(TreeStore<TemplateTreeNodeBaseProxy> store) {
+		final Tree<TemplateTreeNodeBaseProxy, String> tree = new Tree<TemplateTreeNodeBaseProxy, String>(store,
+				new ValueProvider<TemplateTreeNodeBaseProxy, String>() {
 
 					@Override
-					public String getValue(TemplateTreeNodeBase object) {
+					public String getValue(TemplateTreeNodeBaseProxy object) {
 						return object.getName();
 					}
 
 					@Override
-					public void setValue(TemplateTreeNodeBase object, String value) {
+					public void setValue(TemplateTreeNodeBaseProxy object, String value) {
 					}
 
 					@Override
@@ -74,29 +74,29 @@ public class TemplateTree implements IsWidget {
 		tree.setWidth(300);
 		// tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.music());
 
-		tree.getSelectionModel().addSelectionHandler(new SelectionHandler<TemplateTreeNodeBase>() {
+		tree.getSelectionModel().addSelectionHandler(new SelectionHandler<TemplateTreeNodeBaseProxy>() {
 
 			@Override
-			public void onSelection(SelectionEvent<TemplateTreeNodeBase> event) {
+			public void onSelection(SelectionEvent<TemplateTreeNodeBaseProxy> event) {
 				infoContainer.setValue(event.getSelectedItem());
 			}
 		});
 		return tree;
 	}
 
-	private static void processFolder(TreeStore<TemplateTreeNodeBase> store, TemplateTreeNodeFolder folder) {
-		for (TemplateTreeNodeBase child : folder.getChildren()) {
+	private static void processFolder(TreeStore<TemplateTreeNodeBaseProxy> store, TemplateTreeNodeFolderProxy folder) {
+		for (TemplateTreeNodeBaseProxy child : folder.getChildren()) {
 			store.add(folder, child);
-			if (child instanceof TemplateTreeNodeFolder) {
-				processFolder(store, (TemplateTreeNodeFolder) child);
+			if (child instanceof TemplateTreeNodeFolderProxy) {
+				processFolder(store, (TemplateTreeNodeFolderProxy) child);
 			}
 		}
 	}
 
-	private static class KeyProvider implements ModelKeyProvider<TemplateTreeNodeBase> {
+	private static class KeyProvider implements ModelKeyProvider<TemplateTreeNodeBaseProxy> {
 		@Override
-		public String getKey(TemplateTreeNodeBase item) {
-			return (item instanceof TemplateTreeNodeFolder ? "f-" : "m-") + item.getId();
+		public String getKey(TemplateTreeNodeBaseProxy item) {
+			return (item instanceof TemplateTreeNodeFolderProxy ? "f-" : "m-") + item.getId();
 		}
 	}
 

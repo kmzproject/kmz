@@ -1,6 +1,6 @@
 package ru.kmz.web.template.client;
 
-import ru.kmz.web.template.shared.TemplateTreeNodeBase;
+import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
@@ -13,8 +13,9 @@ public class TemplateTreeNodeInfo implements IsWidget {
 	private FlowLayoutContainer container;
 
 	private TextField name;
-	private TextField author;
-	private TextField genre;
+	private TextField description;
+	private TextField duration;
+	private TextField resource;
 
 	@Override
 	public Widget asWidget() {
@@ -25,19 +26,28 @@ public class TemplateTreeNodeInfo implements IsWidget {
 		// Create the fields
 		name = new TextField();
 		name.setWidth(200);
-		container.add(new FieldLabel(name, "Name"));
+		name.setEnabled(false);
+		container.add(new FieldLabel(name, "Название"));
 
-		author = new TextField();
-		author.setWidth(200);
-		container.add(new FieldLabel(author, "Author"));
+		description = new TextField();
+		description.setWidth(200);
+		description.setEnabled(false);
+		container.add(new FieldLabel(description, "Описание"));
 
-		genre = new TextField();
-		genre.setWidth(200);
-		container.add(new FieldLabel(genre, "Genre"));
+		duration = new TextField();
+		duration.setWidth(200);
+		duration.setEnabled(false);
+		container.add(new FieldLabel(duration, "Время"));
+
+		resource = new TextField();
+		resource.setWidth(200);
+		resource.setEnabled(false);
+		container.add(new FieldLabel(resource, "Ресурс"));
+
 		return container;
 	}
 
-	public void setValue(TemplateTreeNodeBase value) {
+	public void setValue(TemplateTreeNodeBaseProxy value) {
 		name.setValue(value.getName());
 	}
 }

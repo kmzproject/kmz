@@ -1,12 +1,12 @@
 package ru.kmz.web.template.shared;
 
-public class TemplateTreeNodeBase {
+public class TemplateTreeNodeBaseProxy {
 
 	private String id;
 
 	private String name;
 	
-	public TemplateTreeNodeBase(String id, String name){
+	public TemplateTreeNodeBaseProxy(String id, String name){
 		this.id = id;
 		this.name = name;
 	}
