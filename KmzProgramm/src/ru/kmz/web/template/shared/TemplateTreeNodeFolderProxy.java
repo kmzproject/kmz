@@ -1,11 +1,16 @@
 package ru.kmz.web.template.shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemplateTreeNodeFolderProxy extends TemplateTreeNodeBaseProxy {
+@SuppressWarnings("serial")
+public class TemplateTreeNodeFolderProxy extends TemplateTreeNodeBaseProxy implements Serializable {
 
 	List<TemplateTreeNodeBaseProxy> list;
+
+	public TemplateTreeNodeFolderProxy() {
+	};
 
 	public TemplateTreeNodeFolderProxy(String id, String name) {
 		super(id, name);

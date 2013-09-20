@@ -1,12 +1,19 @@
 package ru.kmz.web.template.shared;
 
-public class TemplateTreeNodeBaseProxy {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class TemplateTreeNodeBaseProxy implements Serializable {
 
 	private String id;
 
 	private String name;
-	
-	public TemplateTreeNodeBaseProxy(String id, String name){
+
+	public TemplateTreeNodeBaseProxy() {
+
+	}
+
+	public TemplateTreeNodeBaseProxy(String id, String name) {
 		this.id = id;
 		this.name = name;
 	}
