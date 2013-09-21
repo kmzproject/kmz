@@ -9,10 +9,13 @@
 		<servlet-name>greetServlet</servlet-name>
 		<servlet-class>ru.kmz.web.main.server.GreetingServiceImpl</servlet-class>
 	</servlet>
-
 	<servlet>
 		<servlet-name>templateModule</servlet-name>
 		<servlet-class>ru.kmz.web.template.server.TemplateModuleServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>calculatorModule</servlet-name>
+		<servlet-class>ru.kmz.web.calculator.server.CalculatorModuleServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -23,6 +26,11 @@
 		<servlet-name>templateModule</servlet-name>
 		<url-pattern>/templatemodule/templateModule</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>calculatorModule</servlet-name>
+		<url-pattern>/calculatormodule/calculatorModule</url-pattern>
+	</servlet-mapping>
+
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
