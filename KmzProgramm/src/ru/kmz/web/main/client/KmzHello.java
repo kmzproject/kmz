@@ -1,11 +1,13 @@
 package ru.kmz.web.main.client;
 
+
+import ru.kmz.web.common.client.IKmzModule;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.widget.core.client.TabItemConfig;
 import com.sencha.gxt.widget.core.client.form.TextArea;
 
-public class KmzHello implements IsWidget {
+public class KmzHello implements IsWidget, IKmzModule {
 
 	@Override
 	public Widget asWidget() {
@@ -14,7 +16,9 @@ public class KmzHello implements IsWidget {
 		return a;
 	}
 
-	public TabItemConfig getTabItemConfig(){
-		return new TabItemConfig("Информация о системе", false);
+	@Override
+	public String getModuleName() {
+		return "Информация о системе";
 	}
+	
 }

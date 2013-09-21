@@ -1,26 +1,60 @@
 package ru.kmz.web.main.client;
 
+import ru.kmz.web.calculator.client.CalculatorModuleView;
+import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.template.client.TemplateModuleView;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.widget.client.TextButton;
 import com.sencha.gxt.core.client.util.Margins;
 import com.sencha.gxt.core.client.util.Padding;
+import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData;
 import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer.VBoxLayoutAlign;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
 public class KmzNavigation implements IsWidget {
 
+	private KmzProgramm programm;
+
+	public KmzNavigation(KmzProgramm programm) {
+		this.programm = programm;
+	}
+
 	@Override
 	public Widget asWidget() {
-		TextButton buttonTree = new TextButton("Модуль расчетов");
-		TextButton buttonCalculator = new TextButton("Модуль шаблонов");
+		CalculatorModuleView calculator = CalculatorModuleView.getInstance();
+		TemplateModuleView template = TemplateModuleView.getInstance();
+
+		TextButton buttonCalculator = new TextButton(calculator.getModuleName());
+		TextButton buttonTree = new TextButton(template.getModuleName());
+
+		buttonCalculator.addSelectHandler(new NavigationSelectHandler(CalculatorModuleView.getInstance()));
+		buttonTree.addSelectHandler(new NavigationSelectHandler(TemplateModuleView.getInstance()));
 
 		VBoxLayoutContainer c = new VBoxLayoutContainer();
 		c.setPadding(new Padding(5));
 		c.setVBoxLayoutAlign(VBoxLayoutAlign.STRETCH);
-		c.add(buttonTree, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		c.add(buttonCalculator, new BoxLayoutData(new Margins(0, 0, 5, 0)));
+		c.add(buttonTree, new BoxLayoutData(new Margins(0, 0, 5, 0)));
+
 		return c;
+	}
+
+	private class NavigationSelectHandler implements SelectHandler {
+
+		private IKmzModule module;
+
+		private NavigationSelectHandler(IKmzModule module) {
+			this.module = module;
+		}
+
+		@Override
+		public void onSelect(SelectEvent event) {
+			programm.addWidgetTab(module);
+		}
+
 	}
 }

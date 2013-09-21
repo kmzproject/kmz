@@ -25,10 +25,12 @@
 	<servlet-mapping>
 		<servlet-name>templateModule</servlet-name>
 		<url-pattern>/templatemodule/templateModule</url-pattern>
+		<url-pattern>/kmzprogramm/templateModule</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>calculatorModule</servlet-name>
 		<url-pattern>/calculatormodule/calculatorModule</url-pattern>
+		<url-pattern>/kmzprogramm/calculatorModule</url-pattern>
 	</servlet-mapping>
 
 
