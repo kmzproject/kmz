@@ -1,22 +1,26 @@
 package ru.kmz.web.calculator.client;
 
+import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
 import ru.kmz.web.common.client.IKmzModule;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.widget.core.client.container.Container;
-import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
 import com.sencha.gxt.widget.core.client.info.Info;
 
 public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 
-	private final CalculatorModuleServiceAsync calculatorMpduleService = GWT.create(CalculatorModuleService.class);
+	private final static CalculatorModuleServiceAsync calculatorModuleService = GWT
+			.create(CalculatorModuleService.class);
 	private static CalculatorModuleView instanse;
+
+	private CalculatorInputData input;
+	private CalculatorResultGrid resultGrid;
 
 	@Override
 	public void onModuleLoad() {
@@ -31,22 +35,32 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 
 	@Override
 	public Widget asWidget() {
-		final Container caintainer = new HorizontalLayoutContainer();
-		calculatorMpduleService.getResultData(new AsyncCallback<CalculatorResultDataProxy>() {
+		HorizontalPanel container = new HorizontalPanel();
+		container.setSpacing(10);
+
+		input = new CalculatorInputData(this);
+		resultGrid = CalculatorResultGrid.getCalculatorGrid();
+
+		container.add(input);
+		container.add(resultGrid);
+
+		return container;
+	}
+
+	public void showResult(CalculatorInputDataProxy input) {
+		getService().getResultData(input, new AsyncCallback<CalculatorResultDataProxy>() {
 
 			@Override
 			public void onSuccess(CalculatorResultDataProxy result) {
-				CalculatorResultGrid resultGrid = new CalculatorResultGrid();
 				resultGrid.setRows(result.getRows());
-				caintainer.add(resultGrid);
+				resultGrid.updateData();
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Info.display("Error", "this is error " + caught);
+				Info.display("Error", "This is error " + caught);
 			}
 		});
-		return caintainer;
 	}
 
 	public static CalculatorModuleView getInstance() {
@@ -55,4 +69,7 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 		return instanse;
 	}
 
+	public static CalculatorModuleServiceAsync getService() {
+		return calculatorModuleService;
+	}
 }

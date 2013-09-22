@@ -1,5 +1,8 @@
 package ru.kmz.web.main.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ru.kmz.web.common.client.IKmzModule;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -20,9 +23,15 @@ public class KmzProgramm implements IsWidget, EntryPoint {
 
 	private TabPanel center;
 
+	private Map<String, Integer> tabMap = new HashMap<String, Integer>();//Если будут закрывать закладки надо предусмотреть
+
 	public void addWidgetTab(IKmzModule module) {
-		center.add(module, new TabItemConfig(module.getModuleName(), true));
-		center.setActiveWidget(center.getWidget(center.getWidgetCount() - 1));
+		String moduleName = module.getModuleName();
+		if (!tabMap.containsKey(moduleName)) {
+			center.add(module, new TabItemConfig(module.getModuleName(), false));
+			tabMap.put(moduleName, center.getWidgetCount() - 1);
+		}
+		center.setActiveWidget(center.getWidget(tabMap.get(moduleName)));
 	}
 
 	public Widget asWidget() {
@@ -38,7 +47,7 @@ public class KmzProgramm implements IsWidget, EntryPoint {
 		center.setCloseContextMenu(true);
 
 		KmzHello hello = new KmzHello();
-		center.add(hello, new TabItemConfig(hello.getModuleName(), true));
+		center.add(hello, new TabItemConfig(hello.getModuleName(), false));
 
 		BorderLayoutData westData = new BorderLayoutData(150);
 		westData.setCollapsible(true);

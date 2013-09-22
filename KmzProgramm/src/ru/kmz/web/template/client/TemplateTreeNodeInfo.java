@@ -19,8 +19,13 @@ public class TemplateTreeNodeInfo implements IsWidget {
 
 	@Override
 	public Widget asWidget() {
-		if (container != null)
-			return container;
+		if (container == null)
+			createContainer();
+
+		return container;
+	}
+
+	private void createContainer() {
 		container = new FlowLayoutContainer();
 
 		// Create the fields
@@ -43,8 +48,6 @@ public class TemplateTreeNodeInfo implements IsWidget {
 		resource.setWidth(200);
 		resource.setEnabled(false);
 		container.add(new FieldLabel(resource, "Ресурс"));
-
-		return container;
 	}
 
 	public void setValue(TemplateTreeNodeBaseProxy value) {
