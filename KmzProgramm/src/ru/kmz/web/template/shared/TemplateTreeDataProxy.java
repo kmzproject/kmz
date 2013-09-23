@@ -17,5 +17,4 @@ public class TemplateTreeDataProxy implements Serializable {
 	public TemplateTreeDataProxy(TemplateTreeNodeFolderProxy root) {
 		this.root = root;
 	}
-
 }

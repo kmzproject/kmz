@@ -11,5 +11,10 @@
             <property name="datanucleus.NontransactionalWrite" value="true"/>
             <property name="datanucleus.ConnectionURL" value="appengine"/>
         </properties>
+
+		<class>ru.kmz.server.data.model.Template</class>
+		<class>ru.kmz.server.data.model.ProducteTemplate</class>
+		<class>ru.kmz.server.data.model.ProducteTemplateElement</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
     </persistence-unit>
 </persistence>
