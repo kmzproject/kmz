@@ -23,7 +23,11 @@ public class Template {
 	private ProducteTemplate product;
 
 	public Template() {
-		product = new ProducteTemplate();
+	}
+
+	public Template(String name) {
+		this();
+		this.name = name;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -54,8 +58,8 @@ public class Template {
 	private String name;
 
 	public TemplateTreeDataProxy asProxy() {
-		 TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
-		 TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(rootProxy);
+		TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
+		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(name, rootProxy);
 		return proxy;
 	}
 

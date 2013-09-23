@@ -29,8 +29,7 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		TemplateTreeDataProxy data = new TemplateTreeDataProxy(TemplateTreeDataExample.getRoot());
-		return data;
+		return null;
 	}
 
 }

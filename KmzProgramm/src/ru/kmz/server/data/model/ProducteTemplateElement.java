@@ -27,6 +27,12 @@ public class ProducteTemplateElement {
 		childs = new ArrayList<ProducteTemplateElement>();
 	}
 
+	public ProducteTemplateElement(String name, int duration) {
+		this();
+		this.name = name;
+		this.duration = duration;
+	}
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ProducteTemplateElement> childs;
 
@@ -56,13 +62,27 @@ public class ProducteTemplateElement {
 
 	private String name;
 
+	private int duration;
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public void add(ProducteTemplateElement element) {
+		this.childs.add(element);
+	}
+
 	public TemplateTreeNodeBaseProxy asProxy() {
 		if (childs == null || childs.size() == 0) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.toString(), name);
+			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.toString(), name, duration);
 			return proxy;
 		}
 
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name);
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name, duration);
 		for (ProducteTemplateElement child : childs) {
 			proxy.add(child.asProxy());
 		}

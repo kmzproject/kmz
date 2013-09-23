@@ -52,5 +52,6 @@ public class TemplateTreeNodeInfo implements IsWidget {
 
 	public void setValue(TemplateTreeNodeBaseProxy value) {
 		name.setValue(value.getName());
+		duration.setValue(value.getDuration() + "");
 	}
 }

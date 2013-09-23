@@ -9,13 +9,16 @@ public class TemplateTreeNodeBaseProxy implements Serializable {
 
 	private String name;
 
+	private int duration;
+
 	public TemplateTreeNodeBaseProxy() {
 
 	}
 
-	public TemplateTreeNodeBaseProxy(String id, String name) {
+	public TemplateTreeNodeBaseProxy(String id, String name, int duration) {
 		this.id = id;
 		this.name = name;
+		this.duration = duration;
 	}
 
 	public String getId() {
@@ -24,6 +27,10 @@ public class TemplateTreeNodeBaseProxy implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getDuration() {
+		return duration;
 	}
 
 }
