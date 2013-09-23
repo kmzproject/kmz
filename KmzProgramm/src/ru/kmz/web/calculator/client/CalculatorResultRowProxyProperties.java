@@ -19,6 +19,8 @@ public interface CalculatorResultRowProxyProperties extends PropertyAccess<Calcu
 
 	ValueProvider<CalculatorResultRowProxy, String> name();
 
+	ValueProvider<CalculatorResultRowProxy, String> resourceType();
+
 	ValueProvider<CalculatorResultRowProxy, Date> startDate();
 
 	ValueProvider<CalculatorResultRowProxy, Date> finishDate();

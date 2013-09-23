@@ -1,4 +1,4 @@
-package ru.kmz.web.template.shared;
+package ru.kmz.web.common.shared;
 
 import ru.kmz.server.data.constants.ResourceTypes;
 

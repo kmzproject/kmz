@@ -79,8 +79,12 @@ public class ProducteTemplateElement {
 		this.childs.add(element);
 	}
 
+	public boolean hasChild() {
+		return childs != null && childs.size() != 0;
+	}
+
 	public TemplateTreeNodeBaseProxy asProxy() {
-		if (childs == null || childs.size() == 0) {
+		if (!hasChild()) {
 			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.toString(), name, duration,
 					resourceType);
 			return proxy;

@@ -1,13 +1,12 @@
 package ru.kmz.web.template.client;
 
-import ru.kmz.web.template.shared.ResourceTypesConsts;
+import ru.kmz.web.common.client.TemplateTreeNodeImages;
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -19,19 +18,6 @@ import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.tree.Tree;
 
 public class TemplateTree implements IsWidget {
-
-	public static interface Images extends ClientBundle {
-		public Images INSTANCE = GWT.create(Images.class);
-
-		@Source("order.png")
-		ImageResource order();
-
-		@Source("prepare.png")
-		ImageResource prepare();
-
-		@Source("assemblage.png")
-		ImageResource assemblage();
-	}
 
 	private TemplateTreeNodeFolderProxy root;
 
@@ -97,12 +83,12 @@ public class TemplateTree implements IsWidget {
 			@Override
 			public ImageResource getIcon(TemplateTreeNodeBaseProxy node) {
 				if (node.getResourceType().equals(ResourceTypesConsts.ASSEMBLAGE))
-					return Images.INSTANCE.assemblage();
+					return TemplateTreeNodeImages.INSTANCE.assemblage();
 				if (node.getResourceType().equals(ResourceTypesConsts.PREPARE))
-					return Images.INSTANCE.prepare();
+					return TemplateTreeNodeImages.INSTANCE.prepare();
 				if (node.getResourceType().equals(ResourceTypesConsts.ORDER))
-					return Images.INSTANCE.order();
-				return Images.INSTANCE.order();
+					return TemplateTreeNodeImages.INSTANCE.order();
+				return TemplateTreeNodeImages.INSTANCE.order();
 			}
 		});
 

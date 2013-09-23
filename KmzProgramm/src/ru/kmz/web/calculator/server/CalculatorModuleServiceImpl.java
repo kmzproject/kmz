@@ -2,6 +2,7 @@ package ru.kmz.web.calculator.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
@@ -11,7 +12,9 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public CalculatorResultDataProxy getResultData(CalculatorInputDataProxy input) {
-		return CalculatorResultDataExample.getExample();
+		if (input.getFinishDate() == null)
+			return new CalculatorResultDataProxy();
+		return CalculationUtils.getCalculation(input);
 	}
 
 }

@@ -10,16 +10,18 @@ public class CalculatorResultRowProxy implements Serializable {
 	private Date startDate;
 	private Date finishDate;
 	private String name;
+	private String resourceType;
 
 	public CalculatorResultRowProxy() {
 	}
 
-	public CalculatorResultRowProxy(Integer id, String name, Date startDate, Date finishDate) {
+	public CalculatorResultRowProxy(Integer id, String name, String resourceType, Date startDate, Date finishDate) {
 		this();
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
 		this.finishDate = finishDate;
+		this.resourceType = resourceType;
 	}
 
 	public Integer getId() {
@@ -52,6 +54,10 @@ public class CalculatorResultRowProxy implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getResourceType() {
+		return resourceType;
 	}
 
 	public String toString() {
