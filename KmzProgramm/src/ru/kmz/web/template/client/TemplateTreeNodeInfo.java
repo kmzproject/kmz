@@ -13,7 +13,7 @@ public class TemplateTreeNodeInfo implements IsWidget {
 	private FlowLayoutContainer container;
 
 	private TextField name;
-	private TextField description;
+	private TextField resourceType;
 	private TextField duration;
 	private TextField resource;
 
@@ -34,10 +34,10 @@ public class TemplateTreeNodeInfo implements IsWidget {
 		name.setEnabled(false);
 		container.add(new FieldLabel(name, "Название"));
 
-		description = new TextField();
-		description.setWidth(200);
-		description.setEnabled(false);
-		container.add(new FieldLabel(description, "Описание"));
+		resourceType = new TextField();
+		resourceType.setWidth(200);
+		resourceType.setEnabled(false);
+		container.add(new FieldLabel(resourceType, "Тип ресурса"));
 
 		duration = new TextField();
 		duration.setWidth(200);
@@ -53,5 +53,6 @@ public class TemplateTreeNodeInfo implements IsWidget {
 	public void setValue(TemplateTreeNodeBaseProxy value) {
 		name.setValue(value.getName());
 		duration.setValue(value.getDuration() + "");
+		resourceType.setValue(value.getResourceType());
 	}
 }

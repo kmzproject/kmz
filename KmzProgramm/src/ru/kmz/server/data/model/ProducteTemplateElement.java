@@ -27,10 +27,11 @@ public class ProducteTemplateElement {
 		childs = new ArrayList<ProducteTemplateElement>();
 	}
 
-	public ProducteTemplateElement(String name, int duration) {
+	public ProducteTemplateElement(String name, int duration, String resourseType) {
 		this();
 		this.name = name;
 		this.duration = duration;
+		this.resourceType = resourseType;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -68,6 +69,8 @@ public class ProducteTemplateElement {
 		return duration;
 	}
 
+	private String resourceType;
+
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
@@ -78,14 +81,24 @@ public class ProducteTemplateElement {
 
 	public TemplateTreeNodeBaseProxy asProxy() {
 		if (childs == null || childs.size() == 0) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.toString(), name, duration);
+			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.toString(), name, duration,
+					resourceType);
 			return proxy;
 		}
 
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name, duration);
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name, duration,
+				resourceType);
 		for (ProducteTemplateElement child : childs) {
 			proxy.add(child.asProxy());
 		}
 		return proxy;
+	}
+
+	public String getResourceType() {
+		return resourceType;
+	}
+
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
 }
