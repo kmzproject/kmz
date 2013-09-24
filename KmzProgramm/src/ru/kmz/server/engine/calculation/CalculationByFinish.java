@@ -23,7 +23,7 @@ public class CalculationByFinish {
 		for (ProducteTemplateElement element : elements) {
 			Date start = CalculationUtils.getOffsetDate(finish, -element.getDuration());
 			data.add(new CalculatorResultRowProxy(1, prefix + element.getName(), element.getResourceType(), start,
-					finish));
+					finish, element.getDuration()));
 			if (element.hasChild()) {
 				addElementToResult(data, element.getChilds(), prefix + "-", start);
 			}

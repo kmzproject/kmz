@@ -35,13 +35,15 @@ public class CalculatorResultGrid extends CommonGrid<CalculatorResultRowProxy> {
 		ListStore<CalculatorResultRowProxy> store = new ListStore<CalculatorResultRowProxy>(props.key());
 
 		ColumnConfig<CalculatorResultRowProxy, String> nameCol = new ColumnConfig<CalculatorResultRowProxy, String>(
-				props.name(), 150, "Название");
+				props.name(), 100, "Название");
 		ColumnConfig<CalculatorResultRowProxy, String> resourceTypeCol = new ColumnConfig<CalculatorResultRowProxy, String>(
-				props.resourceType(), 100, "Название ресурса");
+				props.resourceType(), 100, "Тип ресурса");
+		ColumnConfig<CalculatorResultRowProxy, Integer> durationCol = new ColumnConfig<CalculatorResultRowProxy, Integer>(
+				props.duration(), 50, "Дней");
 		ColumnConfig<CalculatorResultRowProxy, Date> startDate = new ColumnConfig<CalculatorResultRowProxy, Date>(
-				props.startDate(), 100, "Дата начала работ");
+				props.startDate(), 100, "Начало");
 		ColumnConfig<CalculatorResultRowProxy, Date> finishDate = new ColumnConfig<CalculatorResultRowProxy, Date>(
-				props.finishDate(), 100, "Дата окончания работ");
+				props.finishDate(), 100, "Окончание");
 
 		startDate.setCell(new DateCell(DateTimeFormat.getFormat(DateUtils.PATTERN)));
 		finishDate.setCell(new DateCell(DateTimeFormat.getFormat(DateUtils.PATTERN)));
@@ -49,6 +51,7 @@ public class CalculatorResultGrid extends CommonGrid<CalculatorResultRowProxy> {
 		List<ColumnConfig<CalculatorResultRowProxy, ?>> l = new ArrayList<ColumnConfig<CalculatorResultRowProxy, ?>>();
 		l.add(nameCol);
 		l.add(resourceTypeCol);
+		l.add(durationCol);
 		l.add(startDate);
 		l.add(finishDate);
 
