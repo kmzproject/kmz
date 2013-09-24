@@ -8,18 +8,17 @@ import ru.kmz.server.data.model.ProducteTemplate;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
-import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultRowProxy;
 
 public class CalculationUtils {
 
-	public static CalculatorResultDataProxy getCalculation(CalculatorInputDataProxy input) {
+	public static CalculatorResultDataProxy getCalculationByFinishDate(Date finishDate) {
 		List<Template> list = TemplateDataUtils.getAllTemplates();
 		Template temlpate = list.get(0);
 		ProducteTemplate product = temlpate.getProduct();
 		CalculatorResultDataProxy data = new CalculatorResultDataProxy();
-		addElementToResult(data, product.getChilds(), "", input.getFinishDate());
+		addElementToResult(data, product.getChilds(), "", finishDate);
 		return data;
 	}
 

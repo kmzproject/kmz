@@ -14,7 +14,7 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 	public CalculatorResultDataProxy getResultData(CalculatorInputDataProxy input) {
 		if (input.getFinishDate() == null)
 			return new CalculatorResultDataProxy();
-		return CalculationUtils.getCalculation(input);
+		return CalculationUtils.getCalculationByFinishDate(input.getFinishDate());
 	}
 
 }

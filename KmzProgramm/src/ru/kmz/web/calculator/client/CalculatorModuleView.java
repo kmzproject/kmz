@@ -20,7 +20,7 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 	private static CalculatorModuleView instanse;
 
 	private CalculatorInputData input;
-	private CalculatorResultGrid resultGrid;
+	private CalculatorResult result;
 
 	@Override
 	public void onModuleLoad() {
@@ -39,10 +39,10 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 		container.setSpacing(10);
 
 		input = new CalculatorInputData(this);
-		resultGrid = CalculatorResultGrid.getCalculatorGrid();
+		result = new CalculatorResult();
 
 		container.add(input);
-		container.add(resultGrid);
+		container.add(result);
 
 		return container;
 	}
@@ -51,9 +51,8 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 		getService().getResultData(input, new AsyncCallback<CalculatorResultDataProxy>() {
 
 			@Override
-			public void onSuccess(CalculatorResultDataProxy result) {
-				resultGrid.setRows(result.getRows());
-				resultGrid.updateData();
+			public void onSuccess(CalculatorResultDataProxy resultData) {
+				result.setResultData(resultData);
 			}
 
 			@Override

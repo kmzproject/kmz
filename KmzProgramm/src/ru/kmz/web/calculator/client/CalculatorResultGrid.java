@@ -6,6 +6,7 @@ import java.util.List;
 
 import ru.kmz.web.calculator.shared.CalculatorResultRowProxy;
 import ru.kmz.web.common.client.CommonGrid;
+import ru.kmz.web.common.client.DateUtils;
 
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
@@ -42,8 +43,8 @@ public class CalculatorResultGrid extends CommonGrid<CalculatorResultRowProxy> {
 		ColumnConfig<CalculatorResultRowProxy, Date> finishDate = new ColumnConfig<CalculatorResultRowProxy, Date>(
 				props.finishDate(), 100, "Дата окончания работ");
 
-		startDate.setCell(new DateCell(DateTimeFormat.getFormat("MM/dd/yyyy")));
-		finishDate.setCell(new DateCell(DateTimeFormat.getFormat("MM/dd/yyyy")));
+		startDate.setCell(new DateCell(DateTimeFormat.getFormat(DateUtils.PATTERN)));
+		finishDate.setCell(new DateCell(DateTimeFormat.getFormat(DateUtils.PATTERN)));
 
 		List<ColumnConfig<CalculatorResultRowProxy, ?>> l = new ArrayList<ColumnConfig<CalculatorResultRowProxy, ?>>();
 		l.add(nameCol);
@@ -58,6 +59,7 @@ public class CalculatorResultGrid extends CommonGrid<CalculatorResultRowProxy> {
 	private CalculatorResultGrid(ListStore<CalculatorResultRowProxy> store, ColumnModel<CalculatorResultRowProxy> model) {
 		super(store, model);
 
+		setHeight(500);
 		setLoadOnInit(false);
 	}
 
