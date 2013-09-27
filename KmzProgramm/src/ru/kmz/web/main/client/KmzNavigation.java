@@ -2,6 +2,7 @@ package ru.kmz.web.main.client;
 
 import ru.kmz.web.calculator.client.CalculatorModuleView;
 import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.gant.client.GantModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
 
 import com.google.gwt.user.client.ui.IsWidget;
@@ -27,18 +28,22 @@ public class KmzNavigation implements IsWidget {
 	public Widget asWidget() {
 		CalculatorModuleView calculator = CalculatorModuleView.getInstance();
 		TemplateModuleView template = TemplateModuleView.getInstance();
+		GantModuleView gant = GantModuleView.getInstance();
 
 		TextButton buttonCalculator = new TextButton(calculator.getModuleName());
 		TextButton buttonTree = new TextButton(template.getModuleName());
+		TextButton buttonGant = new TextButton(gant.getModuleName());
 
-		buttonCalculator.addSelectHandler(new NavigationSelectHandler(CalculatorModuleView.getInstance()));
-		buttonTree.addSelectHandler(new NavigationSelectHandler(TemplateModuleView.getInstance()));
+		buttonCalculator.addSelectHandler(new NavigationSelectHandler(calculator));
+		buttonTree.addSelectHandler(new NavigationSelectHandler(template));
+		buttonGant.addSelectHandler(new NavigationSelectHandler(gant));
 
 		VBoxLayoutContainer c = new VBoxLayoutContainer();
 		c.setPadding(new Padding(5));
 		c.setVBoxLayoutAlign(VBoxLayoutAlign.STRETCH);
 		c.add(buttonCalculator, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		c.add(buttonTree, new BoxLayoutData(new Margins(0, 0, 5, 0)));
+		c.add(buttonGant, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 
 		return c;
 	}

@@ -24,6 +24,7 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 
 	@Override
 	public void onModuleLoad() {
+		instanse = this;
 		if (RootPanel.get("grid") != null)
 			RootPanel.get("grid").add(asWidget());
 	}

@@ -21,6 +21,7 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
 
 	@Override
 	public void onModuleLoad() {
+		instanse = this;
 		if (RootPanel.get("tree") != null) {
 			RootPanel.get("tree").add(asWidget());
 		}
