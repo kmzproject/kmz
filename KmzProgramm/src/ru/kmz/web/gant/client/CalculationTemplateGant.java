@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.common.client.TreeIconProvider;
-import ru.kmz.web.gant.client.data.DemoData1;
+import ru.kmz.web.gant.client.data.DemoData2;
 import ru.kmz.web.gant.client.data.Dependency;
 import ru.kmz.web.gant.client.data.DependencyProps;
 import ru.kmz.web.gant.client.data.IDemoData;
@@ -94,7 +94,7 @@ public class CalculationTemplateGant implements IsWidget {
 	public Widget asWidget() {
 		// resources
 		// IDemoData data = new DemoData3(ganttData);
-		IDemoData data = new DemoData1();
+		IDemoData data = new DemoData2();
 		setData(data);
 
 		GanttConfig config = new GanttConfig();

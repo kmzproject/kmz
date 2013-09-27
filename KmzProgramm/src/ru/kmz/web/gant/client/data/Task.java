@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.common.shared.HasResourceType;
-import ru.kmz.web.common.shared.ResourceTypesConsts;
 
 import com.gantt.client.config.GanttConfig.TaskType;
 
@@ -17,6 +16,7 @@ public class Task implements HasResourceType {
 	int duration;
 	int percentDone;
 	TaskType taskType;
+	String resourceType;
 
 	private List<Task> children = new ArrayList<Task>();
 
@@ -24,17 +24,19 @@ public class Task implements HasResourceType {
 		setChildren(children);
 	}
 
-	public Task(String name, Date start, int duration, int percentDone, TaskType taskType) {
-		this(name, name, start, duration, percentDone, taskType);
+	public Task(String name, Date start, int duration, int percentDone, TaskType taskType, String resourceType) {
+		this(name, name, start, duration, percentDone, taskType, resourceType);
 	}
 
-	public Task(String id, String name, Date start, int duration, int percentDone, TaskType taskType) {
+	public Task(String id, String name, Date start, int duration, int percentDone, TaskType taskType,
+			String resourceType) {
 		this.id = id;
 		this.name = name;
 		this.startDateTime = start;
 		this.duration = duration;
 		this.percentDone = percentDone;
 		this.taskType = taskType;
+		this.resourceType = resourceType;
 	}
 
 	public String getId() {
@@ -111,6 +113,6 @@ public class Task implements HasResourceType {
 
 	@Override
 	public String getResourceType() {
-		return ResourceTypesConsts.ORDER;
+		return resourceType;
 	}
 }

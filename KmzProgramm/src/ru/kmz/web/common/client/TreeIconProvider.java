@@ -10,13 +10,15 @@ public class TreeIconProvider<T extends HasResourceType> implements IconProvider
 
 	@Override
 	public ImageResource getIcon(T node) {
+		if (node.getResourceType() == null)
+			return null;
 		if (node.getResourceType().equals(ResourceTypesConsts.ASSEMBLAGE))
 			return TemplateTreeNodeImages.INSTANCE.assemblage();
 		if (node.getResourceType().equals(ResourceTypesConsts.PREPARE))
 			return TemplateTreeNodeImages.INSTANCE.prepare();
 		if (node.getResourceType().equals(ResourceTypesConsts.ORDER))
 			return TemplateTreeNodeImages.INSTANCE.order();
-		return TemplateTreeNodeImages.INSTANCE.order();
+		return null;
 	}
 
 }

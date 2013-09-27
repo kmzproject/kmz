@@ -31,4 +31,9 @@ public class WbsData extends GraphData implements Serializable {
 		return activities;
 	}
 
+	@Override
+	public String getResourceType() {
+		return null;
+	}
+
 }
