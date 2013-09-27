@@ -6,9 +6,9 @@ import ru.kmz.server.data.model.ProducteTemplate;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
-import ru.kmz.web.gant.shared.gant.ActivityData;
-import ru.kmz.web.gant.shared.gant.GanttData;
-import ru.kmz.web.gant.shared.gant.WbsData;
+import ru.kmz.web.common.shared.gant.ActivityData;
+import ru.kmz.web.common.shared.gant.GanttData;
+import ru.kmz.web.common.shared.gant.WbsData;
 
 public class GantCalculationService {
 

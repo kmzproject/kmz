@@ -10,7 +10,7 @@ import ru.kmz.server.engine.gant.GantCalculationService;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
-import ru.kmz.web.gant.shared.gant.GanttData;
+import ru.kmz.web.common.shared.gant.GanttData;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

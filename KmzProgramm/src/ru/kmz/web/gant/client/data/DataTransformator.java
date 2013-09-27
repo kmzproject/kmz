@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ru.kmz.web.gant.shared.gant.ActivityData;
-import ru.kmz.web.gant.shared.gant.GanttData;
-import ru.kmz.web.gant.shared.gant.WbsData;
+import ru.kmz.web.common.shared.gant.ActivityData;
+import ru.kmz.web.common.shared.gant.GanttData;
+import ru.kmz.web.common.shared.gant.WbsData;
 
 import com.gantt.client.config.GanttConfig.TaskType;
 import com.sencha.gxt.core.client.util.DateWrapper;
