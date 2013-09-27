@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.kmz.web.common.client.TreeIconProvider;
 import ru.kmz.web.gant.client.data.DemoData1;
 import ru.kmz.web.gant.client.data.Dependency;
 import ru.kmz.web.gant.client.data.DependencyProps;
@@ -75,16 +76,8 @@ public class CalculationTemplateGant implements IsWidget {
 	}
 
 	public interface GanttResources extends ClientBundle {
-		boolean showItemLogo = false;
-
 		@Source({ "Gantt.css" })
 		GanttExampleStyle css();
-
-		@Source("folderLogo.png")
-		ImageResource folderLogo();
-
-		@Source("folderLogo.png")
-		ImageResource itemLogo();
 	}
 
 	private static final GanttResources resources = GWT.create(GanttResources.class);
@@ -203,15 +196,13 @@ public class CalculationTemplateGant implements IsWidget {
 				protected void init(final Grid<Task> grid) {
 					vbar = false;
 					super.init(grid);
-					if (GanttResources.showItemLogo) {
-						tree.getStyle().setLeafIcon(resources.itemLogo());
-					}
+					tree.setIconProvider(new TreeIconProvider<Task>());
 				}
 
 				@Override
 				public SafeHtml getTemplate(Task m, String id, SafeHtml text, ImageResource icon, boolean checkable,
 						Joint joint, int level) {
-					icon = icon == null ? null : resources.folderLogo();
+//					icon = icon == null ? null : resources.folderLogo();
 					return super.getTemplate(m, id, text, icon, checkable, joint, level);
 				}
 

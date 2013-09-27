@@ -2,8 +2,10 @@ package ru.kmz.web.template.shared;
 
 import java.io.Serializable;
 
+import ru.kmz.web.common.shared.HasResourceType;
+
 @SuppressWarnings("serial")
-public class TemplateTreeNodeBaseProxy implements Serializable {
+public class TemplateTreeNodeBaseProxy implements Serializable, HasResourceType {
 
 	private String id;
 

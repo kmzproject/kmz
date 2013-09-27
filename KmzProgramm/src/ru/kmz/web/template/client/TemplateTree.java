@@ -1,18 +1,15 @@
 package ru.kmz.web.template.client;
 
-import ru.kmz.web.common.client.TemplateTreeNodeImages;
-import ru.kmz.web.common.shared.ResourceTypesConsts;
+import ru.kmz.web.common.client.TreeIconProvider;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.ValueProvider;
-import com.sencha.gxt.data.shared.IconProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.tree.Tree;
@@ -76,21 +73,8 @@ public class TemplateTree implements IsWidget {
 					}
 				});
 		tree.setWidth(300);
-		// tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.music());
 
-		tree.setIconProvider(new IconProvider<TemplateTreeNodeBaseProxy>() {
-
-			@Override
-			public ImageResource getIcon(TemplateTreeNodeBaseProxy node) {
-				if (node.getResourceType().equals(ResourceTypesConsts.ASSEMBLAGE))
-					return TemplateTreeNodeImages.INSTANCE.assemblage();
-				if (node.getResourceType().equals(ResourceTypesConsts.PREPARE))
-					return TemplateTreeNodeImages.INSTANCE.prepare();
-				if (node.getResourceType().equals(ResourceTypesConsts.ORDER))
-					return TemplateTreeNodeImages.INSTANCE.order();
-				return TemplateTreeNodeImages.INSTANCE.order();
-			}
-		});
+		tree.setIconProvider(new TreeIconProvider<TemplateTreeNodeBaseProxy>());
 
 		tree.getSelectionModel().addSelectionHandler(new SelectionHandler<TemplateTreeNodeBaseProxy>() {
 
