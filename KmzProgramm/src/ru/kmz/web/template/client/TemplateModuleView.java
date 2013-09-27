@@ -15,7 +15,7 @@ import com.sencha.gxt.widget.core.client.info.Info;
 
 public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
 
-	private final TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
+	private final static TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
 
 	private static TemplateModuleView instanse;
 
@@ -34,7 +34,7 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
 	@Override
 	public Widget asWidget() {
 		final Container container = new HorizontalLayoutContainer();
-		templateMpduleService.getData(new AsyncCallback<TemplateTreeDataProxy>() {
+		templateMpduleService.getData(null, new AsyncCallback<TemplateTreeDataProxy>() {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {
@@ -49,6 +49,10 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
 			}
 		});
 		return container;
+	}
+
+	public static TemplateModuleServiceAsync getService() {
+		return templateMpduleService;
 	}
 
 	public static TemplateModuleView getInstance() {
