@@ -5,22 +5,19 @@ import java.util.Date;
 
 import ru.kmz.web.common.shared.HasResourceType;
 
+@SuppressWarnings("serial")
 public abstract class GraphData implements Serializable, HasResourceType {
-	private static final long serialVersionUID = 1L;
 
-	public static final Date MINDATE = new Date(0);
-
+	protected String id;
 	protected String name;
 	protected Date planStart;
 	protected Date planFinish;
 	protected int duration;
 	protected int complite;
+	protected String resourceType;
 
 	public GraphData() {
-		planStart = MINDATE;
-		planFinish = MINDATE;
-		duration = 0;
-		complite = 0;
+
 	}
 
 	public String getName() {
@@ -29,17 +26,10 @@ public abstract class GraphData implements Serializable, HasResourceType {
 
 	public void setPlanStart(Date value) {
 		planStart = value;
-		if (planStart!=null){
-			//TODO: вызрать обрезалку даты
-		}
 	}
 
 	public Date getPlanStart() {
 		return planStart;
-	}
-
-	public boolean isPlanStartNull() {
-		return planStart.equals(MINDATE);
 	}
 
 	public void setPlanFinish(Date value) {
@@ -48,10 +38,6 @@ public abstract class GraphData implements Serializable, HasResourceType {
 
 	public Date getPlanFinish() {
 		return planFinish;
-	}
-
-	public boolean isPlanFinishNull() {
-		return planFinish.equals(MINDATE);
 	}
 
 	public void setDuration(int value) {
@@ -76,5 +62,14 @@ public abstract class GraphData implements Serializable, HasResourceType {
 
 	public void setComplite(int value) {
 		complite = value;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public String getResourceType() {
+		return resourceType;
 	}
 }

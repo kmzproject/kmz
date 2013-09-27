@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.common.client.TreeIconProvider;
-import ru.kmz.web.gant.client.data.DemoData2;
+import ru.kmz.web.gant.client.data.DataTransformator;
 import ru.kmz.web.gant.client.data.Dependency;
 import ru.kmz.web.gant.client.data.DependencyProps;
 import ru.kmz.web.gant.client.data.IDemoData;
@@ -52,9 +52,11 @@ import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 import com.sencha.gxt.widget.core.client.event.CollapseItemEvent;
+import com.sencha.gxt.widget.core.client.event.ViewReadyEvent;
 import com.sencha.gxt.widget.core.client.event.CollapseItemEvent.CollapseItemHandler;
 import com.sencha.gxt.widget.core.client.event.ExpandItemEvent;
 import com.sencha.gxt.widget.core.client.event.ExpandItemEvent.ExpandItemHandler;
+import com.sencha.gxt.widget.core.client.event.ViewReadyEvent.ViewReadyHandler;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.Grid;
@@ -93,8 +95,8 @@ public class CalculationTemplateGant implements IsWidget {
 	@Override
 	public Widget asWidget() {
 		// resources
-		// IDemoData data = new DemoData3(ganttData);
-		IDemoData data = new DemoData2();
+		IDemoData data = new DataTransformator(ganttData);
+		// IDemoData data = new DemoData2();
 		setData(data);
 
 		GanttConfig config = new GanttConfig();
@@ -138,12 +140,12 @@ public class CalculationTemplateGant implements IsWidget {
 		gantt = new GanttPrim(dataTaskStore, dataDepStore, config);
 		gantt.setLineStore(createLines());
 		// развернуть все
-		// gantt.getLeftGrid().addViewReadyHandler(new ViewReadyHandler() {
-		// @Override
-		// public void onViewReady(ViewReadyEvent event) {
-		// ((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
-		// }
-		// });
+		gantt.getLeftGrid().addViewReadyHandler(new ViewReadyHandler() {
+			@Override
+			public void onViewReady(ViewReadyEvent event) {
+				((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
+			}
+		});
 
 		setStartEnd();
 
@@ -202,7 +204,7 @@ public class CalculationTemplateGant implements IsWidget {
 				@Override
 				public SafeHtml getTemplate(Task m, String id, SafeHtml text, ImageResource icon, boolean checkable,
 						Joint joint, int level) {
-//					icon = icon == null ? null : resources.folderLogo();
+					// icon = icon == null ? null : resources.folderLogo();
 					return super.getTemplate(m, id, text, icon, checkable, joint, level);
 				}
 
@@ -353,12 +355,13 @@ public class CalculationTemplateGant implements IsWidget {
 		column3.setResizable(true);
 		configs.add(column3);
 
-		ColumnConfig<Task, Integer> column4 = new ColumnConfig<Task, Integer>(props.percentDone());
-		column4.setHeader("Вып. %");
-		column4.setWidth(60);
-		column4.setSortable(true);
-		column4.setResizable(true);
-		configs.add(column4);
+		// ColumnConfig<Task, Integer> column4 = new ColumnConfig<Task,
+		// Integer>(props.percentDone());
+		// column4.setHeader("Вып. %");
+		// column4.setWidth(60);
+		// column4.setSortable(true);
+		// column4.setResizable(true);
+		// configs.add(column4);
 
 		ColumnModel cm = new ColumnModel(configs);
 		cm.addHeaderGroup(0, 0, new HeaderGroupConfig("Описание работ", 1, configs.size()));

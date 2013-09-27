@@ -33,8 +33,8 @@ public class DataTransformator implements IDemoData {
 	}
 
 	private Task getTaskByWbs(WbsData wbs, DateWrapper dw) {
-		Task task = new Task(wbs.getName(), wbs.getPlanStart(), wbs.getDuration(), wbs.getComplite(),
-				wbs.isMilestone() ? TaskType.MILESTONE : TaskType.PARENT, wbs.getResourceType());
+		Task task = new Task(wbs.getId(), wbs.getName(), wbs.getPlanStart(), wbs.getPlanFinish(), wbs.getDuration(),
+				wbs.getComplite(), wbs.isMilestone() ? TaskType.MILESTONE : TaskType.LEAF, wbs.getResourceType());
 		for (ActivityData activity : wbs.getActivities()) {
 			Task childTask = getTaskByActivity(activity, dw);
 			task.addChild(childTask);
@@ -47,9 +47,9 @@ public class DataTransformator implements IDemoData {
 	}
 
 	private Task getTaskByActivity(ActivityData activity, DateWrapper dw) {
-		Task task = new Task(activity.getName(), activity.getPlanStart(), activity.getDuration(),
-				activity.getComplite(), activity.isMilestone() ? TaskType.MILESTONE : TaskType.LEAF,
-				activity.getResourceType());
+		Task task = new Task(activity.getId(), activity.getName(), activity.getPlanStart(), activity.getPlanFinish(),
+				activity.getDuration(), activity.getComplite(), activity.isMilestone() ? TaskType.MILESTONE
+						: TaskType.LEAF, activity.getResourceType());
 		return task;
 	}
 

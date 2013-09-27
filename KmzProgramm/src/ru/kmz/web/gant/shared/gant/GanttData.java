@@ -1,11 +1,12 @@
 package ru.kmz.web.gant.shared.gant;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class GanttData implements Serializable {
-	private static final long serialVersionUID = 1L;
 
 	private List<WbsData> wbss;
 	private String name;
@@ -14,22 +15,21 @@ public class GanttData implements Serializable {
 	private String scale;
 
 	public GanttData() {
+		wbss = new ArrayList<WbsData>();
+		scale = ScaleConstants.DAY;
 	}
 
-	public GanttData(List<WbsData> list) {
-		wbss = list;
+	public GanttData(String name) {
+		this();
+		setName(name);
 	}
 
-	public void setName(String value) {
+	private void setName(String value) {
 		name = value.replace("/", "_");
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setWbss(List<WbsData> value) {
-		wbss = value;
 	}
 
 	public List<WbsData> getWbss() {
@@ -51,10 +51,12 @@ public class GanttData implements Serializable {
 	public Date getDateFinish() {
 		return dateFinish;
 	}
-	public String getScale(){
+
+	public String getScale() {
 		return scale;
 	}
-	public void setScale(String value){
-		this.scale = value;
+
+	public void add(WbsData wbs) {
+		wbss.add(wbs);
 	}
 }

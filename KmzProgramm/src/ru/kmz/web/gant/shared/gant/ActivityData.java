@@ -5,19 +5,15 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class ActivityData extends GraphData implements Serializable {
 
-	private String resourceType;
-
 	public ActivityData() {
 		super();
 	}
 
-	public ActivityData(String resourceType) {
+	public ActivityData(String id, String name, int duration, String resourceType) {
 		this();
+		this.id = id;
+		this.name = name;
+		this.duration = duration;
 		this.resourceType = resourceType;
-	}
-
-	@Override
-	public String getResourceType() {
-		return resourceType;
 	}
 }

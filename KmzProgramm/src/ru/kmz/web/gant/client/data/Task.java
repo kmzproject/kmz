@@ -24,15 +24,12 @@ public class Task implements HasResourceType {
 		setChildren(children);
 	}
 
-	public Task(String name, Date start, int duration, int percentDone, TaskType taskType, String resourceType) {
-		this(name, name, start, duration, percentDone, taskType, resourceType);
-	}
-
-	public Task(String id, String name, Date start, int duration, int percentDone, TaskType taskType,
+	public Task(String id, String name, Date start, Date endDateTime, int duration, int percentDone, TaskType taskType,
 			String resourceType) {
 		this.id = id;
 		this.name = name;
 		this.startDateTime = start;
+		this.endDateTime = endDateTime;
 		this.duration = duration;
 		this.percentDone = percentDone;
 		this.taskType = taskType;
