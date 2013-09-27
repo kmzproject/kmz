@@ -19,10 +19,10 @@ public class CalculatorInputData implements IsWidget {
 
 	private DateField dataField;
 
-	private CalculatorModuleView module;
+	private CalculateHandler handler;
 
-	public CalculatorInputData(CalculatorModuleView module) {
-		this.module = module;
+	public CalculatorInputData(CalculateHandler handler) {
+		this.handler = handler;
 	}
 
 	@Override
@@ -61,9 +61,13 @@ public class CalculatorInputData implements IsWidget {
 				input.setDate(dataField.getValue());
 				input.setByFinishDate(radioFinish.getValue());
 				input.setByStartDate(radioStart.getValue());
-				module.showResult(input);
+				handler.onCalculate(input);
 			}
 		});
 		container.add(calculate);
+	}
+	
+	public static interface CalculateHandler{
+		void onCalculate(CalculatorInputDataProxy data);
 	}
 }

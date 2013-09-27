@@ -1,5 +1,6 @@
 package ru.kmz.web.calculator.client;
 
+import ru.kmz.web.calculator.client.CalculatorInputData.CalculateHandler;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
 import ru.kmz.web.common.client.IKmzModule;
@@ -13,7 +14,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
+public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, CalculateHandler {
 
 	private final static CalculatorModuleServiceAsync calculatorModuleService = GWT
 			.create(CalculatorModuleService.class);
@@ -48,8 +49,19 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 		return container;
 	}
 
-	public void showResult(CalculatorInputDataProxy input) {
-		getService().getResultData(input, new AsyncCallback<CalculatorResultDataProxy>() {
+	public static CalculatorModuleView getInstance() {
+		if (instanse == null)
+			instanse = new CalculatorModuleView();
+		return instanse;
+	}
+
+	public static CalculatorModuleServiceAsync getService() {
+		return calculatorModuleService;
+	}
+
+	@Override
+	public void onCalculate(CalculatorInputDataProxy data) {
+		getService().getResultData(data, new AsyncCallback<CalculatorResultDataProxy>() {
 
 			@Override
 			public void onSuccess(CalculatorResultDataProxy resultData) {
@@ -61,15 +73,5 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule {
 				Info.display("Error", "This is error " + caught);
 			}
 		});
-	}
-
-	public static CalculatorModuleView getInstance() {
-		if (instanse == null)
-			instanse = new CalculatorModuleView();
-		return instanse;
-	}
-
-	public static CalculatorModuleServiceAsync getService() {
-		return calculatorModuleService;
 	}
 }

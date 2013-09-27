@@ -31,6 +31,7 @@
 		<servlet-name>calculatorModule</servlet-name>
 		<url-pattern>/calculatormodule/calculatorModule</url-pattern>
 		<url-pattern>/kmzprogramm/calculatorModule</url-pattern>
+		<url-pattern>/gantmodule/calculatorModule</url-pattern>
 	</servlet-mapping>
 
 

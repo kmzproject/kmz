@@ -1,4 +1,4 @@
-package ru.kmz.web.gant.shared;
+package ru.kmz.web.gant.shared.gant;
 
 public class ScaleConstants {
 

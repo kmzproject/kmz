@@ -2,6 +2,7 @@ package ru.kmz.web.calculator.client;
 
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
+import ru.kmz.web.gant.shared.gant.GanttData;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -10,4 +11,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface CalculatorModuleService extends RemoteService {
 
 	CalculatorResultDataProxy getResultData(CalculatorInputDataProxy input);
+
+	GanttData getGantResultData(CalculatorInputDataProxy input);
 }

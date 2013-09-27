@@ -5,14 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.gant.client.data.DemoData1;
-import ru.kmz.web.gant.client.data.DemoData3;
 import ru.kmz.web.gant.client.data.Dependency;
 import ru.kmz.web.gant.client.data.DependencyProps;
 import ru.kmz.web.gant.client.data.IDemoData;
 import ru.kmz.web.gant.client.data.Task;
 import ru.kmz.web.gant.client.data.TaskProps;
-import ru.kmz.web.gant.shared.GanttData;
-import ru.kmz.web.gant.shared.ScaleConstants;
+import ru.kmz.web.gant.shared.gant.GanttData;
+import ru.kmz.web.gant.shared.gant.ScaleConstants;
 
 import com.gantt.client.Gantt;
 import com.gantt.client.config.GanttConfig;
