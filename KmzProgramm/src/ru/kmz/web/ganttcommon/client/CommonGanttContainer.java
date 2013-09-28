@@ -32,11 +32,16 @@ import com.sencha.gxt.core.client.util.Margins;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.ContentPanel;
+import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.HeaderGroupConfig;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
+import com.sencha.gxt.widget.core.client.treegrid.TreeGrid;
 
 public class CommonGanttContainer implements IsWidget {
 
@@ -57,7 +62,6 @@ public class CommonGanttContainer implements IsWidget {
 	public Widget asWidget() {
 		// resources
 		IDemoData data = new DataTransformator(ganttData);
-		// IDemoData data = new DemoData2();
 		setData(data);
 
 		CommonGanttConfig config = new CommonGanttConfig();
@@ -68,13 +72,6 @@ public class CommonGanttContainer implements IsWidget {
 		// Create the Gxt Scheduler
 		gantt = new CommonGantt(dataTaskStore, dataDepStore, config);
 		gantt.setLineStore(createLines());
-		// развернуть все
-		// gantt.getLeftGrid().addViewReadyHandler(new ViewReadyHandler() {
-		// @Override
-		// public void onViewReady(ViewReadyEvent event) {
-		// ((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
-		// }
-		// });
 
 		setStartEnd();
 
@@ -84,9 +81,23 @@ public class CommonGanttContainer implements IsWidget {
 		cp.getElement().setMargins(new Margins(5));
 
 		VerticalLayoutContainer vc = new VerticalLayoutContainer();
-		cp.setWidget(vc);
+		vc.add(createToolBar(), new VerticalLayoutData(1, -1));
 		vc.add(gantt, new VerticalLayoutData(1, 1));
+		cp.setWidget(vc);
 		return cp;
+	}
+
+	private ToolBar createToolBar() {
+		ToolBar tbar = new ToolBar();
+		TextButton showAll = new TextButton("Раскрыть все");
+		showAll.addSelectHandler(new SelectHandler() {
+			@Override
+			public void onSelect(SelectEvent event) {
+				((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
+			}
+		});
+		tbar.add(showAll);
+		return tbar;
 	}
 
 	private List<ZoneGeneratorInt> getZones() {
@@ -128,8 +139,8 @@ public class CommonGanttContainer implements IsWidget {
 		ArrayList<TimeAxisGenerator> headers = new ArrayList<TimeAxisGenerator>();
 		String scale = ganttData.getScale();
 		if (scale.equals(ScaleConstants.DAY)) {
-			headers.add(new WeekTimeAxisGenerator("MMM d"));
-			headers.add(new DayTimeAxisGenerator("dd/MM"));
+			headers.add(new WeekTimeAxisGenerator("dd MMM"));
+			headers.add(new DayTimeAxisGenerator("EEE"));
 		} else if (scale.equals(ScaleConstants.MONTH)) {
 			headers.add(new YearTimeAxisGenerator("yyyy"));
 			headers.add(new MonthTimeAxisGenerator("MMM"));

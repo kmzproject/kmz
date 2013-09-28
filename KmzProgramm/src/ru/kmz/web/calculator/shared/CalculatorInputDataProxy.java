@@ -9,6 +9,7 @@ public class CalculatorInputDataProxy implements Serializable {
 	private Date date;
 	private boolean byFinishDate;
 	private boolean byStartDate;
+	private String scala;
 
 	public boolean isByFinishDate() {
 		return byFinishDate;
@@ -32,5 +33,13 @@ public class CalculatorInputDataProxy implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getScala() {
+		return scala;
+	}
+
+	public void setScala(String scala) {
+		this.scala = scala;
 	}
 }

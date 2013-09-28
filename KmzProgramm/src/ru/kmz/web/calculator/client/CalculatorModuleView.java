@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.info.Info;
 
 public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, CalculateHandler {
@@ -64,13 +65,24 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 
 	@Override
 	public void onCalculate(CalculatorInputDataProxy data) {
+		final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере",
+				"Это может занять некоторое время");
+		box.setProgressText("Обработка...");
+		box.auto();
+		box.show();
+
 		getService().getGantResultData(data, new AsyncCallback<GanttData>() {
 
 			@Override
 			public void onSuccess(GanttData result) {
-				CalculationTemplateGant gant = new CalculationTemplateGant(result);
-				gantContainer.clear();
-				gantContainer.add(gant);
+				if (result.getError() != null) {
+					Info.display("Error", "Ошибка при обработке " + result.getError());
+				} else {
+					CalculationTemplateGant gant = new CalculationTemplateGant(result);
+					gantContainer.clear();
+					gantContainer.add(gant);
+				}
+				box.hide();
 			}
 
 			@Override

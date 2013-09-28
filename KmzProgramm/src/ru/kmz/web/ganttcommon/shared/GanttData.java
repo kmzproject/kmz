@@ -13,10 +13,10 @@ public class GanttData implements Serializable {
 	private Date dateStart;
 	private Date dateFinish;
 	private String scale;
+	private String error;
 
 	public GanttData() {
 		wbss = new ArrayList<WbsData>();
-		scale = ScaleConstants.WEEK;
 	}
 
 	public GanttData(String name) {
@@ -58,5 +58,19 @@ public class GanttData implements Serializable {
 
 	public void add(WbsData wbs) {
 		wbss.add(wbs);
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public static GanttData getError(String error) {
+		GanttData gantt = new GanttData();
+		gantt.error = error;
+		return gantt;
+	}
+
+	public void setScale(String value) {
+		this.scale = value;
 	}
 }
