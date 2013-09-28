@@ -2,15 +2,18 @@ package ru.kmz.web.calculator.client;
 
 import ru.kmz.web.calculator.client.CalculatorInputData.CalculateHandler;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
-import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
 import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.ganttcommon.client.CalculationTemplateGant;
+import ru.kmz.web.ganttcommon.shared.GanttData;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.widget.core.client.info.Info;
 
@@ -21,7 +24,7 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 	private static CalculatorModuleView instanse;
 
 	private CalculatorInputData input;
-	private CalculatorResult result;
+	private HorizontalPanel gantContainer;
 
 	@Override
 	public void onModuleLoad() {
@@ -32,19 +35,19 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 
 	@Override
 	public String getModuleName() {
-		return "Модуль расчетов";
+		return "Модуль расчетов + гант";
 	}
 
 	@Override
 	public Widget asWidget() {
-		HorizontalPanel container = new HorizontalPanel();
+		CellPanel container = new VerticalPanel();
 		container.setSpacing(10);
 
 		input = new CalculatorInputData(this);
-		result = new CalculatorResult();
+		gantContainer = new HorizontalPanel();
 
 		container.add(input);
-		container.add(result);
+		container.add(gantContainer);
 
 		return container;
 	}
@@ -61,11 +64,13 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 
 	@Override
 	public void onCalculate(CalculatorInputDataProxy data) {
-		getService().getResultData(data, new AsyncCallback<CalculatorResultDataProxy>() {
+		getService().getGantResultData(data, new AsyncCallback<GanttData>() {
 
 			@Override
-			public void onSuccess(CalculatorResultDataProxy resultData) {
-				result.setResultData(resultData);
+			public void onSuccess(GanttData result) {
+				CalculationTemplateGant gant = new CalculationTemplateGant(result);
+				gantContainer.clear();
+				gantContainer.add(gant);
 			}
 
 			@Override

@@ -1,4 +1,4 @@
-package ru.kmz.web.common.shared.gant;
+package ru.kmz.web.ganttcommon.shared;
 
 import java.io.Serializable;
 import java.util.Date;

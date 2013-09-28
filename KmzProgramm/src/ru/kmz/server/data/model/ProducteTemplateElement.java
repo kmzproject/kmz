@@ -11,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import ru.kmz.web.common.shared.gant.ActivityData;
-import ru.kmz.web.common.shared.gant.WbsData;
+import ru.kmz.web.ganttcommon.shared.ActivityData;
+import ru.kmz.web.ganttcommon.shared.WbsData;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 

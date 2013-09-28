@@ -1,18 +1,18 @@
-package ru.kmz.web.gant.client;
+package ru.kmz.web.ganttcommon.client;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.common.client.TreeIconProvider;
-import ru.kmz.web.common.shared.gant.GanttData;
-import ru.kmz.web.common.shared.gant.ScaleConstants;
-import ru.kmz.web.gant.client.data.DataTransformator;
-import ru.kmz.web.gant.client.data.Dependency;
-import ru.kmz.web.gant.client.data.DependencyProps;
-import ru.kmz.web.gant.client.data.IDemoData;
-import ru.kmz.web.gant.client.data.Task;
-import ru.kmz.web.gant.client.data.TaskProps;
+import ru.kmz.web.ganttcommon.client.data.DataTransformator;
+import ru.kmz.web.ganttcommon.client.data.Dependency;
+import ru.kmz.web.ganttcommon.client.data.DependencyProps;
+import ru.kmz.web.ganttcommon.client.data.IDemoData;
+import ru.kmz.web.ganttcommon.client.data.Task;
+import ru.kmz.web.ganttcommon.client.data.TaskProps;
+import ru.kmz.web.ganttcommon.shared.GanttData;
+import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 
 import com.gantt.client.Gantt;
 import com.gantt.client.config.GanttConfig;

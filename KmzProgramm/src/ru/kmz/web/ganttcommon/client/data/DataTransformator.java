@@ -1,12 +1,12 @@
-package ru.kmz.web.gant.client.data;
+package ru.kmz.web.ganttcommon.client.data;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ru.kmz.web.common.shared.gant.ActivityData;
-import ru.kmz.web.common.shared.gant.GanttData;
-import ru.kmz.web.common.shared.gant.WbsData;
+import ru.kmz.web.ganttcommon.shared.ActivityData;
+import ru.kmz.web.ganttcommon.shared.GanttData;
+import ru.kmz.web.ganttcommon.shared.WbsData;
 
 import com.gantt.client.config.GanttConfig.TaskType;
 import com.sencha.gxt.core.client.util.DateWrapper;

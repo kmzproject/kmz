@@ -1,4 +1,4 @@
-package ru.kmz.web.gant.client.data;
+package ru.kmz.web.ganttcommon.client.data;
 
 import java.util.List;
 

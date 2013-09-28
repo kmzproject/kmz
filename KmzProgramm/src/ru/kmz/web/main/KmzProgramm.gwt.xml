@@ -7,7 +7,6 @@
 	<inherits name="ru.kmz.web.calculator.CalculatorModule" />
 	<inherits name="ru.kmz.web.template.TemplateModule" />
 	<inherits name="ru.kmz.web.resources.ResourcesModule" />
-	<inherits name="ru.kmz.web.gant.GantModule" />
 
 	<entry-point class='ru.kmz.web.main.client.KmzProgramm' />
 	<source path='client' />
