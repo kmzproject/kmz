@@ -24,7 +24,6 @@ public class GantCalculationService {
 	}
 
 	public GanttData calculateStart(Template template, Date startDate) {
-		data = new GanttData("Расчет по шаблону " + template.getName());
 		ProducteTemplate product = template.getProduct();
 		int duration = getDuration(product.getChilds());
 		Date finishDate = CalculationUtils.getOffsetDate(startDate, duration);
@@ -32,6 +31,7 @@ public class GantCalculationService {
 	}
 
 	public GanttData calculateFinish(Template template, Date finishDate) {
+		data = new GanttData("Расчет по шаблону " + template.getName());
 		minDate = finishDate;
 
 		ProducteTemplate producte = template.getProduct();
