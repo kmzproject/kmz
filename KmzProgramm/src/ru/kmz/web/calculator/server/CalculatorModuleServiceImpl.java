@@ -4,12 +4,9 @@ import java.util.List;
 
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
-import ru.kmz.server.engine.calculation.CalculationByFinish;
-import ru.kmz.server.engine.calculation.CalculationByStart;
-import ru.kmz.server.engine.gant.GantCalculationService;
+import ru.kmz.server.engine.calculation.gant.GantCalculationService;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
-import ru.kmz.web.calculator.shared.CalculatorResultDataProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,34 +24,18 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public CalculatorResultDataProxy getResultData(CalculatorInputDataProxy input) {
-		if (isValid(input)) {
-			return new CalculatorResultDataProxy();
-		}
-		Template template = getTemplate(input);
-		CalculatorResultDataProxy resultData = null;
-		if (input.isByFinishDate()) {
-			resultData = CalculationByFinish.getCalculationByFinishDate(template, input.getDate());
-		} else if (input.isByStartDate()) {
-			resultData = CalculationByStart.getCalculationByFinishDate(template, input.getDate());
-		}
-
-		return resultData;
-	}
-
-	@Override
 	public GanttData getGantResultData(CalculatorInputDataProxy input) {
 		if (!isValid(input)) {
 			return new GanttData();
 		}
 		Template template = getTemplate(input);
+		GantCalculationService service = new GantCalculationService();
 		if (input.isByFinishDate()) {
-			GantCalculationService service = new GantCalculationService();
-			service.calculate(template, input.getDate());
-			return service.getGantData();
+			service.calculateFinish(template, input.getDate());
 		} else if (input.isByStartDate()) {
+			service.calculateStart(template, input.getDate());
 		}
-		return null;
+		return service.getGantData();
 	}
 
 }

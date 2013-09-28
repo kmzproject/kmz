@@ -1,6 +1,7 @@
-package ru.kmz.server.engine.gant;
+package ru.kmz.server.engine.calculation.gant;
 
 import java.util.Date;
+import java.util.List;
 
 import ru.kmz.server.data.model.ProducteTemplate;
 import ru.kmz.server.data.model.ProducteTemplateElement;
@@ -23,7 +24,14 @@ public class GantCalculationService {
 		return data;
 	}
 
-	public GanttData calculate(Template template, Date finishDate) {
+	public GanttData calculateStart(Template template, Date startDate) {
+		ProducteTemplate product = template.getProduct();
+		int duration = getDuration(product.getChilds());
+		Date finishDate = CalculationUtils.getOffsetDate(startDate, duration);
+		return calculateFinish(template, finishDate);
+	}
+
+	public GanttData calculateFinish(Template template, Date finishDate) {
 		minDate = finishDate;
 
 		ProducteTemplate producte = template.getProduct();
@@ -62,5 +70,19 @@ public class GantCalculationService {
 		activity.setPlanStart(start);
 		activity.setPlanFinish(finish);
 		return activity;
+	}
+
+	private static int getDuration(List<ProducteTemplateElement> elements) {
+		int durationMax = 0;
+		for (ProducteTemplateElement element : elements) {
+			int duration = 0;
+			if (element.hasChild()) {
+				duration = getDuration(element.getChilds());
+			}
+			duration += element.getDuration();
+			if (duration > durationMax)
+				durationMax = duration;
+		}
+		return durationMax;
 	}
 }
