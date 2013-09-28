@@ -16,7 +16,7 @@ public class GanttData implements Serializable {
 
 	public GanttData() {
 		wbss = new ArrayList<WbsData>();
-		scale = ScaleConstants.DAY;
+		scale = ScaleConstants.WEEK;
 	}
 
 	public GanttData(String name) {

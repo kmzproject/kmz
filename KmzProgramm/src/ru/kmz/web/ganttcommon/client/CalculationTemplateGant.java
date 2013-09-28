@@ -140,12 +140,12 @@ public class CalculationTemplateGant implements IsWidget {
 		gantt = new GanttPrim(dataTaskStore, dataDepStore, config);
 		gantt.setLineStore(createLines());
 		// развернуть все
-		gantt.getLeftGrid().addViewReadyHandler(new ViewReadyHandler() {
-			@Override
-			public void onViewReady(ViewReadyEvent event) {
-				((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
-			}
-		});
+//		gantt.getLeftGrid().addViewReadyHandler(new ViewReadyHandler() {
+//			@Override
+//			public void onViewReady(ViewReadyEvent event) {
+//				((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
+//			}
+//		});
 
 		setStartEnd();
 
@@ -298,6 +298,8 @@ public class CalculationTemplateGant implements IsWidget {
 			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta).asDate());
 		} else if (scale.equals(ScaleConstants.MONTH)) {
 			gantt.setStartEnd(dwStart.addMonths(-delta).asDate(), dwFinish.addMonths(delta).asDate());
+		} else if (scale.equals(ScaleConstants.WEEK)) {
+			gantt.setStartEnd(dwStart.addDays(-delta*7).asDate(), dwFinish.addDays(delta*7).asDate());
 		}
 	}
 
@@ -306,10 +308,13 @@ public class CalculationTemplateGant implements IsWidget {
 		String scale = ganttData.getScale();
 		if (scale.equals(ScaleConstants.DAY)) {
 			headers.add(new WeekTimeAxisGenerator("MMM d"));
-			headers.add(new DayTimeAxisGenerator("EEE"));
+			headers.add(new DayTimeAxisGenerator("dd/MM"));
 		} else if (scale.equals(ScaleConstants.MONTH)) {
 			headers.add(new YearTimeAxisGenerator("yyyy"));
 			headers.add(new MonthTimeAxisGenerator("MMM"));
+		} else if (scale.equals(ScaleConstants.WEEK)) {
+			headers.add(new MonthTimeAxisGenerator("MMM dd"));
+			headers.add(new WeekTimeAxisGenerator("dd/MM"));
 		}
 		return headers;
 	}
