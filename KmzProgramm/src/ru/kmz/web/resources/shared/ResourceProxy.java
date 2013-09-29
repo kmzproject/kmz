@@ -17,6 +17,18 @@ public class ResourceProxy implements Serializable {
 		return name;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
+	}
+
 	public String getResourceType() {
 		return resourceType;
 	}
