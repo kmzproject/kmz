@@ -17,4 +17,9 @@ public class KeyValueData {
 	public String getValue() {
 		return value;
 	}
+
+	public KeyValueData(String value) {
+		this.key = value;
+		this.value = value;
+	}
 }

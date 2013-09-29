@@ -1,5 +1,6 @@
 package ru.kmz.web.resources.client;
 
+import ru.kmz.web.common.client.control.ResourceTypeComboBox;
 import ru.kmz.web.common.client.window.CommonDirectoryWindow;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
@@ -14,11 +15,11 @@ import com.sencha.gxt.widget.core.client.info.Info;
 public class ResourceProperties extends CommonDirectoryWindow<ResourceProxy> {
 
 	private TextField resourceName;
-	private TextField resourceType;
+	private ResourceTypeComboBox resourceType;
 
 	public ResourceProperties() {
 		super();
-		setPixelSize(500, 200);
+		setPixelSize(500, 150);
 		setHeadingText("Ресурс");
 	}
 
@@ -31,9 +32,8 @@ public class ResourceProperties extends CommonDirectoryWindow<ResourceProxy> {
 		resourceName.setEmptyText("Введите название...");
 		p.add(new FieldLabel(resourceName, "Название"), new VerticalLayoutData(1, -1));
 
-		resourceType = new TextField();
-		resourceType.setAllowBlank(false);
-		resourceType.setEmptyText("Введите тип ресурса...");
+		resourceType = new ResourceTypeComboBox();
+
 		p.add(new FieldLabel(resourceType, "Тип ресурса"), new VerticalLayoutData(1, -1));
 
 		return p;
@@ -51,7 +51,7 @@ public class ResourceProperties extends CommonDirectoryWindow<ResourceProxy> {
 		if (object == null)
 			object = new ResourceProxy();
 		object.setName(resourceName.getValue());
-		object.setResourceType(resourceType.getValue());
+		object.setResourceType(resourceType.getValue().getKey());
 		ResourcesModuleView.getService().editResource(object, new AsyncCallback<ResourceProxy>() {
 
 			@Override
