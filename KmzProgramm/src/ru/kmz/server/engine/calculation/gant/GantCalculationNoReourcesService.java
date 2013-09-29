@@ -11,12 +11,12 @@ import ru.kmz.web.ganttcommon.shared.ActivityData;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.WbsData;
 
-public class GantCalculationService {
+public class GantCalculationNoReourcesService {
 
 	private Date minDate;
 	private GanttData data;
 
-	public GantCalculationService() {
+	public GantCalculationNoReourcesService() {
 	}
 
 	public GanttData getGantData() {
@@ -36,14 +36,15 @@ public class GantCalculationService {
 
 		ProducteTemplate product = template.getProduct();
 		WbsData wbsProducte = product.asWbsDataProxy();
-		int duration = getDuration(product.getChilds());
-		wbsProducte.setDuration(duration);
-		wbsProducte.setPlanStart(CalculationUtils.getOffsetDate(finishDate, -duration));
-		wbsProducte.setPlanFinish(finishDate);
 
 		for (ProducteTemplateElement element : product.getChilds()) {
 			wbsProducte.addChild(getWbs(element, finishDate));
 		}
+
+		int duration = getDuration(product.getChilds());
+		wbsProducte.setDuration(duration);
+		wbsProducte.setPlanStart(CalculationUtils.getOffsetDate(finishDate, -duration));
+		wbsProducte.setPlanFinish(finishDate);
 
 		data.add(wbsProducte);
 

@@ -6,8 +6,8 @@ import java.util.Date;
 public class CalculationUtils {
 	private static final Calendar c = Calendar.getInstance();
 
-	public static Date getOffsetDate(Date finish, int days) {
-		c.setTime(finish);
+	public static Date getOffsetDate(Date date, int days) {
+		c.setTime(date);
 		c.add(Calendar.DATE, days);
 		return c.getTime();
 	}

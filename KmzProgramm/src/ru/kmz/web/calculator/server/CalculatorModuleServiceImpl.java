@@ -3,8 +3,10 @@ package ru.kmz.web.calculator.server;
 import java.util.List;
 
 import ru.kmz.server.data.model.Template;
+import ru.kmz.server.data.utils.ResourcesDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
-import ru.kmz.server.engine.calculation.gant.GantCalculationService;
+import ru.kmz.server.engine.calculation.gant.GantCalculationNoReourcesService;
+import ru.kmz.server.engine.calculation.gant.GantCalculationResourcesService;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
@@ -30,13 +32,17 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 			return GanttData.getError("Не верный формат даты");
 		}
 		Template template = getTemplate(input);
-		GantCalculationService service = new GantCalculationService();
+		GanttData data = null;
 		if (input.isByFinishDate()) {
+			GantCalculationNoReourcesService service = new GantCalculationNoReourcesService();
 			service.calculateFinish(template, input.getDate());
+			data = service.getGantData();
 		} else if (input.isByStartDate()) {
+			GantCalculationResourcesService service = new GantCalculationResourcesService();
+			service.setResourcesList(ResourcesDataUtils.getAllResources());
 			service.calculateStart(template, input.getDate());
+			data = service.getGantData();
 		}
-		GanttData data = service.getGantData();
 
 		if (input.getScala() != null) {
 			data.setScale(input.getScala());

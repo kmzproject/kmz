@@ -7,4 +7,7 @@ public class ResourceTypesConsts {
 	public static final String PREPARE = ResourceTypes.PREPARE;
 	public static final String ASSEMBLAGE = ResourceTypes.ASSEMBLAGE;
 
+	public static boolean needResource(String resourceType) {
+		return resourceType.equals(PREPARE);
+	}
 }
