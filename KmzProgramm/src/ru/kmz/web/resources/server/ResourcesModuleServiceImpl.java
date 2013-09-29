@@ -13,17 +13,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class ResourcesModuleServiceImpl extends RemoteServiceServlet implements ResourcesModuleService {
 
-	private List<ResourceProxy> cachList = new ArrayList<ResourceProxy>();
-
 	@Override
 	public List<ResourceProxy> getAllResources() {
-		if (cachList.size() == 0) {
-			List<Resource> list = ResourcesDataUtils.getAllResources();
-			for (Resource resource : list) {
-				cachList.add(resource.asProxy());
-			}
+		List<ResourceProxy> result = new ArrayList<ResourceProxy>();
+		List<Resource> list = ResourcesDataUtils.getAllResources();
+		for (Resource resource : list) {
+			result.add(resource.asProxy());
 		}
-		return cachList;
+		return result;
 	}
 
 	@Override
@@ -31,15 +28,6 @@ public class ResourcesModuleServiceImpl extends RemoteServiceServlet implements 
 		Resource resource = new Resource(proxy);
 		resource = ResourcesDataUtils.edit(resource);
 		proxy = resource.asProxy();
-		int index;
-		for (index = 0; index < cachList.size(); index++) {
-			if (proxy.getId() == cachList.get(index).getId())
-				break;
-		}
-		if (index == cachList.size())
-			cachList.add(proxy);
-		else
-			cachList.set(index, proxy);
-		return resource.asProxy();
+		return proxy;
 	}
 }
