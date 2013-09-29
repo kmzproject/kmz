@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Entity
 public class Resource {
@@ -17,6 +18,15 @@ public class Resource {
 	private Key key;
 
 	public Resource() {
+	}
+
+	public Resource(ResourceProxy proxy) {
+		name = proxy.getName();
+		resourceType = proxy.getResourceType();
+		if (proxy.getId() != 0) {
+			Key k = KeyFactory.createKey(getClass().getSimpleName(), proxy.getId());
+			setKey(k);
+		}
 	}
 
 	public Resource(String name) {
@@ -41,18 +51,18 @@ public class Resource {
 	}
 
 	private String name;
-	private String sercoureType;
+	private String resourceType;
 
-	public String getSercoureType() {
-		return sercoureType;
+	public String getResourceType() {
+		return resourceType;
 	}
 
-	public void setSercoureType(String sercoureType) {
-		this.sercoureType = sercoureType;
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
 
 	public ResourceProxy asProxy() {
-		ResourceProxy proxy = new ResourceProxy();
+		ResourceProxy proxy = new ResourceProxy(getKey().getId(), getName(), getResourceType());
 		return proxy;
 	}
 

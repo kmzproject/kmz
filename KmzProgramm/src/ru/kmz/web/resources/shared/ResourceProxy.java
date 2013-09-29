@@ -5,11 +5,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class ResourceProxy implements Serializable {
 
-	private String id;
+	private long id;
 	private String name;
 	private String resourceType;
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -17,7 +17,7 @@ public class ResourceProxy implements Serializable {
 		return name;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -36,7 +36,7 @@ public class ResourceProxy implements Serializable {
 	public ResourceProxy() {
 	}
 
-	public ResourceProxy(String id, String name, String resourceType) {
+	public ResourceProxy(long id, String name, String resourceType) {
 		this.id = id;
 		this.name = name;
 		this.resourceType = resourceType;
