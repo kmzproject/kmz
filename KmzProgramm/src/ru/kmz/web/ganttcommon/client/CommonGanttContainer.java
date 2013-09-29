@@ -207,7 +207,7 @@ public class CommonGanttContainer implements IsWidget {
 		return cm;
 	}
 
-	private void processFolder(TreeStore<Task> store, Task folder) {
+	private static void processFolder(TreeStore<Task> store, Task folder) {
 		for (Task child : folder.getChildren()) {
 			store.add(folder, child);
 			if (child.hasChildren()) {

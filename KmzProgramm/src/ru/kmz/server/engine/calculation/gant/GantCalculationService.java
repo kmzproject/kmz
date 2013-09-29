@@ -34,10 +34,18 @@ public class GantCalculationService {
 		data = new GanttData("Расчет по шаблону " + template.getName());
 		minDate = finishDate;
 
-		ProducteTemplate producte = template.getProduct();
-		for (ProducteTemplateElement element : producte.getChilds()) {
-			data.add(getWbs(element, finishDate));
+		ProducteTemplate product = template.getProduct();
+		WbsData wbsProducte = product.asWbsDataProxy();
+		int duration = getDuration(product.getChilds());
+		wbsProducte.setDuration(duration);
+		wbsProducte.setPlanStart(CalculationUtils.getOffsetDate(finishDate, -duration));
+		wbsProducte.setPlanFinish(finishDate);
+
+		for (ProducteTemplateElement element : product.getChilds()) {
+			wbsProducte.addChild(getWbs(element, finishDate));
 		}
+
+		data.add(wbsProducte);
 
 		data.setDateStart(minDate);
 		data.setDateFinish(finishDate);

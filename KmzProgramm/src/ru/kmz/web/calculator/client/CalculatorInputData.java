@@ -59,6 +59,7 @@ public class CalculatorInputData implements IsWidget {
 		scalaCombo.setTypeAhead(true);
 		scalaCombo.setTriggerAction(TriggerAction.ALL);
 		scalaCombo.setEditable(false);
+		scalaCombo.setValue(list.get(0));
 		container.add(scalaCombo);
 
 		container.add(new FieldLabel(scalaCombo, "Масштаб"));

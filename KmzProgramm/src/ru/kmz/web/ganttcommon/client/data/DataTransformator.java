@@ -34,7 +34,8 @@ public class DataTransformator implements IDemoData {
 
 	private Task getTaskByWbs(WbsData wbs, DateWrapper dw) {
 		Task task = new Task(wbs.getId(), wbs.getName(), wbs.getPlanStart(), wbs.getPlanFinish(), wbs.getDuration(),
-				wbs.getComplite(), wbs.isMilestone() ? TaskType.MILESTONE : TaskType.LEAF, wbs.getResourceType());
+				wbs.getComplite(), wbs.isMilestone() ? TaskType.MILESTONE : wbs.isFolder() ? TaskType.PARENT
+						: TaskType.LEAF, wbs.getResourceType());
 		for (ActivityData activity : wbs.getActivities()) {
 			Task childTask = getTaskByActivity(activity, dw);
 			task.addChild(childTask);

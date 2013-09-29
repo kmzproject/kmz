@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import ru.kmz.web.ganttcommon.shared.WbsData;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
@@ -70,5 +71,9 @@ public class ProducteTemplate {
 			proxy.add(element.asProxy());
 		}
 		return proxy;
+	}
+
+	public WbsData asWbsDataProxy() {
+		return new WbsData("wbs_" + key.toString(), name, 0, null);
 	}
 }

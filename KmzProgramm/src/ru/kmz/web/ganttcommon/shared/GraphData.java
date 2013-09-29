@@ -56,6 +56,10 @@ public abstract class GraphData implements Serializable, HasResourceType {
 		return duration == 0;
 	}
 
+	public boolean isFolder() {
+		return getResourceType() == null;
+	}
+
 	public int getComplite() {
 		return complite;
 	}
@@ -72,4 +76,5 @@ public abstract class GraphData implements Serializable, HasResourceType {
 	public String getResourceType() {
 		return resourceType;
 	}
+
 }

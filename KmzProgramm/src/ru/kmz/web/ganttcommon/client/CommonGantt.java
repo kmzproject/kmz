@@ -51,7 +51,7 @@ public class CommonGantt extends Gantt<Task, Dependency> {
 			@Override
 			public SafeHtml getTemplate(Task m, String id, SafeHtml text, ImageResource icon, boolean checkable,
 					Joint joint, int level) {
-				// icon = icon == null ? null : resources.folderLogo();
+				// icon = icon == null ? null : resources.folderLogo(); //Логотип папки
 				return super.getTemplate(m, id, text, icon, checkable, joint, level);
 			}
 
