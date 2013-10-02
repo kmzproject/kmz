@@ -4,7 +4,7 @@ import java.util.Date;
 
 import ru.kmz.server.engine.calculation.CalculationUtils;
 
-public class ResourceTask {
+public class ResourceTask implements Comparable<ResourceTask> {
 
 	private Date start;
 	private Date finish;
@@ -19,9 +19,22 @@ public class ResourceTask {
 	public Date getFinish() {
 		return finish;
 	}
-	
-	public Date getStart(){
+
+	public Date getStart() {
 		return start;
 	}
 
+	@Override
+	public String toString() {
+		return start.toString() + " " + duration + " " + finish.toString();
+	}
+
+	@Override
+	public int compareTo(ResourceTask task) {
+		if (start.before(task.start))
+			return -1;
+		if (start.equals(task.start))
+			return 0;
+		return 1;
+	}
 }

@@ -9,6 +9,8 @@ import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.resources.ResourceService;
+import ru.kmz.server.engine.calculation.resources.ResourceTask;
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.ActivityData;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.WbsData;
@@ -50,7 +52,7 @@ public class GantCalculationResourcesService {
 		wbsProducte.setPlanStart(minData);
 		wbsProducte.setPlanFinish(maxData);
 		wbsProducte.setDuration(10);
-		
+
 		data.add(wbsProducte);
 
 		data.setDateStart(minData);
@@ -69,27 +71,38 @@ public class GantCalculationResourcesService {
 					maxChildData = finish;
 				}
 			}
-			Date finish = CalculationUtils.getOffsetDate(maxChildData, element.getDuration());
+			Date currentWbsStart = maxChildData;
+			if (ResourceTypesConsts.needResource(element.getResourceType()) && element.getDuration() != 0) {
+				ResourceTask task = resourceService.getResentTask(element.getResourceType(), currentWbsStart,
+						element.getDuration());
+				currentWbsStart = task.getStart();
+			}
+			Date finish = CalculationUtils.getOffsetDate(currentWbsStart, element.getDuration());
 			if (finish.after(maxData)) {
 				maxData = finish;
 			}
 			wbs.setPlanFinish(finish);
-			wbs.setPlanStart(maxChildData);
+			wbs.setPlanStart(currentWbsStart);
 
 			rootwbs.addChild(wbs);
 			return wbs.getPlanFinish();
 		} else {
-			ActivityData activity = getActivityNoResources(element, start);
+			Date currentActivityStart = start;
+			if (ResourceTypesConsts.needResource(element.getResourceType()) && element.getDuration() != 0) {
+				ResourceTask task = resourceService.getResentTask(element.getResourceType(), currentActivityStart,
+						element.getDuration());
+				start = task.getStart();
+			}
+			Date finish = CalculationUtils.getOffsetDate(start, element.getDuration());
+			if (finish.after(maxData)) {
+				maxData = finish;
+			}
+
+			ActivityData activity = element.asActivityDataProxy();
+			activity.setPlanStart(start);
+			activity.setPlanFinish(finish);
 			rootwbs.addActivity(activity);
 			return activity.getPlanFinish();
 		}
-	}
-
-	private ActivityData getActivityNoResources(ProducteTemplateElement element, Date start) {
-		ActivityData activity = element.asActivityDataProxy();
-		Date finish = CalculationUtils.getOffsetDate(start, element.getDuration());
-		activity.setPlanStart(start);
-		activity.setPlanFinish(finish);
-		return activity;
 	}
 }

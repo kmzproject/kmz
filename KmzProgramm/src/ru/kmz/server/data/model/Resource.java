@@ -29,9 +29,10 @@ public class Resource {
 		}
 	}
 
-	public Resource(String name) {
+	public Resource(String name, String resourceType) {
 		this();
 		this.name = name;
+		this.resourceType = resourceType;
 	}
 
 	public Key getKey() {
@@ -64,6 +65,11 @@ public class Resource {
 	public ResourceProxy asProxy() {
 		ResourceProxy proxy = new ResourceProxy(getKey().getId(), getName(), getResourceType());
 		return proxy;
+	}
+
+	@Override
+	public String toString() {
+		return key + "" + name + " " + resourceType;
 	}
 
 }

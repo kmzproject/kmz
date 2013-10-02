@@ -1,6 +1,7 @@
 package ru.kmz.server.engine.calculation.resources;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +20,19 @@ public class ResourceService {
 
 	public void init(List<Resource> resources) {
 		for (Resource resource : resources) {
+			if (!resource.getResourceType().equals(resource.getResourceType()))
+				continue;
 			List<ResourceTask> shaduler = new ArrayList<ResourceTask>();
 			pull.put(resource, shaduler);
+		}
+	}
+
+	public void printPull() {
+		for (Resource resource : pull.keySet()) {
+			System.out.println(resource.toString());
+			for (ResourceTask task : pull.get(resource)) {
+				System.out.println("\t" + task.toString());
+			}
 		}
 	}
 
@@ -37,6 +49,7 @@ public class ResourceService {
 			Date allowStartByCurrentResource = getFirstFreeTime(pull.get(resource), start, duration);
 			if (allowStart == null || allowStartByCurrentResource.before(allowStart)) {
 				allowResource = resource;
+				allowStart = allowStartByCurrentResource;
 			}
 		}
 		ResourceTask task = new ResourceTask(allowStart, duration);
@@ -63,15 +76,9 @@ public class ResourceService {
 	}
 
 	private void insertResourceTask(List<ResourceTask> tasks, ResourceTask task) {
-		int index = 0;
-		for (index = 0; index < tasks.size(); index++) {
-			if (task.getStart().after(task.getFinish()))
-				;
-		}
-		if (index == tasks.size()) {
-			tasks.add(task);
-		} else {
-			tasks.add(index, task);
-		}
+		tasks.add(task);
+		Collections.sort(tasks);
+		System.out.println("Sort");
+		this.printPull();
 	}
 }

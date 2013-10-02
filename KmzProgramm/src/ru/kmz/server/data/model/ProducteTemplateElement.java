@@ -101,11 +101,11 @@ public class ProducteTemplateElement {
 	}
 
 	public ActivityData asActivityDataProxy() {
-		return new ActivityData(key.toString(), name, duration, resourceType);
+		return new ActivityData("" + key, name, duration, resourceType);
 	}
 
 	public WbsData asWbsDataProxy() {
-		return new WbsData("wbs_" + key.toString(), name, duration, resourceType);
+		return new WbsData("wbs_" + key, name, duration, resourceType);
 	}
 
 	public String getResourceType() {

@@ -74,6 +74,6 @@ public class ProducteTemplate {
 	}
 
 	public WbsData asWbsDataProxy() {
-		return new WbsData("wbs_" + key.toString(), name, 0, null);
+		return new WbsData("wbs_" + key, name, 0, null);
 	}
 }
