@@ -39,4 +39,22 @@ public class TemplateDataUtils {
 		}
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	public static Template getTemplates(int keyId) {
+		List<Template> list = null;
+		EntityManager em = null;
+		try {
+			em = EMF.get().createEntityManager();
+			Query q = em.createQuery("select t from Template t ");
+			list = new ArrayList<Template>(q.getResultList());
+		} finally {
+			em.close();
+		}
+		for (Template template : list) {
+			if (template.getKey().getId() == keyId)
+				return template;
+		}
+		return null;
+	}
 }

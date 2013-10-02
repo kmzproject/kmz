@@ -25,13 +25,14 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	}
 
 	@Override
-	public TemplateTreeDataProxy getData(String keyId) {
+	public TemplateTreeDataProxy getData(int keyId) {
 		Template template;
 		List<Template> list = TemplateDataUtils.getAllTemplates();
 		if (list.size() == 0) {
 			template = TemplateGenerator.createTestTemplate();
 			template = TemplateDataUtils.edit(template);
 		} else {
+			TemplateDataUtils.getTemplates(keyId);
 			template = list.get(0);
 		}
 		TemplateTreeDataProxy proxy = template.asProxy();

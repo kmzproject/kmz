@@ -1,6 +1,7 @@
 package ru.kmz.web.template.client;
 
 import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -9,15 +10,21 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
+public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatableWithValue<Integer> {
 
 	private final static TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
 
 	private static TemplateModuleView instanse;
+	private Container container;
+	private Container treeContainer;
 
 	@Override
 	public void onModuleLoad() {
@@ -34,22 +41,27 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
 
 	@Override
 	public Widget asWidget() {
-		final Container container = new HorizontalLayoutContainer();
-		templateMpduleService.getData(null, new AsyncCallback<TemplateTreeDataProxy>() {
+		if (container == null) {
+			createContainer();
+		}
+		return container;
+	}
+
+	private void createContainer() {
+		container = new VerticalLayoutContainer();
+		TextButton select = new TextButton("Выбрать");
+		select.addSelectHandler(new SelectHandler() {
 
 			@Override
-			public void onSuccess(TemplateTreeDataProxy result) {
-				TemplateTree tree = new TemplateTree();
-				tree.setRoot(result.getTreeRoot());
-				container.add(tree);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Info.display("Error", "Load error");
+			public void onSelect(SelectEvent event) {
+				TemplateSelectWindow window = new TemplateSelectWindow();
+				window.setUpdatable(TemplateModuleView.this);
+				window.show();
 			}
 		});
-		return container;
+		container.add(select);
+		treeContainer = new HorizontalLayoutContainer();
+		container.add(treeContainer);
 	}
 
 	public static TemplateModuleServiceAsync getService() {
@@ -60,6 +72,26 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule {
 		if (instanse == null)
 			instanse = new TemplateModuleView();
 		return instanse;
+	}
+
+	@Override
+	public void update(Integer value) {
+		getService().getData(value, new AsyncCallback<TemplateTreeDataProxy>() {
+
+			@Override
+			public void onSuccess(TemplateTreeDataProxy result) {
+				treeContainer.clear();
+				TemplateTree tree = new TemplateTree();
+				tree.setRoot(result.getTreeRoot());
+				treeContainer.add(tree);
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Info.display("Error", "Load error");
+			}
+		});
+
 	}
 
 }

@@ -5,12 +5,11 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 
-public abstract class CommonDirectoryWindow<T> extends Window {
-	protected T object;
+public abstract class CommonSelectWindow<T> extends Window {
 
-	protected IUpdatable updatableForm;
+	protected IUpdatableWithValue<T> updatableForm;
 
-	public CommonDirectoryWindow() {
+	public CommonSelectWindow() {
 		super();
 
 		add(getInfoContainer());
@@ -20,7 +19,7 @@ public abstract class CommonDirectoryWindow<T> extends Window {
 		setBlinkModal(true);
 		TextButton cancelButton = new TextButton("Отмена");
 		cancelButton.addSelectHandler(new CancelSelectHandler(this));
-		TextButton saveButton = new TextButton("Сохранить");
+		TextButton saveButton = new TextButton("Выбрать");
 		saveButton.addSelectHandler(new SaveSelectHandler());
 		addButton(saveButton);
 		addButton(cancelButton);
@@ -28,23 +27,21 @@ public abstract class CommonDirectoryWindow<T> extends Window {
 
 	protected abstract Container getInfoContainer();
 
-	public abstract void setData(T object);
-
-	protected abstract void editProcess();
-
-	public void setUpdatable(IUpdatable form) {
+	public void setUpdatable(IUpdatableWithValue<T> form) {
 		this.updatableForm = form;
 	}
+
+	protected abstract T getSelectedValue();
 
 	private class SaveSelectHandler extends CancelSelectHandler {
 
 		public SaveSelectHandler() {
-			super(CommonDirectoryWindow.this);
+			super(CommonSelectWindow.this);
 		}
 
 		@Override
 		public void onSelect(SelectEvent event) {
-			editProcess();
+			updatableForm.update(getSelectedValue());
 			super.onSelect(event);
 		}
 	}

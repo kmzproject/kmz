@@ -3,7 +3,7 @@ package ru.kmz.web.resources.client;
 import java.util.List;
 
 import ru.kmz.web.common.client.IKmzModule;
-import ru.kmz.web.common.client.window.CommonDirectoryWindow.IUpdatable;
+import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
 import com.google.gwt.core.client.EntryPoint;

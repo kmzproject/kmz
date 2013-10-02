@@ -59,7 +59,7 @@ public class Template {
 
 	public TemplateTreeDataProxy asProxy() {
 		TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
-		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(name, rootProxy);
+		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(key.getId(), name, rootProxy);
 		return proxy;
 	}
 

@@ -12,5 +12,5 @@ public interface TemplateModuleService extends RemoteService {
 
 	List<TemplateTreeDataProxy> getTemplateList();
 	
-	TemplateTreeDataProxy getData(String keyId);
+	TemplateTreeDataProxy getData(int keyId);
 }
