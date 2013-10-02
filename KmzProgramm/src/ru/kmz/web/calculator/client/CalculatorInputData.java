@@ -65,12 +65,12 @@ public class CalculatorInputData implements IsWidget {
 		container.add(new FieldLabel(scalaCombo, "Масштаб"));
 
 		final Radio radioFinish = new Radio();
-		radioFinish.setBoxLabel("По дате завершения");
+		radioFinish.setBoxLabel("По дате завершения (без ресурсов)");
 		radioFinish.setValue(true);
 		container.add(radioFinish);
 
 		final Radio radioStart = new Radio();
-		radioStart.setBoxLabel("По дате начала");
+		radioStart.setBoxLabel("По дате начала (с ресурсами)");
 		container.add(radioStart);
 
 		ToggleGroup group = new ToggleGroup();
