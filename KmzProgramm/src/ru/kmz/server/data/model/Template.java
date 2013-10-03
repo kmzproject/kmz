@@ -1,43 +1,37 @@
 package ru.kmz.server.data.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
 
-@Entity
+@PersistenceCapable
 public class Template {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
 
-	private ProducteTemplate product;
+	@Persistent
+	private String name;
 
-	public Template() {
+	@Persistent
+	private Key rootElement;
+
+	public Key getRootElement() {
+		return rootElement;
 	}
 
 	public Template(String name) {
-		this();
 		this.name = name;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public ProducteTemplate getProduct() {
-		return product;
-	}
-
-	public void setProduct(ProducteTemplate product) {
-		this.product = product;
+	public void setRootElement(ProducteTemplateElement element) {
+		this.rootElement = element.getKey();
 	}
 
 	public Key getKey() {
@@ -56,13 +50,12 @@ public class Template {
 		this.name = name;
 	}
 
-	private String name;
-
-	@Transient
 	public TemplateTreeDataProxy asProxy() {
-		TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
-		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(key.getId(), name, rootProxy);
-		return proxy;
+		// TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
+		// TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(key.getId(),
+		// name, rootProxy);
+		// return proxy;
+		return null;
 	}
 
 }

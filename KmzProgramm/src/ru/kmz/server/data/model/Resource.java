@@ -1,22 +1,26 @@
 package ru.kmz.server.data.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.resources.shared.ResourceProxy;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-@Entity
+@PersistenceCapable
 public class Resource {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
+
+	@Persistent
+	private String name;
+	@Persistent
+	private String resourceType;
 
 	public Resource() {
 	}
@@ -52,9 +56,6 @@ public class Resource {
 		this.name = name;
 	}
 
-	private String name;
-	private String resourceType;
-
 	public String getResourceType() {
 		return resourceType;
 	}
@@ -63,13 +64,11 @@ public class Resource {
 		this.resourceType = resourceType;
 	}
 
-	@Transient
 	public ResourceProxy asProxy() {
 		ResourceProxy proxy = new ResourceProxy(getKey().getId(), getName(), getResourceType());
 		return proxy;
 	}
 
-	@Transient
 	@Override
 	public String toString() {
 		return key + "" + name + " " + resourceType;

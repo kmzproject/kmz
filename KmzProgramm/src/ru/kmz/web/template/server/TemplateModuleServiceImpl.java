@@ -5,7 +5,6 @@ import java.util.List;
 
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.TemplateGenerator;
-import ru.kmz.server.data.model.ProducteTemplate;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
@@ -50,15 +49,16 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 		element.setName("Новый узел");
 		element.setDuration(0);
 		element.setResourceType(ResourceTypes.ORDER);
-		ProducteTemplate productTemplate = TemplateDataUtils.getProducteTemplate(parentId);
-		if (productTemplate != null) {
-			productTemplate.add(element);
-			TemplateDataUtils.edit(productTemplate);
-		} else {
-			ProducteTemplateElement productTemplateElement = TemplateDataUtils.getProducteTemplateElement(parentId);
-			productTemplateElement.add(element);
-			TemplateDataUtils.edit(productTemplateElement);
-		}
+//		ProducteTemplate productTemplate = TemplateDataUtils.getProducteTemplate(parentId);
+		// if (productTemplate != null) {
+		// productTemplate.add(element);
+		// TemplateDataUtils.edit(productTemplate);
+		// } else {
+		// ProducteTemplateElement productTemplateElement =
+		// TemplateDataUtils.getProducteTemplateElement(parentId);
+		// productTemplateElement.add(element);
+		// TemplateDataUtils.edit(productTemplateElement);
+		// }
 		return element.asProxy();
 	}
 

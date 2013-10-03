@@ -3,33 +3,38 @@ package ru.kmz.server.data.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
 
-@Entity
+@PersistenceCapable
 public class ProducteTemplateElement {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
 
+	@Persistent
+	private String name;
+
+	@Persistent
+	private int duration;
+
+	@Persistent
+	private String resourceType;
+
+	@Persistent
+	private List<Key> elements;
+
 	public ProducteTemplateElement() {
-		childs = new ArrayList<ProducteTemplateElement>();
 	}
 
-	@Transient
 	public void updateData(TemplateTreeNodeBaseProxy proxy) {
 		this.name = proxy.getName();
 		this.duration = proxy.getDuration();
@@ -43,15 +48,12 @@ public class ProducteTemplateElement {
 		this.resourceType = resourseType;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<ProducteTemplateElement> childs;
-
-	public List<ProducteTemplateElement> getChilds() {
-		return childs;
+	public List<Key> getElements() {
+		return elements;
 	}
 
-	public void setChilds(List<ProducteTemplateElement> childs) {
-		this.childs = childs;
+	public void setElements(List<Key> elements) {
+		this.elements = elements;
 	}
 
 	public Key getKey() {
@@ -70,50 +72,44 @@ public class ProducteTemplateElement {
 		this.name = name;
 	}
 
-	private String name;
-
-	private int duration;
-
 	public int getDuration() {
 		return duration;
 	}
-
-	private String resourceType;
 
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
-	@Transient
 	public void add(ProducteTemplateElement element) {
-		if (childs == null) {
-			childs = new ArrayList<ProducteTemplateElement>();
+		if (elements == null) {
+			elements = new ArrayList<Key>();
 		}
-		this.childs.add(element);
+		this.elements.add(element.getKey());
 	}
 
-	@Transient
 	public boolean hasChild() {
-		return childs != null && childs.size() != 0;
+		return elements != null && elements.size() != 0;
 	}
 
-	@Transient
 	public TemplateTreeNodeBaseProxy asProxy() {
-		if (!hasChild()) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.getId(), name, duration, resourceType);
-			return proxy;
-		}
-
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.getId(), name, duration, resourceType);
-		for (ProducteTemplateElement child : childs) {
-			proxy.add(child.asProxy());
-		}
-		return proxy;
+		// if (!hasChild()) {
+		// TemplateTreeNodeBaseProxy proxy = new
+		// TemplateTreeNodeBaseProxy(key.getId(), name, duration, resourceType);
+		// return proxy;
+		// }
+		//
+		// TemplateTreeNodeFolderProxy proxy = new
+		// TemplateTreeNodeFolderProxy(key.getId(), name, duration,
+		// resourceType);
+		// // for (ProducteTemplateElement child : elements) {
+		// // proxy.add(child.asProxy());
+		// // }
+		// return proxy;
+		return null;
 	}
 
-	@Transient
 	public GraphData asGraphDataProxy() {
-		return new GraphData("wbs_" + key, name, duration, resourceType);
+		return new GraphData(key.getId() + "", name, duration, resourceType);
 	}
 
 	public String getResourceType() {

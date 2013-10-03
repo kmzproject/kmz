@@ -9,8 +9,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.server.data.model.ProducteTemplate;
-import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
@@ -51,14 +49,18 @@ public class GantCalculationResourcesServiceTest1 {
 	}
 
 	private Template getTemplate() {
-		Template template = new Template();
-		ProducteTemplate producte = new ProducteTemplate();
-		template.setProduct(producte);
-
-		producte.add(new ProducteTemplateElement("test1", 10, ResourceTypes.PREPARE));
-		producte.add(new ProducteTemplateElement("test2", 10, ResourceTypes.PREPARE));
-		producte.add(new ProducteTemplateElement("test3", 10, ResourceTypes.PREPARE));
-		return template;
+		// Template template = new Template();
+		// ProducteTemplate producte = new ProducteTemplate();
+		// template.setProduct(producte);
+		//
+		// producte.add(new ProducteTemplateElement("test1", 10,
+		// ResourceTypes.PREPARE));
+		// producte.add(new ProducteTemplateElement("test2", 10,
+		// ResourceTypes.PREPARE));
+		// producte.add(new ProducteTemplateElement("test3", 10,
+		// ResourceTypes.PREPARE));
+		// return template;
+		return null;
 	}
 
 	private List<Resource> getResources() {

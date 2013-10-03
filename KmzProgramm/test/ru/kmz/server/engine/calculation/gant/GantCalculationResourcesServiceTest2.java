@@ -9,8 +9,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.server.data.model.ProducteTemplate;
-import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
@@ -48,23 +46,30 @@ public class GantCalculationResourcesServiceTest2 {
 	}
 
 	private Template getTemplate() {
-		Template template = new Template();
-		ProducteTemplate producte = new ProducteTemplate();
-		template.setProduct(producte);
+		// Template template = new Template();
+		// ProducteTemplate producte = new ProducteTemplate();
+		// template.setProduct(producte);
+		//
+		// ProducteTemplateElement element1 = new
+		// ProducteTemplateElement("test1", 10, ResourceTypes.PREPARE);
+		// producte.add(element1);
+		// element1.add(new ProducteTemplateElement("test1", 1,
+		// ResourceTypes.ORDER));
+		//
+		// ProducteTemplateElement element2 = new
+		// ProducteTemplateElement("test2", 10, ResourceTypes.PREPARE);
+		// producte.add(element2);
+		// element2.add(new ProducteTemplateElement("test2", 1,
+		// ResourceTypes.ORDER));
+		//
+		// ProducteTemplateElement element3 = new
+		// ProducteTemplateElement("test3", 10, ResourceTypes.PREPARE);
+		// producte.add(element3);
+		// element3.add(new ProducteTemplateElement("test3", 1,
+		// ResourceTypes.ORDER));
 
-		ProducteTemplateElement element1 = new ProducteTemplateElement("test1", 10, ResourceTypes.PREPARE);
-		producte.add(element1);
-		element1.add(new ProducteTemplateElement("test1", 1, ResourceTypes.ORDER));
-
-		ProducteTemplateElement element2 = new ProducteTemplateElement("test2", 10, ResourceTypes.PREPARE);
-		producte.add(element2);
-		element2.add(new ProducteTemplateElement("test2", 1, ResourceTypes.ORDER));
-
-		ProducteTemplateElement element3 = new ProducteTemplateElement("test3", 10, ResourceTypes.PREPARE);
-		producte.add(element3);
-		element3.add(new ProducteTemplateElement("test3", 1, ResourceTypes.ORDER));
-
-		return template;
+		// return template;
+		return null;
 	}
 
 	private List<Resource> getResources() {
