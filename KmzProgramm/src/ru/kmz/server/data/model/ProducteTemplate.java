@@ -68,7 +68,7 @@ public class ProducteTemplate {
 
 	@Transient
 	public TemplateTreeNodeFolderProxy getProxy() {
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name, 0, "");
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.getId(), name, 0, "");
 		for (ProducteTemplateElement element : childs) {
 			proxy.add(element.asProxy());
 		}

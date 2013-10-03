@@ -7,7 +7,9 @@ import ru.kmz.web.template.shared.TemplateTreeDataProxy;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.widget.core.client.button.TextButton;
@@ -24,7 +26,11 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 
 	private static TemplateModuleView instanse;
 	private Container container;
+	private Label label;
 	private Container treeContainer;
+
+	private TextButton save;
+	private TextButton saveAs;
 
 	@Override
 	public void onModuleLoad() {
@@ -49,6 +55,18 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 
 	private void createContainer() {
 		container = new VerticalLayoutContainer();
+		createButtons();
+		treeContainer = new HorizontalLayoutContainer();
+		container.add(treeContainer);
+	}
+
+	private void createButtons() {
+		HorizontalPanel buttonContainer = new HorizontalPanel();
+		container.add(buttonContainer);
+
+		label = new Label();
+		buttonContainer.add(label);
+
 		TextButton select = new TextButton("Выбрать");
 		select.addSelectHandler(new SelectHandler() {
 
@@ -59,9 +77,29 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 				window.show();
 			}
 		});
-		container.add(select);
-		treeContainer = new HorizontalLayoutContainer();
-		container.add(treeContainer);
+		buttonContainer.add(select);
+
+		save = new TextButton("Сохранить");
+		save.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				Info.display("Сохранено", "Успешно сохранено");
+			}
+		});
+		buttonContainer.add(save);
+
+		saveAs = new TextButton("Сохранить как");
+		saveAs.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				Info.display("Сохранено", "Успешно сохранено как");
+			}
+		});
+		buttonContainer.add(saveAs);
+
+		updateSaveButton(false);
 	}
 
 	public static TemplateModuleServiceAsync getService() {
@@ -84,6 +122,9 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 				TemplateTree tree = new TemplateTree();
 				tree.setRoot(result.getTreeRoot());
 				treeContainer.add(tree);
+
+				label.setText(result.getName());
+				updateSaveButton(true);
 			}
 
 			@Override
@@ -91,7 +132,11 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 				Info.display("Error", "Load error");
 			}
 		});
+	}
 
+	private void updateSaveButton(boolean enable) {
+		save.setEnabled(enable);
+		saveAs.setEnabled(enable);
 	}
 
 }

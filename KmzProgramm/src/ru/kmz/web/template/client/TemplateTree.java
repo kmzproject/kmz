@@ -6,12 +6,18 @@ import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.TreeStore;
+import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.tree.Tree;
 
 public class TemplateTree implements IsWidget {
@@ -24,6 +30,7 @@ public class TemplateTree implements IsWidget {
 
 	private HorizontalPanel container;
 	private TemplateTreeNodeInfo infoContainer;
+	private Tree<TemplateTreeNodeBaseProxy, String> tree;
 
 	@Override
 	public Widget asWidget() {
@@ -41,21 +48,85 @@ public class TemplateTree implements IsWidget {
 			}
 		}
 
-		final Tree<TemplateTreeNodeBaseProxy, String> tree = getTree(store);
+		createTree(store);
 
 		container.add(tree);
 
 		container.setCellWidth(tree, "260px");
 
-		infoContainer = new TemplateTreeNodeInfo();
-
-		container.add(infoContainer);
+		createEditContainer();
 
 		return container;
 	}
 
-	private Tree<TemplateTreeNodeBaseProxy, String> getTree(TreeStore<TemplateTreeNodeBaseProxy> store) {
-		final Tree<TemplateTreeNodeBaseProxy, String> tree = new Tree<TemplateTreeNodeBaseProxy, String>(store,
+	private void createEditContainer() {
+		VerticalPanel editContainer = new VerticalPanel();
+		container.add(editContainer);
+
+		infoContainer = new TemplateTreeNodeInfo();
+		editContainer.add(infoContainer);
+
+		TextButton addNodeButton = new TextButton("Добавить узел");
+		addNodeButton.addSelectHandler(new SelectHandler() {
+			@Override
+			public void onSelect(SelectEvent event) {
+				final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+				long parentId = 0;
+				if (item == null) {
+					parentId = root.getId();
+				} else {
+					parentId = item.getId();
+				}
+				TemplateModuleView.getService().createNewTemplateTreeNode(parentId,
+						new AsyncCallback<TemplateTreeNodeBaseProxy>() {
+
+							@Override
+							public void onSuccess(TemplateTreeNodeBaseProxy result) {
+								if (item != null) {
+									tree.getStore().add(item, result);
+								} else {
+									tree.getStore().add(result);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Info.display("Error", "Creation Error" + caught);
+							}
+						});
+			}
+		});
+		editContainer.add(addNodeButton);
+
+		TextButton deleteNodeButton = new TextButton("Удалить узел");
+		deleteNodeButton.addSelectHandler(new SelectHandler() {
+			@Override
+			public void onSelect(SelectEvent event) {
+				final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+				if (item == null) {
+					Info.display("Error", "Не выбрал удел для удаления");
+					return;
+				}
+				TemplateModuleView.getService().deleteTemplateTreeNode(item.getId(), new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						tree.getStore().remove(item);
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Info.display("ERROR", "Deleting Error " + caught);
+					}
+				});
+
+			}
+		});
+		editContainer.add(deleteNodeButton);
+
+	}
+
+	private void createTree(TreeStore<TemplateTreeNodeBaseProxy> store) {
+		tree = new Tree<TemplateTreeNodeBaseProxy, String>(store,
 				new ValueProvider<TemplateTreeNodeBaseProxy, String>() {
 
 					@Override
@@ -83,7 +154,6 @@ public class TemplateTree implements IsWidget {
 				infoContainer.setValue(event.getSelectedItem());
 			}
 		});
-		return tree;
 	}
 
 	private static void processFolder(TreeStore<TemplateTreeNodeBaseProxy> store, TemplateTreeNodeFolderProxy folder) {

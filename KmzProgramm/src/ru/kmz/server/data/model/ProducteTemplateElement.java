@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
@@ -76,7 +77,11 @@ public class ProducteTemplateElement {
 		this.duration = duration;
 	}
 
+	@Transient
 	public void add(ProducteTemplateElement element) {
+		if (childs == null) {
+			childs = new ArrayList<ProducteTemplateElement>();
+		}
 		this.childs.add(element);
 	}
 
@@ -84,21 +89,21 @@ public class ProducteTemplateElement {
 		return childs != null && childs.size() != 0;
 	}
 
+	@Transient
 	public TemplateTreeNodeBaseProxy asProxy() {
 		if (!hasChild()) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.toString(), name, duration,
-					resourceType);
+			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(key.getId(), name, duration, resourceType);
 			return proxy;
 		}
 
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name, duration,
-				resourceType);
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.getId(), name, duration, resourceType);
 		for (ProducteTemplateElement child : childs) {
 			proxy.add(child.asProxy());
 		}
 		return proxy;
 	}
 
+	@Transient
 	public GraphData asGraphDataProxy() {
 		return new GraphData("wbs_" + key, name, duration, resourceType);
 	}
