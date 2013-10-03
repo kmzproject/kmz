@@ -8,7 +8,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class GanttData implements Serializable {
 
-	private List<WbsData> wbss;
+	private List<GraphData> childs;
 	private String name;
 	private Date dateStart;
 	private Date dateFinish;
@@ -16,7 +16,7 @@ public class GanttData implements Serializable {
 	private String error;
 
 	public GanttData() {
-		wbss = new ArrayList<WbsData>();
+		childs = new ArrayList<GraphData>();
 	}
 
 	public GanttData(String name) {
@@ -32,8 +32,8 @@ public class GanttData implements Serializable {
 		return name;
 	}
 
-	public List<WbsData> getWbss() {
-		return wbss;
+	public List<GraphData> getChilds() {
+		return childs;
 	}
 
 	public void setDateStart(Date value) {
@@ -56,8 +56,8 @@ public class GanttData implements Serializable {
 		return scale;
 	}
 
-	public void add(WbsData wbs) {
-		wbss.add(wbs);
+	public void add(GraphData wbs) {
+		childs.add(wbs);
 	}
 
 	public String getError() {

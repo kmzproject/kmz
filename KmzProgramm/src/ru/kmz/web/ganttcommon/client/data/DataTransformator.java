@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ru.kmz.web.ganttcommon.shared.ActivityData;
 import ru.kmz.web.ganttcommon.shared.GanttData;
-import ru.kmz.web.ganttcommon.shared.WbsData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 
 import com.gantt.client.config.GanttConfig.TaskType;
 import com.sencha.gxt.core.client.util.DateWrapper;
@@ -24,33 +23,22 @@ public class DataTransformator implements IDemoData {
 		DateWrapper dw = new DateWrapper(new Date()).clearTime().addDays(-7);
 
 		ArrayList<Task> list = new ArrayList<Task>();
-		for (WbsData wbs : data.getWbss()) {
-			Task task = getTaskByWbs(wbs, dw);
+		for (GraphData child : data.getChilds()) {
+			Task task = getTask(child, dw);
 			list.add(task);
 		}
 		Task root = new Task(list);
 		return root;
 	}
 
-	private Task getTaskByWbs(WbsData wbs, DateWrapper dw) {
-		Task task = new Task(wbs.getId(), wbs.getName(), wbs.getPlanStart(), wbs.getPlanFinish(), wbs.getDuration(),
-				wbs.getComplite(), wbs.isMilestone() ? TaskType.MILESTONE : wbs.isFolder() ? TaskType.PARENT
-						: TaskType.LEAF, wbs.getResourceType());
-		for (ActivityData activity : wbs.getActivities()) {
-			Task childTask = getTaskByActivity(activity, dw);
+	private Task getTask(GraphData data, DateWrapper dw) {
+		Task task = new Task(data.getId(), data.getName(), data.getPlanStart(), data.getPlanFinish(),
+				data.getDuration(), data.getComplite(), data.isMilestone() ? TaskType.MILESTONE
+						: data.isFolder() ? TaskType.PARENT : TaskType.LEAF, data.getResourceType());
+		for (GraphData child : data.getChilds()) {
+			Task childTask = getTask(child, dw);
 			task.addChild(childTask);
 		}
-		for (WbsData child : wbs.getChilds()) {
-			Task childTask = getTaskByWbs(child, dw);
-			task.addChild(childTask);
-		}
-		return task;
-	}
-
-	private Task getTaskByActivity(ActivityData activity, DateWrapper dw) {
-		Task task = new Task(activity.getId(), activity.getName(), activity.getPlanStart(), activity.getPlanFinish(),
-				activity.getDuration(), activity.getComplite(), activity.isMilestone() ? TaskType.MILESTONE
-						: TaskType.LEAF, activity.getResourceType());
 		return task;
 	}
 

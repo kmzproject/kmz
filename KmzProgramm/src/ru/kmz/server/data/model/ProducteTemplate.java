@@ -10,8 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
-import ru.kmz.web.ganttcommon.shared.WbsData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
@@ -65,6 +66,7 @@ public class ProducteTemplate {
 		this.childs.add(element);
 	}
 
+	@Transient
 	public TemplateTreeNodeFolderProxy getProxy() {
 		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(key.toString(), name, 0, "");
 		for (ProducteTemplateElement element : childs) {
@@ -73,7 +75,8 @@ public class ProducteTemplate {
 		return proxy;
 	}
 
-	public WbsData asWbsDataProxy() {
-		return new WbsData("wbs_" + key, name, 0, null);
+	@Transient
+	public GraphData asGraphDataProxy() {
+		return new GraphData("wbs_" + key, name, 0, null);
 	}
 }

@@ -12,9 +12,8 @@ import ru.kmz.server.engine.calculation.DateUtils;
 import ru.kmz.server.engine.calculation.resources.ResourceService;
 import ru.kmz.server.engine.calculation.resources.ResourceTask;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
-import ru.kmz.web.ganttcommon.shared.ActivityData;
 import ru.kmz.web.ganttcommon.shared.GanttData;
-import ru.kmz.web.ganttcommon.shared.WbsData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 
 public class GantCalculationResourcesService {
 
@@ -44,7 +43,7 @@ public class GantCalculationResourcesService {
 		data = new GanttData("Расчет по шаблону " + template.getName());
 
 		ProducteTemplate product = template.getProduct();
-		WbsData wbsProducte = product.asWbsDataProxy();
+		GraphData wbsProducte = product.asGraphDataProxy();
 
 		for (ProducteTemplateElement element : product.getChilds()) {
 			fill(wbsProducte, element, startDate);
@@ -62,10 +61,10 @@ public class GantCalculationResourcesService {
 		return data;
 	}
 
-	private Date fill(WbsData rootwbs, ProducteTemplateElement element, Date start) {
+	private Date fill(GraphData rootwbs, ProducteTemplateElement element, Date start) {
 		if (element.hasChild()) {
 			Date maxChildData = start;
-			WbsData wbs = element.asWbsDataProxy();
+			GraphData wbs = element.asGraphDataProxy();
 			for (ProducteTemplateElement e : element.getChilds()) {
 				Date finish = fill(wbs, e, start);
 				if (finish.after(maxChildData)) {
@@ -99,10 +98,10 @@ public class GantCalculationResourcesService {
 				maxData = finish;
 			}
 
-			ActivityData activity = element.asActivityDataProxy();
+			GraphData activity = element.asGraphDataProxy();
 			activity.setPlanStart(start);
 			activity.setPlanFinish(finish);
-			rootwbs.addActivity(activity);
+			rootwbs.addChild(activity);
 			return activity.getPlanFinish();
 		}
 	}

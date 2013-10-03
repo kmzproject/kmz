@@ -15,9 +15,8 @@ import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.web.ganttcommon.shared.ActivityData;
 import ru.kmz.web.ganttcommon.shared.GanttData;
-import ru.kmz.web.ganttcommon.shared.WbsData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 
 public class GantCalculationResourcesServiceTest1 {
 
@@ -29,12 +28,12 @@ public class GantCalculationResourcesServiceTest1 {
 		service.calculateStart(getTemplate(), start);
 		GanttData data = service.getGantData();
 
-		Assert.assertEquals(data.getWbss().size(), 1);
+		Assert.assertEquals(data.getChilds().size(), 1);
 
-		WbsData rootWbs = data.getWbss().get(0);
-		Assert.assertEquals(rootWbs.getActivities().size(), 3);
+		GraphData rootWbs = data.getChilds().get(0);
+		Assert.assertEquals(rootWbs.getChilds().size(), 3);
 
-		List<ActivityData> activities = rootWbs.getActivities();
+		List<GraphData> activities = rootWbs.getChilds();
 		Assert.assertEquals(activities.get(0).getPlanStart(), start);
 		Assert.assertEquals(activities.get(0).getPlanFinish(), CalculationUtils.getOffsetDate(start, 10));
 

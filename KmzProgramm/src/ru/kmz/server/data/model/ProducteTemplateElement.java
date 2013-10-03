@@ -11,8 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import ru.kmz.web.ganttcommon.shared.ActivityData;
-import ru.kmz.web.ganttcommon.shared.WbsData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
@@ -100,12 +99,8 @@ public class ProducteTemplateElement {
 		return proxy;
 	}
 
-	public ActivityData asActivityDataProxy() {
-		return new ActivityData("" + key, name, duration, resourceType);
-	}
-
-	public WbsData asWbsDataProxy() {
-		return new WbsData("wbs_" + key, name, duration, resourceType);
+	public GraphData asGraphDataProxy() {
+		return new GraphData("wbs_" + key, name, duration, resourceType);
 	}
 
 	public String getResourceType() {

@@ -7,9 +7,8 @@ import ru.kmz.server.data.model.ProducteTemplate;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
-import ru.kmz.web.ganttcommon.shared.ActivityData;
 import ru.kmz.web.ganttcommon.shared.GanttData;
-import ru.kmz.web.ganttcommon.shared.WbsData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 
 public class GantCalculationNoReourcesService {
 
@@ -35,7 +34,7 @@ public class GantCalculationNoReourcesService {
 		minDate = finishDate;
 
 		ProducteTemplate product = template.getProduct();
-		WbsData wbsProducte = product.asWbsDataProxy();
+		GraphData wbsProducte = product.asGraphDataProxy();
 
 		for (ProducteTemplateElement element : product.getChilds()) {
 			wbsProducte.addChild(getWbs(element, finishDate));
@@ -54,16 +53,16 @@ public class GantCalculationNoReourcesService {
 		return data;
 	}
 
-	private WbsData getWbs(ProducteTemplateElement element, Date finish) {
-		WbsData wbs = element.asWbsDataProxy();
+	private GraphData getWbs(ProducteTemplateElement element, Date finish) {
+		GraphData wbs = element.asGraphDataProxy();
 		Date start = CalculationUtils.getOffsetDate(finish, -element.getDuration());
 		for (ProducteTemplateElement e : element.getChilds()) {
 			if (e.hasChild()) {
-				WbsData cWbs = getWbs(e, start);
+				GraphData cWbs = getWbs(e, start);
 				wbs.addChild(cWbs);
 			} else {
-				ActivityData cActivity = getActivity(e, start);
-				wbs.addActivity(cActivity);
+				GraphData cActivity = getActivity(e, start);
+				wbs.addChild(cActivity);
 			}
 		}
 		wbs.setPlanFinish(finish);
@@ -71,8 +70,8 @@ public class GantCalculationNoReourcesService {
 		return wbs;
 	}
 
-	private ActivityData getActivity(ProducteTemplateElement element, Date finish) {
-		ActivityData activity = element.asActivityDataProxy();
+	private GraphData getActivity(ProducteTemplateElement element, Date finish) {
+		GraphData activity = element.asGraphDataProxy();
 		Date start = CalculationUtils.getOffsetDate(finish, -element.getDuration());
 		if (start.before(minDate))
 			minDate = start;

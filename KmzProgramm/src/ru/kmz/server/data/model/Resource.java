@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import ru.kmz.web.resources.shared.ResourceProxy;
 
@@ -62,6 +63,7 @@ public class Resource {
 		this.resourceType = resourceType;
 	}
 
+	@Transient
 	public ResourceProxy asProxy() {
 		ResourceProxy proxy = new ResourceProxy(getKey().getId(), getName(), getResourceType());
 		return proxy;

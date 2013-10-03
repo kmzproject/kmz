@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
@@ -57,6 +58,7 @@ public class Template {
 
 	private String name;
 
+	@Transient
 	public TemplateTreeDataProxy asProxy() {
 		TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
 		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(key.getId(), name, rootProxy);
