@@ -69,6 +69,7 @@ public class Resource {
 		return proxy;
 	}
 
+	@Transient
 	@Override
 	public String toString() {
 		return key + "" + name + " " + resourceType;

@@ -30,7 +30,7 @@ public class ProducteTemplateElement {
 	}
 
 	@Transient
-	public void setProxyData(TemplateTreeNodeBaseProxy proxy) {
+	public void updateData(TemplateTreeNodeBaseProxy proxy) {
 		this.name = proxy.getName();
 		this.duration = proxy.getDuration();
 		this.resourceType = proxy.getResourceType();

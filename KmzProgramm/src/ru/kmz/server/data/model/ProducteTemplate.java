@@ -62,6 +62,7 @@ public class ProducteTemplate {
 
 	private String name;
 
+	@Transient
 	public void add(ProducteTemplateElement element) {
 		this.childs.add(element);
 	}
