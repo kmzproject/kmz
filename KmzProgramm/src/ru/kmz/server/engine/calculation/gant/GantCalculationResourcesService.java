@@ -8,6 +8,7 @@ import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
+import ru.kmz.server.engine.calculation.DateUtils;
 import ru.kmz.server.engine.calculation.resources.ResourceService;
 import ru.kmz.server.engine.calculation.resources.ResourceTask;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
@@ -51,7 +52,7 @@ public class GantCalculationResourcesService {
 
 		wbsProducte.setPlanStart(minData);
 		wbsProducte.setPlanFinish(maxData);
-		wbsProducte.setDuration(10);
+		wbsProducte.setDuration(DateUtils.diffInDays(minData, maxData));
 
 		data.add(wbsProducte);
 

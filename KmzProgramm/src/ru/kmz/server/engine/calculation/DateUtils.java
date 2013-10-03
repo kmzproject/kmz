@@ -8,6 +8,7 @@ public class DateUtils {
 
 	private static final String FORMAT = "yyyy/MM/dd";
 	private static final SimpleDateFormat formatter = new SimpleDateFormat(FORMAT);
+	private static final long milisecondsInDay = 24 * 60 * 60 * 1000;
 
 	public static Date getDate(String dateStr) {
 		try {
@@ -16,5 +17,11 @@ public class DateUtils {
 			System.out.println(e);
 		}
 		return null;
+	}
+
+	public static int diffInDays(Date from, Date to) {
+		long diff = to.getTime() - from.getTime();
+		long diffDays = diff / milisecondsInDay;
+		return (int) diffDays;
 	}
 }

@@ -46,6 +46,9 @@ public class GantCalculationResourcesServiceTest1 {
 
 		Assert.assertEquals(data.getDateStart(), start);
 		Assert.assertEquals(data.getDateFinish(), CalculationUtils.getOffsetDate(start, 32));
+		Assert.assertEquals(rootWbs.getPlanStart(), start);
+		Assert.assertEquals(rootWbs.getPlanFinish(), CalculationUtils.getOffsetDate(start, 32));
+		Assert.assertEquals(rootWbs.getDuration(), 32);
 	}
 
 	private Template getTemplate() {
