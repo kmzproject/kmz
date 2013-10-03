@@ -29,6 +29,13 @@ public class ProducteTemplateElement {
 		childs = new ArrayList<ProducteTemplateElement>();
 	}
 
+	@Transient
+	public void setProxyData(TemplateTreeNodeBaseProxy proxy) {
+		this.name = proxy.getName();
+		this.duration = proxy.getDuration();
+		this.resourceType = proxy.getResourceType();
+	}
+
 	public ProducteTemplateElement(String name, int duration, String resourseType) {
 		this();
 		this.name = name;
@@ -85,6 +92,7 @@ public class ProducteTemplateElement {
 		this.childs.add(element);
 	}
 
+	@Transient
 	public boolean hasChild() {
 		return childs != null && childs.size() != 0;
 	}

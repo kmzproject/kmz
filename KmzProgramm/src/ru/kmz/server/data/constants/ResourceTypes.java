@@ -5,5 +5,6 @@ public class ResourceTypes {
 	public static final String ORDER = "Поставка";
 	public static final String PREPARE = "Обработка";
 	public static final String ASSEMBLAGE = "Сборка";
+	public static final String FOLDER = "Папка";
 
 }

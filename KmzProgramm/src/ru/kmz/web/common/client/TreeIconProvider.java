@@ -18,6 +18,8 @@ public class TreeIconProvider<T extends HasResourceType> implements IconProvider
 			return TemplateTreeNodeImages.INSTANCE.prepare();
 		if (node.getResourceType().equals(ResourceTypesConsts.ORDER))
 			return TemplateTreeNodeImages.INSTANCE.order();
+		if (node.getResourceType().equals(ResourceTypesConsts.FOLDER))
+			return TemplateTreeNodeImages.INSTANCE.folder();
 		return null;
 	}
 

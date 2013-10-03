@@ -21,6 +21,11 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	@Override
 	public List<TemplateTreeDataProxy> getTemplateList() {
 		List<Template> templates = TemplateDataUtils.getAllTemplates();
+		if (templates.size()==0){
+			Template template = TemplateGenerator.createTestTemplate();
+			template = TemplateDataUtils.edit(template);
+			templates.add(template);
+		}
 		List<TemplateTreeDataProxy> list = new ArrayList<TemplateTreeDataProxy>();
 		for (Template template : templates) {
 			list.add(template.asProxy());
@@ -30,15 +35,7 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 
 	@Override
 	public TemplateTreeDataProxy getData(int keyId) {
-		Template template;
-		List<Template> list = TemplateDataUtils.getAllTemplates();
-		if (list.size() == 0) {
-			template = TemplateGenerator.createTestTemplate();
-			template = TemplateDataUtils.edit(template);
-		} else {
-			TemplateDataUtils.getTemplate(keyId);
-			template = list.get(0);
-		}
+		Template template = TemplateDataUtils.getTemplate(keyId);
 		TemplateTreeDataProxy proxy = template.asProxy();
 		return proxy;
 	}
@@ -68,6 +65,18 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	@Override
 	public void deleteTemplateTreeNode(long elementId) {
 		TemplateDataUtils.deleteProductTemplateElement(elementId);
+	}
+
+	@Override
+	public TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy) {
+		ProducteTemplateElement element = TemplateDataUtils.getProducteTemplateElement(proxy.getId());
+		if (element != null) {
+			element.setProxyData(proxy);
+			TemplateDataUtils.edit(element);
+			proxy = element.asProxy();
+			return proxy;
+		}
+		return null;
 	}
 
 }

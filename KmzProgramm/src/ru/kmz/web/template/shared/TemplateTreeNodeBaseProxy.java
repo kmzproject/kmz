@@ -54,4 +54,16 @@ public class TemplateTreeNodeBaseProxy implements Serializable, HasResourceType 
 	public int hashCode() {
 		return new Long(getId()).hashCode();
 	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

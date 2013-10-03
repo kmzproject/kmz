@@ -118,10 +118,35 @@ public class TemplateTree implements IsWidget {
 						Info.display("ERROR", "Deleting Error " + caught);
 					}
 				});
-
 			}
 		});
 		editContainer.add(deleteNodeButton);
+
+		TextButton save = new TextButton("Сохранить");
+		save.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+				if (item == null) {
+					Info.display("Error", "Не выбран удел для сохранения");
+					return;
+				}
+				infoContainer.saveValue(item);
+				TemplateModuleView.getService().save(item, new AsyncCallback<TemplateTreeNodeBaseProxy>() {
+					@Override
+					public void onSuccess(TemplateTreeNodeBaseProxy result) {
+						Info.display("сохранение", "Сохранения произведено");
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Info.display("ERROR", "Deleting Error " + caught);
+					}
+				});
+			}
+		});
+		editContainer.add(save);
 
 	}
 

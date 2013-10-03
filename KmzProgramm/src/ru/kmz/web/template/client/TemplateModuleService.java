@@ -18,4 +18,6 @@ public interface TemplateModuleService extends RemoteService {
 	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentId);
 
 	void deleteTemplateTreeNode(long elementId);
+
+	TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy);
 }

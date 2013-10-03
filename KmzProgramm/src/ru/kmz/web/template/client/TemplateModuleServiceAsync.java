@@ -17,4 +17,6 @@ public interface TemplateModuleServiceAsync {
 
 	void deleteTemplateTreeNode(long elementId, AsyncCallback<Void> callback);
 
+	void save(TemplateTreeNodeBaseProxy proxy, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
+
 }

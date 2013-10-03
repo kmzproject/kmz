@@ -4,7 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 
-public interface TemplateTreeNodeImages  extends ClientBundle {
+public interface TemplateTreeNodeImages extends ClientBundle {
 	public TemplateTreeNodeImages INSTANCE = GWT.create(TemplateTreeNodeImages.class);
 
 	@Source("order.png")
@@ -15,4 +15,7 @@ public interface TemplateTreeNodeImages  extends ClientBundle {
 
 	@Source("assemblage.png")
 	ImageResource assemblage();
+
+	@Source("folder.png")
+	ImageResource folder();
 }

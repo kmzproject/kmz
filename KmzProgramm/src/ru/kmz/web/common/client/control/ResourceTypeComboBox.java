@@ -14,9 +14,10 @@ public class ResourceTypeComboBox extends ComboBox<KeyValueData> {
 
 	static {
 		list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		list.add(new KeyValueData(ResourceTypesConsts.ORDER));
 		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE));
 		list.add(new KeyValueData(ResourceTypesConsts.PREPARE));
+		list.add(new KeyValueData(ResourceTypesConsts.ORDER));
+		list.add(new KeyValueData(ResourceTypesConsts.FOLDER));
 	}
 
 	public void setValue(String value) {
