@@ -29,11 +29,11 @@ public class ProducteTemplateElement {
 	@Persistent
 	private String resourceType;
 
-	@Persistent
-	private List<Key> elements;
+	@Persistent(defaultFetchGroup = "true")
+	private ProducteTemplateElement parent;
 
-	public ProducteTemplateElement() {
-	}
+	@Persistent(mappedBy = "parent", defaultFetchGroup = "true")
+	private List<ProducteTemplateElement> childs;
 
 	public void updateData(TemplateTreeNodeBaseProxy proxy) {
 		this.name = proxy.getName();
@@ -42,18 +42,17 @@ public class ProducteTemplateElement {
 	}
 
 	public ProducteTemplateElement(String name, int duration, String resourseType) {
-		this();
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourseType;
 	}
 
-	public List<Key> getElements() {
-		return elements;
-	}
-
-	public void setElements(List<Key> elements) {
-		this.elements = elements;
+	public void add(ProducteTemplateElement child) {
+		if (childs == null) {
+			childs = new ArrayList<ProducteTemplateElement>();
+		}
+		childs.add(child);
+		child.parent = this;
 	}
 
 	public Key getKey() {
@@ -80,16 +79,17 @@ public class ProducteTemplateElement {
 		this.duration = duration;
 	}
 
-	public void add(ProducteTemplateElement element) {
-		if (elements == null) {
-			elements = new ArrayList<Key>();
-		}
-		this.elements.add(element.getKey());
-	}
+	// public void add(ProducteTemplateElement element) {
+	// if (elementIds == null) {
+	// elementIds = new ArrayList<Key>();
+	// }
+	// elementIds.add(element.getKey());
+	// }
 
-	public boolean hasChild() {
-		return elements != null && elements.size() != 0;
-	}
+	//
+	// public boolean hasChild() {
+	// return elementIds != null && elementIds.size() != 0;
+	// }
 
 	public TemplateTreeNodeBaseProxy asProxy() {
 		// if (!hasChild()) {
@@ -118,5 +118,13 @@ public class ProducteTemplateElement {
 
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
+	}
+
+	public List<ProducteTemplateElement> getChilds() {
+		return childs;
+	}
+
+	public ProducteTemplateElement getParent() {
+		return parent;
 	}
 }

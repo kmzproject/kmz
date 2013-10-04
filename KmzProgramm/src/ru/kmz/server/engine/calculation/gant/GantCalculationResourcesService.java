@@ -61,7 +61,7 @@ public class GantCalculationResourcesService {
 	}
 
 	private Date fill(GraphData rootwbs, ProducteTemplateElement element, Date start) {
-		if (element.hasChild()) {
+		if (false){//element.hasChild()) {
 			Date maxChildData = start;
 			GraphData wbs = element.asGraphDataProxy();
 			// for (ProducteTemplateElement e : element.getChilds()) {

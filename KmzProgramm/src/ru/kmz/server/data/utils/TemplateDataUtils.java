@@ -12,15 +12,31 @@ import ru.kmz.server.data.model.Template;
 public class TemplateDataUtils {
 
 	public static Template edit(Template template) {
-		PersistenceManager em = null;
+		PersistenceManager pm = null;
 		try {
-			em = PMF.get().getPersistenceManager();
-			template = em.makePersistent(template);
+			pm = PMF.get().getPersistenceManager();
+			template = pm.makePersistent(template);
+			edit(pm, template.getRootElement());
 		} finally {
-			em.close();
+			pm.close();
 		}
 		return template;
 	}
+
+	public static ProducteTemplateElement edit(PersistenceManager pm, ProducteTemplateElement element) {
+		element = pm.makePersistent(element);
+		if (element.getChilds() != null) {
+			for (ProducteTemplateElement e : element.getChilds()) {
+				edit(pm, e);
+			}
+		}
+		return element;
+	}
+
+	//
+	// public static <T> T edit(PersistenceManager em, T element) {
+	// return em.makePersistent(element);
+	// }
 
 	public static ProducteTemplateElement edit(ProducteTemplateElement element) {
 		PersistenceManager em = null;
@@ -47,7 +63,21 @@ public class TemplateDataUtils {
 		return list;
 	}
 
-	public static Template getTemplate(int keyId) {
+	@SuppressWarnings("unchecked")
+	public static List<ProducteTemplateElement> getAllElements() {
+		List<ProducteTemplateElement> list = null;
+		PersistenceManager em = null;
+		try {
+			em = PMF.get().getPersistenceManager();
+			Query query = em.newQuery(ProducteTemplateElement.class);
+			list = (List<ProducteTemplateElement>) query.execute();
+		} finally {
+			em.close();
+		}
+		return list;
+	}
+
+	public static Template getTemplate(long keyId) {
 		PersistenceManager em = null;
 		try {
 			em = PMF.get().getPersistenceManager();
@@ -58,25 +88,25 @@ public class TemplateDataUtils {
 		}
 	}
 
-	public static ProducteTemplateElement getProducteTemplateElement(long keyId) {
+	public static ProducteTemplateElement getProducteTemplateElement(String key) {
 		PersistenceManager em = null;
 		try {
 			em = PMF.get().getPersistenceManager();
-			ProducteTemplateElement element = em.getObjectById(ProducteTemplateElement.class, keyId);
+			ProducteTemplateElement element = em.getObjectById(ProducteTemplateElement.class, key);
 			return element;
 		} finally {
 			em.close();
 		}
 	}
 
-	public static void deleteProductTemplateElement(long keyId) {
-		ProducteTemplateElement element = getProducteTemplateElement(keyId);
-		PersistenceManager em = null;
-		try {
-			em = PMF.get().getPersistenceManager();
-			em.deletePersistent(element);
-		} finally {
-			em.close();
-		}
-	}
+//	public static void deleteProductTemplateElement(long keyId) {
+//		ProducteTemplateElement element = getProducteTemplateElement(keyId);
+//		PersistenceManager em = null;
+//		try {
+//			em = PMF.get().getPersistenceManager();
+//			em.deletePersistent(element);
+//		} finally {
+//			em.close();
+//		}
+//	}
 }

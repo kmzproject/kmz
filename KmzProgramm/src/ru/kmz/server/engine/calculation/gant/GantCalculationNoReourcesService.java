@@ -86,9 +86,9 @@ public class GantCalculationNoReourcesService {
 		int durationMax = 0;
 		for (ProducteTemplateElement element : elements) {
 			int duration = 0;
-			if (element.hasChild()) {
-				// duration = getDuration(element.getChilds());
-			}
+//			if (element.hasChild()) {
+//				// duration = getDuration(element.getChilds());
+//			}
 			duration += element.getDuration();
 			if (duration > durationMax)
 				durationMax = duration;

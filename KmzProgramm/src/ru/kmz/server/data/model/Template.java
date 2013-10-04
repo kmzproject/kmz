@@ -19,10 +19,10 @@ public class Template {
 	@Persistent
 	private String name;
 
-	@Persistent
-	private Key rootElement;
+	@Persistent(defaultFetchGroup = "true")
+	private ProducteTemplateElement rootElement;
 
-	public Key getRootElement() {
+	public ProducteTemplateElement getRootElement() {
 		return rootElement;
 	}
 
@@ -31,7 +31,7 @@ public class Template {
 	}
 
 	public void setRootElement(ProducteTemplateElement element) {
-		this.rootElement = element.getKey();
+		rootElement = element;
 	}
 
 	public Key getKey() {
