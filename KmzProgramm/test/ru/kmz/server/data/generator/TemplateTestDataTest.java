@@ -4,8 +4,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ru.kmz.server.data.model.ProducteTemplateElement;
@@ -18,27 +18,22 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class TemplateTestDataTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	private final static LocalServiceTestHelper helper = new LocalServiceTestHelper(
+			new LocalDatastoreServiceTestConfig());
 
-	@Before
-	public void setUp() {
+	@BeforeClass
+	public static void setUp() {
 		helper.setUp();
 	}
 
-	@After
-	public void tearDown() {
+	@AfterClass
+	public static void tearDown() {
 		helper.tearDown();
 	}
 
 	@Test
 	public void testCreateTemplateShort2() {
-		Template templateSrc = TemplateTestData.createTemplateShort2();
-		Assert.assertNotNull(templateSrc.getRootElement().getName());
-
-		List<Template> templates = TemplateDataUtils.getAllTemplates();
-		Assert.assertEquals(templates.size(), 1);
-		Template template = templates.get(0);
-		template = TemplateDataUtils.getTemplate(template.getKey().getId());
+		Template template = TemplateTestData.createTemplateShort2();
 
 		ProducteTemplateElement rootElement = template.getRootElement();
 		String rootElementKey = KeyFactory.keyToString(rootElement.getKey());
@@ -59,4 +54,20 @@ public class TemplateTestDataTest {
 		ProducteTemplateElement element1_1 = element1Childs.get(0);
 		Assert.assertEquals(element1_1.getName(), "Вал");
 	}
+
+	@Test
+	public void testCreateTempate() {
+		Template template = TemplateTestData.createTemplate();
+		Assert.assertEquals(template.getName(), "Main Demo Template");
+
+		ProducteTemplateElement rootElement = template.getRootElement();
+		String rootElementKey = KeyFactory.keyToString(rootElement.getKey());
+		rootElement = TemplateDataUtils.getProducteTemplateElement(rootElementKey);
+		Assert.assertEquals(rootElement.getName(), "Изделие");
+
+		ProducteTemplateElement element1_1_1_1 = rootElement.getChilds().get(0).getChilds().get(0).getChilds().get(0)
+				.getChilds().get(0);
+		Assert.assertEquals(element1_1_1_1.getName(), "Труба");
+	}
+
 }
