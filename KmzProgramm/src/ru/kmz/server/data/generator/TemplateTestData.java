@@ -17,7 +17,7 @@ public class TemplateTestData {
 
 		ProducteTemplateElement element1 = new ProducteTemplateElement("Ходовая часть", 3, ResourceTypes.ASSEMBLAGE);
 		root.add(element1);
-		ProducteTemplateElement element1_1 = new ProducteTemplateElement("Вал", 0, ResourceTypes.ASSEMBLAGE);
+		ProducteTemplateElement element1_1 = new ProducteTemplateElement("Вал", 0, ResourceTypes.FOLDER);
 		element1.add(element1_1);
 
 		ProducteTemplateElement element1_1_1 = new ProducteTemplateElement("Вал часть 1", 10, ResourceTypes.PREPARE);
