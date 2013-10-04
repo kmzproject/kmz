@@ -5,7 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TemplateTreeDataProxy implements Serializable {
 
-	private long id;
+	private String id;
 	private TemplateTreeNodeFolderProxy root;
 
 	private String name;
@@ -18,14 +18,14 @@ public class TemplateTreeDataProxy implements Serializable {
 		return name;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
 	public TemplateTreeDataProxy() {
 	}
 
-	public TemplateTreeDataProxy(long id, String name, TemplateTreeNodeFolderProxy root) {
+	public TemplateTreeDataProxy(String id, String name, TemplateTreeNodeFolderProxy root) {
 		this.id = id;
 		this.name = name;
 		this.root = root;

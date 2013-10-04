@@ -1,6 +1,5 @@
 package ru.kmz.web.template.client;
 
-import java.text.ParseException;
 import java.util.List;
 
 import ru.kmz.web.common.client.data.KeyValueData;
@@ -8,7 +7,6 @@ import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.CommonSelectWindow;
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
 
-import com.google.gwt.text.client.IntegerParser;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.data.shared.ListStore;
@@ -19,7 +17,7 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateSelectWindow extends CommonSelectWindow<Integer> {
+public class TemplateSelectWindow extends CommonSelectWindow<String> {
 
 	private ComboBox<KeyValueData> templateBox;
 
@@ -33,7 +31,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<Integer> {
 			public void onSuccess(List<TemplateTreeDataProxy> result) {
 				ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
 				for (TemplateTreeDataProxy proxy : result) {
-					list.add(new KeyValueData(proxy.getId() + "", proxy.getName()));
+					list.add(new KeyValueData(proxy.getId(), proxy.getName()));
 				}
 				templateBox = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
 				templateBox.setForceSelection(true);
@@ -56,12 +54,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<Integer> {
 	}
 
 	@Override
-	protected Integer getSelectedValue() {
-		try {
-			return IntegerParser.instance().parse(templateBox.getValue().getKey());
-		} catch (ParseException ex) {
-			Info.display("Error", "parse error");
-		}
-		return -1;
+	protected String getSelectedValue() {
+		return templateBox.getValue().getKey();
 	}
 }

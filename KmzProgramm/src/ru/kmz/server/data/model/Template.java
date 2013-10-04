@@ -6,8 +6,10 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
+import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @PersistenceCapable
 public class Template {
@@ -51,11 +53,9 @@ public class Template {
 	}
 
 	public TemplateTreeDataProxy asProxy() {
-		// TemplateTreeNodeFolderProxy rootProxy = product.getProxy();
-		// TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(key.getId(),
-		// name, rootProxy);
-		// return proxy;
-		return null;
+		TemplateTreeNodeFolderProxy rootProxy = (TemplateTreeNodeFolderProxy) rootElement.asProxy();
+		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(KeyFactory.keyToString(key), name, rootProxy);
+		return proxy;
 	}
 
 }

@@ -20,7 +20,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatableWithValue<Integer> {
+public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatableWithValue<String> {
 
 	private final static TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
 
@@ -113,8 +113,8 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 	}
 
 	@Override
-	public void update(Integer value) {
-		getService().getData(value, new AsyncCallback<TemplateTreeDataProxy>() {
+	public void update(String key) {
+		getService().getData(key, new AsyncCallback<TemplateTreeDataProxy>() {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {

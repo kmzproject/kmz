@@ -9,13 +9,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface TemplateModuleServiceAsync {
 
-	void getData(int keyId, AsyncCallback<TemplateTreeDataProxy> callback);
+	void getData(String key, AsyncCallback<TemplateTreeDataProxy> callback);
 
 	void getTemplateList(AsyncCallback<List<TemplateTreeDataProxy>> callback);
 
-	void createNewTemplateTreeNode(long parentId, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
+	void createNewTemplateTreeNode(String parentKey, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 
-	void deleteTemplateTreeNode(long elementId, AsyncCallback<Void> callback);
+	void deleteTemplateTreeNode(String key, AsyncCallback<Void> callback);
 
 	void save(TemplateTreeNodeBaseProxy proxy, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 

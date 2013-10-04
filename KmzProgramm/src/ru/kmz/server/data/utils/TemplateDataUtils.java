@@ -77,11 +77,11 @@ public class TemplateDataUtils {
 		return list;
 	}
 
-	public static Template getTemplate(long keyId) {
+	public static Template getTemplate(String key) {
 		PersistenceManager em = null;
 		try {
 			em = PMF.get().getPersistenceManager();
-			Template template = em.getObjectById(Template.class, keyId);
+			Template template = em.getObjectById(Template.class, key);
 			return template;
 		} finally {
 			em.close();
@@ -99,14 +99,14 @@ public class TemplateDataUtils {
 		}
 	}
 
-//	public static void deleteProductTemplateElement(long keyId) {
-//		ProducteTemplateElement element = getProducteTemplateElement(keyId);
-//		PersistenceManager em = null;
-//		try {
-//			em = PMF.get().getPersistenceManager();
-//			em.deletePersistent(element);
-//		} finally {
-//			em.close();
-//		}
-//	}
+	public static void deleteProductTemplateElement(String key) {
+		ProducteTemplateElement element = getProducteTemplateElement(key);
+		PersistenceManager em = null;
+		try {
+			em = PMF.get().getPersistenceManager();
+			em.deletePersistent(element);
+		} finally {
+			em.close();
+		}
+	}
 }

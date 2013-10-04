@@ -12,7 +12,7 @@ public class TemplateTreeNodeFolderProxy extends TemplateTreeNodeBaseProxy imple
 	public TemplateTreeNodeFolderProxy() {
 	};
 
-	public TemplateTreeNodeFolderProxy(long id, String name, int duration, String resourceType) {
+	public TemplateTreeNodeFolderProxy(String id, String name, int duration, String resourceType) {
 		super(id, name, duration, resourceType);
 		list = new ArrayList<TemplateTreeNodeBaseProxy>();
 	}

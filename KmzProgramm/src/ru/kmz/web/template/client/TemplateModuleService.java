@@ -13,11 +13,11 @@ public interface TemplateModuleService extends RemoteService {
 
 	List<TemplateTreeDataProxy> getTemplateList();
 
-	TemplateTreeDataProxy getData(int keyId);
+	TemplateTreeDataProxy getData(String key);
 
-	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentId);
+	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey);
 
-	void deleteTemplateTreeNode(long elementId);
+	void deleteTemplateTreeNode(String key);
 
 	TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy);
 }

@@ -10,8 +10,10 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @PersistenceCapable
 public class ProducteTemplateElement {
@@ -87,25 +89,23 @@ public class ProducteTemplateElement {
 	// }
 
 	//
-	// public boolean hasChild() {
-	// return elementIds != null && elementIds.size() != 0;
-	// }
+	public boolean hasChild() {
+		return childs != null && childs.size() != 0;
+	}
 
 	public TemplateTreeNodeBaseProxy asProxy() {
-		// if (!hasChild()) {
-		// TemplateTreeNodeBaseProxy proxy = new
-		// TemplateTreeNodeBaseProxy(key.getId(), name, duration, resourceType);
-		// return proxy;
-		// }
-		//
-		// TemplateTreeNodeFolderProxy proxy = new
-		// TemplateTreeNodeFolderProxy(key.getId(), name, duration,
-		// resourceType);
-		// // for (ProducteTemplateElement child : elements) {
-		// // proxy.add(child.asProxy());
-		// // }
-		// return proxy;
-		return null;
+		if (!hasChild()) {
+			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(KeyFactory.keyToString(key), name,
+					duration, resourceType);
+			return proxy;
+		}
+
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(KeyFactory.keyToString(key), name,
+				duration, resourceType);
+		for (ProducteTemplateElement child : childs) {
+			proxy.add(child.asProxy());
+		}
+		return proxy;
 	}
 
 	public GraphData asGraphDataProxy() {

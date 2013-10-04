@@ -19,8 +19,9 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	public List<TemplateTreeDataProxy> getTemplateList() {
 		List<Template> templates = TemplateDataUtils.getAllTemplates();
 		if (templates.size() == 0) {
-			Template template = TemplateTestData.createTemplateShort2();
+			Template template = TemplateTestData.createTemplate();
 			template = TemplateDataUtils.edit(template);
+			templates = new ArrayList<Template>(1);
 			templates.add(template);
 		}
 		List<TemplateTreeDataProxy> list = new ArrayList<TemplateTreeDataProxy>();
@@ -31,8 +32,8 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	}
 
 	@Override
-	public TemplateTreeDataProxy getData(int keyId) {
-		Template template = TemplateDataUtils.getTemplate(keyId);
+	public TemplateTreeDataProxy getData(String key) {
+		Template template = TemplateDataUtils.getTemplate(key);
 		TemplateTreeDataProxy proxy = template.asProxy();
 		return proxy;
 	}
@@ -42,7 +43,7 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	 *            - id узла или шублона если узел верхнего уровня
 	 */
 	@Override
-	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentId) {
+	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey) {
 		// ProducteTemplateElement element = new ProducteTemplateElement();
 		// element.setName("Новый узел");
 		// element.setDuration(0);
@@ -63,19 +64,20 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	}
 
 	@Override
-	public void deleteTemplateTreeNode(long elementId) {
-//		TemplateDataUtils.deleteProductTemplateElement(elementId);
+	public void deleteTemplateTreeNode(String key) {
+		TemplateDataUtils.deleteProductTemplateElement(key);
 	}
 
 	@Override
 	public TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy) {
-//		ProducteTemplateElement element = TemplateDataUtils.getProducteTemplateElement(proxy.getId());
-//		if (element != null) {
-//			element.updateData(proxy);
-//			TemplateDataUtils.edit(element);
-//			proxy = element.asProxy();
-//			return proxy;
-//		}
+		// ProducteTemplateElement element =
+		// TemplateDataUtils.getProducteTemplateElement(proxy.getId());
+		// if (element != null) {
+		// element.updateData(proxy);
+		// TemplateDataUtils.edit(element);
+		// proxy = element.asProxy();
+		// return proxy;
+		// }
 		return null;
 	}
 

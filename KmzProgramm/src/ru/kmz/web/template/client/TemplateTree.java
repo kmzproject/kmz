@@ -71,7 +71,7 @@ public class TemplateTree implements IsWidget {
 			@Override
 			public void onSelect(SelectEvent event) {
 				final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
-				long parentId = 0;
+				String parentId;
 				if (item == null) {
 					parentId = root.getId();
 				} else {
