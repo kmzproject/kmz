@@ -6,11 +6,13 @@ import org.junit.Test;
 
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.test.DataTest;
+import ru.kmz.server.data.utils.TemplateDataUtils;
+import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
+import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 
-public class TemplateModuleServiceImplTest extends DataTest {
+public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
 	@Test
 	public void getDateTest() {
@@ -21,5 +23,17 @@ public class TemplateModuleServiceImplTest extends DataTest {
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
 		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0)
 				.getName(), "Вал");
+	}
+
+	@Test
+	public void createNewTemplateTreeNodeTest() {
+		Template template = TemplateTestData.createTemplateShort2();
+		TemplateModuleServiceImpl service = new TemplateModuleServiceImpl();
+		TemplateTreeNodeBaseProxy newNodeProxy = service.createNewTemplateTreeNode(template.getRootElement()
+				.getKeyStr());
+
+		template = TemplateDataUtils.getTemplate(template.getKeyStr());
+		Assert.assertEquals(template.getRootElement().getChilds().get(1).getName(), "Новый узел");
+		Assert.assertEquals(template.getRootElement().getChilds().get(1).getKeyStr(), newNodeProxy.getId());
 	}
 }
