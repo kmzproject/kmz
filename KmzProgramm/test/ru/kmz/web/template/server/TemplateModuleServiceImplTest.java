@@ -55,4 +55,16 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
 		Assert.assertEquals(template.getRootElement().getChilds().get(0).getKeyStr(), proxy.getId());
 	}
+
+	@Test
+	public void deleteTest() {
+		Template template = TemplateTestData.createTemplateShort2();
+		TemplateModuleServiceImpl service = new TemplateModuleServiceImpl();
+
+		service.deleteTemplateTreeNode(template.getRootElement().getChilds().get(0).getChilds().get(0).getKeyStr());
+
+		template = TemplateDataUtils.getTemplate(template.getKeyStr());
+		Assert.assertEquals(template.getRootElement().getChilds().get(0).hasChild(), false);
+	}
+
 }

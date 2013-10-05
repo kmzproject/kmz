@@ -9,8 +9,6 @@ import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
 public class TemplateDataUtils {
 
 	public static Template edit(Template template) {
@@ -109,32 +107,32 @@ public class TemplateDataUtils {
 	}
 
 	public static void deleteProductTemplateElement(String key) {
-		ProducteTemplateElement element = getProducteTemplateElement(key);
-		PersistenceManager em = null;
+		PersistenceManager pm = null;
 		try {
-			em = PMF.get().getPersistenceManager();
-			String parentKeyStr = KeyFactory.keyToString(element.getParentKey());
-			ProducteTemplateElement parentElement = getProducteTemplateElement(parentKeyStr);
-//			boolean b = parentElement.getChilds().remove(parentElement);
-			edit(parentElement);
-			// em.deletePersistent(element);
+			pm = PMF.get().getPersistenceManager();
+			ProducteTemplateElement element = pm.getObjectById(ProducteTemplateElement.class, key);
+			pm.deletePersistent(element);
 		} finally {
-			em.close();
+			pm.close();
 		}
 	}
 }
 /*
- * javax.jdo.JDOException: Class Key for query has not been resolved. Check the
- * query and any imports/aliases specification at
- * org.datanucleus.api.jdo.NucleusJDOHelper
- * .getJDOExceptionForNucleusException(NucleusJDOHelper.java:570) at
- * org.datanucleus.api.jdo.JDOQuery.execute(JDOQuery.java:252) at
- * ru.kmz.server.data
- * .utils.TemplateDataUtils.loadAllChildInElement(TemplateDataUtils.java:99) at
- * ru.kmz.server.data.utils.TemplateDataUtils.getProducteTemplateElement(
- * TemplateDataUtils.java:88) at
- * ru.kmz.server.data.generator.TemplateTestDataTest
- * .testCreateTemplateShort2(TemplateTestDataTest.java:42) at
+ * 
+ * javax.jdo.JDOUserException: Transient instances cant be deleted. at
+ * org.datanucleus
+ * .api.jdo.NucleusJDOHelper.getJDOExceptionForNucleusException(NucleusJDOHelper
+ * .java:519) at
+ * org.datanucleus.api.jdo.JDOPersistenceManager.jdoDeletePersistent
+ * (JDOPersistenceManager.java:811) at
+ * org.datanucleus.api.jdo.JDOPersistenceManager
+ * .deletePersistent(JDOPersistenceManager.java:824) at
+ * ru.kmz.server.data.utils.
+ * TemplateDataUtils.deleteProductTemplateElement(TemplateDataUtils.java:116) at
+ * ru.kmz.web.template.server.TemplateModuleServiceImpl.deleteTemplateTreeNode(
+ * TemplateModuleServiceImpl.java:57) at
+ * ru.kmz.web.template.server.TemplateModuleServiceImplTest
+ * .deleteTest(TemplateModuleServiceImplTest.java:64) at
  * sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at
  * sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
  * at
@@ -148,56 +146,51 @@ public class TemplateDataUtils {
  * .junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java
  * :42) at
  * org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod
- * .java:20) at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263) at
+ * .java:20) at
+ * org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+ * at
+ * org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:30)
+ * at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263) at
+ * org.junit.
+ * runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68) at
  * org
  * .junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:
- * 68) at
- * org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner
- * .java:47) at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231) at
+ * 47) at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231) at
  * org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60) at
  * org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229) at
  * org.junit.runners.ParentRunner.access$000(ParentRunner.java:50) at
  * org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222) at
- * org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
- * at
- * org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:30)
- * at org.junit.runners.ParentRunner.run(ParentRunner.java:300) at
- * org.eclipse.jdt
- * .internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
- * at
- * org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:
- * 38) at
- * org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner
+ * org.junit.runners.ParentRunner.run(ParentRunner.java:300) at
+ * org.eclipse.jdt.internal
+ * .junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) at
+ * org.eclipse
+ * .jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) at
+ * org.eclipse
+ * .jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner
  * .java:467) at
  * org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(
  * RemoteTestRunner.java:683) at
  * org.eclipse.jdt.internal.junit.runner.RemoteTestRunner
  * .run(RemoteTestRunner.java:390) at
  * org.eclipse.jdt.internal.junit.runner.RemoteTestRunner
- * .main(RemoteTestRunner.java:197) NestedThrowablesStackTrace: Class Key for
- * query has not been resolved. Check the query and any imports/aliases
- * specification org.datanucleus.exceptions.ClassNotResolvedException: Class Key
- * for query has not been resolved. Check the query and any imports/aliases
- * specification at
- * org.datanucleus.query.compiler.JavaQueryCompiler.resolveClass
- * (JavaQueryCompiler.java:906) at
- * org.datanucleus.query.compiler.JavaQueryCompiler
- * .compileParameters(JavaQueryCompiler.java:821) at
- * org.datanucleus.query.compiler
- * .JavaQueryCompiler.compileCandidatesParametersVariables
- * (JavaQueryCompiler.java:192) at
- * org.datanucleus.query.compiler.JDOQLCompiler.compile(JDOQLCompiler.java:101)
- * at
- * org.datanucleus.store.query.AbstractJDOQLQuery.compileInternal(AbstractJDOQLQuery
- * .java:349) at org.datanucleus.store.query.Query.executeQuery(Query.java:1747)
- * at org.datanucleus.store.query.Query.executeWithArray(Query.java:1666) at
- * org.datanucleus.api.jdo.JDOQuery.execute(JDOQuery.java:243) at
- * ru.kmz.server.data
- * .utils.TemplateDataUtils.loadAllChildInElement(TemplateDataUtils.java:99) at
- * ru.kmz.server.data.utils.TemplateDataUtils.getProducteTemplateElement(
- * TemplateDataUtils.java:88) at
- * ru.kmz.server.data.generator.TemplateTestDataTest
- * .testCreateTemplateShort2(TemplateTestDataTest.java:42) at
+ * .main(RemoteTestRunner.java:197) NestedThrowablesStackTrace: Transient
+ * instances cant be deleted. org.datanucleus.exceptions.NucleusUserException:
+ * Transient instances cant be deleted. at
+ * org.datanucleus.ObjectManagerImpl.deleteObjectInternal
+ * (ObjectManagerImpl.java:2185) at
+ * org.datanucleus.ObjectManagerImpl.deleteObjectWork
+ * (ObjectManagerImpl.java:2136) at
+ * org.datanucleus.ObjectManagerImpl.deleteObject(ObjectManagerImpl.java:2087)
+ * at org.datanucleus.api.jdo.JDOPersistenceManager.jdoDeletePersistent(
+ * JDOPersistenceManager.java:806) at
+ * org.datanucleus.api.jdo.JDOPersistenceManager
+ * .deletePersistent(JDOPersistenceManager.java:824) at
+ * ru.kmz.server.data.utils.
+ * TemplateDataUtils.deleteProductTemplateElement(TemplateDataUtils.java:116) at
+ * ru.kmz.web.template.server.TemplateModuleServiceImpl.deleteTemplateTreeNode(
+ * TemplateModuleServiceImpl.java:57) at
+ * ru.kmz.web.template.server.TemplateModuleServiceImplTest
+ * .deleteTest(TemplateModuleServiceImplTest.java:64) at
  * sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at
  * sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
  * at
@@ -211,26 +204,27 @@ public class TemplateDataUtils {
  * .junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java
  * :42) at
  * org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod
- * .java:20) at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263) at
+ * .java:20) at
+ * org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+ * at
+ * org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:30)
+ * at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263) at
+ * org.junit.
+ * runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68) at
  * org
  * .junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:
- * 68) at
- * org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner
- * .java:47) at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231) at
+ * 47) at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231) at
  * org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60) at
  * org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229) at
  * org.junit.runners.ParentRunner.access$000(ParentRunner.java:50) at
  * org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222) at
- * org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
- * at
- * org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:30)
- * at org.junit.runners.ParentRunner.run(ParentRunner.java:300) at
- * org.eclipse.jdt
- * .internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
- * at
- * org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:
- * 38) at
- * org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner
+ * org.junit.runners.ParentRunner.run(ParentRunner.java:300) at
+ * org.eclipse.jdt.internal
+ * .junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) at
+ * org.eclipse
+ * .jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) at
+ * org.eclipse
+ * .jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner
  * .java:467) at
  * org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(
  * RemoteTestRunner.java:683) at
