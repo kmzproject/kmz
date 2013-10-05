@@ -59,6 +59,8 @@ public class TemplateTestDataTest extends DataTest{
 		ProducteTemplateElement element1_1_1_1 = rootElement.getChilds().get(0).getChilds().get(0).getChilds().get(0)
 				.getChilds().get(0);
 		Assert.assertEquals(element1_1_1_1.getName(), "Труба");
+		ProducteTemplateElement element4_3 = rootElement.getChilds().get(3).getChilds().get(2);
+		Assert.assertEquals(element4_3.getName(), "Оси");
 	}
 
 }
