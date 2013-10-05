@@ -107,6 +107,10 @@ public class ProducteTemplateElement {
 		this.key = key;
 	}
 
+	public String getKeyStr() {
+		return KeyFactory.keyToString(key);
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -123,27 +127,17 @@ public class ProducteTemplateElement {
 		this.duration = duration;
 	}
 
-	// public void add(ProducteTemplateElement element) {
-	// if (elementIds == null) {
-	// elementIds = new ArrayList<Key>();
-	// }
-	// elementIds.add(element.getKey());
-	// }
-
-	//
 	public boolean hasChild() {
 		return childs != null && childs.size() != 0;
 	}
 
 	public TemplateTreeNodeBaseProxy asProxy() {
 		if (!hasChild()) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(KeyFactory.keyToString(key), name,
-					duration, resourceType);
+			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(getKeyStr(), name, duration, resourceType);
 			return proxy;
 		}
 
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(KeyFactory.keyToString(key), name,
-				duration, resourceType);
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, duration, resourceType);
 		for (ProducteTemplateElement child : childs) {
 			proxy.add(child.asProxy());
 		}

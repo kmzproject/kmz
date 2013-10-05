@@ -4,32 +4,16 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
+import ru.kmz.test.DataTest;
 
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-public class TemplateTestDataTest {
-
-	private final static LocalServiceTestHelper helper = new LocalServiceTestHelper(
-			new LocalDatastoreServiceTestConfig());
-
-	@BeforeClass
-	public static void setUp() {
-		helper.setUp();
-	}
-
-	@AfterClass
-	public static void tearDown() {
-		helper.tearDown();
-	}
+public class TemplateTestDataTest extends DataTest{
 
 	@Test
 	public void testCreateTemplateShort2() {

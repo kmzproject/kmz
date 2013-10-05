@@ -4,29 +4,13 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.Resource;
+import ru.kmz.test.DataTest;
 
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-
-public class ResourcesDataUtilsTest1 {
-
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-
-	@Before
-	public void setUp() {
-		helper.setUp();
-	}
-
-	@After
-	public void tearDown() {
-		helper.tearDown();
-	}
+public class ResourcesDataUtilsTest1 extends DataTest {
 
 	@Test
 	public void TestCreateResource1() {

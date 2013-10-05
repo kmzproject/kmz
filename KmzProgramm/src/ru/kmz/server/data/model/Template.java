@@ -41,6 +41,10 @@ public class Template {
 		return key;
 	}
 
+	public String getKeyStr() {
+		return KeyFactory.keyToString(key);
+	}
+
 	public void setKey(Key key) {
 		this.key = key;
 	}
@@ -58,7 +62,7 @@ public class Template {
 		if (rootElement != null) {
 			rootProxy = (TemplateTreeNodeFolderProxy) rootElement.asProxy();
 		}
-		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(KeyFactory.keyToString(key), name, rootProxy);
+		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(getKeyStr(), name, rootProxy);
 		return proxy;
 	}
 
