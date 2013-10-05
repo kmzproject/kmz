@@ -12,7 +12,7 @@ public class TemplateTestData {
 
 	public static Template createTemplate() {
 
-		Template template = TemplateDataUtils.edit(new Template("Main Demo Template"));
+		Template template = TemplateDataUtils.edit(new Template("Demo Template1"));
 
 		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие", 0,
 				ResourceTypes.FOLDER, template));
@@ -115,7 +115,7 @@ public class TemplateTestData {
 	}
 
 	public static Template createTemplateShort4() {
-		Template template = TemplateDataUtils.edit(new Template("Demo Template Short3"));
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short4"));
 
 		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Shoet3", 0,
 				ResourceTypes.FOLDER, template));
@@ -133,6 +133,7 @@ public class TemplateTestData {
 		templates.add(TemplateTestData.createTemplate());
 		templates.add(TemplateTestData.createTemplateShort2());
 		templates.add(TemplateTestData.createTemplateShort3());
+		templates.add(TemplateTestData.createTemplateShort4());
 		return templates;
 	}
 }

@@ -40,22 +40,9 @@ public class TemplateDataUtils {
 		try {
 			em = PMF.get().getPersistenceManager();
 			Query query = em.newQuery(Template.class);
+			query.setOrdering("name");
 			list = (List<Template>) query.execute();
 			list.size();
-		} finally {
-			em.close();
-		}
-		return list;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<ProducteTemplateElement> getAllElements() {
-		List<ProducteTemplateElement> list = null;
-		PersistenceManager em = null;
-		try {
-			em = PMF.get().getPersistenceManager();
-			Query query = em.newQuery(ProducteTemplateElement.class);
-			list = (List<ProducteTemplateElement>) query.execute();
 		} finally {
 			em.close();
 		}
@@ -90,8 +77,9 @@ public class TemplateDataUtils {
 	// TODO: передалеть процесс загрузки на получения сначала списка, а уже
 	// после загрузки
 	private static void loadAllChild(PersistenceManager pm, ProducteTemplateElement element) {
-		Query q = pm.newQuery(ProducteTemplateElement.class, " parentId == :parentKey");
-		List<ProducteTemplateElement> list = (List<ProducteTemplateElement>) q.execute(element.getKey());
+		Query query = pm.newQuery(ProducteTemplateElement.class, " parentId == :parentKey");
+		query.setOrdering("key");
+		List<ProducteTemplateElement> list = (List<ProducteTemplateElement>) query.execute(element.getKey());
 		for (ProducteTemplateElement producteTemplateElement : list) {
 			element.add(producteTemplateElement);
 			loadAllChild(pm, producteTemplateElement);

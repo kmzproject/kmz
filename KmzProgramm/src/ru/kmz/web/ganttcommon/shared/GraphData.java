@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.common.shared.HasResourceType;
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 
 @SuppressWarnings("serial")
 public class GraphData implements Serializable, HasResourceType {
@@ -68,7 +69,7 @@ public class GraphData implements Serializable, HasResourceType {
 	}
 
 	public boolean isFolder() {
-		return getResourceType() == null;
+		return ResourceTypesConsts.isFolder(getResourceType());
 	}
 
 	public int getComplite() {

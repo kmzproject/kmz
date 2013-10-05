@@ -11,4 +11,8 @@ public class ResourceTypesConsts {
 	public static boolean needResource(String resourceType) {
 		return resourceType.equals(PREPARE);
 	}
+
+	public static boolean isFolder(String resourceType) {
+		return resourceType == null || resourceType.equals(FOLDER);
+	}
 }

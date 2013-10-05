@@ -15,7 +15,20 @@ import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
 public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
 	@Test
-	public void getDateTest() {
+	public void getDateTest1() {
+		Template template = TemplateTestData.createTemplate();
+		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
+		Assert.assertEquals(proxy.getName(), template.getName());
+
+		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
+		Assert.assertEquals(rootProxy.getChildren().get(0).getName(), "Ходовая часть");
+		Assert.assertEquals(rootProxy.getChildren().get(1).getName(), "Рабочее колесо");
+		Assert.assertEquals(rootProxy.getChildren().get(2).getName(), "Корпуса");
+		Assert.assertEquals(rootProxy.getChildren().get(3).getName(), "Н.А.");
+	}
+
+	@Test
+	public void getDateTest2() {
 		Template template = TemplateTestData.createTemplateShort2();
 		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
 		Assert.assertEquals(proxy.getName(), template.getName());
@@ -23,6 +36,17 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
 		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0)
 				.getName(), "Вал");
+	}
+
+	@Test
+	public void getDateTest4() {
+		Template template = TemplateTestData.createTemplateShort4();
+		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
+		Assert.assertEquals(proxy.getName(), template.getName());
+
+		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
+		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0)
+				.getName(), "Вал часть 1");
 	}
 
 	@Test

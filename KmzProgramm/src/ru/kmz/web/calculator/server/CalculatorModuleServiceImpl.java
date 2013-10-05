@@ -19,7 +19,7 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 
 	private Template getTemplate(CalculatorInputDataProxy input) {
 		List<Template> list = TemplateDataUtils.getAllTemplates();
-		return list.get(0);
+		return TemplateDataUtils.getTemplate(list.get(0).getKeyStr());
 	}
 
 	private boolean isValid(CalculatorInputDataProxy input) {

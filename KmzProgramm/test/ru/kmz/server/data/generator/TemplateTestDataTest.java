@@ -13,7 +13,7 @@ import ru.kmz.test.DataTest;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class TemplateTestDataTest extends DataTest{
+public class TemplateTestDataTest extends DataTest {
 
 	@Test
 	public void testCreateTemplateShort2() {
@@ -49,7 +49,7 @@ public class TemplateTestDataTest extends DataTest{
 	@Test
 	public void testCreateTempate() {
 		Template template = TemplateTestData.createTemplate();
-		Assert.assertEquals(template.getName(), "Main Demo Template");
+		Assert.assertEquals(template.getName(), "Demo Template1");
 
 		ProducteTemplateElement rootElement = template.getRootElement();
 		String rootElementKey = KeyFactory.keyToString(rootElement.getKey());
