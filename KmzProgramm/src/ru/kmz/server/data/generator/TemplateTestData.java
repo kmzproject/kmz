@@ -1,11 +1,15 @@
 package ru.kmz.server.data.generator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 
 public class TemplateTestData {
+
 	public static Template createTemplate() {
 
 		Template template = TemplateDataUtils.edit(new Template("Main Demo Template"));
@@ -96,5 +100,39 @@ public class TemplateTestData {
 		TemplateDataUtils.edit(new ProducteTemplateElement("Вал", 0, ResourceTypes.ASSEMBLAGE, element1));
 
 		return template;
+	}
+
+	public static Template createTemplateShort3() {
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short3"));
+
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Shoet3", 0,
+				ResourceTypes.FOLDER, template));
+		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
+				ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 10, ResourceTypes.PREPARE, element1));
+		return template;
+	}
+
+	public static Template createTemplateShort4() {
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short3"));
+
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Shoet3", 0,
+				ResourceTypes.FOLDER, template));
+		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
+				ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 10, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 2", 5, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 3", 4, ResourceTypes.PREPARE, element1));
+		return template;
+	}
+
+	public static List<Template> getDempTemplates() {
+		List<Template> templates = new ArrayList<Template>(3);
+		templates.add(TemplateTestData.createTemplate());
+		templates.add(TemplateTestData.createTemplateShort2());
+		templates.add(TemplateTestData.createTemplateShort3());
+		return templates;
 	}
 }

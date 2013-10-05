@@ -9,14 +9,17 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import ru.kmz.server.data.constants.ResourceTypes;
+import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
+import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
+import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 
-public class GantCalculationResourcesServiceTest2 {
+public class GantCalculationResourcesServiceTest2 extends DataTestEveryNew {
 
 	@Test
 	public void Test1() {
@@ -29,47 +32,28 @@ public class GantCalculationResourcesServiceTest2 {
 		Assert.assertEquals(data.getChilds().size(), 1);
 
 		GraphData rootWbs = data.getChilds().get(0);
-		Assert.assertEquals(rootWbs.getChilds().size(), 3);
+		Assert.assertEquals(rootWbs.getChilds().size(), 1);
 
-		List<GraphData> wbs = rootWbs.getChilds();
-		Assert.assertEquals(wbs.get(0).getPlanStart(), CalculationUtils.getOffsetDate(start, 1));
-		Assert.assertEquals(wbs.get(0).getPlanFinish(), CalculationUtils.getOffsetDate(start, 11));
+		List<GraphData> wbs = rootWbs.getChilds().get(0).getChilds();
+		Assert.assertEquals(wbs.size(), 3);
 
-		Assert.assertEquals(wbs.get(1).getPlanStart(), CalculationUtils.getOffsetDate(start, 12));
-		Assert.assertEquals(wbs.get(1).getPlanFinish(), CalculationUtils.getOffsetDate(start, 22));
+		Assert.assertEquals(start, data.getDateStart());
+		Assert.assertEquals(CalculationUtils.getOffsetDate(start, 24), data.getDateFinish());
 
-		Assert.assertEquals(wbs.get(2).getPlanStart(), CalculationUtils.getOffsetDate(start, 23));
-		Assert.assertEquals(wbs.get(2).getPlanFinish(), CalculationUtils.getOffsetDate(start, 33));
+		Assert.assertEquals(start, wbs.get(0).getPlanStart());
+		Assert.assertEquals(CalculationUtils.getOffsetDate(start, 10), wbs.get(0).getPlanFinish());
 
-		Assert.assertEquals(data.getDateStart(), start);
-		Assert.assertEquals(data.getDateFinish(), CalculationUtils.getOffsetDate(start, 33));
+		Assert.assertEquals(CalculationUtils.getOffsetDate(start, 11), wbs.get(1).getPlanStart());
+		Assert.assertEquals(CalculationUtils.getOffsetDate(start, 16), wbs.get(1).getPlanFinish());
+
+		Assert.assertEquals(CalculationUtils.getOffsetDate(start, 17), wbs.get(2).getPlanStart());
+		Assert.assertEquals(CalculationUtils.getOffsetDate(start, 21), wbs.get(2).getPlanFinish());
 	}
 
 	private Template getTemplate() {
-		// Template template = new Template();
-		// ProducteTemplate producte = new ProducteTemplate();
-		// template.setProduct(producte);
-		//
-		// ProducteTemplateElement element1 = new
-		// ProducteTemplateElement("test1", 10, ResourceTypes.PREPARE);
-		// producte.add(element1);
-		// element1.add(new ProducteTemplateElement("test1", 1,
-		// ResourceTypes.ORDER));
-		//
-		// ProducteTemplateElement element2 = new
-		// ProducteTemplateElement("test2", 10, ResourceTypes.PREPARE);
-		// producte.add(element2);
-		// element2.add(new ProducteTemplateElement("test2", 1,
-		// ResourceTypes.ORDER));
-		//
-		// ProducteTemplateElement element3 = new
-		// ProducteTemplateElement("test3", 10, ResourceTypes.PREPARE);
-		// producte.add(element3);
-		// element3.add(new ProducteTemplateElement("test3", 1,
-		// ResourceTypes.ORDER));
-
-		// return template;
-		return null;
+		Template tempalte = TemplateTestData.createTemplateShort4();
+		tempalte = TemplateDataUtils.getTemplate(tempalte.getKeyStr());
+		return tempalte;
 	}
 
 	private List<Resource> getResources() {

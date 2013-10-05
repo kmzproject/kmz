@@ -21,9 +21,7 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	public List<TemplateTreeDataProxy> getTemplateList() {
 		List<Template> templates = TemplateDataUtils.getAllTemplates();
 		if (templates.size() == 0) {
-			templates = new ArrayList<Template>(2);
-			templates.add(TemplateTestData.createTemplate());
-			templates.add(TemplateTestData.createTemplateShort2());
+			templates = TemplateTestData.getDempTemplates();
 		}
 		List<TemplateTreeDataProxy> list = new ArrayList<TemplateTreeDataProxy>();
 		for (Template template : templates) {

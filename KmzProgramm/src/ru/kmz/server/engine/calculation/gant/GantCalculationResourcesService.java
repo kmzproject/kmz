@@ -41,12 +41,12 @@ public class GantCalculationResourcesService {
 		maxData = startDate;
 		data = new GanttData("Расчет по шаблону " + template.getName());
 
-//		ProducteTemplate product = template.getProduct();
-		GraphData wbsProducte = null;//product.asGraphDataProxy();
+		ProducteTemplateElement root = template.getRootElement();
+		GraphData wbsProducte = root.asGraphDataProxy();
 
-//		for (ProducteTemplateElement element : product.getChilds()) {
-//			fill(wbsProducte, element, startDate);
-//		}
+		for (ProducteTemplateElement element : root.getChilds()) {
+			fill(wbsProducte, element, startDate);
+		}
 
 		wbsProducte.setPlanStart(minData);
 		wbsProducte.setPlanFinish(maxData);
@@ -61,15 +61,15 @@ public class GantCalculationResourcesService {
 	}
 
 	private Date fill(GraphData rootwbs, ProducteTemplateElement element, Date start) {
-		if (false){//element.hasChild()) {
+		if (element.hasChild()) {
 			Date maxChildData = start;
 			GraphData wbs = element.asGraphDataProxy();
-			// for (ProducteTemplateElement e : element.getChilds()) {
-			// Date finish = fill(wbs, e, start);
-			// if (finish.after(maxChildData)) {
-			// maxChildData = finish;
-			// }
-			// }
+			for (ProducteTemplateElement e : element.getChilds()) {
+				Date finish = fill(wbs, e, start);
+				if (finish.after(maxChildData)) {
+					maxChildData = finish;
+				}
+			}
 			Date currentWbsStart = maxChildData;
 			if (ResourceTypesConsts.needResource(element.getResourceType()) && element.getDuration() != 0) {
 				ResourceTask task = resourceService.getResentTask(element.getResourceType(), currentWbsStart,

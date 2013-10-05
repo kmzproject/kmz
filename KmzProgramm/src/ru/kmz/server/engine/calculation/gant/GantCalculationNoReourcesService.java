@@ -22,30 +22,27 @@ public class GantCalculationNoReourcesService {
 	}
 
 	public GanttData calculateStart(Template template, Date startDate) {
-		// ProducteTemplate product = template.getProduct();
-		// int duration = getDuration(product.getChilds());
-		// Date finishDate = CalculationUtils.getOffsetDate(startDate,
-		// duration);
-		// return calculateFinish(template, finishDate);
-		return null;
+		ProducteTemplateElement root = template.getRootElement();
+		int duration = getDuration(root.getChilds());
+		Date finishDate = CalculationUtils.getOffsetDate(startDate, duration);
+		return calculateFinish(template, finishDate);
 	}
 
 	public GanttData calculateFinish(Template template, Date finishDate) {
 		data = new GanttData("Расчет по шаблону " + template.getName());
 		minDate = finishDate;
 
-		// ProducteTemplate product = template.getProduct();
-		GraphData wbsProducte = null;// product.asGraphDataProxy();
+		ProducteTemplateElement root = template.getRootElement();
+		GraphData wbsProducte = root.asGraphDataProxy();
 
-		// for (ProducteTemplateElement element : product.getChilds()) {
-		// wbsProducte.addChild(getWbs(element, finishDate));
-		// }
+		for (ProducteTemplateElement element : root.getChilds()) {
+			wbsProducte.addChild(getWbs(element, finishDate));
+		}
 
-		// int duration = getDuration(product.getChilds());
-		// wbsProducte.setDuration(duration);
-		// wbsProducte.setPlanStart(CalculationUtils.getOffsetDate(finishDate,
-		// -duration));
-		// wbsProducte.setPlanFinish(finishDate);
+		int duration = getDuration(root.getChilds());
+		wbsProducte.setDuration(duration);
+		wbsProducte.setPlanStart(CalculationUtils.getOffsetDate(finishDate, -duration));
+		wbsProducte.setPlanFinish(finishDate);
 
 		data.add(wbsProducte);
 
@@ -58,15 +55,15 @@ public class GantCalculationNoReourcesService {
 	private GraphData getWbs(ProducteTemplateElement element, Date finish) {
 		GraphData wbs = element.asGraphDataProxy();
 		Date start = CalculationUtils.getOffsetDate(finish, -element.getDuration());
-		// for (ProducteTemplateElement e : element.getChilds()) {
-		// if (e.hasChild()) {
-		// GraphData cWbs = getWbs(e, start);
-		// wbs.addChild(cWbs);
-		// } else {
-		// GraphData cActivity = getActivity(e, start);
-		// wbs.addChild(cActivity);
-		// }
-		// }
+		for (ProducteTemplateElement e : element.getChilds()) {
+			if (e.hasChild()) {
+				GraphData cWbs = getWbs(e, start);
+				wbs.addChild(cWbs);
+			} else {
+				GraphData cActivity = getActivity(e, start);
+				wbs.addChild(cActivity);
+			}
+		}
 		wbs.setPlanFinish(finish);
 		wbs.setPlanStart(start);
 		return wbs;
@@ -86,9 +83,9 @@ public class GantCalculationNoReourcesService {
 		int durationMax = 0;
 		for (ProducteTemplateElement element : elements) {
 			int duration = 0;
-//			if (element.hasChild()) {
-//				// duration = getDuration(element.getChilds());
-//			}
+			if (element.hasChild()) {
+				duration = getDuration(element.getChilds());
+			}
 			duration += element.getDuration();
 			if (duration > durationMax)
 				durationMax = duration;
