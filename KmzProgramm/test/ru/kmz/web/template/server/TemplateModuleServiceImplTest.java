@@ -36,4 +36,23 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 		Assert.assertEquals(template.getRootElement().getChilds().get(1).getName(), "Новый узел");
 		Assert.assertEquals(template.getRootElement().getChilds().get(1).getKeyStr(), newNodeProxy.getId());
 	}
+
+	@Test
+	public void saveTest() {
+		Template template = TemplateTestData.createTemplateShort2();
+		TemplateModuleServiceImpl service = new TemplateModuleServiceImpl();
+
+		TemplateTreeNodeBaseProxy sourceProxy = template.getRootElement().getChilds().get(0).asProxy();
+		sourceProxy.setName("New Name Test1");
+		sourceProxy.setDuration(123);
+		sourceProxy.setResourceType("New Resource Type1");
+		TemplateTreeNodeBaseProxy proxy = service.save(sourceProxy);
+
+		template = TemplateDataUtils.getTemplate(template.getKeyStr());
+		Assert.assertEquals(template.getRootElement().getChilds().get(0).getName(), "New Name Test1");
+		Assert.assertEquals(template.getRootElement().getChilds().get(0).getDuration(), 123);
+		Assert.assertEquals(template.getRootElement().getChilds().get(0).getResourceType(), "New Resource Type1");
+
+		Assert.assertEquals(template.getRootElement().getChilds().get(0).getKeyStr(), proxy.getId());
+	}
 }
