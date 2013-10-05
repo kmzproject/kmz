@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.server.data.generator.TemplateTestData;
+import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.web.template.client.TemplateModuleService;
@@ -43,21 +44,14 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	 */
 	@Override
 	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey) {
-		// ProducteTemplateElement element = new ProducteTemplateElement();
-		// element.setName("Новый узел");
-		// element.setDuration(0);
-		// element.setResourceType(ResourceTypes.ORDER);
-		// ProducteTemplate productTemplate =
-		// TemplateDataUtils.getProducteTemplate(parentId);
-		// if (productTemplate != null) {
-		// productTemplate.add(element);
-		// TemplateDataUtils.edit(productTemplate);
-		// } else {
+		// ProducteTemplateElement element = new
+		// ProducteTemplateElement("Новый узел", 0, ResourceTypes.ORDER);
 		// ProducteTemplateElement productTemplateElement =
-		// TemplateDataUtils.getProducteTemplateElement(parentId);
+		// TemplateDataUtils.getProducteTemplateElement(parentKey);
 		// productTemplateElement.add(element);
+		// productTemplateElement =
 		// TemplateDataUtils.edit(productTemplateElement);
-		// }
+		// element = productTemplateElement.getLastChild();
 		// return element.asProxy();
 		return null;
 	}
@@ -69,15 +63,11 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 
 	@Override
 	public TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy) {
-		// ProducteTemplateElement element =
-		// TemplateDataUtils.getProducteTemplateElement(proxy.getId());
-		// if (element != null) {
-		// element.updateData(proxy);
-		// TemplateDataUtils.edit(element);
-		// proxy = element.asProxy();
-		// return proxy;
-		// }
-		return null;
+		ProducteTemplateElement element = TemplateDataUtils.getProducteTemplateElement(proxy.getId());
+		element.updateData(proxy);
+		TemplateDataUtils.edit(element);
+		proxy = element.asProxy();
+		return proxy;
 	}
 
 }

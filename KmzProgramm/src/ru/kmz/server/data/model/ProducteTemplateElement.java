@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -31,10 +32,13 @@ public class ProducteTemplateElement {
 	@Persistent
 	private String resourceType;
 
-	@Persistent(defaultFetchGroup = "true")
-	private ProducteTemplateElement parent;
+	@Persistent
+	private Key parentId;
 
-	@Persistent(mappedBy = "parent", defaultFetchGroup = "true")
+	@Persistent
+	private Key templateId;
+
+	@NotPersistent
 	private List<ProducteTemplateElement> childs;
 
 	public void updateData(TemplateTreeNodeBaseProxy proxy) {
@@ -43,10 +47,44 @@ public class ProducteTemplateElement {
 		this.resourceType = proxy.getResourceType();
 	}
 
-	public ProducteTemplateElement(String name, int duration, String resourseType) {
+	public ProducteTemplateElement(String name, int duration, String resourseType, Template template) {
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourseType;
+		this.parentId = null;
+		this.templateId = template.getKey();
+
+		template.setRootElement(this);
+	}
+
+	public ProducteTemplateElement(String name, int duration, String resourseType, ProducteTemplateElement parent) {
+		this.name = name;
+		this.duration = duration;
+		this.resourceType = resourseType;
+		this.parentId = parent.getKey();
+		this.templateId = parent.getTemplateId();
+
+		parent.add(this);
+	}
+
+	public Key getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Key parentId) {
+		this.parentId = parentId;
+	}
+
+	public Key getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(Key templateId) {
+		this.templateId = templateId;
+	}
+
+	public void setChilds(List<ProducteTemplateElement> childs) {
+		this.childs = childs;
 	}
 
 	public void add(ProducteTemplateElement child) {
@@ -54,11 +92,15 @@ public class ProducteTemplateElement {
 			childs = new ArrayList<ProducteTemplateElement>();
 		}
 		childs.add(child);
-		child.parent = this;
+		child.parentId = key;
 	}
 
 	public Key getKey() {
 		return key;
+	}
+
+	public Key getParentKey() {
+		return parentId;
 	}
 
 	public void setKey(Key key) {
@@ -124,7 +166,15 @@ public class ProducteTemplateElement {
 		return childs;
 	}
 
-	public ProducteTemplateElement getParent() {
-		return parent;
+	public ProducteTemplateElement getLastChild() {
+		return childs.get(childs.size() - 1);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ProducteTemplateElement) {
+			return ((ProducteTemplateElement) obj).key.equals(key);
+		}
+		return false;
 	}
 }

@@ -35,7 +35,14 @@ public class TemplateTestDataTest {
 	public void testCreateTemplateShort2() {
 		Template template = TemplateTestData.createTemplateShort2();
 
+		template = TemplateDataUtils.getTemplate(KeyFactory.keyToString(template.getKey()));
+
 		ProducteTemplateElement rootElement = template.getRootElement();
+		Assert.assertEquals(rootElement.getName(), "Изделие Shoet2");
+
+		Assert.assertEquals(rootElement.getChilds().get(0).getName(), "Ходовая часть");
+		Assert.assertEquals(rootElement.getChilds().get(0).getChilds().get(0).getName(), "Вал");
+
 		String rootElementKey = KeyFactory.keyToString(rootElement.getKey());
 		rootElement = TemplateDataUtils.getProducteTemplateElement(rootElementKey);
 		Assert.assertEquals(rootElement.getName(), "Изделие Shoet2");
@@ -46,7 +53,7 @@ public class TemplateTestDataTest {
 		ProducteTemplateElement element1 = rootChilds.get(0);
 		String element1Key = KeyFactory.keyToString(element1.getKey());
 		element1 = TemplateDataUtils.getProducteTemplateElement(element1Key);
-		Assert.assertEquals(element1.getParent().getKey().compareTo(rootElement.getKey()), 0);
+		Assert.assertEquals(element1.getParentKey().compareTo(rootElement.getKey()), 0);
 
 		List<ProducteTemplateElement> element1Childs = element1.getChilds();
 		Assert.assertEquals(element1Childs.size(), 1);

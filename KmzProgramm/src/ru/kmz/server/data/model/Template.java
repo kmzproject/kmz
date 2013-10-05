@@ -1,6 +1,7 @@
 package ru.kmz.server.data.model;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -21,7 +22,7 @@ public class Template {
 	@Persistent
 	private String name;
 
-	@Persistent(defaultFetchGroup = "true")
+	@NotPersistent
 	private ProducteTemplateElement rootElement;
 
 	public ProducteTemplateElement getRootElement() {
@@ -53,7 +54,10 @@ public class Template {
 	}
 
 	public TemplateTreeDataProxy asProxy() {
-		TemplateTreeNodeFolderProxy rootProxy = (TemplateTreeNodeFolderProxy) rootElement.asProxy();
+		TemplateTreeNodeFolderProxy rootProxy = null;
+		if (rootElement != null) {
+			rootProxy = (TemplateTreeNodeFolderProxy) rootElement.asProxy();
+		}
 		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(KeyFactory.keyToString(key), name, rootProxy);
 		return proxy;
 	}
