@@ -2,6 +2,7 @@ package ru.kmz.server.engine.calculation.resources;
 
 import java.util.Date;
 
+import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 
 public class ResourceTask implements Comparable<ResourceTask> {
@@ -9,6 +10,12 @@ public class ResourceTask implements Comparable<ResourceTask> {
 	private Date start;
 	private Date finish;
 	private int duration;
+	private Resource resource;
+
+	public ResourceTask(Resource resource, Date start, int duration) {
+		this(start, duration);
+		this.resource = resource;
+	}
 
 	public ResourceTask(Date start, int duration) {
 		this.start = start;
@@ -36,5 +43,9 @@ public class ResourceTask implements Comparable<ResourceTask> {
 		if (start.equals(task.start))
 			return 0;
 		return 1;
+	}
+
+	public Resource getResource() {
+		return resource;
 	}
 }
