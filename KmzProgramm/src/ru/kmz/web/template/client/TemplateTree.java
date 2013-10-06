@@ -66,6 +66,10 @@ public class TemplateTree implements IsWidget {
 		infoContainer = new TemplateTreeNodeInfo();
 		editContainer.add(infoContainer);
 
+		HorizontalPanel buttonsContainer = new HorizontalPanel();
+		buttonsContainer.setSpacing(10);
+		editContainer.add(buttonsContainer);
+
 		TextButton addNodeButton = new TextButton("Добавить узел");
 		addNodeButton.addSelectHandler(new SelectHandler() {
 			@Override
@@ -96,7 +100,7 @@ public class TemplateTree implements IsWidget {
 						});
 			}
 		});
-		editContainer.add(addNodeButton);
+		buttonsContainer.add(addNodeButton);
 
 		TextButton deleteNodeButton = new TextButton("Удалить узел");
 		deleteNodeButton.addSelectHandler(new SelectHandler() {
@@ -120,7 +124,7 @@ public class TemplateTree implements IsWidget {
 				});
 			}
 		});
-		editContainer.add(deleteNodeButton);
+		buttonsContainer.add(deleteNodeButton);
 
 		TextButton save = new TextButton("Сохранить");
 		save.addSelectHandler(new SelectHandler() {
@@ -146,7 +150,7 @@ public class TemplateTree implements IsWidget {
 				});
 			}
 		});
-		editContainer.add(save);
+		buttonsContainer.add(save);
 
 	}
 

@@ -29,9 +29,6 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 	private Label label;
 	private Container treeContainer;
 
-	private TextButton save;
-	private TextButton saveAs;
-
 	@Override
 	public void onModuleLoad() {
 		instanse = this;
@@ -62,6 +59,7 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 
 	private void createButtons() {
 		HorizontalPanel buttonContainer = new HorizontalPanel();
+		buttonContainer.setSpacing(10);
 		container.add(buttonContainer);
 
 		label = new Label();
@@ -78,28 +76,6 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 			}
 		});
 		buttonContainer.add(select);
-
-		save = new TextButton("Сохранить");
-		save.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-				Info.display("Сохранено", "Успешно сохранено");
-			}
-		});
-		buttonContainer.add(save);
-
-		saveAs = new TextButton("Сохранить как");
-		saveAs.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-				Info.display("Сохранено", "Успешно сохранено как");
-			}
-		});
-		buttonContainer.add(saveAs);
-
-		updateSaveButton(false);
 	}
 
 	public static TemplateModuleServiceAsync getService() {
@@ -124,7 +100,6 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 				treeContainer.add(tree);
 
 				label.setText(result.getName());
-				updateSaveButton(true);
 			}
 
 			@Override
@@ -133,10 +108,4 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 			}
 		});
 	}
-
-	private void updateSaveButton(boolean enable) {
-		save.setEnabled(enable);
-		saveAs.setEnabled(enable);
-	}
-
 }
