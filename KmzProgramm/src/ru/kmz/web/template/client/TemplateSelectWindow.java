@@ -17,7 +17,7 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateSelectWindow extends CommonSelectWindow<String> {
+public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 
 	private ComboBox<KeyValueData> templateBox;
 
@@ -54,7 +54,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<String> {
 	}
 
 	@Override
-	protected String getSelectedValue() {
-		return templateBox.getValue().getKey();
+	protected KeyValueData getSelectedValue() {
+		return templateBox.getValue();
 	}
 }

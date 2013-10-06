@@ -1,6 +1,7 @@
 package ru.kmz.web.template.client;
 
 import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.template.shared.TemplateTreeDataProxy;
 
@@ -20,7 +21,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatableWithValue<String> {
+public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatableWithValue<KeyValueData> {
 
 	private final static TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
 
@@ -89,8 +90,8 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 	}
 
 	@Override
-	public void update(String key) {
-		getService().getData(key, new AsyncCallback<TemplateTreeDataProxy>() {
+	public void update(KeyValueData data) {
+		getService().getData(data.getKey(), new AsyncCallback<TemplateTreeDataProxy>() {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {

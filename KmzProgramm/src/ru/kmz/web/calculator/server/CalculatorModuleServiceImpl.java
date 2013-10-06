@@ -1,7 +1,5 @@
 package ru.kmz.web.calculator.server;
 
-import java.util.List;
-
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.ResourcesDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
@@ -17,11 +15,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements CalculatorModuleService {
 
-	private Template getTemplate(CalculatorInputDataProxy input) {
-		List<Template> list = TemplateDataUtils.getAllTemplates();
-		return TemplateDataUtils.getTemplate(list.get(0).getKeyStr());
-	}
-
 	private boolean isValid(CalculatorInputDataProxy input) {
 		return input.getDate() != null;
 	}
@@ -31,7 +24,7 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		if (!isValid(input)) {
 			return GanttData.getError("Не верный формат даты");
 		}
-		Template template = getTemplate(input);
+		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
 		GanttData data = null;
 		if (input.isByFinishDate()) {
 			GantCalculationNoReourcesService service = new GantCalculationNoReourcesService();
