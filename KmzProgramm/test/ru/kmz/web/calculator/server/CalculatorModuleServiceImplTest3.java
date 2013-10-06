@@ -19,7 +19,7 @@ import ru.kmz.web.ganttcommon.shared.GraphData;
 public class CalculatorModuleServiceImplTest3 extends DataTestEveryNew {
 
 	@Test
-	public void getGantResultDataTest3() {
+	public void getGantResultData1Resource() {
 		Template template = TemplateTestData.createTemplateShort3();
 		ResourceTestData.createReource1();
 

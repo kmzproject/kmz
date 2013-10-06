@@ -11,11 +11,29 @@ public class ResourceTestData {
 
 	public static List<Resource> createReource1() {
 		List<Resource> list = new ArrayList<Resource>();
-		Resource r;
-
-		ResourcesDataUtils.edit(r = new Resource("Test1", ResourceTypes.PREPARE));
-		list.add(r);
+		
+		list.add(ResourcesDataUtils.edit(new Resource("Test1", ResourceTypes.PREPARE)));
 		
 		return list;
 	}
+	
+	public static List<Resource> createReource2() {
+		List<Resource> list = new ArrayList<Resource>();
+		
+		list.add(ResourcesDataUtils.edit(new Resource("Test1", ResourceTypes.PREPARE)));
+		list.add(ResourcesDataUtils.edit(new Resource("Test2", ResourceTypes.PREPARE)));
+		
+		return list;
+	}
+
+	public static List<Resource> createReource3() {
+		List<Resource> list = new ArrayList<Resource>();
+		
+		list.add(ResourcesDataUtils.edit(new Resource("Test1", ResourceTypes.PREPARE)));
+		list.add(ResourcesDataUtils.edit(new Resource("Test2", ResourceTypes.PREPARE)));
+		list.add(ResourcesDataUtils.edit(new Resource("Test3", ResourceTypes.PREPARE)));
+		
+		return list;
+	}
+
 }
