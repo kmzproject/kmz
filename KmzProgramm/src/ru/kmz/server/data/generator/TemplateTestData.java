@@ -128,12 +128,38 @@ public class TemplateTestData {
 		return template;
 	}
 
+	public static Template createTemplateShort5() {
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short5"));
+
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short5", 0,
+				ResourceTypes.FOLDER, template));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 1", 1, ResourceTypes.ORDER, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 2", 2, ResourceTypes.ORDER, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 3", 3, ResourceTypes.ORDER, root));
+		return template;
+	}
+
+	public static Template createTemplateShort6() {
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short6"));
+
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short6", 0,
+				ResourceTypes.FOLDER, template));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Сборка 1", 1, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Сборка 2", 2, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Сборка 3", 3, ResourceTypes.PREPARE, root));
+		return template;
+	}
+
 	public static List<Template> getDempTemplates() {
 		List<Template> templates = new ArrayList<Template>(3);
 		templates.add(TemplateTestData.createTemplate());
 		templates.add(TemplateTestData.createTemplateShort2());
 		templates.add(TemplateTestData.createTemplateShort3());
 		templates.add(TemplateTestData.createTemplateShort4());
+		templates.add(TemplateTestData.createTemplateShort5());
+		templates.add(TemplateTestData.createTemplateShort6());
 		return templates;
 	}
 }

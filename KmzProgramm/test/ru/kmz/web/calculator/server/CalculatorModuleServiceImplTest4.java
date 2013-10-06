@@ -60,7 +60,7 @@ public class CalculatorModuleServiceImplTest4 extends DataTestEveryNew {
 		Assert.assertEquals(1, root.getChilds().size());
 
 	}
-	
+
 	@Test
 	public void getGantResultDataTest2Resrource() {
 		Template template = TemplateTestData.createTemplateShort4();

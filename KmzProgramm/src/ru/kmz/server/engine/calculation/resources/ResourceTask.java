@@ -48,4 +48,9 @@ public class ResourceTask implements Comparable<ResourceTask> {
 	public Resource getResource() {
 		return resource;
 	}
+
+	public void toFinish(Date finish) {
+		this.finish = finish;
+		this.start = CalculationUtils.getOffsetDate(this.finish, -this.duration);
+	}
 }

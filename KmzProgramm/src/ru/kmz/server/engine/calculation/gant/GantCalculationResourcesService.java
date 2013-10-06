@@ -6,27 +6,21 @@ import java.util.List;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.server.engine.calculation.resources.ResourceService;
+import ru.kmz.server.engine.calculation.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.calculation.resources.ResourceTask;
-import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 
 public class GantCalculationResourcesService {
 
 	private GanttData data;
-	private ResourceService resourceService;
+	private CalculateExecutaionFirstFreeService service;
 	private Date minData;
 	private Date maxData;
 
-	public GantCalculationResourcesService() {
-		resourceService = new ResourceService();
-	}
-
-	public void setResourcesList(List<Resource> list) {
-		resourceService.init(list);
+	public GantCalculationResourcesService(List<Resource> list) {
+		service = new CalculateExecutaionFirstFreeService(list);
 	}
 
 	public GanttData getGantData() {
@@ -37,22 +31,24 @@ public class GantCalculationResourcesService {
 		// тут допущение что у нас всегда начинается проект с заданой даты это
 		// возможно если все листы не привязаны к ремурсам а потка что у нас
 		// так/
+		service.calculateElementFinish(template.getRootElement(), startDate);
+
 		minData = startDate;
 		maxData = startDate;
 		data = new GanttData("Расчет по шаблону " + template.getName());
 
 		ProducteTemplateElement root = template.getRootElement();
-		GraphData wbsProducte = root.asGraphDataProxy();
+		GraphData wbsRoot = root.asGraphDataProxy();
 
 		for (ProducteTemplateElement element : root.getChilds()) {
-			fill(wbsProducte, element, startDate);
+			fill(wbsRoot, element);
 		}
 
-		wbsProducte.setPlanStart(minData);
-		wbsProducte.setPlanFinish(maxData);
-		wbsProducte.setDuration(DateUtils.diffInDays(minData, maxData));
+		wbsRoot.setPlanStart(minData);
+		wbsRoot.setPlanFinish(maxData);
+		wbsRoot.setDuration(DateUtils.diffInDays(minData, maxData));
 
-		data.add(wbsProducte);
+		data.add(wbsRoot);
 
 		data.setDateStart(minData);
 		data.setDateFinish(maxData);
@@ -60,48 +56,21 @@ public class GantCalculationResourcesService {
 		return data;
 	}
 
-	private Date fill(GraphData rootwbs, ProducteTemplateElement element, Date start) {
+	private void fill(GraphData rootGraphData, ProducteTemplateElement element) {
+		GraphData graphData = element.asGraphDataProxy();
+		ResourceTask task = service.getResult().get(element);
+		graphData.setPlanStart(task.getStart());
+		graphData.setPlanFinish(task.getFinish());
+
+		rootGraphData.addChild(graphData);
+
+		if (task.getFinish().after(maxData))
+			maxData = task.getFinish();
+
 		if (element.hasChild()) {
-			Date maxChildData = start;
-			GraphData wbs = element.asGraphDataProxy();
 			for (ProducteTemplateElement e : element.getChilds()) {
-				Date finish = fill(wbs, e, start);
-				if (finish.after(maxChildData)) {
-					maxChildData = finish;
-				}
+				fill(graphData, e);
 			}
-			Date currentWbsStart = maxChildData;
-			if (ResourceTypesConsts.needResource(element.getResourceType()) && element.getDuration() != 0) {
-				ResourceTask task = resourceService.getResentTask(element.getResourceType(), currentWbsStart,
-						element.getDuration());
-				currentWbsStart = task.getStart();
-			}
-			Date finish = CalculationUtils.getOffsetDate(currentWbsStart, element.getDuration());
-			if (finish.after(maxData)) {
-				maxData = finish;
-			}
-			wbs.setPlanFinish(finish);
-			wbs.setPlanStart(currentWbsStart);
-
-			rootwbs.addChild(wbs);
-			return wbs.getPlanFinish();
-		} else {
-			Date currentActivityStart = start;
-			if (ResourceTypesConsts.needResource(element.getResourceType()) && element.getDuration() != 0) {
-				ResourceTask task = resourceService.getResentTask(element.getResourceType(), currentActivityStart,
-						element.getDuration());
-				start = task.getStart();
-			}
-			Date finish = CalculationUtils.getOffsetDate(start, element.getDuration());
-			if (finish.after(maxData)) {
-				maxData = finish;
-			}
-
-			GraphData activity = element.asGraphDataProxy();
-			activity.setPlanStart(start);
-			activity.setPlanFinish(finish);
-			rootwbs.addChild(activity);
-			return activity.getPlanFinish();
 		}
 	}
 }

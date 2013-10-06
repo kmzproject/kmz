@@ -13,6 +13,10 @@ public class ResourceTypesConsts {
 	}
 
 	public static boolean isFolder(String resourceType) {
-		return resourceType == null || resourceType.equals(FOLDER);
+		return resourceType.equals(FOLDER);
+	}
+
+	public static boolean startAsLateAsPossible(String resourceType) {
+		return !needResource(resourceType);
 	}
 }

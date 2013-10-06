@@ -31,8 +31,8 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 			service.calculateFinish(template, input.getDate());
 			data = service.getGantData();
 		} else if (input.isByStartDate()) {
-			GantCalculationResourcesService service = new GantCalculationResourcesService();
-			service.setResourcesList(ResourcesDataUtils.getAllResources());
+			GantCalculationResourcesService service = new GantCalculationResourcesService(
+					ResourcesDataUtils.getAllResources());
 			service.calculateStart(template, input.getDate());
 			data = service.getGantData();
 		}
