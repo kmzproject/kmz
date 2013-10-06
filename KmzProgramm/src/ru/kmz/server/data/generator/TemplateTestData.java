@@ -105,7 +105,7 @@ public class TemplateTestData {
 	public static Template createTemplateShort3() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short3"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Shoet3", 0,
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short3", 0,
 				ResourceTypes.FOLDER, template));
 		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
 				ResourceTypes.ASSEMBLAGE, root));
@@ -117,14 +117,14 @@ public class TemplateTestData {
 	public static Template createTemplateShort4() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short4"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Shoet3", 0,
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short3", 0,
 				ResourceTypes.FOLDER, template));
-		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
+		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 4,
 				ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 10, ResourceTypes.PREPARE, element1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 2", 5, ResourceTypes.PREPARE, element1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 3", 4, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 1, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 2", 2, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 3", 3, ResourceTypes.PREPARE, element1));
 		return template;
 	}
 

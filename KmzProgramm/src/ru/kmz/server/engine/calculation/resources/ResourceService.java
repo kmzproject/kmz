@@ -67,7 +67,7 @@ public class ResourceService {
 			}
 			Date allowFinish = CalculationUtils.getOffsetDate(allowStart, duration);
 			if (resourceTask.getStart().before(allowFinish)) {
-				allowStart = CalculationUtils.getOffsetDate(resourceTask.getFinish(), 1);
+				allowStart = resourceTask.getFinish();
 				continue;
 			}
 			break;
@@ -78,7 +78,6 @@ public class ResourceService {
 	private void insertResourceTask(List<ResourceTask> tasks, ResourceTask task) {
 		tasks.add(task);
 		Collections.sort(tasks);
-		System.out.println("Sort");
 		this.printPull();
 	}
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
@@ -20,9 +19,6 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	@Override
 	public List<TemplateTreeDataProxy> getTemplateList() {
 		List<Template> templates = TemplateDataUtils.getAllTemplates();
-		if (templates.size() == 0) {
-			templates = TemplateTestData.getDempTemplates();
-		}
 		List<TemplateTreeDataProxy> list = new ArrayList<TemplateTreeDataProxy>();
 		for (Template template : templates) {
 			list.add(template.asProxy());

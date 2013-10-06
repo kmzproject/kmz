@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
+import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Template;
 
@@ -42,7 +43,9 @@ public class TemplateDataUtils {
 			Query query = em.newQuery(Template.class);
 			query.setOrdering("name");
 			list = (List<Template>) query.execute();
-			list.size();
+			if (list.size() == 0) {
+				return TemplateTestData.getDempTemplates();
+			}
 		} finally {
 			em.close();
 		}
