@@ -49,7 +49,7 @@ public class TemplateTestDataTest extends DataTest {
 	@Test
 	public void testCreateTempate() {
 		Template template = TemplateTestData.createTemplate();
-		Assert.assertEquals(template.getName(), "Demo Template1");
+		Assert.assertEquals(template.getName(), "Demo Template 1");
 
 		ProducteTemplateElement rootElement = template.getRootElement();
 		String rootElementKey = KeyFactory.keyToString(rootElement.getKey());

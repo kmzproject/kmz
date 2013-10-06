@@ -12,7 +12,7 @@ public class TemplateTestData {
 
 	public static Template createTemplate() {
 
-		Template template = TemplateDataUtils.edit(new Template("Demo Template1"));
+		Template template = TemplateDataUtils.edit(new Template("Demo Template 1"));
 
 		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие", 0,
 				ResourceTypes.FOLDER, template));
