@@ -32,33 +32,39 @@ public class CalculateExecutaionFirstFreeService {
 		} else {
 			task = new ResourceTask(maxChildFinish, element.getDuration());
 		}
+
+		if (element.hasChild()) {
+			correctChild(element, task.getStart());
+		}
+
 		result.put(element, task);
 		return task.getFinish();
 	}
 
 	private Date addChilds(ProducteTemplateElement element, Date start) {
 		Date maxChildFinish = start;
-		boolean hasLatestTask = false;
 		for (ProducteTemplateElement e : element.getChilds()) {
-			if (ResourceTypesConsts.startAsLateAsPossible(e.getResourceType())) {
-				hasLatestTask = true;
-			}
 			Date childFinish = calculateElementFinish(e, start);
 			if (maxChildFinish.before(childFinish)) {
 				maxChildFinish = childFinish;
 			}
 		}
-		if (hasLatestTask) {
-			for (ProducteTemplateElement e : element.getChilds()) {
-				if (ResourceTypesConsts.startAsLateAsPossible(e.getResourceType())) {
-					ResourceTask childTask = result.get(e);
-					childTask.toFinish(maxChildFinish);
-				}
-			}
-		}
 		return maxChildFinish;
 	}
 
+	private void correctChild(ProducteTemplateElement element, Date start) {
+		for (ProducteTemplateElement e : element.getChilds()) {
+			if (ResourceTypesConsts.startAsLateAsPossible(e.getResourceType())) {
+				System.out.println(">>>+++++");
+				ResourceTask childTask = result.get(e);
+				System.out.println("childTask1=" + childTask + " maxChildFinish=" + start);
+				childTask.toFinish(start);
+				System.out.println("childTask2=" + childTask);
+				System.out.println("childTask3=" + result.get(e));
+				System.out.println("<<<+++++");
+			}
+		}
+	}
 
 	public Map<ProducteTemplateElement, ResourceTask> getResult() {
 		return result;

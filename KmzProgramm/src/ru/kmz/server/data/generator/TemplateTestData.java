@@ -152,6 +152,26 @@ public class TemplateTestData {
 		return template;
 	}
 
+	public static Template createTemplateShort7() {
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short7"));
+
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short7", 0,
+				ResourceTypes.FOLDER, template));
+
+		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Сборка часть 1", 3,
+				ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 1", 3, ResourceTypes.ORDER, element1));
+
+		ProducteTemplateElement element2 = TemplateDataUtils.edit(new ProducteTemplateElement("Сборка часть 2", 3,
+				ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 2", 3, ResourceTypes.ORDER, element2));
+
+		ProducteTemplateElement element3 = TemplateDataUtils.edit(new ProducteTemplateElement("Сборка часть 3", 3,
+				ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 3", 3, ResourceTypes.ORDER, element3));
+		return template;
+	}
+
 	public static List<Template> getDempTemplates() {
 		List<Template> templates = new ArrayList<Template>(3);
 		templates.add(TemplateTestData.createTemplate());
@@ -160,6 +180,7 @@ public class TemplateTestData {
 		templates.add(TemplateTestData.createTemplateShort4());
 		templates.add(TemplateTestData.createTemplateShort5());
 		templates.add(TemplateTestData.createTemplateShort6());
+		templates.add(TemplateTestData.createTemplateShort7());
 		return templates;
 	}
 }

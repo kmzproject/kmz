@@ -61,7 +61,7 @@ public class CalculatorModuleServiceImplTest4 extends DataTestEveryNew {
 
 	}
 
-	@Test
+//	@Test
 	public void getGantResultDataTest2Resrource() {
 		Template template = TemplateTestData.createTemplateShort4();
 		ResourceTestData.createReource2();
