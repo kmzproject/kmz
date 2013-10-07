@@ -7,9 +7,10 @@ import java.util.Map;
 
 import ru.kmz.server.data.model.ProducteTemplateElement;
 import ru.kmz.server.data.model.Resource;
+import ru.kmz.server.data.model.Template;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 
-public class CalculateExecutaionFirstFreeService {
+public class CalculateExecutaionFirstFreeService implements ICalcucateExecutionServiceInterface {
 
 	private ResourcePull pull;
 	private Map<ProducteTemplateElement, ResourceTask> result;
@@ -20,7 +21,12 @@ public class CalculateExecutaionFirstFreeService {
 		pull.init(resources);
 	}
 
-	public Date calculateElementFinish(ProducteTemplateElement element, Date start) {
+	@Override
+	public void calculate(Template template, Date date) {
+		calculateElementFinish(template.getRootElement(), date);
+	}
+
+	private Date calculateElementFinish(ProducteTemplateElement element, Date start) {
 		Date maxChildFinish = start;
 		if (element.hasChild()) {
 			maxChildFinish = addChilds(element, start);
@@ -55,17 +61,13 @@ public class CalculateExecutaionFirstFreeService {
 	private void correctChild(ProducteTemplateElement element, Date start) {
 		for (ProducteTemplateElement e : element.getChilds()) {
 			if (ResourceTypesConsts.startAsLateAsPossible(e.getResourceType())) {
-				System.out.println(">>>+++++");
 				ResourceTask childTask = result.get(e);
-				System.out.println("childTask1=" + childTask + " maxChildFinish=" + start);
 				childTask.toFinish(start);
-				System.out.println("childTask2=" + childTask);
-				System.out.println("childTask3=" + result.get(e));
-				System.out.println("<<<+++++");
 			}
 		}
 	}
 
+	@Override
 	public Map<ProducteTemplateElement, ResourceTask> getResult() {
 		return result;
 	}

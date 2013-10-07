@@ -16,7 +16,7 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
 	@Test
 	public void getDateTest1() {
-		Template template = TemplateTestData.createTemplate();
+		Template template = TemplateTestData.createTemplate1();
 		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
 		Assert.assertEquals(proxy.getName(), template.getName());
 

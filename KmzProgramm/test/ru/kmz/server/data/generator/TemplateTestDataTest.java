@@ -48,7 +48,7 @@ public class TemplateTestDataTest extends DataTest {
 
 	@Test
 	public void testCreateTempate() {
-		Template template = TemplateTestData.createTemplate();
+		Template template = TemplateTestData.createTemplate1();
 		Assert.assertEquals(template.getName(), "Demo Template 1");
 
 		ProducteTemplateElement rootElement = template.getRootElement();

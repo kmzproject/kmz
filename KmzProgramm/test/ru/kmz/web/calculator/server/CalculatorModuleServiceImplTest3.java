@@ -29,6 +29,7 @@ public class CalculatorModuleServiceImplTest3 extends DataTestEveryNew {
 		input.setDate(start);
 		input.setTemplateId(template.getKeyStr());
 		input.setByStartDate(true);
+		input.setUseResource(true);
 		GanttData data = service.getGantResultData(input);
 
 		Assert.assertEquals(start, data.getDateStart());

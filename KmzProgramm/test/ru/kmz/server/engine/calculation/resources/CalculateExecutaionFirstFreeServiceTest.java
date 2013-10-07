@@ -26,7 +26,7 @@ public class CalculateExecutaionFirstFreeServiceTest extends DataTestEveryNew {
 
 		Date start = DateUtils.getDate("2013/10/01");
 		CalculateExecutaionFirstFreeService service = new CalculateExecutaionFirstFreeService(resources);
-		service.calculateElementFinish(template.getRootElement(), start);
+		service.calculate(template, start);
 		Map<ProducteTemplateElement, ResourceTask> result = service.getResult();
 
 		ProducteTemplateElement element1 = template.getRootElement().getChilds().get(0);
@@ -58,7 +58,7 @@ public class CalculateExecutaionFirstFreeServiceTest extends DataTestEveryNew {
 
 		Date start = DateUtils.getDate("2013/10/01");
 		CalculateExecutaionFirstFreeService service = new CalculateExecutaionFirstFreeService(resources);
-		service.calculateElementFinish(template.getRootElement(), start);
+		service.calculate(template, start);
 		Map<ProducteTemplateElement, ResourceTask> result = service.getResult();
 
 		ProducteTemplateElement element1 = template.getRootElement().getChilds().get(0);

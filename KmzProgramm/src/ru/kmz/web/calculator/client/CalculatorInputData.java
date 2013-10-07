@@ -20,6 +20,7 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.form.CheckBox;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
@@ -68,13 +69,25 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 
 		container.add(new FieldLabel(scalaCombo, "Масштаб"));
 
+		final CheckBox checkBoxResources = new CheckBox();
+		checkBoxResources.setBoxLabel("Использовать ресурсы в расчетах");
+		checkBoxResources.setEnabled(false);
+		checkBoxResources.setValue(false);
+		container.add(checkBoxResources);
+
+		final CheckBox checkBoxShowOtherTasks = new CheckBox();
+		checkBoxShowOtherTasks.setBoxLabel("Отображать загрузку предприятия");
+		checkBoxShowOtherTasks.setEnabled(false);
+		checkBoxShowOtherTasks.setValue(false);
+		container.add(checkBoxShowOtherTasks);
+
 		final Radio radioFinish = new Radio();
-		radioFinish.setBoxLabel("По дате завершения (без ресурсов)");
+		radioFinish.setBoxLabel("По дате завершения");
 		radioFinish.setValue(true);
 		container.add(radioFinish);
 
 		final Radio radioStart = new Radio();
-		radioStart.setBoxLabel("По дате начала (с ресурсами)");
+		radioStart.setBoxLabel("По дате начала");
 		container.add(radioStart);
 
 		ToggleGroup group = new ToggleGroup();
@@ -114,6 +127,8 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 				input.setByStartDate(radioStart.getValue());
 				input.setScala(scalaCombo.getValue().getKey());
 				input.setTemplateId(templateId);
+				input.setUseResource(checkBoxResources.getValue());
+				input.setShowOtherTasks(checkBoxShowOtherTasks.getValue());
 				handler.onCalculate(input);
 			}
 		});

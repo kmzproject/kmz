@@ -1,40 +1,38 @@
 package ru.kmz.server.engine.calculation.gant;
 
 import java.util.Date;
-import java.util.List;
 
 import ru.kmz.server.data.model.ProducteTemplateElement;
-import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.server.engine.calculation.resources.CalculateExecutaionFirstFreeService;
+import ru.kmz.server.engine.calculation.resources.ICalcucateExecutionServiceInterface;
 import ru.kmz.server.engine.calculation.resources.ResourceTask;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 
-public class GantCalculationResourcesService {
+public class GantCalculationService {
 
 	private GanttData data;
-	private CalculateExecutaionFirstFreeService service;
+	private ICalcucateExecutionServiceInterface service;
 	private Date minData;
 	private Date maxData;
 
-	public GantCalculationResourcesService(List<Resource> list) {
-		service = new CalculateExecutaionFirstFreeService(list);
+	public GantCalculationService() {
 	}
 
 	public GanttData getGantData() {
 		return data;
 	}
 
-	public GanttData calculateStart(Template template, Date startDate) {
-		// тут допущение что у нас всегда начинается проект с заданой даты это
-		// возможно если все листы не привязаны к ремурсам а потка что у нас
-		// так/
-		service.calculateElementFinish(template.getRootElement(), startDate);
+	public void setService(ICalcucateExecutionServiceInterface service) {
+		this.service = service;
+	}
 
-		minData = startDate;
-		maxData = startDate;
+	public GanttData calculate(Template template, Date date) {
+		service.calculate(template, date);
+
+		minData = date;
+		maxData = date;
 		data = new GanttData("Расчет по шаблону " + template.getName());
 
 		ProducteTemplateElement root = template.getRootElement();
@@ -66,6 +64,8 @@ public class GantCalculationResourcesService {
 
 		if (task.getFinish().after(maxData))
 			maxData = task.getFinish();
+		if (task.getStart().before(minData))
+			minData = task.getStart();
 
 		if (element.hasChild()) {
 			for (ProducteTemplateElement e : element.getChilds()) {

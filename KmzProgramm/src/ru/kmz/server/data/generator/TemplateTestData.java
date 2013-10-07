@@ -10,7 +10,7 @@ import ru.kmz.server.data.utils.TemplateDataUtils;
 
 public class TemplateTestData {
 
-	public static Template createTemplate() {
+	public static Template createTemplate1() {
 
 		Template template = TemplateDataUtils.edit(new Template("Demo Template 1"));
 
@@ -172,15 +172,34 @@ public class TemplateTestData {
 		return template;
 	}
 
+	public static Template createTemplateShort8() {
+
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short8"));
+
+		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие", 0,
+				ResourceTypes.FOLDER, template));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 14, ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Рабочее колесо", 7, ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Корпуса", 14, ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProducteTemplateElement("Направляющий аппарат", 14, ResourceTypes.ASSEMBLAGE, root));
+
+		return template;
+	}
+
 	public static List<Template> getDempTemplates() {
 		List<Template> templates = new ArrayList<Template>(3);
-		templates.add(TemplateTestData.createTemplate());
+		templates.add(TemplateTestData.createTemplate1());
 		templates.add(TemplateTestData.createTemplateShort2());
 		templates.add(TemplateTestData.createTemplateShort3());
 		templates.add(TemplateTestData.createTemplateShort4());
 		templates.add(TemplateTestData.createTemplateShort5());
 		templates.add(TemplateTestData.createTemplateShort6());
 		templates.add(TemplateTestData.createTemplateShort7());
+		templates.add(TemplateTestData.createTemplateShort8());
 		return templates;
 	}
 }

@@ -9,6 +9,8 @@ public class CalculatorInputDataProxy implements Serializable {
 	private Date date;
 	private boolean byFinishDate;
 	private boolean byStartDate;
+	private boolean useResource;
+	private boolean showOtherTasks;
 	private String scala;
 	private String templateId;
 
@@ -51,4 +53,21 @@ public class CalculatorInputDataProxy implements Serializable {
 	public void setTemplateId(String templateId) {
 		this.templateId = templateId;
 	}
+
+	public boolean isUseResource() {
+		return useResource;
+	}
+
+	public void setUseResource(boolean useResource) {
+		this.useResource = useResource;
+	}
+
+	public boolean isShowOtherTasks() {
+		return showOtherTasks;
+	}
+
+	public void setShowOtherTasks(boolean showOtherTasks) {
+		this.showOtherTasks = showOtherTasks;
+	}
+
 }

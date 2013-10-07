@@ -17,6 +17,12 @@ public class ResourceTask implements Comparable<ResourceTask> {
 		this.resource = resource;
 	}
 
+	public ResourceTask(Date start, Date finish, int duration) {
+		this.start = start;
+		this.duration = duration;
+		this.finish = finish;
+	}
+
 	public ResourceTask(Date start, int duration) {
 		this.start = start;
 		this.duration = duration;
