@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class GanttData implements Serializable {
+public class GanttData implements Serializable, IGraphDataContainer {
 
 	private List<GraphData> childs;
 	private String name;
@@ -56,8 +56,9 @@ public class GanttData implements Serializable {
 		return scale;
 	}
 
-	public void add(GraphData wbs) {
-		childs.add(wbs);
+	@Override
+	public void addChild(GraphData child) {
+		childs.add(child);
 	}
 
 	public String getError() {

@@ -9,7 +9,7 @@ import ru.kmz.web.common.shared.HasResourceType;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 
 @SuppressWarnings("serial")
-public class GraphData implements Serializable, HasResourceType {
+public class GraphData implements Serializable, HasResourceType, IGraphDataContainer {
 
 	private String id;
 	private String name;
@@ -89,6 +89,7 @@ public class GraphData implements Serializable, HasResourceType {
 		return resourceType;
 	}
 
+	@Override
 	public void addChild(GraphData child) {
 		childs.add(child);
 	}

@@ -1,8 +1,11 @@
 package ru.kmz.web.calculator.server;
 
+import java.util.Date;
+
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.ResourcesDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
+import ru.kmz.server.engine.calculation.DateUtils;
 import ru.kmz.server.engine.calculation.gant.GantCalculationService;
 import ru.kmz.server.engine.calculation.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.calculation.resources.CalculateExecutionNoResourceService;
@@ -40,7 +43,8 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 			service.setService(new CalculateExecutaionFirstFreeService(ResourcesDataUtils.getAllResources()));
 		}
 
-		service.calculate(template, input.getDate());
+		Date date = DateUtils.getDateNoTime(input.getDate());
+		service.calculate(template, date);
 		GanttData data = service.getGantData();
 
 		if (input.getScala() != null) {

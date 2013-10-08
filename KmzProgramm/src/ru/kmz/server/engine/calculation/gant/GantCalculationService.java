@@ -9,13 +9,12 @@ import ru.kmz.server.engine.calculation.resources.ICalcucateExecutionServiceInte
 import ru.kmz.server.engine.calculation.resources.ResourceTask;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.kmz.web.ganttcommon.shared.IGraphDataContainer;
 
 public class GantCalculationService {
 
 	private GanttData data;
 	private ICalcucateExecutionServiceInterface service;
-	private Date minData;
-	private Date maxData;
 
 	public GantCalculationService() {
 	}
@@ -31,46 +30,75 @@ public class GantCalculationService {
 	public GanttData calculate(Template template, Date date) {
 		service.calculate(template, date);
 
-		minData = date;
-		maxData = date;
 		data = new GanttData("Расчет по шаблону " + template.getName());
 
 		ProducteTemplateElement root = template.getRootElement();
-		GraphData wbsRoot = root.asGraphDataProxy();
 
-		for (ProducteTemplateElement element : root.getChilds()) {
-			fill(wbsRoot, element);
-		}
+		MinMaxDate minMaxDate = fill(data, root);
 
-		wbsRoot.setPlanStart(minData);
-		wbsRoot.setPlanFinish(maxData);
-		wbsRoot.setDuration(DateUtils.diffInDays(minData, maxData));
-
-		data.add(wbsRoot);
-
-		data.setDateStart(minData);
-		data.setDateFinish(maxData);
+		data.setDateStart(minMaxDate.minDate);
+		data.setDateFinish(minMaxDate.maxDate);
 
 		return data;
 	}
 
-	private void fill(GraphData rootGraphData, ProducteTemplateElement element) {
+	private MinMaxDate fill(IGraphDataContainer rootGraphData, ProducteTemplateElement element) {
 		GraphData graphData = element.asGraphDataProxy();
-		ResourceTask task = service.getResult().get(element);
-		graphData.setPlanStart(task.getStart());
-		graphData.setPlanFinish(task.getFinish());
-
 		rootGraphData.addChild(graphData);
 
-		if (task.getFinish().after(maxData))
-			maxData = task.getFinish();
-		if (task.getStart().before(minData))
-			minData = task.getStart();
-
-		if (element.hasChild()) {
-			for (ProducteTemplateElement e : element.getChilds()) {
-				fill(graphData, e);
+		if (graphData.isFolder()) {
+			MinMaxDate date = new MinMaxDate();
+			if (element.hasChild()) {
+				for (ProducteTemplateElement e : element.getChilds()) {
+					MinMaxDate childDate = fill(graphData, e);
+					date.set(childDate);
+				}
 			}
+			graphData.setPlanStart(date.minDate);
+			graphData.setPlanFinish(date.maxDate);
+			graphData.setDuration(date.getDuration());
+			return date;
+
+		} else {
+			ResourceTask task = service.getResult().get(element);
+
+			graphData.setPlanStart(task.getStart());
+			graphData.setPlanFinish(task.getFinish());
+			MinMaxDate date = new MinMaxDate(task);
+
+			if (element.hasChild()) {
+				for (ProducteTemplateElement e : element.getChilds()) {
+					MinMaxDate childDate = fill(graphData, e);
+					date.set(childDate);
+				}
+			}
+			return date;
+		}
+	}
+
+	private static class MinMaxDate {
+		private Date minDate;
+		private Date maxDate;
+
+		private MinMaxDate() {
+
+		}
+
+		private MinMaxDate(ResourceTask task) {
+			this.minDate = task.getStart();
+			this.maxDate = task.getFinish();
+		}
+
+		private void set(MinMaxDate date) {
+			if (minDate == null || minDate.after(date.minDate))
+				minDate = date.minDate;
+
+			if (maxDate == null || maxDate.before(date.maxDate))
+				maxDate = date.maxDate;
+		}
+
+		private int getDuration() {
+			return DateUtils.diffInDays(minDate, maxDate);
 		}
 	}
 }
