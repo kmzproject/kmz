@@ -13,6 +13,7 @@
 			<property name="datanucleus.ConnectionURL" value="appengine" />
 		</properties>
 
+		<class>ru.kmz.server.data.model.Order</class>
 		<class>ru.kmz.server.data.model.Template</class>
 		<class>ru.kmz.server.data.model.ProducteTemplateElement</class>
 		<class>ru.kmz.server.data.model.Resource</class>
