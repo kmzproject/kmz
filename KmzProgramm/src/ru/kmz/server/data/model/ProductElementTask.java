@@ -1,6 +1,7 @@
 package ru.kmz.server.data.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -9,6 +10,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.engine.calculation.resources.ResourceTask;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
@@ -17,7 +19,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 @PersistenceCapable
-public class ProducteTemplateElement {
+public class ProductElementTask implements IProjectTask {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -36,10 +38,15 @@ public class ProducteTemplateElement {
 	private Key parentId;
 
 	@Persistent
-	private Key templateId;
+	private Key orderId;
+
+	@Persistent
+	private Date start;
+	@Persistent
+	private Date finish;
 
 	@NotPersistent
-	private List<ProducteTemplateElement> childs;
+	private List<ProductElementTask> childs;
 
 	public void updateData(TemplateTreeNodeBaseProxy proxy) {
 		this.name = proxy.getName();
@@ -47,22 +54,31 @@ public class ProducteTemplateElement {
 		this.resourceType = proxy.getResourceType();
 	}
 
-	public ProducteTemplateElement(String name, int duration, String resourseType, Template template) {
+	private ProductElementTask(String name, int duration, String resourseType, ResourceTask task) {
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourseType;
-		this.parentId = null;
-		this.templateId = template.getKey();
 
-		template.setRootElement(this);
+		if (task != null) {
+			this.start = task.getStart();
+			this.finish = task.getFinish();
+		}
+
 	}
 
-	public ProducteTemplateElement(String name, int duration, String resourseType, ProducteTemplateElement parent) {
-		this.name = name;
-		this.duration = duration;
-		this.resourceType = resourseType;
+	public ProductElementTask(String name, int duration, String resourseType, ResourceTask task, Order order) {
+		this(name, duration, resourseType, task);
+
+		this.parentId = null;
+		this.orderId = order.getKey();
+	}
+
+	public ProductElementTask(String name, int duration, String resourseType, ResourceTask task,
+			ProductElementTask parent) {
+		this(name, duration, resourseType, task);
+
 		this.parentId = parent.getKey();
-		this.templateId = parent.getTemplateId();
+		this.orderId = parent.getOrderId();
 
 		parent.add(this);
 	}
@@ -71,13 +87,13 @@ public class ProducteTemplateElement {
 		return parentId;
 	}
 
-	public Key getTemplateId() {
-		return templateId;
+	public Key getOrderId() {
+		return orderId;
 	}
 
-	public void add(ProducteTemplateElement child) {
+	public void add(ProductElementTask child) {
 		if (childs == null) {
-			childs = new ArrayList<ProducteTemplateElement>();
+			childs = new ArrayList<ProductElementTask>();
 		}
 		childs.add(child);
 		child.parentId = key;
@@ -85,10 +101,6 @@ public class ProducteTemplateElement {
 
 	public Key getKey() {
 		return key;
-	}
-
-	public Key getParentKey() {
-		return parentId;
 	}
 
 	public String getKeyStr() {
@@ -114,7 +126,7 @@ public class ProducteTemplateElement {
 		}
 
 		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, duration, resourceType);
-		for (ProducteTemplateElement child : childs) {
+		for (ProductElementTask child : childs) {
 			proxy.add(child.asProxy());
 		}
 		return proxy;
@@ -128,15 +140,24 @@ public class ProducteTemplateElement {
 		return resourceType;
 	}
 
-	public List<ProducteTemplateElement> getChilds() {
+	public List<ProductElementTask> getChilds() {
 		return childs;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof ProducteTemplateElement) {
-			return ((ProducteTemplateElement) obj).key.equals(key);
+		if (obj instanceof ProductElementTask) {
+			return ((ProductElementTask) obj).key.equals(key);
 		}
 		return false;
 	}
+
+	public Date getStart() {
+		return start;
+	}
+
+	public Date getFinish() {
+		return finish;
+	}
+
 }

@@ -11,6 +11,8 @@ import ru.kmz.server.data.utils.ResourcesDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
 import ru.kmz.server.engine.calculation.gant.GantCalculationService;
+import ru.kmz.server.engine.calculation.project.GetOrdersService;
+import ru.kmz.server.engine.calculation.project.NewProjectService;
 import ru.kmz.server.engine.calculation.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.calculation.resources.CalculateExecutionNoResourceService;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
@@ -49,6 +51,9 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		}
 
 		Date date = DateUtils.getDateNoTime(input.getDate());
+		if (input.isShowOtherTasks()) {
+			service.setGetOrdersService(new GetOrdersService());
+		}
 		service.calculate(template, date);
 		GanttData data = service.getGantData();
 
@@ -70,6 +75,13 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 	}
 
 	public void save(CalculatorInputDataProxy input, String orderId) {
-		System.out.println(orderId);
+		NewProjectService service = new NewProjectService();
+		Order order = OrderDataUtils.getOrder(orderId);
+		service.setOrder(order);
+		service.setService(new CalculateExecutionNoResourceService());
+
+		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
+		service.save(template, input.getDate());
+
 	}
 }

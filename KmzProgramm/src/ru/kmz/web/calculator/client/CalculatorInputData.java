@@ -86,8 +86,8 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 
 		checkBoxShowOtherTasks = new CheckBox();
 		checkBoxShowOtherTasks.setBoxLabel("Отображать загрузку предприятия");
-		checkBoxShowOtherTasks.setEnabled(false);
-		checkBoxShowOtherTasks.setValue(false);
+		checkBoxShowOtherTasks.setEnabled(true);
+		checkBoxShowOtherTasks.setValue(true);
 		container.add(checkBoxShowOtherTasks);
 
 		radioFinish = new Radio();
