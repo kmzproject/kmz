@@ -2,13 +2,13 @@ package ru.kmz.web.calculator.client;
 
 import java.util.Date;
 
-import ru.kmz.web.calculator.client.window.SelectOrderWindow;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
-import ru.kmz.web.templatecommon.client.TemplateSelectWindow;
+import ru.kmz.web.ordercommon.client.window.SelectOrderWindow;
+import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;

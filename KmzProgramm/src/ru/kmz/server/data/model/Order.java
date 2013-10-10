@@ -9,9 +9,9 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import ru.kmz.web.calculator.shared.OrderProxy;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.kmz.web.ordercommon.shared.OrderProxy;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;

@@ -1,4 +1,4 @@
-package ru.kmz.web.calculator.shared;
+package ru.kmz.web.ordercommon.shared;
 
 import java.io.Serializable;
 

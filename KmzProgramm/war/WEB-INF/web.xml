@@ -14,6 +14,10 @@
 		<servlet-class>ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>orderCommon</servlet-name>
+		<servlet-class>ru.kmz.web.ordercommon.server.OrderCommonServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>templateModule</servlet-name>
 		<servlet-class>ru.kmz.web.template.server.TemplateModuleServiceImpl</servlet-class>
 	</servlet>
@@ -25,7 +29,7 @@
 		<servlet-name>resourcesModule</servlet-name>
 		<servlet-class>ru.kmz.web.resources.server.ResourcesModuleServiceImpl</servlet-class>
 	</servlet>
-	
+
 
 	<servlet-mapping>
 		<servlet-name>greetServlet</servlet-name>
@@ -33,11 +37,16 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>templateCommon</servlet-name>
-		<url-pattern>/templatecommon/templateCommon</url-pattern>
 		<url-pattern>/templatemodule/templateCommon</url-pattern>
 		<url-pattern>/kmzprogramm/templateCommon</url-pattern>
 		<url-pattern>/calculatormodule/templateCommon</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>orderCommon</servlet-name>
+		<url-pattern>/kmzprogramm/orderCommon</url-pattern>
+		<url-pattern>/calculatormodule/orderCommon</url-pattern>
+	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>templateModule</servlet-name>
 		<url-pattern>/templatemodule/templateModule</url-pattern>

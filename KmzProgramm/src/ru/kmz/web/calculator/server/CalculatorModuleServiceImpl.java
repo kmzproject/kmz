@@ -1,8 +1,6 @@
 package ru.kmz.web.calculator.server;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
@@ -17,7 +15,6 @@ import ru.kmz.server.engine.calculation.resources.CalculateExecutaionFirstFreeSe
 import ru.kmz.server.engine.calculation.resources.CalculateExecutionNoResourceService;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
-import ru.kmz.web.calculator.shared.OrderProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 
@@ -65,14 +62,6 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		return data;
 	}
 
-	public List<OrderProxy> getOrders() {
-		List<Order> orders = OrderDataUtils.getAllOrders();
-		List<OrderProxy> result = new ArrayList<OrderProxy>();
-		for (Order order : orders) {
-			result.add(order.asProxy());
-		}
-		return result;
-	}
 
 	public void save(CalculatorInputDataProxy input, String orderId) {
 		NewProjectService service = new NewProjectService();

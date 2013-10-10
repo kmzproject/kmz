@@ -3,7 +3,7 @@ package ru.kmz.web.template.client;
 import ru.kmz.web.common.client.IKmzModule;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
-import ru.kmz.web.templatecommon.client.TemplateSelectWindow;
+import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.core.client.EntryPoint;
