@@ -2,6 +2,7 @@ package ru.kmz.web.main.client;
 
 import ru.kmz.web.calculator.client.CalculatorModuleView;
 import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.order.client.OrderModuleView;
 import ru.kmz.web.resources.client.ResourcesModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
 
@@ -29,14 +30,17 @@ public class KmzNavigation implements IsWidget {
 		CalculatorModuleView calculator = CalculatorModuleView.getInstance();
 		TemplateModuleView template = TemplateModuleView.getInstance();
 		ResourcesModuleView resources = ResourcesModuleView.getInstance();
+		OrderModuleView order = OrderModuleView.getInstance();
 
 		TextButton buttonCalculator = new TextButton(calculator.getModuleName());
 		TextButton buttonTree = new TextButton(template.getModuleName());
 		TextButton buttonResources = new TextButton(resources.getModuleName());
+		TextButton buttonOrder = new TextButton(order.getModuleName());
 
 		buttonCalculator.addSelectHandler(new NavigationSelectHandler(calculator));
 		buttonTree.addSelectHandler(new NavigationSelectHandler(template));
 		buttonResources.addSelectHandler(new NavigationSelectHandler(resources));
+		buttonOrder.addSelectHandler(new NavigationSelectHandler(order));
 
 		VBoxLayoutContainer c = new VBoxLayoutContainer();
 		c.setPadding(new Padding(5));
@@ -44,6 +48,7 @@ public class KmzNavigation implements IsWidget {
 		c.add(buttonCalculator, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		c.add(buttonTree, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		c.add(buttonResources, new BoxLayoutData(new Margins(0, 0, 5, 0)));
+		c.add(buttonOrder, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 
 		return c;
 	}

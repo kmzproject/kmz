@@ -2,26 +2,22 @@ package ru.kmz.web.resources.client;
 
 import java.util.List;
 
-import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class ResourcesModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatable {
+public class ResourcesModuleView extends AbstarctModuleView implements IUpdatable {
 
 	private static ResourcesModuleView instance;
-	private VerticalPanel container;
 	private ResourcesGrid grid;
 	private final static ResourcesModuleServiceAsync resourcesModuleService = GWT.create(ResourcesModuleService.class);
 
@@ -38,14 +34,7 @@ public class ResourcesModuleView implements EntryPoint, IsWidget, IKmzModule, IU
 	}
 
 	@Override
-	public Widget asWidget() {
-		if (container == null) {
-			createContainer();
-		}
-		return container;
-	}
-
-	private void createContainer() {
+	protected void createContainer() {
 		container = new VerticalPanel();
 		container.setSpacing(10);
 

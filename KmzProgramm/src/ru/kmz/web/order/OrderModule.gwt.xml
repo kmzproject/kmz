@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
+<module rename-to="ordermodule">
+	<inherits name="ru.kmz.web.ganttcommon.GantModule" />
+	<inherits name="ru.kmz.web.templatecommon.TemplateCommon" />
+	<inherits name="ru.kmz.web.ordercommon.OrderCommon" />
+	<source path="client" />
+	<source path="shared" />
+	<entry-point class="ru.kmz.web.order.client.OrderModuleView" />
+</module>
