@@ -2,6 +2,7 @@ package ru.kmz.web.template.server;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.TemplateTestData;
@@ -14,10 +15,17 @@ import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
+	private TemplateModuleServiceImpl service;
+
+	@Before
+	public void createService() {
+		service = new TemplateModuleServiceImpl();
+	}
+
 	@Test
 	public void getDateTest1() {
 		Template template = TemplateTestData.createTemplate1();
-		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
 		Assert.assertEquals(proxy.getName(), template.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
@@ -30,7 +38,7 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void getDateTest2() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
 		Assert.assertEquals(proxy.getName(), template.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
@@ -41,7 +49,7 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void getDateTest4() {
 		Template template = TemplateTestData.createTemplateShort4();
-		TemplateTreeDataProxy proxy = (new TemplateModuleServiceImpl()).getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
 		Assert.assertEquals(proxy.getName(), template.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
@@ -52,7 +60,6 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void createNewTemplateTreeNodeTest() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateModuleServiceImpl service = new TemplateModuleServiceImpl();
 		TemplateTreeNodeBaseProxy newNodeProxy = service.createNewTemplateTreeNode(template.getRootElement()
 				.getKeyStr());
 
@@ -64,7 +71,6 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void saveTest() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateModuleServiceImpl service = new TemplateModuleServiceImpl();
 
 		TemplateTreeNodeBaseProxy sourceProxy = template.getRootElement().getChilds().get(0).asProxy();
 		sourceProxy.setName("New Name Test1");
@@ -83,7 +89,6 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void deleteTest() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateModuleServiceImpl service = new TemplateModuleServiceImpl();
 
 		service.deleteTemplateTreeNode(template.getRootElement().getChilds().get(0).getChilds().get(0).getKeyStr());
 
