@@ -1,30 +1,16 @@
 package ru.kmz.web.template.server;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.web.template.client.TemplateModuleService;
-import ru.kmz.web.template.shared.TemplateTreeDataProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl;
+import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
 @SuppressWarnings("serial")
-public class TemplateModuleServiceImpl extends RemoteServiceServlet implements TemplateModuleService {
-
-	@Override
-	public List<TemplateTreeDataProxy> getTemplateList() {
-		List<Template> templates = TemplateDataUtils.getAllTemplates();
-		List<TemplateTreeDataProxy> list = new ArrayList<TemplateTreeDataProxy>();
-		for (Template template : templates) {
-			list.add(template.asProxy());
-		}
-		return list;
-	}
+public class TemplateModuleServiceImpl extends TemplateCommonServiceImpl implements TemplateModuleService {
 
 	@Override
 	public TemplateTreeDataProxy getData(String key) {

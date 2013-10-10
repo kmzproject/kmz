@@ -8,7 +8,7 @@ import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
-import ru.kmz.web.template.client.TemplateSelectWindow;
+import ru.kmz.web.templatecommon.client.TemplateSelectWindow;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;

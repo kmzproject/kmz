@@ -1,11 +1,11 @@
-package ru.kmz.web.template.client;
+package ru.kmz.web.templatecommon.client;
 
 import java.util.List;
 
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.CommonSelectWindow;
-import ru.kmz.web.template.shared.TemplateTreeDataProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
@@ -25,7 +25,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 	protected Container getInfoContainer() {
 		final VerticalLayoutContainer p = new VerticalLayoutContainer();
 
-		TemplateModuleView.getService().getTemplateList(new AsyncCallback<List<TemplateTreeDataProxy>>() {
+		TemplateCommon.getService().getTemplateList(new AsyncCallback<List<TemplateTreeDataProxy>>() {
 
 			@Override
 			public void onSuccess(List<TemplateTreeDataProxy> result) {

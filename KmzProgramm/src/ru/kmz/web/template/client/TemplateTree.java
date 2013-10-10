@@ -1,8 +1,8 @@
 package ru.kmz.web.template.client;
 
 import ru.kmz.web.common.client.TreeIconProvider;
-import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;

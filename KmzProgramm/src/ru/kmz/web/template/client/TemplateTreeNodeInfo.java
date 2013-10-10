@@ -2,7 +2,7 @@ package ru.kmz.web.template.client;
 
 import java.text.ParseException;
 
-import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
 import com.google.gwt.text.client.IntegerParser;
 import com.google.gwt.user.client.ui.IsWidget;

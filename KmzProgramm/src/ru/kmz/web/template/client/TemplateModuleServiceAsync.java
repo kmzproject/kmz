@@ -1,17 +1,14 @@
 package ru.kmz.web.template.client;
 
-import java.util.List;
-
-import ru.kmz.web.template.shared.TemplateTreeDataProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.templatecommon.client.TemplateCommonServiceAsync;
+import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface TemplateModuleServiceAsync {
+public interface TemplateModuleServiceAsync extends TemplateCommonServiceAsync {
 
 	void getData(String key, AsyncCallback<TemplateTreeDataProxy> callback);
-
-	void getTemplateList(AsyncCallback<List<TemplateTreeDataProxy>> callback);
 
 	void createNewTemplateTreeNode(String parentKey, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 

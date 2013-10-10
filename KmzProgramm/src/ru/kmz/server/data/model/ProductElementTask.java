@@ -12,8 +12,8 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.server.engine.calculation.resources.ResourceTask;
 import ru.kmz.web.ganttcommon.shared.GraphData;
-import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;

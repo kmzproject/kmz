@@ -6,8 +6,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import ru.kmz.web.template.shared.TemplateTreeDataProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;

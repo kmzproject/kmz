@@ -1,6 +1,7 @@
-package ru.kmz.web.template.shared;
+package ru.kmz.web.templatecommon.shared;
 
 import java.io.Serializable;
+
 
 @SuppressWarnings("serial")
 public class TemplateTreeDataProxy implements Serializable {

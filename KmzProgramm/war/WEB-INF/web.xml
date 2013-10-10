@@ -10,6 +10,10 @@
 		<servlet-class>ru.kmz.web.main.server.GreetingServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>templateCommon</servlet-name>
+		<servlet-class>ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>templateModule</servlet-name>
 		<servlet-class>ru.kmz.web.template.server.TemplateModuleServiceImpl</servlet-class>
 	</servlet>
@@ -28,10 +32,16 @@
 		<url-pattern>/kmzprogramm/greet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>templateCommon</servlet-name>
+		<url-pattern>/templatecommon/templateCommon</url-pattern>
+		<url-pattern>/templatemodule/templateCommon</url-pattern>
+		<url-pattern>/kmzprogramm/templateCommon</url-pattern>
+		<url-pattern>/calculatormodule/templateCommon</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>templateModule</servlet-name>
 		<url-pattern>/templatemodule/templateModule</url-pattern>
 		<url-pattern>/kmzprogramm/templateModule</url-pattern>
-		<url-pattern>/calculatormodule/templateModule</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>calculatorModule</servlet-name>

@@ -8,9 +8,9 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.test.DataTestEveryNew;
-import ru.kmz.web.template.shared.TemplateTreeDataProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeBaseProxy;
-import ru.kmz.web.template.shared.TemplateTreeNodeFolderProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
