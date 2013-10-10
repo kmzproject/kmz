@@ -7,7 +7,7 @@ import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.generator.TemplateTestData;
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 
 public class TemplateDataUtils {
@@ -23,7 +23,7 @@ public class TemplateDataUtils {
 		return template;
 	}
 
-	public static ProducteTemplateElement edit(ProducteTemplateElement element) {
+	public static ProductTemplateElement edit(ProductTemplateElement element) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
@@ -64,11 +64,11 @@ public class TemplateDataUtils {
 		}
 	}
 
-	public static ProducteTemplateElement getProducteTemplateElement(String key) {
+	public static ProductTemplateElement getProducteTemplateElement(String key) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			ProducteTemplateElement element = pm.getObjectById(ProducteTemplateElement.class, key);
+			ProductTemplateElement element = pm.getObjectById(ProductTemplateElement.class, key);
 			loadAllChild(pm, element);
 			return element;
 		} finally {
@@ -79,11 +79,11 @@ public class TemplateDataUtils {
 	@SuppressWarnings("unchecked")
 	// TODO: передалеть процесс загрузки на получения сначала списка, а уже
 	// после загрузки
-	private static void loadAllChild(PersistenceManager pm, ProducteTemplateElement element) {
-		Query query = pm.newQuery(ProducteTemplateElement.class, " parentId == :parentKey");
+	private static void loadAllChild(PersistenceManager pm, ProductTemplateElement element) {
+		Query query = pm.newQuery(ProductTemplateElement.class, " parentId == :parentKey");
 		query.setOrdering("key");
-		List<ProducteTemplateElement> list = (List<ProducteTemplateElement>) query.execute(element.getKey());
-		for (ProducteTemplateElement producteTemplateElement : list) {
+		List<ProductTemplateElement> list = (List<ProductTemplateElement>) query.execute(element.getKey());
+		for (ProductTemplateElement producteTemplateElement : list) {
 			element.add(producteTemplateElement);
 			loadAllChild(pm, producteTemplateElement);
 		}
@@ -91,8 +91,8 @@ public class TemplateDataUtils {
 
 	@SuppressWarnings("unchecked")
 	private static void loadAllChild(PersistenceManager pm, Template template) {
-		Query q = pm.newQuery(ProducteTemplateElement.class, " parentId == null && templateId == :templateKey");
-		List<ProducteTemplateElement> list = (List<ProducteTemplateElement>) q.execute(template.getKey());
+		Query q = pm.newQuery(ProductTemplateElement.class, " parentId == null && templateId == :templateKey");
+		List<ProductTemplateElement> list = (List<ProductTemplateElement>) q.execute(template.getKey());
 		template.setRootElement(list.get(0));
 		loadAllChild(pm, template.getRootElement());
 	}
@@ -101,7 +101,7 @@ public class TemplateDataUtils {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			ProducteTemplateElement element = pm.getObjectById(ProducteTemplateElement.class, key);
+			ProductTemplateElement element = pm.getObjectById(ProductTemplateElement.class, key);
 			pm.deletePersistent(element);
 		} finally {
 			pm.close();

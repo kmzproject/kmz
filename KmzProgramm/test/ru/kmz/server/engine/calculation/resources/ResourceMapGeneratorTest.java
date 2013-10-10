@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import ru.kmz.server.data.generator.ResourceTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.test.DataTestEveryNew;
@@ -27,8 +27,8 @@ public class ResourceMapGeneratorTest extends DataTestEveryNew {
 
 		Assert.assertEquals(map.size(), 1);
 
-		Map<ProducteTemplateElement, Resource> m = map.get(0).getMap();
-		for (ProducteTemplateElement element : m.keySet()) {
+		Map<ProductTemplateElement, Resource> m = map.get(0).getMap();
+		for (ProductTemplateElement element : m.keySet()) {
 			if (element.getName().equals("Вал часть 1")) {
 				Assert.assertEquals(m.get(element).getName(), "Test1");
 			} else if (element.getName().equals("Вал часть 2")) {
@@ -68,8 +68,8 @@ public class ResourceMapGeneratorTest extends DataTestEveryNew {
 		print(map);
 		Assert.assertEquals(map.size(), 2);
 
-		Map<ProducteTemplateElement, Resource> m = map.get(0).getMap();
-		for (ProducteTemplateElement element : m.keySet()) {
+		Map<ProductTemplateElement, Resource> m = map.get(0).getMap();
+		for (ProductTemplateElement element : m.keySet()) {
 			if (element.getName().equals("Вал часть 1")) {
 				Assert.assertEquals(m.get(element).getName(), "Test1");
 			} else {
@@ -79,7 +79,7 @@ public class ResourceMapGeneratorTest extends DataTestEveryNew {
 		}
 
 		m = map.get(1).getMap();
-		for (ProducteTemplateElement element : m.keySet()) {
+		for (ProductTemplateElement element : m.keySet()) {
 			if (element.getName().equals("Вал часть 1")) {
 				Assert.assertEquals(m.get(element).getName(), "Test2");
 			} else {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.engine.calculation.resources.ICalcucateExecutionServiceInterface;
@@ -29,13 +29,13 @@ public class NewProjectService {
 	public void save(Template template, Date date) {
 		service.calculate(template, date);
 
-		ProducteTemplateElement root = template.getRootElement();
+		ProductTemplateElement root = template.getRootElement();
 
 		fill(null, root);
 
 	}
 
-	private void fill(ProductElementTask parentElementTask, ProducteTemplateElement element) {
+	private void fill(ProductElementTask parentElementTask, ProductTemplateElement element) {
 		ResourceTask resourceTask = service.getResult().get(element);
 		ProductElementTask task;
 		if (parentElementTask == null) {
@@ -48,7 +48,7 @@ public class NewProjectService {
 		task = OrderDataUtils.edit(task);
 
 		if (element.hasChild()) {
-			for (ProducteTemplateElement e : element.getChilds()) {
+			for (ProductTemplateElement e : element.getChilds()) {
 				fill(task, e);
 			}
 		}

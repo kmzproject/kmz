@@ -6,7 +6,7 @@ import java.util.List;
 import ru.kmz.server.data.model.IProjectTask;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.DateUtils;
 import ru.kmz.server.engine.calculation.project.GetOrdersService;
@@ -42,7 +42,7 @@ public class GantCalculationService {
 
 		data = new GanttData("Расчет по шаблону " + template.getName());
 
-		ProducteTemplateElement root = template.getRootElement();
+		ProductTemplateElement root = template.getRootElement();
 
 		MinMaxDate minMaxDate = fill(data, root);
 
@@ -101,14 +101,14 @@ public class GantCalculationService {
 		}
 	}
 
-	private MinMaxDate fill(IGraphDataContainer rootGraphData, ProducteTemplateElement element) {
+	private MinMaxDate fill(IGraphDataContainer rootGraphData, ProductTemplateElement element) {
 		GraphData graphData = element.asGraphDataProxy();
 		rootGraphData.addChild(graphData);
 
 		if (graphData.isFolder()) {
 			MinMaxDate date = new MinMaxDate();
 			if (element.hasChild()) {
-				for (ProducteTemplateElement e : element.getChilds()) {
+				for (ProductTemplateElement e : element.getChilds()) {
 					MinMaxDate childDate = fill(graphData, e);
 					date.set(childDate);
 				}
@@ -126,7 +126,7 @@ public class GantCalculationService {
 			MinMaxDate date = new MinMaxDate(task);
 
 			if (element.hasChild()) {
-				for (ProducteTemplateElement e : element.getChilds()) {
+				for (ProductTemplateElement e : element.getChilds()) {
 					MinMaxDate childDate = fill(graphData, e);
 					date.set(childDate);
 				}

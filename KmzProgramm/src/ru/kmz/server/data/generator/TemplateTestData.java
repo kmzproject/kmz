@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 
@@ -14,78 +14,78 @@ public class TemplateTestData {
 
 		Template template = TemplateDataUtils.edit(new Template("Demo Template 1"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие", 0,
 				ResourceTypes.FOLDER, template));
 
-		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
+		ProductTemplateElement element1 = TemplateDataUtils.edit(new ProductTemplateElement("Ходовая часть", 3,
 				ResourceTypes.ASSEMBLAGE, root));
-		ProducteTemplateElement element1_1 = TemplateDataUtils.edit(new ProducteTemplateElement("Вал", 0,
+		ProductTemplateElement element1_1 = TemplateDataUtils.edit(new ProductTemplateElement("Вал", 0,
 				ResourceTypes.FOLDER, element1));
 
-		ProducteTemplateElement element1_1_1 = TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 10,
+		ProductTemplateElement element1_1_1 = TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 1", 10,
 				ResourceTypes.PREPARE, element1_1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Труба", 60, ResourceTypes.ORDER, element1_1_1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("цапфы", 7, ResourceTypes.ORDER, element1_1_1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Труба", 60, ResourceTypes.ORDER, element1_1_1));
+		TemplateDataUtils.edit(new ProductTemplateElement("цапфы", 7, ResourceTypes.ORDER, element1_1_1));
 
-		ProducteTemplateElement element1_1_2 = TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 2", 5,
+		ProductTemplateElement element1_1_2 = TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 2", 5,
 				ResourceTypes.PREPARE, element1_1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("паковка V гр.", 55, ResourceTypes.ORDER, element1_1_2));
+		TemplateDataUtils.edit(new ProductTemplateElement("паковка V гр.", 55, ResourceTypes.ORDER, element1_1_2));
 
-		ProducteTemplateElement element1_1_3 = TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 3", 4,
+		ProductTemplateElement element1_1_3 = TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 3", 4,
 				ResourceTypes.PREPARE, element1_1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("круг", 7, ResourceTypes.ORDER, element1_1_3));
+		TemplateDataUtils.edit(new ProductTemplateElement("круг", 7, ResourceTypes.ORDER, element1_1_3));
 
-		ProducteTemplateElement element1_2 = TemplateDataUtils.edit(new ProducteTemplateElement("Корпуса", 12,
+		ProductTemplateElement element1_2 = TemplateDataUtils.edit(new ProductTemplateElement("Корпуса", 12,
 				ResourceTypes.PREPARE, element1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("литые", 30, ResourceTypes.ORDER, element1_2));
-		TemplateDataUtils.edit(new ProducteTemplateElement("SKF", 30, ResourceTypes.ORDER, element1_2));
-		TemplateDataUtils.edit(new ProducteTemplateElement("подшипники", 21, ResourceTypes.ORDER, element1_2));
+		TemplateDataUtils.edit(new ProductTemplateElement("литые", 30, ResourceTypes.ORDER, element1_2));
+		TemplateDataUtils.edit(new ProductTemplateElement("SKF", 30, ResourceTypes.ORDER, element1_2));
+		TemplateDataUtils.edit(new ProductTemplateElement("подшипники", 21, ResourceTypes.ORDER, element1_2));
 
-		ProducteTemplateElement element1_3 = TemplateDataUtils.edit(new ProducteTemplateElement("Муфта", 6,
+		ProductTemplateElement element1_3 = TemplateDataUtils.edit(new ProductTemplateElement("Муфта", 6,
 				ResourceTypes.PREPARE, element1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("круг", 7, ResourceTypes.ORDER, element1_3));
-		TemplateDataUtils.edit(new ProducteTemplateElement("лист", 7, ResourceTypes.ORDER, element1_3));
+		TemplateDataUtils.edit(new ProductTemplateElement("круг", 7, ResourceTypes.ORDER, element1_3));
+		TemplateDataUtils.edit(new ProductTemplateElement("лист", 7, ResourceTypes.ORDER, element1_3));
 
-		ProducteTemplateElement element2 = TemplateDataUtils.edit(new ProducteTemplateElement("Рабочее колесо", 10,
+		ProductTemplateElement element2 = TemplateDataUtils.edit(new ProductTemplateElement("Рабочее колесо", 10,
 				ResourceTypes.ASSEMBLAGE, root));
 
-		ProducteTemplateElement element2_1 = TemplateDataUtils.edit(new ProducteTemplateElement("ступица", 2,
+		ProductTemplateElement element2_1 = TemplateDataUtils.edit(new ProductTemplateElement("ступица", 2,
 				ResourceTypes.PREPARE, element2));
-		TemplateDataUtils.edit(new ProducteTemplateElement("литье", 40, ResourceTypes.ORDER, element2_1));
+		TemplateDataUtils.edit(new ProductTemplateElement("литье", 40, ResourceTypes.ORDER, element2_1));
 
-		ProducteTemplateElement element2_2 = TemplateDataUtils.edit(new ProducteTemplateElement("крыльчатка", 6,
+		ProductTemplateElement element2_2 = TemplateDataUtils.edit(new ProductTemplateElement("крыльчатка", 6,
 				ResourceTypes.PREPARE, element2));
-		TemplateDataUtils.edit(new ProducteTemplateElement("лист", 7, ResourceTypes.ORDER, element2_2));
+		TemplateDataUtils.edit(new ProductTemplateElement("лист", 7, ResourceTypes.ORDER, element2_2));
 
-		ProducteTemplateElement element3 = TemplateDataUtils.edit(new ProducteTemplateElement("Корпуса", 14,
+		ProductTemplateElement element3 = TemplateDataUtils.edit(new ProductTemplateElement("Корпуса", 14,
 				ResourceTypes.ASSEMBLAGE, root));
 
-		ProducteTemplateElement element3_1 = TemplateDataUtils.edit(new ProducteTemplateElement("Корпус", 7,
+		ProductTemplateElement element3_1 = TemplateDataUtils.edit(new ProductTemplateElement("Корпус", 7,
 				ResourceTypes.PREPARE, element3));
-		TemplateDataUtils.edit(new ProducteTemplateElement("лист", 7, ResourceTypes.ORDER, element3_1));
+		TemplateDataUtils.edit(new ProductTemplateElement("лист", 7, ResourceTypes.ORDER, element3_1));
 
-		ProducteTemplateElement element3_2 = TemplateDataUtils.edit(new ProducteTemplateElement("Карман", 3,
+		ProductTemplateElement element3_2 = TemplateDataUtils.edit(new ProductTemplateElement("Карман", 3,
 				ResourceTypes.PREPARE, element3));
-		TemplateDataUtils.edit(new ProducteTemplateElement("лист", 7, ResourceTypes.ORDER, element3_2));
+		TemplateDataUtils.edit(new ProductTemplateElement("лист", 7, ResourceTypes.ORDER, element3_2));
 
-		ProducteTemplateElement element3_3 = TemplateDataUtils.edit(new ProducteTemplateElement("Конус", 2,
+		ProductTemplateElement element3_3 = TemplateDataUtils.edit(new ProductTemplateElement("Конус", 2,
 				ResourceTypes.PREPARE, element3));
-		TemplateDataUtils.edit(new ProducteTemplateElement("лист", 7, ResourceTypes.ORDER, element3_3));
+		TemplateDataUtils.edit(new ProductTemplateElement("лист", 7, ResourceTypes.ORDER, element3_3));
 
-		ProducteTemplateElement element3_4 = TemplateDataUtils.edit(new ProducteTemplateElement("Рамы", 2,
+		ProductTemplateElement element3_4 = TemplateDataUtils.edit(new ProductTemplateElement("Рамы", 2,
 				ResourceTypes.PREPARE, element3));
-		TemplateDataUtils.edit(new ProducteTemplateElement("лист", 7, ResourceTypes.ORDER, element3_4));
+		TemplateDataUtils.edit(new ProductTemplateElement("лист", 7, ResourceTypes.ORDER, element3_4));
 
-		ProducteTemplateElement element3_5 = TemplateDataUtils.edit(new ProducteTemplateElement("Зип", 0,
+		ProductTemplateElement element3_5 = TemplateDataUtils.edit(new ProductTemplateElement("Зип", 0,
 				ResourceTypes.PREPARE, element3));
-		TemplateDataUtils.edit(new ProducteTemplateElement("метизы", 7, ResourceTypes.ORDER, element3_5));
+		TemplateDataUtils.edit(new ProductTemplateElement("метизы", 7, ResourceTypes.ORDER, element3_5));
 
-		ProducteTemplateElement element4 = TemplateDataUtils.edit(new ProducteTemplateElement("Н.А.", 10,
+		ProductTemplateElement element4 = TemplateDataUtils.edit(new ProductTemplateElement("Н.А.", 10,
 				ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Лист", 7, ResourceTypes.ORDER, element4));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Литье", 20, ResourceTypes.ORDER, element4));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Оси", 7, ResourceTypes.ORDER, element4));
+		TemplateDataUtils.edit(new ProductTemplateElement("Лист", 7, ResourceTypes.ORDER, element4));
+		TemplateDataUtils.edit(new ProductTemplateElement("Литье", 20, ResourceTypes.ORDER, element4));
+		TemplateDataUtils.edit(new ProductTemplateElement("Оси", 7, ResourceTypes.ORDER, element4));
 
 		return template;
 	}
@@ -93,11 +93,11 @@ public class TemplateTestData {
 	public static Template createTemplateShort2() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short2"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Shoet2", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Shoet2", 0,
 				ResourceTypes.FOLDER, template));
-		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
+		ProductTemplateElement element1 = TemplateDataUtils.edit(new ProductTemplateElement("Ходовая часть", 3,
 				ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал", 0, ResourceTypes.ASSEMBLAGE, element1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Вал", 0, ResourceTypes.ASSEMBLAGE, element1));
 
 		return template;
 	}
@@ -105,70 +105,70 @@ public class TemplateTestData {
 	public static Template createTemplateShort3() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short3"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short3", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short3", 0,
 				ResourceTypes.FOLDER, template));
-		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 3,
+		ProductTemplateElement element1 = TemplateDataUtils.edit(new ProductTemplateElement("Ходовая часть", 3,
 				ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 10, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 1", 10, ResourceTypes.PREPARE, element1));
 		return template;
 	}
 
 	public static Template createTemplateShort4() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short4"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short3", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short3", 0,
 				ResourceTypes.FOLDER, template));
-		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 4,
+		ProductTemplateElement element1 = TemplateDataUtils.edit(new ProductTemplateElement("Ходовая часть", 4,
 				ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 1", 1, ResourceTypes.PREPARE, element1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 2", 2, ResourceTypes.PREPARE, element1));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Вал часть 3", 3, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 1", 1, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 2", 2, ResourceTypes.PREPARE, element1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Вал часть 3", 3, ResourceTypes.PREPARE, element1));
 		return template;
 	}
 
 	public static Template createTemplateShort5() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short5"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short5", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short5", 0,
 				ResourceTypes.FOLDER, template));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 1", 1, ResourceTypes.ORDER, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 2", 2, ResourceTypes.ORDER, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 3", 3, ResourceTypes.ORDER, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Покупка 1", 1, ResourceTypes.ORDER, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Покупка 2", 2, ResourceTypes.ORDER, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Покупка 3", 3, ResourceTypes.ORDER, root));
 		return template;
 	}
 
 	public static Template createTemplateShort6() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short6"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short6", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short6", 0,
 				ResourceTypes.FOLDER, template));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Сборка 1", 1, ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Сборка 2", 2, ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Сборка 3", 3, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 1", 1, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 2", 2, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 3", 3, ResourceTypes.PREPARE, root));
 		return template;
 	}
 
 	public static Template createTemplateShort7() {
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short7"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие Short7", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short7", 0,
 				ResourceTypes.FOLDER, template));
 
-		ProducteTemplateElement element1 = TemplateDataUtils.edit(new ProducteTemplateElement("Сборка часть 1", 3,
+		ProductTemplateElement element1 = TemplateDataUtils.edit(new ProductTemplateElement("Сборка часть 1", 3,
 				ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 1", 3, ResourceTypes.ORDER, element1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Покупка 1", 3, ResourceTypes.ORDER, element1));
 
-		ProducteTemplateElement element2 = TemplateDataUtils.edit(new ProducteTemplateElement("Сборка часть 2", 3,
+		ProductTemplateElement element2 = TemplateDataUtils.edit(new ProductTemplateElement("Сборка часть 2", 3,
 				ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 2", 3, ResourceTypes.ORDER, element2));
+		TemplateDataUtils.edit(new ProductTemplateElement("Покупка 2", 3, ResourceTypes.ORDER, element2));
 
-		ProducteTemplateElement element3 = TemplateDataUtils.edit(new ProducteTemplateElement("Сборка часть 3", 3,
+		ProductTemplateElement element3 = TemplateDataUtils.edit(new ProductTemplateElement("Сборка часть 3", 3,
 				ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProducteTemplateElement("Покупка 3", 3, ResourceTypes.ORDER, element3));
+		TemplateDataUtils.edit(new ProductTemplateElement("Покупка 3", 3, ResourceTypes.ORDER, element3));
 		return template;
 	}
 
@@ -176,16 +176,16 @@ public class TemplateTestData {
 
 		Template template = TemplateDataUtils.edit(new Template("Demo Template Short8"));
 
-		ProducteTemplateElement root = TemplateDataUtils.edit(new ProducteTemplateElement("Изделие", 0,
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие", 0,
 				ResourceTypes.FOLDER, template));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Ходовая часть", 14, ResourceTypes.ASSEMBLAGE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Ходовая часть", 14, ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Рабочее колесо", 7, ResourceTypes.ASSEMBLAGE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Рабочее колесо", 7, ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Корпуса", 14, ResourceTypes.ASSEMBLAGE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Корпуса", 14, ResourceTypes.ASSEMBLAGE, root));
 
-		TemplateDataUtils.edit(new ProducteTemplateElement("Направляющий аппарат", 14, ResourceTypes.ASSEMBLAGE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Направляющий аппарат", 14, ResourceTypes.ASSEMBLAGE, root));
 
 		return template;
 	}

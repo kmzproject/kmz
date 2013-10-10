@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 
@@ -28,7 +28,7 @@ public class ResourcePull {
 		}
 	}
 
-	public ResourceTask getFirstFreeTask(ProducteTemplateElement element, Date start) {
+	public ResourceTask getFirstFreeTask(ProductTemplateElement element, Date start) {
 		Resource freeResource = null;
 		Date minFreeResourceStart = null;
 		for (Resource r : pull.keySet()) {

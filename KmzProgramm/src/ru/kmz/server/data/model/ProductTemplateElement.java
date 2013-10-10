@@ -17,7 +17,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 @PersistenceCapable
-public class ProducteTemplateElement {
+public class ProductTemplateElement {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -39,7 +39,7 @@ public class ProducteTemplateElement {
 	private Key templateId;
 
 	@NotPersistent
-	private List<ProducteTemplateElement> childs;
+	private List<ProductTemplateElement> childs;
 
 	public void updateData(TemplateTreeNodeBaseProxy proxy) {
 		this.name = proxy.getName();
@@ -47,7 +47,7 @@ public class ProducteTemplateElement {
 		this.resourceType = proxy.getResourceType();
 	}
 
-	public ProducteTemplateElement(String name, int duration, String resourseType, Template template) {
+	public ProductTemplateElement(String name, int duration, String resourseType, Template template) {
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourseType;
@@ -57,7 +57,7 @@ public class ProducteTemplateElement {
 		template.setRootElement(this);
 	}
 
-	public ProducteTemplateElement(String name, int duration, String resourseType, ProducteTemplateElement parent) {
+	public ProductTemplateElement(String name, int duration, String resourseType, ProductTemplateElement parent) {
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourseType;
@@ -75,9 +75,9 @@ public class ProducteTemplateElement {
 		return templateId;
 	}
 
-	public void add(ProducteTemplateElement child) {
+	public void add(ProductTemplateElement child) {
 		if (childs == null) {
-			childs = new ArrayList<ProducteTemplateElement>();
+			childs = new ArrayList<ProductTemplateElement>();
 		}
 		childs.add(child);
 		child.parentId = key;
@@ -114,7 +114,7 @@ public class ProducteTemplateElement {
 		}
 
 		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, duration, resourceType);
-		for (ProducteTemplateElement child : childs) {
+		for (ProductTemplateElement child : childs) {
 			proxy.add(child.asProxy());
 		}
 		return proxy;
@@ -128,14 +128,14 @@ public class ProducteTemplateElement {
 		return resourceType;
 	}
 
-	public List<ProducteTemplateElement> getChilds() {
+	public List<ProductTemplateElement> getChilds() {
 		return childs;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof ProducteTemplateElement) {
-			return ((ProducteTemplateElement) obj).key.equals(key);
+		if (obj instanceof ProductTemplateElement) {
+			return ((ProductTemplateElement) obj).key.equals(key);
 		}
 		return false;
 	}

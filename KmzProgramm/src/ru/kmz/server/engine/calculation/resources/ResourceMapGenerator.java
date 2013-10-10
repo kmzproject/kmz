@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
 
 public class ResourceMapGenerator {
 
 	private Map<String, List<Resource>> rMap;
 	private List<ResourceMap> maps;
-	private List<ProducteTemplateElement> elements;
+	private List<ProductTemplateElement> elements;
 
-	public ResourceMapGenerator(List<Resource> resources, List<ProducteTemplateElement> elements) {
+	public ResourceMapGenerator(List<Resource> resources, List<ProductTemplateElement> elements) {
 		rMap = new HashMap<String, List<Resource>>();
 		for (Resource resource : resources) {
 			if (!rMap.containsKey(resource.getResourceType())) {
@@ -40,7 +40,7 @@ public class ResourceMapGenerator {
 			maps.add(map);
 			return;
 		}
-		ProducteTemplateElement element = elements.get(index);
+		ProductTemplateElement element = elements.get(index);
 		List<Resource> r = rMap.get(element.getResourceType());
 		for (Resource resource : r) {
 			ResourceMap m = new ResourceMap(map);

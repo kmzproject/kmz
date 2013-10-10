@@ -23,9 +23,9 @@ public class Template {
 	private String name;
 
 	@NotPersistent
-	private ProducteTemplateElement rootElement;
+	private ProductTemplateElement rootElement;
 
-	public ProducteTemplateElement getRootElement() {
+	public ProductTemplateElement getRootElement() {
 		return rootElement;
 	}
 
@@ -33,7 +33,7 @@ public class Template {
 		this.name = name;
 	}
 
-	public void setRootElement(ProducteTemplateElement element) {
+	public void setRootElement(ProductTemplateElement element) {
 		rootElement = element;
 	}
 

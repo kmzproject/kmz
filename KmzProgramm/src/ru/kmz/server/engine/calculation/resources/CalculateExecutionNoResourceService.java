@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 
 public class CalculateExecutionNoResourceService implements ICalcucateExecutionServiceInterface {
 
-	private Map<ProducteTemplateElement, ResourceTask> result;
+	private Map<ProductTemplateElement, ResourceTask> result;
 
 	public CalculateExecutionNoResourceService() {
-		result = new HashMap<ProducteTemplateElement, ResourceTask>();
+		result = new HashMap<ProductTemplateElement, ResourceTask>();
 	}
 
 	@Override
@@ -21,14 +21,14 @@ public class CalculateExecutionNoResourceService implements ICalcucateExecutionS
 		calculateElementStart(template.getRootElement(), date);
 	}
 
-	public Date calculateElementStart(ProducteTemplateElement element, Date finish) {
+	public Date calculateElementStart(ProductTemplateElement element, Date finish) {
 
 		Date start = CalculationUtils.getOffsetDate(finish, -element.getDuration());
 
 		ResourceTask task = new ResourceTask(start, finish, element.getDuration());
 
 		if (element.hasChild()) {
-			for (ProducteTemplateElement e : element.getChilds()) {
+			for (ProductTemplateElement e : element.getChilds()) {
 				calculateElementStart(e, start);
 			}
 		}
@@ -38,7 +38,7 @@ public class CalculateExecutionNoResourceService implements ICalcucateExecutionS
 	}
 
 	@Override
-	public Map<ProducteTemplateElement, ResourceTask> getResult() {
+	public Map<ProductTemplateElement, ResourceTask> getResult() {
 		return result;
 	}
 

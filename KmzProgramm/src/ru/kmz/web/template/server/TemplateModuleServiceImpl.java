@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.web.template.client.TemplateModuleService;
@@ -39,8 +39,8 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 	 */
 	@Override
 	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey) {
-		ProducteTemplateElement parentElement = TemplateDataUtils.getProducteTemplateElement(parentKey);
-		ProducteTemplateElement element = new ProducteTemplateElement("Новый узел", 0, ResourceTypes.ORDER,
+		ProductTemplateElement parentElement = TemplateDataUtils.getProducteTemplateElement(parentKey);
+		ProductTemplateElement element = new ProductTemplateElement("Новый узел", 0, ResourceTypes.ORDER,
 				parentElement);
 		element = TemplateDataUtils.edit(element);
 		return element.asProxy();
@@ -53,7 +53,7 @@ public class TemplateModuleServiceImpl extends RemoteServiceServlet implements T
 
 	@Override
 	public TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy) {
-		ProducteTemplateElement element = TemplateDataUtils.getProducteTemplateElement(proxy.getId());
+		ProductTemplateElement element = TemplateDataUtils.getProducteTemplateElement(proxy.getId());
 		element.updateData(proxy);
 		TemplateDataUtils.edit(element);
 		proxy = element.asProxy();

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.kmz.server.data.model.ProducteTemplateElement;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
@@ -13,10 +13,10 @@ import ru.kmz.web.common.shared.ResourceTypesConsts;
 public class CalculateExecutaionFirstFreeService implements ICalcucateExecutionServiceInterface {
 
 	private ResourcePull pull;
-	private Map<ProducteTemplateElement, ResourceTask> result;
+	private Map<ProductTemplateElement, ResourceTask> result;
 
 	public CalculateExecutaionFirstFreeService(List<Resource> resources) {
-		result = new HashMap<ProducteTemplateElement, ResourceTask>();
+		result = new HashMap<ProductTemplateElement, ResourceTask>();
 		pull = new ResourcePull();
 		pull.init(resources);
 	}
@@ -26,7 +26,7 @@ public class CalculateExecutaionFirstFreeService implements ICalcucateExecutionS
 		calculateElementFinish(template.getRootElement(), date);
 	}
 
-	private Date calculateElementFinish(ProducteTemplateElement element, Date start) {
+	private Date calculateElementFinish(ProductTemplateElement element, Date start) {
 		Date maxChildFinish = start;
 		if (element.hasChild()) {
 			maxChildFinish = addChilds(element, start);
@@ -47,9 +47,9 @@ public class CalculateExecutaionFirstFreeService implements ICalcucateExecutionS
 		return task.getFinish();
 	}
 
-	private Date addChilds(ProducteTemplateElement element, Date start) {
+	private Date addChilds(ProductTemplateElement element, Date start) {
 		Date maxChildFinish = start;
-		for (ProducteTemplateElement e : element.getChilds()) {
+		for (ProductTemplateElement e : element.getChilds()) {
 			Date childFinish = calculateElementFinish(e, start);
 			if (maxChildFinish.before(childFinish)) {
 				maxChildFinish = childFinish;
@@ -58,8 +58,8 @@ public class CalculateExecutaionFirstFreeService implements ICalcucateExecutionS
 		return maxChildFinish;
 	}
 
-	private void correctChild(ProducteTemplateElement element, Date start) {
-		for (ProducteTemplateElement e : element.getChilds()) {
+	private void correctChild(ProductTemplateElement element, Date start) {
+		for (ProductTemplateElement e : element.getChilds()) {
 			if (ResourceTypesConsts.startAsLateAsPossible(e.getResourceType())) {
 				ResourceTask childTask = result.get(e);
 				childTask.toFinish(start);
@@ -68,7 +68,7 @@ public class CalculateExecutaionFirstFreeService implements ICalcucateExecutionS
 	}
 
 	@Override
-	public Map<ProducteTemplateElement, ResourceTask> getResult() {
+	public Map<ProductTemplateElement, ResourceTask> getResult() {
 		return result;
 	}
 }
