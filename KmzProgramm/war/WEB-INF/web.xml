@@ -45,6 +45,7 @@
 		<servlet-name>orderCommon</servlet-name>
 		<url-pattern>/kmzprogramm/orderCommon</url-pattern>
 		<url-pattern>/calculatormodule/orderCommon</url-pattern>
+		<url-pattern>/ordermodule/orderCommon</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

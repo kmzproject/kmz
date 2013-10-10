@@ -18,7 +18,7 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class SelectOrderWindow extends CommonSelectWindow<KeyValueData> {
+public class OrderSelectWindow extends CommonSelectWindow<KeyValueData> {
 
 	private ComboBox<KeyValueData> orderBox;
 
@@ -41,7 +41,7 @@ public class SelectOrderWindow extends CommonSelectWindow<KeyValueData> {
 				orderBox.setValue(list.get(0));
 				orderBox.setWidth(300);
 
-				p.add(new FieldLabel(orderBox, "Шаблон"), new VerticalLayoutData(1, -1));
+				p.add(new FieldLabel(orderBox, "Заказ"), new VerticalLayoutData(1, -1));
 
 			}
 

@@ -7,7 +7,7 @@ import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
-import ru.kmz.web.ordercommon.client.window.SelectOrderWindow;
+import ru.kmz.web.ordercommon.client.window.OrderSelectWindow;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -143,7 +143,7 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				SelectOrderWindow window = new SelectOrderWindow();
+				OrderSelectWindow window = new OrderSelectWindow();
 				window.setUpdatable(new UpdatebleOnSave());
 				window.show();
 			}

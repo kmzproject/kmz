@@ -1,33 +1,29 @@
 package ru.kmz.web.template.client;
 
-import ru.kmz.web.common.client.IKmzModule;
+import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUpdatableWithValue<KeyValueData> {
+public class TemplateModuleView extends AbstarctModuleView implements IUpdatableWithValue<KeyValueData> {
 
 	private final static TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
 
 	private static TemplateModuleView instanse;
-	private Container container;
 	private Label label;
 	private Container treeContainer;
 
@@ -45,15 +41,9 @@ public class TemplateModuleView implements EntryPoint, IsWidget, IKmzModule, IUp
 	}
 
 	@Override
-	public Widget asWidget() {
-		if (container == null) {
-			createContainer();
-		}
-		return container;
-	}
-
-	private void createContainer() {
-		container = new VerticalLayoutContainer();
+	protected void createContainer() {
+		container = new VerticalPanel();
+		container.setSpacing(10);
 		createButtons();
 		treeContainer = new HorizontalLayoutContainer();
 		container.add(treeContainer);

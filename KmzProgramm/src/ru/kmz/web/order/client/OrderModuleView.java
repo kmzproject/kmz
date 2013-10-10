@@ -1,15 +1,22 @@
 package ru.kmz.web.order.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.data.KeyValueData;
+import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.ordercommon.client.window.OrderSelectWindow;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.widget.client.TextButton;
+import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
-public class OrderModuleView extends AbstarctModuleView {
+public class OrderModuleView extends AbstarctModuleView implements IUpdatableWithValue<KeyValueData> {
 
 	private static OrderModuleView instanse;
+	private Label label;
 	private HorizontalPanel gantContainer;
 
 	@Override
@@ -35,11 +42,37 @@ public class OrderModuleView extends AbstarctModuleView {
 		container = new VerticalPanel();
 		container.setSpacing(10);
 
+		createButtons();
+
 		gantContainer = new HorizontalPanel();
-
-		gantContainer.add(new TextButton("Test"));
-
 		container.add(gantContainer);
+	}
+
+	private void createButtons() {
+		HorizontalPanel buttonContainer = new HorizontalPanel();
+		buttonContainer.setSpacing(10);
+		container.add(buttonContainer);
+
+		label = new Label();
+		buttonContainer.add(label);
+
+		TextButton select = new TextButton("Выбрать");
+
+		select.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				OrderSelectWindow window = new OrderSelectWindow();
+				window.setUpdatable(OrderModuleView.this);
+				window.show();
+			}
+		});
+		buttonContainer.add(select);
+	}
+
+	@Override
+	public void update(KeyValueData value) {
+		label.setText(value.getValue());
 	}
 
 }
