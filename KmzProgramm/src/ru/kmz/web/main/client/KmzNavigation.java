@@ -1,9 +1,13 @@
 package ru.kmz.web.main.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.kmz.web.calculator.client.CalculatorModuleView;
 import ru.kmz.web.common.client.IKmzModule;
 import ru.kmz.web.order.client.OrderModuleView;
 import ru.kmz.web.projects.client.ProjectsModuleView;
+import ru.kmz.web.purchases.client.PurchasesModuleView;
 import ru.kmz.web.resources.client.ResourcesModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
 
@@ -26,35 +30,30 @@ public class KmzNavigation implements IsWidget {
 		this.programm = programm;
 	}
 
+	private List<IKmzModule> getMdules() {
+		List<IKmzModule> list = new ArrayList<IKmzModule>();
+		list.add(CalculatorModuleView.getInstance());
+		list.add(TemplateModuleView.getInstance());
+		list.add(ResourcesModuleView.getInstance());
+		list.add(OrderModuleView.getInstance());
+		list.add(ProjectsModuleView.getInstance());
+		list.add(PurchasesModuleView.getInstance());
+		return list;
+	}
+
 	@Override
 	public Widget asWidget() {
-		CalculatorModuleView calculator = CalculatorModuleView.getInstance();
-		TemplateModuleView template = TemplateModuleView.getInstance();
-		ResourcesModuleView resources = ResourcesModuleView.getInstance();
-		OrderModuleView order = OrderModuleView.getInstance();
-		ProjectsModuleView projects = ProjectsModuleView.getInstance();
-
-		TextButton buttonCalculator = new TextButton(calculator.getModuleName());
-		TextButton buttonTree = new TextButton(template.getModuleName());
-		TextButton buttonResources = new TextButton(resources.getModuleName());
-		TextButton buttonOrder = new TextButton(order.getModuleName());
-		TextButton buttonProjects = new TextButton(projects.getModuleName());
-
-		buttonCalculator.addSelectHandler(new NavigationSelectHandler(calculator));
-		buttonTree.addSelectHandler(new NavigationSelectHandler(template));
-		buttonResources.addSelectHandler(new NavigationSelectHandler(resources));
-		buttonOrder.addSelectHandler(new NavigationSelectHandler(order));
-		buttonProjects.addSelectHandler(new NavigationSelectHandler(projects));
-
 		VBoxLayoutContainer c = new VBoxLayoutContainer();
 		c.setPadding(new Padding(5));
 		c.setVBoxLayoutAlign(VBoxLayoutAlign.STRETCH);
-		c.add(buttonCalculator, new BoxLayoutData(new Margins(0, 0, 5, 0)));
-		c.add(buttonTree, new BoxLayoutData(new Margins(0, 0, 5, 0)));
-		c.add(buttonResources, new BoxLayoutData(new Margins(0, 0, 5, 0)));
-		c.add(buttonOrder, new BoxLayoutData(new Margins(0, 0, 5, 0)));
-		c.add(buttonProjects, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 
+		List<IKmzModule> list = getMdules();
+
+		for (IKmzModule iKmzModule : list) {
+			TextButton button = new TextButton(iKmzModule.getModuleName());
+			button.addSelectHandler(new NavigationSelectHandler(iKmzModule));
+			c.add(button, new BoxLayoutData(new Margins(0, 0, 5, 0)));
+		}
 		return c;
 	}
 
