@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
-<module rename-to='calculatormodule'>
-	<inherits name="ru.kmz.web.projectscommon.ProjectsCommon" />
-	<inherits name="ru.kmz.web.templatecommon.TemplateCommon" />
+<module rename-to="projectscommon">
+	<inherits name="ru.kmz.web.ganttcommon.GantModule" />
+	<inherits name="ru.kmz.web.ordercommon.OrderCommon" />
 	<source path="client" />
 	<source path="shared" />
-	<entry-point class="ru.kmz.web.calculator.client.CalculatorModuleView" />
 </module>

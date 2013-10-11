@@ -3,6 +3,7 @@ package ru.kmz.web.main.client;
 import ru.kmz.web.calculator.client.CalculatorModuleView;
 import ru.kmz.web.common.client.IKmzModule;
 import ru.kmz.web.order.client.OrderModuleView;
+import ru.kmz.web.projects.client.ProjectsModuleView;
 import ru.kmz.web.resources.client.ResourcesModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
 
@@ -31,16 +32,19 @@ public class KmzNavigation implements IsWidget {
 		TemplateModuleView template = TemplateModuleView.getInstance();
 		ResourcesModuleView resources = ResourcesModuleView.getInstance();
 		OrderModuleView order = OrderModuleView.getInstance();
+		ProjectsModuleView projects = ProjectsModuleView.getInstance();
 
 		TextButton buttonCalculator = new TextButton(calculator.getModuleName());
 		TextButton buttonTree = new TextButton(template.getModuleName());
 		TextButton buttonResources = new TextButton(resources.getModuleName());
 		TextButton buttonOrder = new TextButton(order.getModuleName());
+		TextButton buttonProjects = new TextButton(projects.getModuleName());
 
 		buttonCalculator.addSelectHandler(new NavigationSelectHandler(calculator));
 		buttonTree.addSelectHandler(new NavigationSelectHandler(template));
 		buttonResources.addSelectHandler(new NavigationSelectHandler(resources));
 		buttonOrder.addSelectHandler(new NavigationSelectHandler(order));
+		buttonProjects.addSelectHandler(new NavigationSelectHandler(projects));
 
 		VBoxLayoutContainer c = new VBoxLayoutContainer();
 		c.setPadding(new Padding(5));
@@ -49,6 +53,7 @@ public class KmzNavigation implements IsWidget {
 		c.add(buttonTree, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		c.add(buttonResources, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		c.add(buttonOrder, new BoxLayoutData(new Margins(0, 0, 5, 0)));
+		c.add(buttonProjects, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 
 		return c;
 	}
