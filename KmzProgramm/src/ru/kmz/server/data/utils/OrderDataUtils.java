@@ -72,7 +72,7 @@ public class OrderDataUtils {
 	@SuppressWarnings("unchecked")
 	private static void loadAllChild(PersistenceManager pm, ProductElementTask element) {
 		Query query = pm.newQuery(ProductElementTask.class, " parentId == :parentKey");
-		query.setOrdering("key");
+		query.setOrdering("orderNum");
 		List<ProductElementTask> list = (List<ProductElementTask>) query.execute(element.getKey());
 		for (ProductElementTask e : list) {
 			element.add(e);

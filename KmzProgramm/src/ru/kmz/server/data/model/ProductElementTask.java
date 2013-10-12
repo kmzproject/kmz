@@ -45,6 +45,9 @@ public class ProductElementTask implements IProjectTask {
 	@Persistent
 	private Date finish;
 
+	@Persistent
+	private int orderNum;
+
 	@NotPersistent
 	private List<ProductElementTask> childs;
 
@@ -79,6 +82,11 @@ public class ProductElementTask implements IProjectTask {
 
 		this.parentId = parent.getKey();
 		this.orderId = parent.getOrderId();
+
+		if (parent.hasChild()) {
+			int katenok = parent.getChilds().size();
+			this.orderNum = katenok;
+		}
 
 		parent.add(this);
 	}
