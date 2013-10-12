@@ -10,6 +10,7 @@ import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
+import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
 import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
@@ -43,6 +44,12 @@ public class CalculatorModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew
 		Assert.assertEquals("Изделие", rootTemplate.getName());
 
 		Assert.assertEquals("Изделие", rootOrder.getChilds().get(0).getName());
+
+		Assert.assertEquals(CalculationUtils.getOffsetDate(date, -14), rootOrder.getChilds().get(0).getPlanStart());
+		Assert.assertEquals(date, rootOrder.getChilds().get(0).getPlanFinish());
+
+		Assert.assertEquals(CalculationUtils.getOffsetDate(date, -14), rootTemplate.getChilds().get(0).getPlanStart());
+		Assert.assertEquals(date, rootTemplate.getChilds().get(0).getPlanFinish());
 	}
 
 }

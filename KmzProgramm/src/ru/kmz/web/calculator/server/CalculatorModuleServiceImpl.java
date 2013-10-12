@@ -8,11 +8,11 @@ import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ResourcesDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.server.engine.calculation.gant.GantCalculationService;
 import ru.kmz.server.engine.calculation.project.GetOrdersService;
 import ru.kmz.server.engine.calculation.project.NewProjectService;
 import ru.kmz.server.engine.calculation.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.calculation.resources.CalculateExecutionNoResourceService;
+import ru.kmz.server.engine.gant.GanttTemplateCalculationService;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
@@ -34,7 +34,7 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		}
 		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
 
-		GantCalculationService service = new GantCalculationService();
+		GanttTemplateCalculationService service = new GanttTemplateCalculationService();
 		if (!input.isUseResource()) {
 			CalculateExecutionNoResourceService calcservice = new CalculateExecutionNoResourceService();
 			if (input.isByFinishDate()) {
@@ -48,10 +48,10 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		}
 
 		Date date = DateUtils.getDateNoTime(input.getDate());
-		if (input.isShowOtherTasks()) {
-			service.setGetOrdersService(new GetOrdersService());
-		}
-		service.calculate(template, date);
+		service.setDate(date);
+		service.setGetOrdersService(new GetOrdersService());
+		service.setTemplate(template);
+		service.calculate();
 		GanttData data = service.getGantData();
 
 		if (input.getScala() != null) {
@@ -61,7 +61,6 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		}
 		return data;
 	}
-
 
 	public void save(CalculatorInputDataProxy input, String orderId) {
 		NewProjectService service = new NewProjectService();

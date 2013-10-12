@@ -24,7 +24,7 @@ public class GanttData implements Serializable, IGraphDataContainer {
 		setName(name);
 	}
 
-	private void setName(String value) {
+	public void setName(String value) {
 		name = value.replace("/", "_");
 	}
 
