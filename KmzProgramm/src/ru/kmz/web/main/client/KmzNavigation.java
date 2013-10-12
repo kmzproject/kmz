@@ -3,6 +3,7 @@ package ru.kmz.web.main.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.kmz.web.administration.client.AdministrationModuleView;
 import ru.kmz.web.calculator.client.CalculatorModuleView;
 import ru.kmz.web.common.client.IKmzModule;
 import ru.kmz.web.order.client.OrderModuleView;
@@ -38,6 +39,7 @@ public class KmzNavigation implements IsWidget {
 		list.add(OrderModuleView.getInstance());
 		list.add(ProjectsModuleView.getInstance());
 		list.add(PurchasesModuleView.getInstance());
+		list.add(AdministrationModuleView.getInstance());
 		return list;
 	}
 

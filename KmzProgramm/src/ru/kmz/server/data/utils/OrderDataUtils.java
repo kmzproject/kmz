@@ -6,7 +6,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
-import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
 
@@ -20,9 +19,6 @@ public class OrderDataUtils {
 			em = PMF.get().getPersistenceManager();
 			Query query = em.newQuery(Order.class);
 			list = (List<Order>) query.execute();
-			if (list.size() == 0) {
-				return OrderTestData.createOrders1();
-			}
 		} finally {
 			em.close();
 		}

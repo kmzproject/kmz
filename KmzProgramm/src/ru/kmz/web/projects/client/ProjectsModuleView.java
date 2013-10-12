@@ -76,6 +76,7 @@ public class ProjectsModuleView extends AbstarctModuleView {
 			@Override
 			public void onFailure(Throwable caught) {
 				Info.display("Error", "This is error " + caught);
+				box.hide();
 			}
 		});
 	}

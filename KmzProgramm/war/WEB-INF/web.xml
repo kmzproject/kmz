@@ -33,11 +33,22 @@
 		<servlet-name>projectsModule</servlet-name>
 		<servlet-class>ru.kmz.web.projects.server.ProjectsModuleServiceImpl</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>administrationModule</servlet-name>
+		<servlet-class>ru.kmz.web.administration.server.AdministrationModuleServiceImpl</servlet-class>
+	</servlet>
+
 
 
 	<servlet-mapping>
 		<servlet-name>greetServlet</servlet-name>
 		<url-pattern>/kmzprogramm/greet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>administrationModule</servlet-name>
+		<url-pattern>/kmzprogramm/administrationModule</url-pattern>
+		<url-pattern>/administrationmodule/administrationModule</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>projectsModule</servlet-name>

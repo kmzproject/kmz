@@ -209,7 +209,7 @@ public class TemplateTestData {
 		return template;
 	}
 
-	public static List<Template> getDempTemplates() {
+	public static List<Template> createDemoTemplates() {
 		List<Template> templates = new ArrayList<Template>(3);
 		templates.add(TemplateTestData.createTemplate1());
 		templates.add(TemplateTestData.createTemplateShort2());

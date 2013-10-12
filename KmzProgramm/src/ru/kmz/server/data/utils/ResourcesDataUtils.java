@@ -6,7 +6,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
-import ru.kmz.server.data.generator.ResourceTestData;
 import ru.kmz.server.data.model.Resource;
 
 public class ResourcesDataUtils {
@@ -19,9 +18,6 @@ public class ResourcesDataUtils {
 			em = PMF.get().getPersistenceManager();
 			Query query = em.newQuery(Resource.class);
 			list = (List<Resource>) query.execute();
-			if (list.size() == 0) {
-				return ResourceTestData.createReource1();
-			}
 		} finally {
 			em.close();
 		}
