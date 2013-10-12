@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.OrderTestData;
-import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
+import ru.test.DataTestEveryNew;
 
 public class OrderCommonServiceImplTest extends DataTestEveryNew {
 

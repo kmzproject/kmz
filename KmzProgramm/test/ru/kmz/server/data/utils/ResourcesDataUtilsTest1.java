@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.Resource;
-import ru.kmz.test.DataTest;
+import ru.test.DataTest;
 
 public class ResourcesDataUtilsTest1 extends DataTest {
 

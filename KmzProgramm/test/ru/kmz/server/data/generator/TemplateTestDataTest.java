@@ -9,7 +9,7 @@ import org.junit.Test;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
-import ru.kmz.test.DataTest;
+import ru.test.DataTest;
 
 import com.google.appengine.api.datastore.KeyFactory;
 

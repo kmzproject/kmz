@@ -1,4 +1,4 @@
-package ru.kmz.test;
+package ru.test;
 
 import org.junit.After;
 import org.junit.Before;

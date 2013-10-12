@@ -12,7 +12,7 @@ import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.test.DataTestEveryNew;
+import ru.test.DataTestEveryNew;
 
 public class CalculateExecutionNoResourceServiceTest extends DataTestEveryNew {
 

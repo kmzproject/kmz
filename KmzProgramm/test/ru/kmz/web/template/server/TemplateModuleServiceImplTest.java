@@ -8,10 +8,10 @@ import org.junit.Test;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
-import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
+import ru.test.DataTestEveryNew;
 
 public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 

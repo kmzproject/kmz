@@ -10,10 +10,10 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.engine.calculation.CalculationUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.test.DataTestEveryNew;
 
 public class CalculatorModuleServiceImplTest7 extends DataTestEveryNew {
 

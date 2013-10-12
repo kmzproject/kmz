@@ -12,7 +12,7 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.test.DataTestEveryNew;
+import ru.test.DataTestEveryNew;
 
 public class ResourceMapGeneratorTest extends DataTestEveryNew {
 

@@ -12,8 +12,8 @@ import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.test.DataTestEveryNew;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
+import ru.test.DataTestEveryNew;
 
 public class CalculatorModuleServiceImplTestSave8 extends DataTestEveryNew {
 
