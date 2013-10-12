@@ -4,8 +4,8 @@ import java.util.Date;
 
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.server.engine.calculation.resources.ICalcucateExecutionServiceInterface;
-import ru.kmz.server.engine.calculation.resources.ResourceTask;
+import ru.kmz.server.engine.resources.ICalcucateExecutionServiceInterface;
+import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.ganttcommon.shared.IGraphDataContainer;

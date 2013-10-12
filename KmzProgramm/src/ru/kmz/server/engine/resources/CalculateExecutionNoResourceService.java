@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.resources;
+package ru.kmz.server.engine.resources;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.server.engine.calculation.CalculationUtils;
+import ru.kmz.server.utils.DateUtils;
 
 public class CalculateExecutionNoResourceService implements ICalcucateExecutionServiceInterface {
 
@@ -23,7 +23,7 @@ public class CalculateExecutionNoResourceService implements ICalcucateExecutionS
 
 	public Date calculateElementStart(ProductTemplateElement element, Date finish) {
 
-		Date start = CalculationUtils.getOffsetDate(finish, -element.getDuration());
+		Date start = DateUtils.getOffsetDate(finish, -element.getDuration());
 
 		ResourceTask task = new ResourceTask(start, finish, element.getDuration());
 

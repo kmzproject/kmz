@@ -1,9 +1,9 @@
-package ru.kmz.server.engine.calculation.resources;
+package ru.kmz.server.engine.resources;
 
 import java.util.Date;
 
 import ru.kmz.server.data.model.Resource;
-import ru.kmz.server.engine.calculation.CalculationUtils;
+import ru.kmz.server.utils.DateUtils;
 
 public class ResourceTask implements Comparable<ResourceTask> {
 
@@ -26,7 +26,7 @@ public class ResourceTask implements Comparable<ResourceTask> {
 	public ResourceTask(Date start, int duration) {
 		this.start = start;
 		this.duration = duration;
-		this.finish = CalculationUtils.getOffsetDate(this.start, this.duration);
+		this.finish = DateUtils.getOffsetDate(this.start, this.duration);
 	}
 
 	public Date getFinish() {
@@ -57,6 +57,6 @@ public class ResourceTask implements Comparable<ResourceTask> {
 
 	public void toFinish(Date finish) {
 		this.finish = finish;
-		this.start = CalculationUtils.getOffsetDate(this.finish, -this.duration);
+		this.start = DateUtils.getOffsetDate(this.finish, -this.duration);
 	}
 }

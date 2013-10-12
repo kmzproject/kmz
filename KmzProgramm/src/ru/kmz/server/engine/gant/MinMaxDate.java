@@ -3,8 +3,8 @@ package ru.kmz.server.engine.gant;
 import java.util.Date;
 
 import ru.kmz.server.data.model.ProductElementTask;
-import ru.kmz.server.engine.calculation.DateUtils;
-import ru.kmz.server.engine.calculation.resources.ResourceTask;
+import ru.kmz.server.engine.resources.ResourceTask;
+import ru.kmz.server.utils.DateUtils;
 
 public class MinMaxDate {
 	private Date minDate;

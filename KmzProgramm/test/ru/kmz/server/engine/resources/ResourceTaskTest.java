@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.resources;
+package ru.kmz.server.engine.resources;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import ru.kmz.server.engine.calculation.DateUtils;
+import ru.kmz.server.engine.resources.ResourceTask;
+import ru.kmz.server.utils.DateUtils;
 
 public class ResourceTaskTest {
 

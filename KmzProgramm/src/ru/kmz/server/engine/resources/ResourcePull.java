@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.resources;
+package ru.kmz.server.engine.resources;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
-import ru.kmz.server.engine.calculation.CalculationUtils;
+import ru.kmz.server.utils.DateUtils;
 
 public class ResourcePull {
 
@@ -51,7 +51,7 @@ public class ResourcePull {
 			if (resourceTask.getFinish().before(allowStart)) {
 				continue;
 			}
-			Date allowFinish = CalculationUtils.getOffsetDate(allowStart, duration);
+			Date allowFinish = DateUtils.getOffsetDate(allowStart, duration);
 			if (resourceTask.getStart().before(allowFinish)) {
 				allowStart = resourceTask.getFinish();
 				continue;

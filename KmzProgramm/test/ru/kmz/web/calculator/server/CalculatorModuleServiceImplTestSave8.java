@@ -11,7 +11,7 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.OrderDataUtils;
-import ru.kmz.server.engine.calculation.DateUtils;
+import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.test.DataTestEveryNew;
 

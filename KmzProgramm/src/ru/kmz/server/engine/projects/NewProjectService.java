@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.project;
+package ru.kmz.server.engine.projects;
 
 import java.util.Date;
 
@@ -7,8 +7,8 @@ import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.OrderDataUtils;
-import ru.kmz.server.engine.calculation.resources.ICalcucateExecutionServiceInterface;
-import ru.kmz.server.engine.calculation.resources.ResourceTask;
+import ru.kmz.server.engine.resources.ICalcucateExecutionServiceInterface;
+import ru.kmz.server.engine.resources.ResourceTask;
 
 public class NewProjectService {
 

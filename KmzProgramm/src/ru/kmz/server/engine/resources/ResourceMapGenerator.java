@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.resources;
+package ru.kmz.server.engine.resources;
 
 import java.util.ArrayList;
 import java.util.HashMap;

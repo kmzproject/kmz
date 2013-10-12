@@ -6,7 +6,7 @@ import java.util.List;
 import ru.kmz.server.data.model.IProjectTask;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
-import ru.kmz.server.engine.calculation.project.GetOrdersService;
+import ru.kmz.server.engine.projects.GetOrdersService;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.ganttcommon.shared.IGraphDataContainer;

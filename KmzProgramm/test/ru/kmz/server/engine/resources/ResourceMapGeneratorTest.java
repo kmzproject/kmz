@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.resources;
+package ru.kmz.server.engine.resources;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +12,8 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.model.Template;
+import ru.kmz.server.engine.resources.ResourceMap;
+import ru.kmz.server.engine.resources.ResourceMapGenerator;
 import ru.test.DataTestEveryNew;
 
 public class ResourceMapGeneratorTest extends DataTestEveryNew {

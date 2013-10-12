@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.calculation.project;
+package ru.kmz.server.engine.projects;
 
 import java.util.List;
 
