@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.kmz.web.common.client.data.KeyValueData;
+import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.ganttcommon.client.data.DataTransformator;
 import ru.kmz.web.ganttcommon.client.data.Dependency;
 import ru.kmz.web.ganttcommon.client.data.DependencyProps;
@@ -26,6 +28,7 @@ import com.scheduler.client.core.timeaxis.preconfig.YearTimeAxisGenerator;
 import com.scheduler.client.zone.Line;
 import com.scheduler.client.zone.LineProperties;
 import com.scheduler.client.zone.ZoneGeneratorInt;
+import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
 import com.sencha.gxt.core.client.util.DateWrapper;
 import com.sencha.gxt.core.client.util.Margins;
@@ -37,6 +40,8 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.form.ComboBox;
+import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.HeaderGroupConfig;
@@ -51,6 +56,7 @@ public class CommonGanttContainer implements IsWidget {
 
 	private GanttData ganttData;
 	protected boolean showPercentDone;
+	private ComboBox<KeyValueData> scalaCombo;
 
 	private CommonGantt gantt;
 	ListStore<Task> taskStore;
@@ -60,6 +66,9 @@ public class CommonGanttContainer implements IsWidget {
 
 	@Override
 	public Widget asWidget() {
+		VerticalLayoutContainer vc = new VerticalLayoutContainer();
+		vc.add(createToolBar(), new VerticalLayoutData(1, -1));
+
 		// resources
 		IDemoData data = new DataTransformator(ganttData);
 		setData(data);
@@ -80,8 +89,6 @@ public class CommonGanttContainer implements IsWidget {
 		cp.setPixelSize(1000, 460);
 		cp.getElement().setMargins(new Margins(5));
 
-		VerticalLayoutContainer vc = new VerticalLayoutContainer();
-		vc.add(createToolBar(), new VerticalLayoutData(1, -1));
 		vc.add(gantt, new VerticalLayoutData(1, 1));
 		cp.setWidget(vc);
 		return cp;
@@ -97,7 +104,23 @@ public class CommonGanttContainer implements IsWidget {
 			}
 		});
 		tbar.add(showAll);
+		tbar.add(new FieldLabel(getCombobox(), "Масштаб"));
 		return tbar;
+	}
+
+	private ComboBox<KeyValueData> getCombobox() {
+		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
+		list.add(new KeyValueData(ScaleConstants.DAY, "День"));
+		list.add(new KeyValueData(ScaleConstants.WEEK, "Неделя"));
+		list.add(new KeyValueData(ScaleConstants.MONTH, "Месяц"));
+
+		scalaCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
+		scalaCombo.setForceSelection(true);
+		scalaCombo.setTypeAhead(true);
+		scalaCombo.setTriggerAction(TriggerAction.ALL);
+		scalaCombo.setEditable(false);
+		scalaCombo.setValue(list.get(1));
+		return scalaCombo;
 	}
 
 	private List<ZoneGeneratorInt> getZones() {
@@ -125,7 +148,7 @@ public class CommonGanttContainer implements IsWidget {
 		DateWrapper dwFinish = new DateWrapper(ganttData.getDateFinish()).clearTime();
 		int delta = 4;
 		// Set start and end date.
-		String scale = ganttData.getScale();
+		String scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
 			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta).asDate());
 		} else if (scale.equals(ScaleConstants.MONTH)) {
@@ -137,7 +160,7 @@ public class CommonGanttContainer implements IsWidget {
 
 	private ArrayList<TimeAxisGenerator> getTimeHeaders() {
 		ArrayList<TimeAxisGenerator> headers = new ArrayList<TimeAxisGenerator>();
-		String scale = ganttData.getScale();
+		String scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
 			headers.add(new WeekTimeAxisGenerator("dd MMM"));
 			headers.add(new DayTimeAxisGenerator("EEE"));

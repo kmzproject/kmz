@@ -12,7 +12,6 @@ public class GanttData implements Serializable, IGraphDataContainer {
 	private String name;
 	private Date dateStart;
 	private Date dateFinish;
-	private String scale;
 	private String error;
 
 	public GanttData() {
@@ -52,13 +51,6 @@ public class GanttData implements Serializable, IGraphDataContainer {
 		return dateFinish;
 	}
 
-	public String getScale() {
-		if (scale == null) {
-			return ScaleConstants.WEEK;
-		}
-		return scale;
-	}
-
 	@Override
 	public void addChild(GraphData child) {
 		childs.add(child);
@@ -72,9 +64,5 @@ public class GanttData implements Serializable, IGraphDataContainer {
 		GanttData gantt = new GanttData();
 		gantt.error = error;
 		return gantt;
-	}
-
-	public void setScale(String value) {
-		this.scale = value;
 	}
 }

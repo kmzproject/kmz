@@ -4,9 +4,7 @@ import java.util.Date;
 
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
-import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 import ru.kmz.web.ordercommon.client.window.OrderSelectWindow;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 
@@ -15,15 +13,12 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.core.client.util.ToggleGroup;
-import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.form.CheckBox;
-import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.form.Radio;
@@ -42,7 +37,6 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 	private CheckBox checkBoxShowOtherTasks;
 	private CheckBox checkBoxResources;
 	private DateField dataField;
-	private ComboBox<KeyValueData> scalaCombo;
 
 	public CalculatorInputData(CalculateHandler handler) {
 		this.handler = handler;
@@ -64,19 +58,6 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 		dataField.setValue(new Date());
 		container.add(new FieldLabel(dataField, "Дата"));
 
-		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		list.add(new KeyValueData(ScaleConstants.DAY, "День"));
-		list.add(new KeyValueData(ScaleConstants.WEEK, "Неделя"));
-		list.add(new KeyValueData(ScaleConstants.MONTH, "Месяц"));
-
-		scalaCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
-		scalaCombo.setForceSelection(true);
-		scalaCombo.setTypeAhead(true);
-		scalaCombo.setTriggerAction(TriggerAction.ALL);
-		scalaCombo.setEditable(false);
-		scalaCombo.setValue(list.get(1));
-
-		container.add(new FieldLabel(scalaCombo, "Масштаб"));
 
 		checkBoxResources = new CheckBox();
 		checkBoxResources.setBoxLabel("Использовать ресурсы в расчетах");
@@ -170,7 +151,6 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 		input.setDate(dataField.getValue());
 		input.setByFinishDate(radioFinish.getValue());
 		input.setByStartDate(radioStart.getValue());
-		input.setScala(scalaCombo.getValue().getKey());
 		input.setTemplateId(templateId);
 		input.setUseResource(checkBoxResources.getValue());
 		input.setShowOtherTasks(checkBoxShowOtherTasks.getValue());

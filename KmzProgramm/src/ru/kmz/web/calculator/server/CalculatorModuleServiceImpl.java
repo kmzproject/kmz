@@ -16,7 +16,6 @@ import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.calculator.client.CalculatorModuleService;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
-import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -54,11 +53,6 @@ public class CalculatorModuleServiceImpl extends RemoteServiceServlet implements
 		service.calculate();
 		GanttData data = service.getGantData();
 
-		if (input.getScala() != null) {
-			data.setScale(input.getScala());
-		} else {
-			data.setScale(ScaleConstants.DAY);
-		}
 		return data;
 	}
 

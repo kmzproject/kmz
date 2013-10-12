@@ -11,7 +11,6 @@ public class CalculatorInputDataProxy implements Serializable {
 	private boolean byStartDate;
 	private boolean useResource;
 	private boolean showOtherTasks;
-	private String scala;
 	private String templateId;
 
 	public boolean isByFinishDate() {
@@ -36,14 +35,6 @@ public class CalculatorInputDataProxy implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public String getScala() {
-		return scala;
-	}
-
-	public void setScala(String scala) {
-		this.scala = scala;
 	}
 
 	public String getTemplateId() {
