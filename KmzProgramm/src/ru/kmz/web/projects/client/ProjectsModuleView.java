@@ -1,6 +1,5 @@
 package ru.kmz.web.projects.client;
 
-import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.ganttcommon.client.CalculationTemplateGant;
 import ru.kmz.web.ganttcommon.shared.GanttData;
@@ -15,9 +14,7 @@ import com.sencha.gxt.widget.core.client.info.Info;
 
 public class ProjectsModuleView extends AbstarctModuleView {
 
-	
-	private final static ProjectsModuleServiceAsync calculatorModuleService = GWT
-			.create(ProjectsModuleService.class);
+	private final static ProjectsModuleServiceAsync service = GWT.create(ProjectsModuleService.class);
 
 	private static ProjectsModuleView instanse;
 	private HorizontalPanel gantContainer;
@@ -47,15 +44,15 @@ public class ProjectsModuleView extends AbstarctModuleView {
 
 		gantContainer = new HorizontalPanel();
 		container.add(gantContainer);
+
+		onCalculate();
 	}
 
-	
 	public static ProjectsModuleServiceAsync getService() {
-		return calculatorModuleService;
+		return service;
 	}
 
-
-	public void onCalculate(CalculatorInputDataProxy data) {
+	public void onCalculate() {
 		final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере",
 				"Это может занять некоторое время");
 		box.setProgressText("Обработка...");

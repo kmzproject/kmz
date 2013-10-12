@@ -53,6 +53,9 @@ public class GanttData implements Serializable, IGraphDataContainer {
 	}
 
 	public String getScale() {
+		if (scale == null) {
+			return ScaleConstants.WEEK;
+		}
 		return scale;
 	}
 

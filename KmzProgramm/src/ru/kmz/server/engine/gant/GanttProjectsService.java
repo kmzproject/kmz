@@ -43,7 +43,7 @@ public class GanttProjectsService {
 	}
 
 	protected void createGanttData() {
-		data = new GanttData("Расчет");
+		data = new GanttData("Производство");
 	}
 
 	private MinMaxDate addProjectData() {
