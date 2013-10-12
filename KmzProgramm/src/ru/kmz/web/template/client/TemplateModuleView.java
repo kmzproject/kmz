@@ -11,10 +11,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
@@ -42,17 +42,17 @@ public class TemplateModuleView extends AbstarctModuleView implements IUpdatable
 
 	@Override
 	protected void createContainer() {
-		container = new VerticalPanel();
-		container.setSpacing(10);
+		container = new VerticalLayoutContainer();
+
 		createButtons();
 		treeContainer = new HorizontalLayoutContainer();
-		container.add(treeContainer);
+		((VerticalLayoutContainer) container).add(treeContainer);
 	}
 
 	private void createButtons() {
 		HorizontalPanel buttonContainer = new HorizontalPanel();
 		buttonContainer.setSpacing(10);
-		container.add(buttonContainer);
+		((VerticalLayoutContainer) container).add(buttonContainer);
 
 		label = new Label();
 		buttonContainer.add(label);

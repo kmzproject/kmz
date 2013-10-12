@@ -40,10 +40,10 @@ public class ProjectsModuleView extends AbstarctModuleView {
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		container.setSpacing(10);
+		((VerticalPanel) container).setSpacing(10);
 
 		gantContainer = new HorizontalPanel();
-		container.add(gantContainer);
+		((VerticalPanel) container).add(gantContainer);
 
 		onCalculate();
 	}

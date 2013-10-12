@@ -30,7 +30,7 @@ public class PurchasesModuleView extends AbstarctModuleView {
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		container.setSpacing(10);
+		((VerticalPanel) container).setSpacing(10);
 	}
 
 }

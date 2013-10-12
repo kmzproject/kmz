@@ -36,7 +36,7 @@ public class ResourcesModuleView extends AbstarctModuleView implements IUpdatabl
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		container.setSpacing(10);
+		((VerticalPanel) container).setSpacing(10);
 
 		HorizontalPanel hp = new HorizontalPanel();
 
@@ -70,10 +70,10 @@ public class ResourcesModuleView extends AbstarctModuleView implements IUpdatabl
 		hp.add(addButton);
 		hp.add(editButton);
 
-		container.add(hp);
+		((VerticalPanel) container).add(hp);
 
 		grid = ResourcesGrid.getCalculatorGrid();
-		container.add(grid);
+		((VerticalPanel) container).add(grid);
 	}
 
 	public static ResourcesModuleView getInstance() {

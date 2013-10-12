@@ -41,18 +41,18 @@ public class AdministrationModuleView extends AbstarctModuleView {
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		container.setSpacing(10);
+		((VerticalPanel) container).setSpacing(10);
 
 		createButtons();
 
 		gantContainer = new HorizontalPanel();
-		container.add(gantContainer);
+		((VerticalPanel) container).add(gantContainer);
 	}
 
 	private void createButtons() {
 		HorizontalPanel buttonContainer = new HorizontalPanel();
 		buttonContainer.setSpacing(10);
-		container.add(buttonContainer);
+		((VerticalPanel) container).add(buttonContainer);
 
 		TextButton select = new TextButton("Удалить все данные и создать новые тестовые");
 
