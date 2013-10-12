@@ -32,9 +32,9 @@ public class GanttProjectsService {
 
 		MinMaxDate minMaxDate = process();
 
+		minMaxDate.prepare();
 		data.setDateStart(minMaxDate.getMinDate());
 		data.setDateFinish(minMaxDate.getMaxDate());
-
 	}
 
 	protected MinMaxDate process() {
@@ -69,10 +69,11 @@ public class GanttProjectsService {
 					MinMaxDate childDate = fill(graphData, e);
 					date.set(childDate);
 				}
-				graphData.setPlanStart(date.getMinDate());
-				graphData.setPlanFinish(date.getMaxDate());
-				graphData.setDuration(date.getDuration());
 			}
+			date.prepare();
+			graphData.setPlanStart(date.getMinDate());
+			graphData.setPlanFinish(date.getMaxDate());
+			graphData.setDuration(date.getDuration());
 			return date;
 
 		} else {

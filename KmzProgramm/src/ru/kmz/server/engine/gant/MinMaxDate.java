@@ -47,4 +47,13 @@ public class MinMaxDate {
 		return maxDate;
 	}
 
+	public void prepare() {
+		if (minDate == null) {
+			minDate = DateUtils.getDateNoTime(new Date());
+		}
+		if (maxDate == null) {
+			maxDate = DateUtils.getDateNoTime(new Date());
+		}
+	}
+
 }
