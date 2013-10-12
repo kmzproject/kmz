@@ -3,7 +3,7 @@ package ru.kmz.web.calculator.client;
 import ru.kmz.web.calculator.client.CalculatorInputData.CalculateHandler;
 import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.common.client.IKmzModule;
-import ru.kmz.web.ganttcommon.client.CalculationTemplateGant;
+import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -78,7 +78,7 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 				if (result.getError() != null) {
 					Info.display("Error", "Ошибка при обработке " + result.getError());
 				} else {
-					CalculationTemplateGant gant = new CalculationTemplateGant(result);
+					ProjectsGantt gant = new ProjectsGantt(result);
 					gantContainer.clear();
 					gantContainer.add(gant);
 				}

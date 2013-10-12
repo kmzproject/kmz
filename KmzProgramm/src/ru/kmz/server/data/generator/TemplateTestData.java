@@ -190,6 +190,25 @@ public class TemplateTestData {
 		return template;
 	}
 
+	// TODO: постедний предоставленный шаблон
+	public static Template createTemplateShort9() {
+
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short9"));
+
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие", 0,
+				ResourceTypes.FOLDER, template));
+
+		TemplateDataUtils.edit(new ProductTemplateElement("Ходовая часть", 14, ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProductTemplateElement("Рабочее колесо", 7, ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProductTemplateElement("Корпуса", 14, ResourceTypes.ASSEMBLAGE, root));
+
+		TemplateDataUtils.edit(new ProductTemplateElement("Направляющий аппарат", 14, ResourceTypes.ASSEMBLAGE, root));
+
+		return template;
+	}
+
 	public static List<Template> getDempTemplates() {
 		List<Template> templates = new ArrayList<Template>(3);
 		templates.add(TemplateTestData.createTemplate1());
@@ -200,6 +219,7 @@ public class TemplateTestData {
 		templates.add(TemplateTestData.createTemplateShort6());
 		templates.add(TemplateTestData.createTemplateShort7());
 		templates.add(TemplateTestData.createTemplateShort8());
+		templates.add(TemplateTestData.createTemplateShort9());
 		return templates;
 	}
 }

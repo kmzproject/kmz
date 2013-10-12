@@ -38,6 +38,9 @@ public class ProductTemplateElement {
 	@Persistent
 	private Key templateId;
 
+	@Persistent
+	private int orderNum;
+
 	@NotPersistent
 	private List<ProductTemplateElement> childs;
 
@@ -53,6 +56,7 @@ public class ProductTemplateElement {
 		this.resourceType = resourseType;
 		this.parentId = null;
 		this.templateId = template.getKey();
+		orderNum = 0;
 
 		template.setRootElement(this);
 	}
@@ -63,6 +67,12 @@ public class ProductTemplateElement {
 		this.resourceType = resourseType;
 		this.parentId = parent.getKey();
 		this.templateId = parent.getTemplateId();
+
+		if (parent.hasChild()) {
+			orderNum = parent.getChilds().size();
+		} else {
+			orderNum = 0;
+		}
 
 		parent.add(this);
 	}

@@ -81,7 +81,7 @@ public class TemplateDataUtils {
 	// после загрузки
 	private static void loadAllChild(PersistenceManager pm, ProductTemplateElement element) {
 		Query query = pm.newQuery(ProductTemplateElement.class, " parentId == :parentKey");
-		query.setOrdering("key");
+		query.setOrdering("orderNum");
 		List<ProductTemplateElement> list = (List<ProductTemplateElement>) query.execute(element.getKey());
 		for (ProductTemplateElement producteTemplateElement : list) {
 			element.add(producteTemplateElement);

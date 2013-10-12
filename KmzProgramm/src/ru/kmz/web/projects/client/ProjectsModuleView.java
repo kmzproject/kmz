@@ -1,7 +1,7 @@
 package ru.kmz.web.projects.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
-import ru.kmz.web.ganttcommon.client.CalculationTemplateGant;
+import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 
 import com.google.gwt.core.client.GWT;
@@ -66,7 +66,7 @@ public class ProjectsModuleView extends AbstarctModuleView {
 				if (result.getError() != null) {
 					Info.display("Error", "Ошибка при обработке " + result.getError());
 				} else {
-					CalculationTemplateGant gant = new CalculationTemplateGant(result);
+					ProjectsGantt gant = new ProjectsGantt(result);
 					gantContainer.clear();
 					gantContainer.add(gant);
 				}
