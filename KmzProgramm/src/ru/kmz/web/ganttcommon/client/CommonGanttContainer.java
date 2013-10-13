@@ -15,8 +15,11 @@ import ru.kmz.web.ganttcommon.client.data.TaskProps;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 
+import com.gantt.client.config.GanttConfig;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
@@ -75,14 +78,14 @@ public class CommonGanttContainer implements IsWidget {
 
 		CommonGanttConfig config = new CommonGanttConfig();
 		config.setLeftColumns(createStaticColumns());
-		config.setTimeHeaderConfig(getTimeHeaders());
+		config.setTimeHeaderConfig(getTimeHeaders(null));
 		config.setZoneGenerators(getZones());
 
 		// Create the Gxt Scheduler
 		gantt = new CommonGantt(dataTaskStore, dataDepStore, config);
 		gantt.setLineStore(createLines());
 
-		setStartEnd();
+		setStartEnd(null);
 
 		ContentPanel cp = new ContentPanel();
 		cp.setHeadingText(ganttData.getName());
@@ -120,6 +123,18 @@ public class CommonGanttContainer implements IsWidget {
 		scalaCombo.setTriggerAction(TriggerAction.ALL);
 		scalaCombo.setEditable(false);
 		scalaCombo.setValue(list.get(1));
+
+		scalaCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
+
+			@Override
+			public void onSelection(SelectionEvent<KeyValueData> event) {
+				GanttConfig c = gantt.getConfig();
+				c.timeHeaderConfig = getTimeHeaders(event.getSelectedItem().getKey());
+				setStartEnd(event.getSelectedItem().getKey());
+				gantt.refresh();
+			}
+		});
+
 		return scalaCombo;
 	}
 
@@ -143,12 +158,13 @@ public class CommonGanttContainer implements IsWidget {
 		return store;
 	}
 
-	private void setStartEnd() {
+	private void setStartEnd(String scale) {
 		DateWrapper dwStart = new DateWrapper(ganttData.getDateStart()).clearTime();
 		DateWrapper dwFinish = new DateWrapper(ganttData.getDateFinish()).clearTime();
 		int delta = 4;
 		// Set start and end date.
-		String scale = scalaCombo.getValue().getKey();
+		if (scale == null)
+			scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
 			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta).asDate());
 		} else if (scale.equals(ScaleConstants.MONTH)) {
@@ -158,9 +174,10 @@ public class CommonGanttContainer implements IsWidget {
 		}
 	}
 
-	private ArrayList<TimeAxisGenerator> getTimeHeaders() {
+	private ArrayList<TimeAxisGenerator> getTimeHeaders(String scale) {
 		ArrayList<TimeAxisGenerator> headers = new ArrayList<TimeAxisGenerator>();
-		String scale = scalaCombo.getValue().getKey();
+		if (scale == null)
+			scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
 			headers.add(new WeekTimeAxisGenerator("dd MMM"));
 			headers.add(new DayTimeAxisGenerator("EEE"));
