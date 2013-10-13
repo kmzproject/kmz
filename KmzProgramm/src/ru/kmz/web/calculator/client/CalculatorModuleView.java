@@ -26,6 +26,7 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 
 	private CalculatorInputData input;
 	private HorizontalPanel gantContainer;
+	private ProjectsGantt gant;
 
 	@Override
 	public void onModuleLoad() {
@@ -78,9 +79,13 @@ public class CalculatorModuleView implements EntryPoint, IsWidget, IKmzModule, C
 				if (result.getError() != null) {
 					Info.display("Error", "Ошибка при обработке " + result.getError());
 				} else {
-					ProjectsGantt gant = new ProjectsGantt(result);
-					gantContainer.clear();
-					gantContainer.add(gant);
+					if (gant == null){
+						gant = new ProjectsGantt(result);
+						gantContainer.clear();
+						gantContainer.add(gant);
+					}else{
+						gant.refreshData(result);
+					}
 				}
 				box.hide();
 			}

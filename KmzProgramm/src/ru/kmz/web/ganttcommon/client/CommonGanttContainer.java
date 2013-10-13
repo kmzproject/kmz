@@ -97,6 +97,14 @@ public class CommonGanttContainer implements IsWidget {
 		return cp;
 	}
 
+	public void refreshData(GanttData ganttData) {
+		this.ganttData = ganttData;
+		IDemoData data = new DataTransformator(this.ganttData);
+		setData(data);
+		setStartEnd(null);
+		gantt.refresh();
+	}
+
 	private ToolBar createToolBar() {
 		ToolBar tbar = new ToolBar();
 		TextButton showAll = new TextButton("Раскрыть все");
@@ -192,7 +200,11 @@ public class CommonGanttContainer implements IsWidget {
 	}
 
 	private void setData(IDemoData data) {
-		dataTaskStore = new TreeStore<Task>(TaskProps.props.key());
+		if (dataTaskStore == null) {
+			dataTaskStore = new TreeStore<Task>(TaskProps.props.key());
+		} else {
+			dataTaskStore.clear();
+		}
 		Task root = data.getTasks();
 		for (Task base : root.getChildren()) {
 			dataTaskStore.add(base);
