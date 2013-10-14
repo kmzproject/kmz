@@ -6,6 +6,7 @@ import java.util.List;
 
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
+import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.ganttcommon.client.data.DataTransformator;
 import ru.kmz.web.ganttcommon.client.data.Dependency;
 import ru.kmz.web.ganttcommon.client.data.DependencyProps;
@@ -64,6 +65,8 @@ public class CommonGanttContainer implements IsWidget {
 	private CommonGantt gantt;
 	ListStore<Task> taskStore;
 
+	private IUpdatable updateListener;
+
 	private TreeStore<Task> dataTaskStore;
 	private ListStore<Dependency> dataDepStore;
 
@@ -97,6 +100,10 @@ public class CommonGanttContainer implements IsWidget {
 		return cp;
 	}
 
+	public void setUpdateListener(IUpdatable updateListener) {
+		this.updateListener = updateListener;
+	}
+
 	public void refreshData(GanttData ganttData) {
 		this.ganttData = ganttData;
 		IDemoData data = new DataTransformator(this.ganttData);
@@ -115,6 +122,18 @@ public class CommonGanttContainer implements IsWidget {
 			}
 		});
 		tbar.add(showAll);
+
+		if (updateListener != null) {
+			TextButton refreshButton = new TextButton("Обновить");
+			refreshButton.addSelectHandler(new SelectHandler() {
+				@Override
+				public void onSelect(SelectEvent event) {
+					updateListener.update();
+				}
+			});
+			tbar.add(refreshButton);
+		}
+
 		tbar.add(new FieldLabel(getCombobox(), "Масштаб"));
 		return tbar;
 	}

@@ -1,6 +1,7 @@
 package ru.kmz.web.projects.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 
@@ -12,12 +13,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class ProjectsModuleView extends AbstarctModuleView {
+public class ProjectsModuleView extends AbstarctModuleView implements IUpdatable {
 
 	private final static ProjectsModuleServiceAsync service = GWT.create(ProjectsModuleService.class);
 
 	private static ProjectsModuleView instanse;
 	private HorizontalPanel gantContainer;
+	private ProjectsGantt gantt;
 
 	@Override
 	public void onModuleLoad() {
@@ -45,14 +47,14 @@ public class ProjectsModuleView extends AbstarctModuleView {
 		gantContainer = new HorizontalPanel();
 		((VerticalPanel) container).add(gantContainer);
 
-		onCalculate();
+		updateGantt();
 	}
 
 	public static ProjectsModuleServiceAsync getService() {
 		return service;
 	}
 
-	public void onCalculate() {
+	private void updateGantt() {
 		final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере",
 				"Это может занять некоторое время");
 		box.setProgressText("Обработка...");
@@ -66,9 +68,14 @@ public class ProjectsModuleView extends AbstarctModuleView {
 				if (result.getError() != null) {
 					Info.display("Error", "Ошибка при обработке " + result.getError());
 				} else {
-					ProjectsGantt gant = new ProjectsGantt(result);
-					gantContainer.clear();
-					gantContainer.add(gant);
+					if (gantt == null) {
+						gantt = new ProjectsGantt(result);
+						gantt.setUpdateListener(ProjectsModuleView.this);
+						gantContainer.clear();
+						gantContainer.add(gantt);
+					} else {
+						gantt.refreshData(result);
+					}
 				}
 				box.hide();
 			}
@@ -79,6 +86,11 @@ public class ProjectsModuleView extends AbstarctModuleView {
 				box.hide();
 			}
 		});
+	}
+
+	@Override
+	public void update() {
+		updateGantt();
 	}
 
 }
