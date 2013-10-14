@@ -13,7 +13,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class AdministrationModuleView extends AbstarctModuleView {
+public class AdministrationModuleView extends AbstarctModuleView<VerticalPanel> {
 
 	private final static AdministrationModuleServiceAsync service = GWT.create(AdministrationModuleService.class);
 
@@ -29,7 +29,7 @@ public class AdministrationModuleView extends AbstarctModuleView {
 
 	@Override
 	public String getModuleName() {
-		return "Модуль админи.";
+		return "Администрирование";
 	}
 
 	public static AdministrationModuleView getInstance() {
@@ -41,18 +41,18 @@ public class AdministrationModuleView extends AbstarctModuleView {
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		((VerticalPanel) container).setSpacing(10);
+		container.setSpacing(10);
 
 		createButtons();
 
 		gantContainer = new HorizontalPanel();
-		((VerticalPanel) container).add(gantContainer);
+		container.add(gantContainer);
 	}
 
 	private void createButtons() {
 		HorizontalPanel buttonContainer = new HorizontalPanel();
 		buttonContainer.setSpacing(10);
-		((VerticalPanel) container).add(buttonContainer);
+		container.add(buttonContainer);
 
 		TextButton select = new TextButton("Удалить все данные и создать новые тестовые");
 

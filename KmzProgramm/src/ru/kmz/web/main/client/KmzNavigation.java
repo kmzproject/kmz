@@ -33,12 +33,12 @@ public class KmzNavigation implements IsWidget {
 
 	private List<IKmzModule> getMdules() {
 		List<IKmzModule> list = new ArrayList<IKmzModule>();
-		list.add(CalculatorModuleView.getInstance());
+		list.add(ProjectsModuleView.getInstance());
+		list.add(OrderModuleView.getInstance());
+		list.add(PurchasesModuleView.getInstance());
 		list.add(TemplateModuleView.getInstance());
 		list.add(ResourcesModuleView.getInstance());
-		list.add(OrderModuleView.getInstance());
-		list.add(ProjectsModuleView.getInstance());
-		list.add(PurchasesModuleView.getInstance());
+		list.add(CalculatorModuleView.getInstance());
 		list.add(AdministrationModuleView.getInstance());
 		return list;
 	}
@@ -53,6 +53,7 @@ public class KmzNavigation implements IsWidget {
 
 		for (IKmzModule iKmzModule : list) {
 			TextButton button = new TextButton(iKmzModule.getModuleName());
+			button.setEnabled(iKmzModule.getEnabled());
 			button.addSelectHandler(new NavigationSelectHandler(iKmzModule));
 			c.add(button, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		}

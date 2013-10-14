@@ -5,7 +5,7 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class PurchasesModuleView extends AbstarctModuleView {
+public class PurchasesModuleView extends AbstarctModuleView<VerticalPanel> {
 
 	private static PurchasesModuleView instanse;
 
@@ -18,7 +18,7 @@ public class PurchasesModuleView extends AbstarctModuleView {
 
 	@Override
 	public String getModuleName() {
-		return "Модуль закупок";
+		return "Закупки";
 	}
 
 	public static PurchasesModuleView getInstance() {
@@ -30,7 +30,7 @@ public class PurchasesModuleView extends AbstarctModuleView {
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		((VerticalPanel) container).setSpacing(10);
+		container.setSpacing(10);
 	}
 
 }

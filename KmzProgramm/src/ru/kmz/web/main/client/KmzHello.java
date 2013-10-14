@@ -1,6 +1,5 @@
 package ru.kmz.web.main.client;
 
-
 import ru.kmz.web.common.client.IKmzModule;
 
 import com.google.gwt.user.client.ui.Frame;
@@ -19,5 +18,9 @@ public class KmzHello implements IsWidget, IKmzModule {
 	public String getModuleName() {
 		return "Информация о системе";
 	}
-	
+
+	@Override
+	public boolean getEnabled() {
+		return true;
+	}
 }

@@ -13,7 +13,7 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
-public class OrderModuleView extends AbstarctModuleView implements IUpdatableWithValue<KeyValueData> {
+public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatableWithValue<KeyValueData> {
 
 	private static OrderModuleView instanse;
 	private Label label;
@@ -28,7 +28,7 @@ public class OrderModuleView extends AbstarctModuleView implements IUpdatableWit
 
 	@Override
 	public String getModuleName() {
-		return "Модуль заказов";
+		return "Заказы";
 	}
 
 	public static OrderModuleView getInstance() {
@@ -40,18 +40,18 @@ public class OrderModuleView extends AbstarctModuleView implements IUpdatableWit
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		((VerticalPanel) container).setSpacing(10);
+		container.setSpacing(10);
 
 		createButtons();
 
 		gantContainer = new HorizontalPanel();
-		((VerticalPanel) container).add(gantContainer);
+		container.add(gantContainer);
 	}
 
 	private void createButtons() {
 		HorizontalPanel buttonContainer = new HorizontalPanel();
 		buttonContainer.setSpacing(10);
-		((VerticalPanel) container).add(buttonContainer);
+		container.add(buttonContainer);
 
 		label = new Label();
 		buttonContainer.add(label);

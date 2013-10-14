@@ -15,11 +15,16 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class ResourcesModuleView extends AbstarctModuleView implements IUpdatable {
+public class ResourcesModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
 
 	private static ResourcesModuleView instance;
 	private ResourcesGrid grid;
 	private final static ResourcesModuleServiceAsync resourcesModuleService = GWT.create(ResourcesModuleService.class);
+
+	@Override
+	public boolean getEnabled() {
+		return false;
+	}
 
 	@Override
 	public void onModuleLoad() {
@@ -30,13 +35,13 @@ public class ResourcesModuleView extends AbstarctModuleView implements IUpdatabl
 
 	@Override
 	public String getModuleName() {
-		return "Модуль ресурсов";
+		return "Ресурсы";
 	}
 
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		((VerticalPanel) container).setSpacing(10);
+		container.setSpacing(10);
 
 		HorizontalPanel hp = new HorizontalPanel();
 
@@ -70,10 +75,10 @@ public class ResourcesModuleView extends AbstarctModuleView implements IUpdatabl
 		hp.add(addButton);
 		hp.add(editButton);
 
-		((VerticalPanel) container).add(hp);
+		container.add(hp);
 
 		grid = ResourcesGrid.getCalculatorGrid();
-		((VerticalPanel) container).add(grid);
+		container.add(grid);
 	}
 
 	public static ResourcesModuleView getInstance() {

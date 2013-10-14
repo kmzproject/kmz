@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class ProjectsModuleView extends AbstarctModuleView implements IUpdatable {
+public class ProjectsModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
 
 	private final static ProjectsModuleServiceAsync service = GWT.create(ProjectsModuleService.class);
 
@@ -30,7 +30,7 @@ public class ProjectsModuleView extends AbstarctModuleView implements IUpdatable
 
 	@Override
 	public String getModuleName() {
-		return "Модуль производство";
+		return "Производство";
 	}
 
 	public static ProjectsModuleView getInstance() {
@@ -42,10 +42,10 @@ public class ProjectsModuleView extends AbstarctModuleView implements IUpdatable
 	@Override
 	protected void createContainer() {
 		container = new VerticalPanel();
-		((VerticalPanel) container).setSpacing(10);
+		container.setSpacing(10);
 
 		gantContainer = new HorizontalPanel();
-		((VerticalPanel) container).add(gantContainer);
+		container.add(gantContainer);
 
 		updateGantt();
 	}

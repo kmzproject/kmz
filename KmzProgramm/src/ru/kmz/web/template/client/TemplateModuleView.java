@@ -19,9 +19,10 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class TemplateModuleView extends AbstarctModuleView implements IUpdatableWithValue<KeyValueData> {
+public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements
+		IUpdatableWithValue<KeyValueData> {
 
-	private final static TemplateModuleServiceAsync templateMpduleService = GWT.create(TemplateModuleService.class);
+	private final static TemplateModuleServiceAsync service = GWT.create(TemplateModuleService.class);
 
 	private static TemplateModuleView instanse;
 	private Label label;
@@ -37,7 +38,7 @@ public class TemplateModuleView extends AbstarctModuleView implements IUpdatable
 
 	@Override
 	public String getModuleName() {
-		return "Модуль шаблонов";
+		return "Шаблоны";
 	}
 
 	@Override
@@ -46,13 +47,13 @@ public class TemplateModuleView extends AbstarctModuleView implements IUpdatable
 
 		createButtons();
 		treeContainer = new HorizontalLayoutContainer();
-		((VerticalLayoutContainer) container).add(treeContainer);
+		container.add(treeContainer);
 	}
 
 	private void createButtons() {
 		HorizontalPanel buttonContainer = new HorizontalPanel();
 		buttonContainer.setSpacing(10);
-		((VerticalLayoutContainer) container).add(buttonContainer);
+		container.add(buttonContainer);
 
 		label = new Label();
 		buttonContainer.add(label);
@@ -71,7 +72,7 @@ public class TemplateModuleView extends AbstarctModuleView implements IUpdatable
 	}
 
 	public static TemplateModuleServiceAsync getService() {
-		return templateMpduleService;
+		return service;
 	}
 
 	public static TemplateModuleView getInstance() {
