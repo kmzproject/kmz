@@ -10,4 +10,6 @@ public interface OrderCommonServiceAsync {
 
 	void getOrders(AsyncCallback<List<OrderProxy>> callback);
 
+	void editOrder(OrderProxy proxy, AsyncCallback<OrderProxy> callback);
+
 }

@@ -1,7 +1,8 @@
-package ru.kmz.web.resources.client;
+package ru.kmz.web.resources.client.window;
 
 import ru.kmz.web.common.client.control.ResourceTypeComboBox;
 import ru.kmz.web.common.client.window.CommonDirectoryWindow;
+import ru.kmz.web.resources.client.ResourcesModuleView;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;

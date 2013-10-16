@@ -1,23 +1,24 @@
 package ru.kmz.web.order.client;
 
+import java.util.List;
+
 import ru.kmz.web.common.client.AbstarctModuleView;
-import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.window.IUpdatableWithValue;
-import ru.kmz.web.ordercommon.client.window.OrderSelectWindow;
+import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.order.client.window.OrderProperties;
+import ru.kmz.web.ordercommon.shared.OrderProxy;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.info.Info;
 
-public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatableWithValue<KeyValueData> {
+public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
 
 	private static OrderModuleView instanse;
-	private Label label;
-	private HorizontalPanel gantContainer;
+	private OrdersGrid grid;
 
 	@Override
 	public void onModuleLoad() {
@@ -44,8 +45,8 @@ public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implement
 
 		createButtons();
 
-		gantContainer = new HorizontalPanel();
-		container.add(gantContainer);
+		grid = OrdersGrid.getCalculatorGrid();
+		container.add(grid);
 	}
 
 	private void createButtons() {
@@ -53,26 +54,40 @@ public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implement
 		buttonContainer.setSpacing(10);
 		container.add(buttonContainer);
 
-		label = new Label();
-		buttonContainer.add(label);
-
-		TextButton select = new TextButton("Выбрать");
-
-		select.addSelectHandler(new SelectHandler() {
+		TextButton addButton = new TextButton("Добавить");
+		addButton.addSelectHandler(new SelectHandler() {
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				OrderSelectWindow window = new OrderSelectWindow();
+				OrderProperties window = new OrderProperties();
 				window.setUpdatable(OrderModuleView.this);
 				window.show();
 			}
 		});
-		buttonContainer.add(select);
+		TextButton editButton = new TextButton("Редактировать");
+		editButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				List<OrderProxy> list = grid.getSelectionModel().getSelectedItems();
+				if (list == null || list.size() != 1) {
+					Info.display("Предупреждение", "Невозможно произвести редактирование");
+					return;
+				}
+				OrderProxy object = list.get(0);
+				OrderProperties window = new OrderProperties();
+				window.setUpdatable(OrderModuleView.this);
+				window.setData(object);
+				window.show();
+			}
+		});
+		buttonContainer.add(addButton);
+		buttonContainer.add(editButton);
 	}
 
 	@Override
-	public void update(KeyValueData value) {
-		label.setText(value.getValue());
+	public void update() {
+		grid.updateData();
 	}
 
 }

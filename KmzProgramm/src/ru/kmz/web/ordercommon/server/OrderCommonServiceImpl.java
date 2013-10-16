@@ -22,4 +22,18 @@ public class OrderCommonServiceImpl extends RemoteServiceServlet implements Orde
 		return result;
 	}
 
+	@Override
+	public OrderProxy editOrder(OrderProxy proxy) {
+		Order order;
+		if (proxy.getId() != null) {
+			order = OrderDataUtils.getOrder(proxy.getId());
+		} else {
+			order = new Order();
+		}
+		order.updateData(proxy);
+		order = OrderDataUtils.edit(order);
+		proxy = order.asProxy();
+		return proxy;
+	}
+
 }

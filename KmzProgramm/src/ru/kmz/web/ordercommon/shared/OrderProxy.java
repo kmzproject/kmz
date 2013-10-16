@@ -7,6 +7,8 @@ public class OrderProxy implements Serializable {
 
 	private String id;
 	private String name;
+	private String customer;
+	private String legalNumber;
 
 	public OrderProxy() {
 	}
@@ -27,8 +29,26 @@ public class OrderProxy implements Serializable {
 		this.name = name;
 	}
 
-	public OrderProxy(String id, String name) {
+	public String getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
+
+	public OrderProxy(String id, String name, String customer, String legalNumber) {
 		this.id = id;
 		this.name = name;
+		this.customer = customer;
+		this.legalNumber = legalNumber;
+	}
+
+	public String getLegalNumber() {
+		return legalNumber;
+	}
+
+	public void setLegalNumber(String value) {
+		this.legalNumber = value;
 	}
 }

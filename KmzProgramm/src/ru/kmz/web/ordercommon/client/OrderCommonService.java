@@ -12,4 +12,6 @@ public interface OrderCommonService extends RemoteService {
 
 	List<OrderProxy> getOrders();
 
+	OrderProxy editOrder(OrderProxy proxy);
+
 }

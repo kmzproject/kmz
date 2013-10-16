@@ -4,6 +4,7 @@ import java.util.List;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.resources.client.window.ResourceProperties;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
 import com.google.gwt.core.client.GWT;

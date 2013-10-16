@@ -10,7 +10,7 @@ public class OrderTestData {
 
 	public static List<Order> createOrders1() {
 		List<Order> list = new ArrayList<Order>();
-		list.add(OrderDataUtils.edit(new Order("Тестовый заказ 1")));
+		list.add(OrderDataUtils.edit(new Order("Тестовый заказ 1", "Заказчик Тест1", "Договор №1")));
 		return list;
 	}
 

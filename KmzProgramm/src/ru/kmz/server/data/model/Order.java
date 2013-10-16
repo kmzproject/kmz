@@ -25,6 +25,10 @@ public class Order implements IProjectTask {
 
 	@Persistent
 	private String name;
+	@Persistent
+	private String customer;
+	@Persistent
+	private String legalNumber;
 
 	@NotPersistent
 	private List<ProductElementTask> childs;
@@ -32,8 +36,16 @@ public class Order implements IProjectTask {
 	public Order() {
 	}
 
-	public Order(String name) {
+	public Order(String name, String customer, String legalNumber) {
 		this.name = name;
+		this.customer = customer;
+		this.legalNumber = legalNumber;
+	}
+
+	public void updateData(OrderProxy proxy) {
+		this.name = proxy.getName();
+		this.customer = proxy.getCustomer();
+		this.legalNumber = proxy.getLegalNumber();
 	}
 
 	public Key getKey() {
@@ -57,7 +69,7 @@ public class Order implements IProjectTask {
 	}
 
 	public OrderProxy asProxy() {
-		return new OrderProxy(KeyFactory.keyToString(key), name);
+		return new OrderProxy(KeyFactory.keyToString(key), name, customer, legalNumber);
 	}
 
 	public List<ProductElementTask> getChilds() {
