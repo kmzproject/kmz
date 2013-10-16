@@ -168,16 +168,16 @@ public class TemplateTestData {
 		ProductTemplateElement elementLavel1;
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Ходовая часть", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 7, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (хч)", 7, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Рабочее колесо", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 6, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (рк)", 6, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Корпусные детали", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 3, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (кд)", 3, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Направляющий аппарат", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 3, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (на)", 3, ResourceTypes.ORDER, elementLavel1));
 
 		return template;
 	}
@@ -191,16 +191,16 @@ public class TemplateTestData {
 		ProductTemplateElement elementLavel1;
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Ходовая часть", 3, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 9, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (хч)", 9, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Рабочее колесо", 3, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 6, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (рк)", 6, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Корпусные детали", 3, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 3, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (кд)", 3, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Направляющий аппарат", 3, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 3, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (на)", 3, ResourceTypes.ORDER, elementLavel1));
 
 		return template;
 	}
@@ -214,16 +214,16 @@ public class TemplateTestData {
 		ProductTemplateElement elementLavel1;
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Ходовая часть", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 11, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (хч)", 11, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Рабочее колесо", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 8, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (рк)", 8, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Корпусные детали", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 3, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (кд)", 3, ResourceTypes.ORDER, elementLavel1));
 
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Направляющий аппарат", 5, ResourceTypes.ASSEMBLAGE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Закупка", 3, ResourceTypes.ORDER, elementLavel1));
+		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (на)", 3, ResourceTypes.ORDER, elementLavel1));
 
 		return template;
 	}
