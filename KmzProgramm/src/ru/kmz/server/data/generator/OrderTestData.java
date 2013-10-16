@@ -14,4 +14,13 @@ public class OrderTestData {
 		return list;
 	}
 
+	public static List<Order> createOrders2() {
+		List<Order> list = new ArrayList<Order>();
+		list.add(OrderDataUtils.edit(new Order("Гражданская", "", "")));
+		list.add(OrderDataUtils.edit(new Order("Первомайка", "", "")));
+		list.add(OrderDataUtils.edit(new Order("Рязанская ГРЭС", "", "")));
+		return list;
+
+	}
+
 }

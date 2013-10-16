@@ -13,7 +13,7 @@ public class AdministrationModuleServiceImpl extends RemoteServiceServlet implem
 	@Override
 	public void recreateData() {
 		TemplateTestData.createDemoTemplates();
-		OrderTestData.createOrders1();
+		OrderTestData.createOrders2();
 		ResourceTestData.createReource1();
 	}
 }

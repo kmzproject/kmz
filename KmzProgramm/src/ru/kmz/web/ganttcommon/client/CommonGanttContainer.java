@@ -92,7 +92,7 @@ public class CommonGanttContainer implements IsWidget {
 
 		ContentPanel cp = new ContentPanel();
 		cp.setHeadingText(ganttData.getName());
-		cp.setPixelSize(1000, 460);
+		cp.setPixelSize(1100, 550);
 		cp.getElement().setMargins(new Margins(5));
 
 		vc.add(gantt, new VerticalLayoutData(1, 1));
