@@ -8,6 +8,8 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 public abstract class CommonSelectWindow<T> extends Window {
 
 	protected IUpdatableWithValue<T> updatableForm;
+	final protected TextButton cancelButton;
+	final protected TextButton selectButton;
 
 	public CommonSelectWindow() {
 		super();
@@ -17,11 +19,11 @@ public abstract class CommonSelectWindow<T> extends Window {
 		setPixelSize(500, 100);
 		setModal(true);
 		setBlinkModal(true);
-		TextButton cancelButton = new TextButton("Отмена");
+		cancelButton = new TextButton("Отмена");
 		cancelButton.addSelectHandler(new CancelSelectHandler(this));
-		TextButton saveButton = new TextButton("Выбрать");
-		saveButton.addSelectHandler(new SaveSelectHandler());
-		addButton(saveButton);
+		selectButton = new TextButton("Выбрать");
+		selectButton.addSelectHandler(new SaveSelectHandler());
+		addButton(selectButton);
 		addButton(cancelButton);
 	}
 

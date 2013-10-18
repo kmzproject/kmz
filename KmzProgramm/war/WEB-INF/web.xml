@@ -22,10 +22,6 @@
 		<servlet-class>ru.kmz.web.template.server.TemplateModuleServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>calculatorModule</servlet-name>
-		<servlet-class>ru.kmz.web.calculator.server.CalculatorModuleServiceImpl</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>resourcesModule</servlet-name>
 		<servlet-class>ru.kmz.web.resources.server.ResourcesModuleServiceImpl</servlet-class>
 	</servlet>
@@ -60,12 +56,12 @@
 		<servlet-name>templateCommon</servlet-name>
 		<url-pattern>/templatemodule/templateCommon</url-pattern>
 		<url-pattern>/kmzprogramm/templateCommon</url-pattern>
-		<url-pattern>/calculatormodule/templateCommon</url-pattern>
+		<url-pattern>/projectsmodule/templateCommon</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>orderCommon</servlet-name>
 		<url-pattern>/kmzprogramm/orderCommon</url-pattern>
-		<url-pattern>/calculatormodule/orderCommon</url-pattern>
+		<url-pattern>/projectsmodule/orderCommon</url-pattern>
 		<url-pattern>/ordermodule/orderCommon</url-pattern>
 	</servlet-mapping>
 
@@ -73,11 +69,6 @@
 		<servlet-name>templateModule</servlet-name>
 		<url-pattern>/templatemodule/templateModule</url-pattern>
 		<url-pattern>/kmzprogramm/templateModule</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>calculatorModule</servlet-name>
-		<url-pattern>/calculatormodule/calculatorModule</url-pattern>
-		<url-pattern>/kmzprogramm/calculatorModule</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>resourcesModule</servlet-name>

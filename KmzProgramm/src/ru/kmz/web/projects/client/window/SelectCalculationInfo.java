@@ -1,20 +1,18 @@
-package ru.kmz.web.calculator.client;
+package ru.kmz.web.projects.client.window;
 
 import java.util.Date;
 
-import ru.kmz.web.calculator.shared.CalculatorInputDataProxy;
 import ru.kmz.web.common.client.data.KeyValueData;
+import ru.kmz.web.common.client.window.CommonSelectWindow;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
-import ru.kmz.web.ordercommon.client.window.OrderSelectWindow;
+import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.util.ToggleGroup;
 import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
@@ -22,42 +20,31 @@ import com.sencha.gxt.widget.core.client.form.CheckBox;
 import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.form.Radio;
-import com.sencha.gxt.widget.core.client.info.Info;
 
-public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyValueData> {
+public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDataProxy> implements IUpdatableWithValue<KeyValueData> {
 
-	private FlowLayoutContainer container;
-	private CalculateHandler handler;
 	private String templateId;
 	private Label templateName;
-	private TextButton calculate;
-	private TextButton addButton;
 	private Radio radioFinish;
 	private Radio radioStart;
 	private CheckBox checkBoxShowOtherTasks;
 	private CheckBox checkBoxResources;
 	private DateField dataField;
 
-	public CalculatorInputData(CalculateHandler handler) {
-		this.handler = handler;
+	public SelectCalculationInfo() {
+		super();
+		setPixelSize(370, 220);
+		selectButton.setEnabled(false);
 	}
 
 	@Override
-	public Widget asWidget() {
-		if (container == null) {
-			createContainer();
-		}
-		return container;
-	}
-
-	private void createContainer() {
-		container = new FlowLayoutContainer();
+	protected Container getInfoContainer() {
+		FlowLayoutContainer container = new FlowLayoutContainer();
 
 		dataField = new DateField();
 		dataField.setAutoValidate(true);
 		dataField.setValue(new Date());
 		container.add(new FieldLabel(dataField, "Дата"));
-
 
 		checkBoxResources = new CheckBox();
 		checkBoxResources.setBoxLabel("Использовать ресурсы в расчетах");
@@ -88,62 +75,21 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 		templatePanel.setSpacing(10);
 
 		templateName = new Label();
-		TextButton selectButton = new TextButton("Выбрать");
-		selectButton.addSelectHandler(new SelectHandler() {
+		TextButton selectTemplateButton = new TextButton("Выбрать");
+		selectTemplateButton.addSelectHandler(new SelectHandler() {
 			@Override
 			public void onSelect(SelectEvent event) {
 				TemplateSelectWindow window = new TemplateSelectWindow();
-				window.setUpdatable(CalculatorInputData.this);
+				window.setUpdatable(SelectCalculationInfo.this);
 				window.show();
 			}
 		});
 		templatePanel.add(templateName);
-		templatePanel.add(selectButton);
+		templatePanel.add(selectTemplateButton);
 
 		container.add(new FieldLabel(templatePanel, "Шаблон"));
 
-		calculate = new TextButton("Расчитать");
-		calculate.setEnabled(false);
-		calculate.addSelectHandler(new SelectHandler() {
-			@Override
-			public void onSelect(SelectEvent event) {
-				if (templateId == null) {
-					Info.display("Ошибка", "Необходимо выбрать шаблон");
-					return;
-				}
-				CalculatorInputDataProxy input = getInput();
-				handler.onCalculate(input);
-			}
-		});
-
-		container.add(calculate);
-
-		addButton = new TextButton("Сохранить");
-		addButton.setEnabled(false);
-		addButton.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-				OrderSelectWindow window = new OrderSelectWindow();
-				window.setUpdatable(new UpdatebleOnSave());
-				window.show();
-			}
-		});
-
-		container.add(addButton);
-
-	}
-
-	public static interface CalculateHandler {
-		void onCalculate(CalculatorInputDataProxy data);
-	}
-
-	@Override
-	public void update(KeyValueData value) {
-		templateName.setText(value.getValue());
-		templateId = value.getKey();
-		calculate.setEnabled(true);
-		addButton.setEnabled(true);
+		return container;
 	}
 
 	private CalculatorInputDataProxy getInput() {
@@ -157,24 +103,18 @@ public class CalculatorInputData implements IsWidget, IUpdatableWithValue<KeyVal
 		return input;
 	}
 
-	private class UpdatebleOnSave implements IUpdatableWithValue<KeyValueData> {
-
-		@Override
-		public void update(KeyValueData value) {
-			CalculatorInputDataProxy input = getInput();
-			CalculatorModuleView.getService().save(input, value.getKey(), new AsyncCallback<Void>() {
-
-				@Override
-				public void onSuccess(Void result) {
-					Info.display("Сохранены", "Успешно сохранил");
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Info.display("Ошибка", "Ошибка загрузки" + caught);
-				}
-			});
-		}
+	@Override
+	protected CalculatorInputDataProxy getSelectedValue() {
+		CalculatorInputDataProxy input = getInput();
+		return input;
 
 	}
+
+	@Override
+	public void update(KeyValueData value) {
+		templateName.setText(value.getValue());
+		templateId = value.getKey();
+		selectButton.setEnabled(true);
+	}
+
 }

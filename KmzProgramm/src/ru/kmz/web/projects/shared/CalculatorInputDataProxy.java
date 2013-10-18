@@ -1,4 +1,4 @@
-package ru.kmz.web.calculator.shared;
+package ru.kmz.web.projects.shared;
 
 import java.io.Serializable;
 import java.util.Date;

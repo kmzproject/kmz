@@ -2,7 +2,6 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN"
   "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
 <module rename-to='kmzprogramm'>
-	<inherits name="ru.kmz.web.calculator.CalculatorModule" />
 	<inherits name="ru.kmz.web.template.TemplateModule" />
 	<inherits name="ru.kmz.web.resources.ResourcesModule" />
 	<inherits name="ru.kmz.web.order.OrderModule" />

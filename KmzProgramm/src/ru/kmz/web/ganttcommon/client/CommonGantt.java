@@ -34,6 +34,7 @@ public class CommonGantt extends Gantt<Task, Dependency> {
 
 	public CommonGantt(TreeStore<Task> taskStore, ListStore<Dependency> dependecyStore, GanttConfig config) {
 		super(taskStore, dependecyStore, config);
+//		getGanttPanel().getView().setPreventScrollToTopOnRefresh(false);
 	}
 
 	@Override

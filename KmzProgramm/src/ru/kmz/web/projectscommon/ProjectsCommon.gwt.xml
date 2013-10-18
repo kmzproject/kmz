@@ -2,7 +2,6 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
 <module rename-to="projectscommon">
 	<inherits name="ru.kmz.web.ganttcommon.GantModule" />
-	<inherits name="ru.kmz.web.ordercommon.OrderCommon" />
 	<source path="client" />
 	<source path="shared" />
 </module>
