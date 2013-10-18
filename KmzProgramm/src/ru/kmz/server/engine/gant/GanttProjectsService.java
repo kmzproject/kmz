@@ -1,5 +1,6 @@
 package ru.kmz.server.engine.gant;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -55,10 +56,19 @@ public class GanttProjectsService {
 			MinMaxDate orderDate = fill(data, order);
 			date.set(orderDate);
 		}
+		sort();
 		return date;
 	}
 
-	private MinMaxDate fill(IGraphDataContainer rootGraphData, IProjectTask task) {
+	/** Сортирует только 2 верних уровня, заказы и изделия в заказе */
+	private void sort() {
+		Collections.sort(data.getChilds());
+		for (GraphData graphData : data.getChilds()) {
+			Collections.sort(graphData.getChilds());
+		}
+	}
+
+	private static MinMaxDate fill(IGraphDataContainer rootGraphData, IProjectTask task) {
 		GraphData graphData = task.asGraphDataProxy();
 		rootGraphData.addChild(graphData);
 

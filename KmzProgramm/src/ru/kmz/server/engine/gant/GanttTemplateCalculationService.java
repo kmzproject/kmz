@@ -30,12 +30,15 @@ public class GanttTemplateCalculationService extends GanttProjectsService {
 
 	@Override
 	public MinMaxDate process() {
+		MinMaxDate minMaxDate = super.process();
+
 		service.calculate(template, date);
 		ProductTemplateElement root = template.getRootElement();
 
-		MinMaxDate minMaxTemplateDate = fill(data, root);
+		GanttData fake = new GanttData();
+		MinMaxDate minMaxTemplateDate = fill(fake, root);
+		data.getChilds().add(0, fake.getChilds().get(0));
 
-		MinMaxDate minMaxDate = super.process();
 		minMaxDate.set(minMaxTemplateDate);
 
 		return minMaxDate;

@@ -9,7 +9,7 @@ import ru.kmz.web.common.shared.HasResourceType;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 
 @SuppressWarnings("serial")
-public class GraphData implements Serializable, HasResourceType, IGraphDataContainer {
+public class GraphData implements Serializable, HasResourceType, IGraphDataContainer, Comparable<GraphData> {
 
 	private String id;
 	private String name;
@@ -96,6 +96,11 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 
 	public List<GraphData> getChilds() {
 		return childs;
+	}
+
+	@Override
+	public int compareTo(GraphData ganttData) {
+		return planStart.compareTo(ganttData.planStart);
 	}
 
 }
