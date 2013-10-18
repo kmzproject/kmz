@@ -90,6 +90,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalPanel> implem
 	public void update(GanttData ganttData) {
 		if (ganttData == null) {
 			update();
+			return;
 		}
 		if (gantt == null) {
 			gantt = new ProjectsGantt(ganttData);
