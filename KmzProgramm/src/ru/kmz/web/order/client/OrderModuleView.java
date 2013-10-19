@@ -9,13 +9,13 @@ import ru.kmz.web.ordercommon.shared.OrderProxy;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
+public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
 	private static OrderModuleView instanse;
 	private OrdersGrid grid;
@@ -40,8 +40,7 @@ public class OrderModuleView extends AbstarctModuleView<VerticalPanel> implement
 
 	@Override
 	protected void createContainer() {
-		container = new VerticalPanel();
-		container.setSpacing(10);
+		container = new VerticalLayoutContainer();
 
 		createButtons();
 

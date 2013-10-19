@@ -37,6 +37,7 @@ public class CalculateSaveButtons implements IsWidget {
 
 	private void createButtonPanel() {
 		buttonsPanel = new HorizontalPanel();
+		buttonsPanel.setSpacing(10);
 
 		TextButton selectCalculationDataButton = new TextButton("Добавить новое изделиe");
 		selectCalculationDataButton.addSelectHandler(new SelectHandler() {

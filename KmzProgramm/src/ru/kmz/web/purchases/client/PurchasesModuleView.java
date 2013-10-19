@@ -8,14 +8,15 @@ import ru.kmz.web.purchases.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class PurchasesModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
+public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
 	private static PurchasesModuleView instanse;
 	private final static PurchasesModuleServiceAsync service = GWT.create(PurchasesModuleService.class);
@@ -42,9 +43,10 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalPanel> imple
 
 	@Override
 	protected void createContainer() {
-		container = new VerticalPanel();
-		container.setSpacing(10);
+		container = new VerticalLayoutContainer();
 
+		HorizontalPanel buttonsPanel = new HorizontalPanel();
+		buttonsPanel.setSpacing(10);
 		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
 		compliteTextButton.addSelectHandler(new SelectHandler() {
 
@@ -71,7 +73,9 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalPanel> imple
 				});
 			}
 		});
-		container.add(compliteTextButton);
+
+		buttonsPanel.add(compliteTextButton);
+		container.add(buttonsPanel);
 
 		grid = PurchasesGrid.getCalculatorGrid();
 		container.add(grid);

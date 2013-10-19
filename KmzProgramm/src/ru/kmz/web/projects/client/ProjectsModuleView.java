@@ -10,11 +10,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.info.Info;
 
-public class ProjectsModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable, IUpdatableWithValue<GanttData> {
+public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable, IUpdatableWithValue<GanttData> {
 
 	private final static ProjectsModuleServiceAsync service = GWT.create(ProjectsModuleService.class);
 
@@ -42,8 +42,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalPanel> implem
 
 	@Override
 	protected void createContainer() {
-		container = new VerticalPanel();
-		container.setSpacing(10);
+		container = new VerticalLayoutContainer();
 
 		CalculateSaveButtons buttonsPanel = new CalculateSaveButtons(this);
 
