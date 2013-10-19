@@ -8,7 +8,6 @@ import ru.kmz.web.ganttcommon.shared.GanttData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
@@ -19,7 +18,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	private final static ProjectsModuleServiceAsync service = GWT.create(ProjectsModuleService.class);
 
 	private static ProjectsModuleView instanse;
-	private HorizontalPanel gantContainer;
+	private ProjectsToolBar buttonsToolBar;
 	private ProjectsGantt gantt;
 
 	@Override
@@ -44,14 +43,15 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
-		CalculateSaveButtons buttonsToolBar = new CalculateSaveButtons(this);
+		buttonsToolBar = new ProjectsToolBar(this);
 
 		container.add(buttonsToolBar);
 
-		gantContainer = new HorizontalPanel();
-		container.add(gantContainer);
-
 		update();
+	}
+
+	public ProjectsGantt getGantt() {
+		return gantt;
 	}
 
 	public static ProjectsModuleServiceAsync getService() {
@@ -87,15 +87,9 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void update(GanttData ganttData) {
-		if (ganttData == null) {
-			update();
-			return;
-		}
 		if (gantt == null) {
 			gantt = new ProjectsGantt(ganttData);
-			gantt.setUpdateListener(ProjectsModuleView.this);
-			gantContainer.clear();
-			gantContainer.add(gantt);
+			container.add(gantt);
 		} else {
 			gantt.refreshData(ganttData);
 		}

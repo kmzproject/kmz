@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.data.KeyValueDataProperties;
-import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.ganttcommon.client.data.DataTransformator;
 import ru.kmz.web.ganttcommon.client.data.Dependency;
 import ru.kmz.web.ganttcommon.client.data.DependencyProps;
@@ -19,8 +16,6 @@ import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 import com.gantt.client.config.GanttConfig;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,137 +27,83 @@ import com.scheduler.client.core.timeaxis.preconfig.YearTimeAxisGenerator;
 import com.scheduler.client.zone.Line;
 import com.scheduler.client.zone.LineProperties;
 import com.scheduler.client.zone.ZoneGeneratorInt;
-import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
 import com.sencha.gxt.core.client.util.DateWrapper;
-import com.sencha.gxt.core.client.util.Margins;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.TreeStore;
-import com.sencha.gxt.widget.core.client.ContentPanel;
-import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
-import com.sencha.gxt.widget.core.client.event.SelectEvent;
-import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.form.ComboBox;
-import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.HeaderGroupConfig;
-import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 import com.sencha.gxt.widget.core.client.treegrid.TreeGrid;
 
 public class CommonGanttContainer implements IsWidget {
 
 	public CommonGanttContainer(GanttData data) {
 		this.ganttData = data;
+		this.scale = ScaleConstants.WEEK;
 	}
 
 	private GanttData ganttData;
 	protected boolean showPercentDone;
-	private ComboBox<KeyValueData> scalaCombo;
+	private String scale;
 
 	private CommonGantt gantt;
 	ListStore<Task> taskStore;
 
-	private IUpdatable updateListener;
-
 	private TreeStore<Task> dataTaskStore;
 	private ListStore<Dependency> dataDepStore;
+	private VerticalLayoutContainer container;
 
 	@Override
 	public Widget asWidget() {
-		VerticalLayoutContainer vc = new VerticalLayoutContainer();
-		vc.add(createToolBar(), new VerticalLayoutData(1, -1));
+		if (container == null) {
+			createContainer();
+		}
+		return container;
+	}
 
+	private void createContainer() {
 		// resources
 		IDemoData data = new DataTransformator(ganttData);
 		setData(data);
 
 		CommonGanttConfig config = new CommonGanttConfig();
 		config.setLeftColumns(createStaticColumns());
-		config.setTimeHeaderConfig(getTimeHeaders(null));
+		config.setTimeHeaderConfig(getTimeHeaders());
 		config.setZoneGenerators(getZones());
 
 		// Create the Gxt Scheduler
 		gantt = new CommonGantt(dataTaskStore, dataDepStore, config);
 		gantt.setLineStore(createLines());
 
-		setStartEnd(null);
+		setStartEnd();
 
-		ContentPanel cp = new ContentPanel();
-		cp.setHeadingText(ganttData.getName());
-		cp.setPixelSize(1100, 550);
-		cp.getElement().setMargins(new Margins(5));
-
-		vc.add(gantt, new VerticalLayoutData(1, 1));
-		cp.setWidget(vc);
-		return cp;
-	}
-
-	public void setUpdateListener(IUpdatable updateListener) {
-		this.updateListener = updateListener;
+		container = new VerticalLayoutContainer();
+		container.setHeight(1000);
+		container.add(gantt, new VerticalLayoutData(1, 1));
 	}
 
 	public void refreshData(GanttData ganttData) {
 		this.ganttData = ganttData;
 		IDemoData data = new DataTransformator(this.ganttData);
 		setData(data);
-		setStartEnd(null);
+		setStartEnd();
+		gantt.setLineStore(createLines());
 		gantt.refresh();
 	}
 
-	private ToolBar createToolBar() {
-		ToolBar tbar = new ToolBar();
-		TextButton showAll = new TextButton("Раскрыть все");
-		showAll.addSelectHandler(new SelectHandler() {
-			@Override
-			public void onSelect(SelectEvent event) {
-				((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
-			}
-		});
-		tbar.add(showAll);
-
-		if (updateListener != null) {
-			TextButton refreshButton = new TextButton("Обновить");
-			refreshButton.addSelectHandler(new SelectHandler() {
-				@Override
-				public void onSelect(SelectEvent event) {
-					updateListener.update();
-				}
-			});
-			tbar.add(refreshButton);
-		}
-
-		tbar.add(new FieldLabel(getCombobox(), "Масштаб"));
-		return tbar;
+	public void expandAll() {
+		((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
 	}
 
-	private ComboBox<KeyValueData> getCombobox() {
-		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		list.add(new KeyValueData(ScaleConstants.DAY, "День"));
-		list.add(new KeyValueData(ScaleConstants.WEEK, "Неделя"));
-		list.add(new KeyValueData(ScaleConstants.MONTH, "Месяц"));
-
-		scalaCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
-		scalaCombo.setForceSelection(true);
-		scalaCombo.setTypeAhead(true);
-		scalaCombo.setTriggerAction(TriggerAction.ALL);
-		scalaCombo.setEditable(false);
-		scalaCombo.setValue(list.get(1));
-
-		scalaCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
-
-			@Override
-			public void onSelection(SelectionEvent<KeyValueData> event) {
-				GanttConfig c = gantt.getConfig();
-				c.timeHeaderConfig = getTimeHeaders(event.getSelectedItem().getKey());
-				setStartEnd(event.getSelectedItem().getKey());
-				gantt.refresh();
-			}
-		});
-
-		return scalaCombo;
+	public void changeScale(String scale) {
+		this.scale = scale;
+		GanttConfig c = gantt.getConfig();
+		c.timeHeaderConfig = getTimeHeaders();
+		setStartEnd();
+		gantt.refresh();
 	}
 
 	private List<ZoneGeneratorInt> getZones() {
@@ -185,13 +126,11 @@ public class CommonGanttContainer implements IsWidget {
 		return store;
 	}
 
-	private void setStartEnd(String scale) {
+	private void setStartEnd() {
 		DateWrapper dwStart = new DateWrapper(ganttData.getDateStart()).clearTime();
 		DateWrapper dwFinish = new DateWrapper(ganttData.getDateFinish()).clearTime();
-		int delta = 4;
+		int delta = 10;
 		// Set start and end date.
-		if (scale == null)
-			scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
 			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta * 2).asDate());
 		} else if (scale.equals(ScaleConstants.MONTH)) {
@@ -201,10 +140,8 @@ public class CommonGanttContainer implements IsWidget {
 		}
 	}
 
-	private ArrayList<TimeAxisGenerator> getTimeHeaders(String scale) {
+	private ArrayList<TimeAxisGenerator> getTimeHeaders() {
 		ArrayList<TimeAxisGenerator> headers = new ArrayList<TimeAxisGenerator>();
-		if (scale == null)
-			scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
 			headers.add(new WeekTimeAxisGenerator("dd MMM"));
 			headers.add(new DayTimeAxisGenerator("EEE"));
