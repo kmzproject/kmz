@@ -78,8 +78,17 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 				window.show();
 			}
 		});
+		TextButton refreshButton = new TextButton("Обновить");
+		refreshButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				update();
+			}
+		});
 		toolBar.add(addButton);
 		toolBar.add(editButton);
+		toolBar.add(refreshButton);
 
 		return toolBar;
 	}

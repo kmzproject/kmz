@@ -81,6 +81,17 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 			}
 		});
 		toolBar.add(compliteTextButton);
+
+		TextButton refreshButton = new TextButton("Обновить");
+		refreshButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				update();
+			}
+		});
+		toolBar.add(refreshButton);
+
 		return toolBar;
 	}
 
