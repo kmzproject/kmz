@@ -19,6 +19,7 @@ public class OrderTestData {
 		list.add(OrderDataUtils.edit(new Order("Гражданская", "", "")));
 		list.add(OrderDataUtils.edit(new Order("Первомайка", "", "")));
 		list.add(OrderDataUtils.edit(new Order("Рязанская ГРЭС", "", "")));
+		list.add(OrderDataUtils.edit(new Order("Березнинки", "", "")));
 		return list;
 	}
 
