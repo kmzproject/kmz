@@ -18,4 +18,10 @@ public interface TemplateTreeNodeImages extends ClientBundle {
 
 	@Source("folder.png")
 	ImageResource folder();
+
+	@Source("product.png")
+	ImageResource product();
+
+	@Source("productOrder.png")
+	ImageResource productOrder();
 }

@@ -20,6 +20,10 @@ public class TreeIconProvider<T extends HasResourceType> implements IconProvider
 			return TemplateTreeNodeImages.INSTANCE.order();
 		if (node.getResourceType().equals(ResourceTypesConsts.FOLDER))
 			return TemplateTreeNodeImages.INSTANCE.folder();
+		if (node.getResourceType().equals(ResourceTypesConsts.PRODUCT))
+			return TemplateTreeNodeImages.INSTANCE.product();
+		if (node.getResourceType().equals(ResourceTypesConsts.PRODUCT_ORDER))
+			return TemplateTreeNodeImages.INSTANCE.productOrder();
 		return null;
 	}
 

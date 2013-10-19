@@ -85,7 +85,7 @@ public class Order implements IProjectTask {
 
 	@Override
 	public GraphData asGraphDataProxy() {
-		return new GraphData(key.getId() + "", name, 0, ResourceTypesConsts.FOLDER);
+		return new GraphData(key.getId() + "", name, 0, ResourceTypesConsts.PRODUCT_ORDER);
 	}
 
 	@Override

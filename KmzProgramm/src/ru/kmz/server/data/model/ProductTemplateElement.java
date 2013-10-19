@@ -9,6 +9,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
@@ -50,10 +51,10 @@ public class ProductTemplateElement {
 		this.resourceType = proxy.getResourceType();
 	}
 
-	public ProductTemplateElement(String name, int duration, String resourseType, Template template) {
+	public ProductTemplateElement(String name, Template template) {
 		this.name = name;
-		this.duration = duration;
-		this.resourceType = resourseType;
+		this.duration = 0;
+		this.resourceType = ResourceTypes.PRODUCT;
 		this.parentId = null;
 		this.templateId = template.getKey();
 		orderNum = 0;

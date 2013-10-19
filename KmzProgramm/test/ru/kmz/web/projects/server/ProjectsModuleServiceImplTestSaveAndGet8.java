@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
@@ -40,12 +41,16 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		GraphData rootOrder = data.getChilds().get(1);
 
 		Assert.assertEquals("Тестовый заказ 1", rootOrder.getName());
+		Assert.assertEquals(ResourceTypes.PRODUCT_ORDER, rootOrder.getResourceType());
 		Assert.assertEquals("Изделие", rootTemplate.getName());
+		Assert.assertEquals(ResourceTypes.PRODUCT, rootTemplate.getResourceType());
 
-		Assert.assertEquals("Изделие", rootOrder.getChilds().get(0).getName());
+		GraphData rootOrderProduct = rootOrder.getChilds().get(0);
+		Assert.assertEquals("Изделие", rootOrderProduct.getName());
+		Assert.assertEquals(ResourceTypes.PRODUCT, rootOrderProduct.getResourceType());
 
-		Assert.assertEquals(DateUtils.getOffsetDate(date, -14), rootOrder.getChilds().get(0).getPlanStart());
-		Assert.assertEquals(date, rootOrder.getChilds().get(0).getPlanFinish());
+		Assert.assertEquals(DateUtils.getOffsetDate(date, -14), rootOrderProduct.getPlanStart());
+		Assert.assertEquals(date, rootOrderProduct.getPlanFinish());
 
 		Assert.assertEquals(DateUtils.getOffsetDate(date, -14), rootTemplate.getChilds().get(0).getPlanStart());
 		Assert.assertEquals(date, rootTemplate.getChilds().get(0).getPlanFinish());

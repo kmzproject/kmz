@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
@@ -35,6 +36,7 @@ public class ProjectsModuleServiceImplTestSave8 extends DataTestEveryNew {
 
 		Assert.assertEquals(1, order.getChilds().size());
 		Assert.assertEquals("Изделие", order.getChilds().get(0).getName());
+		Assert.assertEquals(ResourceTypes.PRODUCT, order.getChilds().get(0).getResourceType());
 		Assert.assertEquals(date, order.getChilds().get(0).getFinish());
 		Assert.assertEquals(4, order.getChilds().get(0).getChilds().size());
 	}

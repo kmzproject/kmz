@@ -5,6 +5,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import junit.framework.Assert;
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.ResourceTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
@@ -33,10 +34,12 @@ public class ProjectsModuleServiceImplTest7 extends DataTestEveryNew {
 		Assert.assertEquals(start, data.getDateStart());
 
 		GraphData root = data.getChilds().get(0);
+		Assert.assertEquals(ResourceTypes.PRODUCT, root.getResourceType());
 
 		GraphData d1_1 = root.getChilds().get(0).getChilds().get(0);
 		Assert.assertEquals("Покупка 1", d1_1.getName());
 		Assert.assertEquals(start, d1_1.getPlanStart());
+		Assert.assertEquals(ResourceTypes.ORDER, d1_1.getResourceType());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 3), d1_1.getPlanFinish());
 
 		GraphData d1_2 = root.getChilds().get(1).getChilds().get(0);
