@@ -6,7 +6,7 @@ public class ProjectsGantt extends CommonGanttContainer {
 
 	public ProjectsGantt(GanttData data) {
 		super(data);
-		showPercentDone = false;
+		showPercentDone = true;
 	}
 
 }

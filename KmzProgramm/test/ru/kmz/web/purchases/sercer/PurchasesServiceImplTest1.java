@@ -13,6 +13,8 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.utils.DateUtils;
+import ru.kmz.web.ganttcommon.shared.GanttData;
+import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.purchases.server.PurchasesModuleServiceImpl;
@@ -74,6 +76,11 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 
 		purchases = service.getActivePurchases();
 		Assert.assertEquals(2, purchases.size());
+
+		GanttData ganttData = projectsService.getCurrentTasks();
+		GraphData rootProducte = ganttData.getChilds().get(0).getChilds().get(0);
+		GraphData element1 = rootProducte.getChilds().get(0);
+		Assert.assertEquals(100, element1.getComplite());
 	}
 
 }

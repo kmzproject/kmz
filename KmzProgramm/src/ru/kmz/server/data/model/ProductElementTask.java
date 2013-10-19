@@ -148,7 +148,9 @@ public class ProductElementTask implements IProjectTask {
 	}
 
 	public GraphData asGraphDataProxy() {
-		return new GraphData(key.getId() + "", name, duration, resourceType);
+		GraphData graphData = new GraphData(key.getId() + "", name, duration, resourceType);
+		graphData.setComplite(done);
+		return graphData;
 	}
 
 	public PurchaseProxy asPurchaseProxy() {
