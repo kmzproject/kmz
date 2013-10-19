@@ -12,6 +12,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.kmz.web.purchases.shared.PurchaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
@@ -48,6 +49,9 @@ public class ProductElementTask implements IProjectTask {
 	@Persistent
 	private int orderNum;
 
+	@Persistent
+	private int done;
+
 	@NotPersistent
 	private List<ProductElementTask> childs;
 
@@ -76,8 +80,7 @@ public class ProductElementTask implements IProjectTask {
 		this.orderId = order.getKey();
 	}
 
-	public ProductElementTask(String name, int duration, String resourseType, ResourceTask task,
-			ProductElementTask parent) {
+	public ProductElementTask(String name, int duration, String resourseType, ResourceTask task, ProductElementTask parent) {
 		this(name, duration, resourseType, task);
 
 		this.parentId = parent.getKey();
@@ -97,6 +100,10 @@ public class ProductElementTask implements IProjectTask {
 
 	public Key getOrderId() {
 		return orderId;
+	}
+
+	public String getOrderIdStr() {
+		return KeyFactory.keyToString(orderId);
 	}
 
 	public void add(ProductElementTask child) {
@@ -142,6 +149,10 @@ public class ProductElementTask implements IProjectTask {
 
 	public GraphData asGraphDataProxy() {
 		return new GraphData(key.getId() + "", name, duration, resourceType);
+	}
+
+	public PurchaseProxy asPurchaseProxy() {
+		return new PurchaseProxy(getKeyStr(), name, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
 	}
 
 	public String getResourceType() {

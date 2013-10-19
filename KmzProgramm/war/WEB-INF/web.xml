@@ -30,6 +30,11 @@
 		<servlet-class>ru.kmz.web.projects.server.ProjectsModuleServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>purchasesModule</servlet-name>
+		<servlet-class>ru.kmz.web.purchases.server.PurchasesModuleServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
 		<servlet-name>administrationModule</servlet-name>
 		<servlet-class>ru.kmz.web.administration.server.AdministrationModuleServiceImpl</servlet-class>
 	</servlet>
@@ -75,6 +80,12 @@
 		<url-pattern>/resourcesmodule/resourcesModule</url-pattern>
 		<url-pattern>/kmzprogramm/resourcesModule</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>purchasesModule</servlet-name>
+		<url-pattern>/purchasesmodule/purchasesModule</url-pattern>
+		<url-pattern>/kmzprogramm/purchasesModule</url-pattern>
+	</servlet-mapping>
+
 
 
 	<!-- Default page to serve -->
