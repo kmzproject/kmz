@@ -57,6 +57,7 @@ public class GanttProjectsService {
 			date.set(orderDate);
 		}
 		sort();
+		calculateOrdersPersentsDone();
 		return date;
 	}
 
@@ -66,6 +67,25 @@ public class GanttProjectsService {
 		for (GraphData graphData : data.getChilds()) {
 			Collections.sort(graphData.getChilds());
 		}
+	}
+
+	private void calculateOrdersPersentsDone() {
+		for (GraphData orderData : data.getChilds()) {
+			calculatePersentsDone(orderData);
+		}
+	}
+
+	private DurationComplite calculatePersentsDone(GraphData graphData) {
+		DurationComplite dc = new DurationComplite();
+		for (GraphData child : graphData.getChilds()) {
+			dc.add(calculatePersentsDone(child));
+		}
+		if (!graphData.isFolder()) {
+			dc.add(new DurationComplite(graphData.getDuration(), graphData.getComplite()));
+		} else {
+			graphData.setComplite(dc.getPersent());
+		}
+		return dc;
 	}
 
 	private static MinMaxDate fill(IGraphDataContainer rootGraphData, IProjectTask task) {

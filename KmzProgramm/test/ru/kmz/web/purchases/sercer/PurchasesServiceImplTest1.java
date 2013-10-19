@@ -78,9 +78,18 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 		Assert.assertEquals(2, purchases.size());
 
 		GanttData ganttData = projectsService.getCurrentTasks();
-		GraphData rootProducte = ganttData.getChilds().get(0).getChilds().get(0);
+		GraphData rootOrder = ganttData.getChilds().get(0);
+		GraphData rootProducte = rootOrder.getChilds().get(0);
 		GraphData element1 = rootProducte.getChilds().get(0);
 		Assert.assertEquals(100, element1.getComplite());
+
+		Assert.assertEquals(16, rootProducte.getComplite());
+		Assert.assertEquals(16, rootOrder.getComplite());
+		
+		projectsService.save(input, orderId);
+		ganttData = projectsService.getCurrentTasks();
+		rootOrder = ganttData.getChilds().get(0);
+		Assert.assertEquals(8, rootOrder.getComplite());
 	}
 
 }
