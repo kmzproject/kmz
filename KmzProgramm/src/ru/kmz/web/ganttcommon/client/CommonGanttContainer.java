@@ -193,11 +193,11 @@ public class CommonGanttContainer implements IsWidget {
 		if (scale == null)
 			scale = scalaCombo.getValue().getKey();
 		if (scale.equals(ScaleConstants.DAY)) {
-			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta).asDate());
+			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta * 2).asDate());
 		} else if (scale.equals(ScaleConstants.MONTH)) {
-			gantt.setStartEnd(dwStart.addMonths(-delta).asDate(), dwFinish.addMonths(delta).asDate());
+			gantt.setStartEnd(dwStart.addMonths(-delta).asDate(), dwFinish.addMonths(delta * 2).asDate());
 		} else if (scale.equals(ScaleConstants.WEEK)) {
-			gantt.setStartEnd(dwStart.addDays(-delta * 7).asDate(), dwFinish.addDays(delta * 7).asDate());
+			gantt.setStartEnd(dwStart.addDays(-delta * 7).asDate(), dwFinish.addDays(delta * 14).asDate());
 		}
 	}
 
