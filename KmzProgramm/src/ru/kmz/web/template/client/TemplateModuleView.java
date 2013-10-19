@@ -8,7 +8,6 @@ import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
@@ -18,9 +17,9 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
-public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements
-		IUpdatableWithValue<KeyValueData> {
+public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<KeyValueData> {
 
 	private final static TemplateModuleServiceAsync service = GWT.create(TemplateModuleService.class);
 
@@ -45,18 +44,16 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
-		createButtons();
+		container.add(createToolBar());
+
+		container.add(label = new Label());
+
 		treeContainer = new HorizontalLayoutContainer();
 		container.add(treeContainer);
 	}
 
-	private void createButtons() {
-		HorizontalPanel buttonContainer = new HorizontalPanel();
-		buttonContainer.setSpacing(10);
-		container.add(buttonContainer);
-
-		label = new Label();
-		buttonContainer.add(label);
+	private ToolBar createToolBar() {
+		ToolBar toolBar = new ToolBar();
 
 		TextButton select = new TextButton("Выбрать");
 		select.addSelectHandler(new SelectHandler() {
@@ -68,7 +65,8 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 				window.show();
 			}
 		});
-		buttonContainer.add(select);
+		toolBar.add(select);
+		return toolBar;
 	}
 
 	public static TemplateModuleServiceAsync getService() {

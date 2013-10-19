@@ -8,7 +8,6 @@ import ru.kmz.web.projects.client.window.SelectCalculationInfo;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
@@ -16,10 +15,11 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class CalculateSaveButtons implements IsWidget {
 
-	private HorizontalPanel buttonsPanel;
+	private ToolBar toolBar;
 	private CalculatorInputDataProxy inputData;
 	private IUpdatableWithValue<GanttData> listener;
 
@@ -29,15 +29,14 @@ public class CalculateSaveButtons implements IsWidget {
 
 	@Override
 	public Widget asWidget() {
-		if (buttonsPanel == null) {
+		if (toolBar == null) {
 			createButtonPanel();
 		}
-		return buttonsPanel;
+		return toolBar;
 	}
 
 	private void createButtonPanel() {
-		buttonsPanel = new HorizontalPanel();
-		buttonsPanel.setSpacing(10);
+		toolBar = new ToolBar();
 
 		TextButton selectCalculationDataButton = new TextButton("Добавить новое изделиe");
 		selectCalculationDataButton.addSelectHandler(new SelectHandler() {
@@ -78,7 +77,7 @@ public class CalculateSaveButtons implements IsWidget {
 
 			}
 		});
-		buttonsPanel.add(selectCalculationDataButton);
+		toolBar.add(selectCalculationDataButton);
 
 		TextButton selectDataButton = new TextButton("Сохранить");
 		selectDataButton.addSelectHandler(new SelectHandler() {
@@ -106,7 +105,7 @@ public class CalculateSaveButtons implements IsWidget {
 				window.show();
 			}
 		});
-		buttonsPanel.add(selectDataButton);
+		toolBar.add(selectDataButton);
 
 	}
 }

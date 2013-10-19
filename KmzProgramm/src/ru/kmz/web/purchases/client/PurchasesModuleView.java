@@ -8,13 +8,13 @@ import ru.kmz.web.purchases.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
@@ -45,8 +45,15 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
-		HorizontalPanel buttonsPanel = new HorizontalPanel();
-		buttonsPanel.setSpacing(10);
+		container.add(createToolBar());
+
+		grid = PurchasesGrid.getCalculatorGrid();
+		container.add(grid);
+
+	}
+
+	private ToolBar createToolBar() {
+		ToolBar toolBar = new ToolBar();
 		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
 		compliteTextButton.addSelectHandler(new SelectHandler() {
 
@@ -73,13 +80,8 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 				});
 			}
 		});
-
-		buttonsPanel.add(compliteTextButton);
-		container.add(buttonsPanel);
-
-		grid = PurchasesGrid.getCalculatorGrid();
-		container.add(grid);
-
+		toolBar.add(compliteTextButton);
+		return toolBar;
 	}
 
 	public static PurchasesModuleServiceAsync getService() {

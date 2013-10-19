@@ -7,13 +7,13 @@ import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.order.client.window.OrderProperties;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
@@ -42,16 +42,14 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
-		createButtons();
+		container.add(createToolBar());
 
 		grid = OrdersGrid.getCalculatorGrid();
 		container.add(grid);
 	}
 
-	private void createButtons() {
-		HorizontalPanel buttonContainer = new HorizontalPanel();
-		buttonContainer.setSpacing(10);
-		container.add(buttonContainer);
+	private ToolBar createToolBar() {
+		ToolBar toolBar = new ToolBar();
 
 		TextButton addButton = new TextButton("Добавить");
 		addButton.addSelectHandler(new SelectHandler() {
@@ -80,8 +78,10 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 				window.show();
 			}
 		});
-		buttonContainer.add(addButton);
-		buttonContainer.add(editButton);
+		toolBar.add(addButton);
+		toolBar.add(editButton);
+
+		return toolBar;
 	}
 
 	@Override

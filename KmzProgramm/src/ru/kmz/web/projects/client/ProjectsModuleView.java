@@ -44,9 +44,9 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
-		CalculateSaveButtons buttonsPanel = new CalculateSaveButtons(this);
+		CalculateSaveButtons buttonsToolBar = new CalculateSaveButtons(this);
 
-		container.add(buttonsPanel);
+		container.add(buttonsToolBar);
 
 		gantContainer = new HorizontalPanel();
 		container.add(gantContainer);
