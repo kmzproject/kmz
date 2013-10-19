@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
 import ru.kmz.web.purchases.shared.PurchaseProxy;
 
@@ -17,7 +18,6 @@ import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
 import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
-import com.sencha.gxt.widget.core.client.info.Info;
 
 public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 
@@ -57,17 +57,12 @@ public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 		RpcProxy<PagingLoadConfig, PagingLoadResult<PurchaseProxy>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<PurchaseProxy>>() {
 			@Override
 			public void load(PagingLoadConfig loadConfig, final AsyncCallback<PagingLoadResult<PurchaseProxy>> callback) {
-				PurchasesModuleView.getService().getActivePurchases(new AsyncCallback<List<PurchaseProxy>>() {
+				PurchasesModuleView.getService().getActivePurchases(new AsyncCallbackWithErrorMessage<List<PurchaseProxy>>() {
 					@Override
 					public void onSuccess(List<PurchaseProxy> result) {
 						PagingLoadResultBean<PurchaseProxy> r = new PagingLoadResultBean<PurchaseProxy>();
 						r.setData(result);
 						callback.onSuccess(r);
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Info.display("Error", "Ошибка " + caught);
 					}
 				});
 			}

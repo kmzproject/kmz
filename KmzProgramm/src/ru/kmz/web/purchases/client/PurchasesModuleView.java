@@ -3,11 +3,11 @@ package ru.kmz.web.purchases.client;
 import java.util.List;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.purchases.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
@@ -64,18 +64,10 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 					Info.display("Предупреждение", "Невозможно произвести редактирование");
 					return;
 				}
-
-				getService().complitePurchase(list.get(0).getId(), new AsyncCallback<Void>() {
-
+				getService().complitePurchase(list.get(0).getId(), new AsyncCallbackWithErrorMessage<Void>() {
 					@Override
 					public void onSuccess(Void result) {
 						update();
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-
 					}
 				});
 			}

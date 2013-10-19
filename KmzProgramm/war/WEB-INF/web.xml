@@ -6,10 +6,6 @@
 
 	<!-- Servlets -->
 	<servlet>
-		<servlet-name>greetServlet</servlet-name>
-		<servlet-class>ru.kmz.web.main.server.GreetingServiceImpl</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>templateCommon</servlet-name>
 		<servlet-class>ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl</servlet-class>
 	</servlet>
@@ -38,13 +34,6 @@
 		<servlet-name>administrationModule</servlet-name>
 		<servlet-class>ru.kmz.web.administration.server.AdministrationModuleServiceImpl</servlet-class>
 	</servlet>
-
-
-
-	<servlet-mapping>
-		<servlet-name>greetServlet</servlet-name>
-		<url-pattern>/kmzprogramm/greet</url-pattern>
-	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>administrationModule</servlet-name>

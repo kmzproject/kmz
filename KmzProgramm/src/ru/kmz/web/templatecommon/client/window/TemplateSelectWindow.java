@@ -2,13 +2,13 @@ package ru.kmz.web.templatecommon.client.window;
 
 import java.util.List;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.CommonSelectWindow;
 import ru.kmz.web.templatecommon.client.TemplateCommon;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.container.Container;
@@ -16,7 +16,6 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
-import com.sencha.gxt.widget.core.client.info.Info;
 
 public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 
@@ -26,7 +25,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 	protected Container getInfoContainer() {
 		final VerticalLayoutContainer p = new VerticalLayoutContainer();
 
-		TemplateCommon.getService().getTemplateList(new AsyncCallback<List<TemplateTreeDataProxy>>() {
+		TemplateCommon.getService().getTemplateList(new AsyncCallbackWithErrorMessage<List<TemplateTreeDataProxy>>() {
 
 			@Override
 			public void onSuccess(List<TemplateTreeDataProxy> result) {
@@ -43,11 +42,6 @@ public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 				templateBox.setWidth(300);
 
 				p.add(new FieldLabel(templateBox, "Шаблон"), new VerticalLayoutData(1, -1));
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Info.display("Error", "load error " + caught);
 			}
 		});
 

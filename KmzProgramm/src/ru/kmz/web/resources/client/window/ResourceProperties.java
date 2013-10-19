@@ -1,11 +1,11 @@
 package ru.kmz.web.resources.client.window;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.control.ResourceTypeComboBox;
 import ru.kmz.web.common.client.window.CommonDirectoryWindow;
 import ru.kmz.web.resources.client.ResourcesModuleView;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
@@ -53,18 +53,12 @@ public class ResourceProperties extends CommonDirectoryWindow<ResourceProxy> {
 			object = new ResourceProxy();
 		object.setName(resourceName.getValue());
 		object.setResourceType(resourceType.getValue().getKey());
-		ResourcesModuleView.getService().editResource(object, new AsyncCallback<ResourceProxy>() {
-
+		ResourcesModuleView.getService().editResource(object, new AsyncCallbackWithErrorMessage<ResourceProxy>() {
 			@Override
 			public void onSuccess(ResourceProxy result) {
 				Info.display("Данные сохранены", result.getName());
 				if (updatableForm != null)
 					updatableForm.update();
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Info.display("Ошибка", "Ошибка при сохранении<br/>" + caught.getMessage());
 			}
 		});
 	}

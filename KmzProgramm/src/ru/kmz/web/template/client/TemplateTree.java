@@ -1,12 +1,12 @@
 package ru.kmz.web.template.client;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.TreeIconProvider;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -81,23 +81,17 @@ public class TemplateTree implements IsWidget {
 				} else {
 					parentId = item.getId();
 				}
-				TemplateModuleView.getService().createNewTemplateTreeNode(parentId,
-						new AsyncCallback<TemplateTreeNodeBaseProxy>() {
+				TemplateModuleView.getService().createNewTemplateTreeNode(parentId, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
 
-							@Override
-							public void onSuccess(TemplateTreeNodeBaseProxy result) {
-								if (item != null) {
-									tree.getStore().add(item, result);
-								} else {
-									tree.getStore().add(result);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								Info.display("Error", "Creation Error" + caught);
-							}
-						});
+					@Override
+					public void onSuccess(TemplateTreeNodeBaseProxy result) {
+						if (item != null) {
+							tree.getStore().add(item, result);
+						} else {
+							tree.getStore().add(result);
+						}
+					}
+				});
 			}
 		});
 		buttonsContainer.add(addNodeButton);
@@ -111,15 +105,10 @@ public class TemplateTree implements IsWidget {
 					Info.display("Error", "Не выбрал удел для удаления");
 					return;
 				}
-				TemplateModuleView.getService().deleteTemplateTreeNode(item.getId(), new AsyncCallback<Void>() {
+				TemplateModuleView.getService().deleteTemplateTreeNode(item.getId(), new AsyncCallbackWithErrorMessage<Void>() {
 					@Override
 					public void onSuccess(Void result) {
 						tree.getStore().remove(item);
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Info.display("ERROR", "Deleting Error " + caught);
 					}
 				});
 			}
@@ -137,15 +126,10 @@ public class TemplateTree implements IsWidget {
 					return;
 				}
 				infoContainer.saveValue(item);
-				TemplateModuleView.getService().save(item, new AsyncCallback<TemplateTreeNodeBaseProxy>() {
+				TemplateModuleView.getService().save(item, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
 					@Override
 					public void onSuccess(TemplateTreeNodeBaseProxy result) {
 						Info.display("сохранение", "Сохранения произведено");
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Info.display("ERROR", "Deleting Error " + caught);
 					}
 				});
 			}
@@ -155,23 +139,22 @@ public class TemplateTree implements IsWidget {
 	}
 
 	private void createTree(TreeStore<TemplateTreeNodeBaseProxy> store) {
-		tree = new Tree<TemplateTreeNodeBaseProxy, String>(store,
-				new ValueProvider<TemplateTreeNodeBaseProxy, String>() {
+		tree = new Tree<TemplateTreeNodeBaseProxy, String>(store, new ValueProvider<TemplateTreeNodeBaseProxy, String>() {
 
-					@Override
-					public String getValue(TemplateTreeNodeBaseProxy node) {
-						return node.getName() + " (" + node.getDuration() + " дн.)";
-					}
+			@Override
+			public String getValue(TemplateTreeNodeBaseProxy node) {
+				return node.getName() + " (" + node.getDuration() + " дн.)";
+			}
 
-					@Override
-					public void setValue(TemplateTreeNodeBaseProxy object, String value) {
-					}
+			@Override
+			public void setValue(TemplateTreeNodeBaseProxy object, String value) {
+			}
 
-					@Override
-					public String getPath() {
-						return "name";
-					}
-				});
+			@Override
+			public String getPath() {
+				return "name";
+			}
+		});
 		tree.setWidth(300);
 
 		tree.setIconProvider(new TreeIconProvider<TemplateTreeNodeBaseProxy>());

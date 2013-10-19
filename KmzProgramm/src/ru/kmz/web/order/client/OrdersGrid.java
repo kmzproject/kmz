@@ -3,6 +3,7 @@ package ru.kmz.web.order.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
 import ru.kmz.web.ordercommon.client.OrderCommon;
 import ru.kmz.web.ordercommon.client.OrderProxyProperties;
@@ -18,7 +19,6 @@ import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
 import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
-import com.sencha.gxt.widget.core.client.info.Info;
 
 public class OrdersGrid extends CommonGrid<OrderProxy> {
 
@@ -31,12 +31,9 @@ public class OrdersGrid extends CommonGrid<OrderProxy> {
 	public static OrdersGrid getCalculatorGrid() {
 		ListStore<OrderProxy> store = new ListStore<OrderProxy>(props.key());
 
-		ColumnConfig<OrderProxy, String> nameCol = new ColumnConfig<OrderProxy, String>(props.name(), 300,
-				"Название заказа");
-		ColumnConfig<OrderProxy, String> customerCol = new ColumnConfig<OrderProxy, String>(props.customer(), 200,
-				"Заказчик");
-		ColumnConfig<OrderProxy, String> legalNumberCol = new ColumnConfig<OrderProxy, String>(props.legalNumber(),
-				200, "Договор");
+		ColumnConfig<OrderProxy, String> nameCol = new ColumnConfig<OrderProxy, String>(props.name(), 300, "Название заказа");
+		ColumnConfig<OrderProxy, String> customerCol = new ColumnConfig<OrderProxy, String>(props.customer(), 200, "Заказчик");
+		ColumnConfig<OrderProxy, String> legalNumberCol = new ColumnConfig<OrderProxy, String>(props.legalNumber(), 200, "Договор");
 
 		List<ColumnConfig<OrderProxy, ?>> l = new ArrayList<ColumnConfig<OrderProxy, ?>>();
 		l.add(nameCol);
@@ -59,18 +56,13 @@ public class OrdersGrid extends CommonGrid<OrderProxy> {
 		RpcProxy<PagingLoadConfig, PagingLoadResult<OrderProxy>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<OrderProxy>>() {
 			@Override
 			public void load(PagingLoadConfig loadConfig, final AsyncCallback<PagingLoadResult<OrderProxy>> callback) {
-				OrderCommon.getService().getOrders(new AsyncCallback<List<OrderProxy>>() {
+				OrderCommon.getService().getOrders(new AsyncCallbackWithErrorMessage<List<OrderProxy>>() {
 
 					@Override
 					public void onSuccess(List<OrderProxy> result) {
 						PagingLoadResultBean<OrderProxy> r = new PagingLoadResultBean<OrderProxy>();
 						r.setData(result);
 						callback.onSuccess(r);
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Info.display("Error", "Ошибка " + caught);
 					}
 				});
 			}

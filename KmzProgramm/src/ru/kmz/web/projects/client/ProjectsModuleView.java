@@ -1,13 +1,13 @@
 package ru.kmz.web.projects.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
@@ -65,7 +65,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 		box.auto();
 		box.show();
 
-		getService().getCurrentTasks(new AsyncCallback<GanttData>() {
+		getService().getCurrentTasks(new AsyncCallbackWithErrorMessage<GanttData>() {
 
 			@Override
 			public void onSuccess(GanttData result) {
@@ -74,12 +74,6 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 				} else {
 					update(result);
 				}
-				box.hide();
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Info.display("Error", "This is error " + caught);
 				box.hide();
 			}
 		});

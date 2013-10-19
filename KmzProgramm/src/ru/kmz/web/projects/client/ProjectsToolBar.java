@@ -1,5 +1,6 @@
 package ru.kmz.web.projects.client;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
@@ -11,7 +12,6 @@ import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
@@ -61,8 +61,7 @@ public class ProjectsToolBar implements IsWidget {
 						box.setProgressText("Обработка...");
 						box.auto();
 						box.show();
-
-						ProjectsModuleView.getService().getGantResultData(value, new AsyncCallback<GanttData>() {
+						ProjectsModuleView.getService().getGantResultData(value, new AsyncCallbackWithErrorMessage<GanttData>() {
 							@Override
 							public void onSuccess(GanttData result) {
 								if (result.getError() != null) {
@@ -71,12 +70,6 @@ public class ProjectsToolBar implements IsWidget {
 									projectModulesView.update(result);
 								}
 								ProjectsToolBar.this.inputData = value;
-								box.hide();
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								Info.display("Error", "This is error " + caught);
 								box.hide();
 							}
 						});
@@ -97,16 +90,11 @@ public class ProjectsToolBar implements IsWidget {
 				window.setUpdatable(new IUpdatableWithValue<KeyValueData>() {
 					@Override
 					public void update(KeyValueData value) {
-						ProjectsModuleView.getService().save(ProjectsToolBar.this.inputData, value.getKey(), new AsyncCallback<Void>() {
+						ProjectsModuleView.getService().save(ProjectsToolBar.this.inputData, value.getKey(), new AsyncCallbackWithErrorMessage<Void>() {
 							@Override
 							public void onSuccess(Void result) {
 								Info.display("Сохранены", "Успешно сохранил");
 								projectModulesView.update();
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								Info.display("Ошибка", "Ошибка загрузки" + caught);
 							}
 						});
 					}

@@ -1,9 +1,9 @@
 package ru.kmz.web.administration.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -60,23 +60,15 @@ public class AdministrationModuleView extends AbstarctModuleView<VerticalPanel> 
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере",
-						"Это может занять некоторое время");
+				final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
 				box.setProgressText("Обработка...");
 				box.auto();
 				box.show();
 
-				getService().recreateData(new AsyncCallback<Void>() {
-
+				getService().recreateData(new AsyncCallbackWithErrorMessage<Void>() {
 					@Override
 					public void onSuccess(Void result) {
 						Info.display("Администрирование", "Все данные пересозданы");
-						box.hide();
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Info.display("Error", "This is error " + caught);
 						box.hide();
 					}
 				});

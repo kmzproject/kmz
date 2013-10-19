@@ -1,13 +1,13 @@
 package ru.kmz.web.template.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
@@ -16,7 +16,6 @@ import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<KeyValueData> {
@@ -81,7 +80,7 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void update(KeyValueData data) {
-		getService().getData(data.getKey(), new AsyncCallback<TemplateTreeDataProxy>() {
+		getService().getData(data.getKey(), new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>() {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {
@@ -91,11 +90,6 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 				treeContainer.add(tree);
 
 				label.setText(result.getName());
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Info.display("Error", "Load error");
 			}
 		});
 	}

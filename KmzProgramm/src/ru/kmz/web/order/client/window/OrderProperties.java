@@ -1,10 +1,10 @@
 package ru.kmz.web.order.client.window;
 
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.CommonDirectoryWindow;
 import ru.kmz.web.ordercommon.client.OrderCommon;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
@@ -61,18 +61,12 @@ public class OrderProperties extends CommonDirectoryWindow<OrderProxy> {
 		object.setName(orderName.getValue());
 		object.setCustomer(customerName.getValue());
 		object.setLegalNumber(legalNumber.getValue());
-		OrderCommon.getService().editOrder(object, new AsyncCallback<OrderProxy>() {
-
+		OrderCommon.getService().editOrder(object, new AsyncCallbackWithErrorMessage<OrderProxy>() {
 			@Override
 			public void onSuccess(OrderProxy result) {
 				Info.display("Данные сохранены", result.getName());
 				if (updatableForm != null)
 					updatableForm.update();
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Info.display("Ошибка", "Ошибка при сохранении<br/>" + caught.getMessage());
 			}
 		});
 	}
