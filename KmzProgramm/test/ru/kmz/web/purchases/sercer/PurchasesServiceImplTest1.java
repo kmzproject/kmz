@@ -53,4 +53,27 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 		Assert.assertEquals("Тестовый заказ 1", purchases.get(0).getOrderName());
 	}
 
+	@Test
+	public void SimpleCompliteTest() {
+		Template template = TemplateTestData.createTemplateShort5();
+		Order order = OrderTestData.createOrders1().get(0);
+		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
+		Date date = DateUtils.getDate("2013/10/01");
+		input.setDate(date);
+		input.setTemplateId(template.getKeyStr());
+		input.setByStartDate(true);
+		input.setUseResource(false);
+		String orderId = order.getKeyStr();
+		projectsService.save(input, orderId);
+
+		List<PurchaseProxy> purchases = service.getActivePurchases();
+
+		Assert.assertEquals(3, purchases.size());
+
+		service.complitePurchase(purchases.get(0).getId());
+
+		purchases = service.getActivePurchases();
+		Assert.assertEquals(2, purchases.size());
+	}
+
 }

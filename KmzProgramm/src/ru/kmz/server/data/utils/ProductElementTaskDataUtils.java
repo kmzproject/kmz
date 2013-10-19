@@ -17,11 +17,24 @@ public class ProductElementTaskDataUtils {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.ORDER + "'");
+			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.ORDER + "' && done !=100");
 			list = (List<ProductElementTask>) q.execute();
 		} finally {
 			pm.close();
 		}
 		return list;
+	}
+
+	public static void compliteTask(String key) {
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			ProductElementTask task = pm.getObjectById(ProductElementTask.class, key);
+			task.setDone(100);
+			pm.makePersistent(task);
+		} finally {
+			pm.close();
+		}
+
 	}
 }

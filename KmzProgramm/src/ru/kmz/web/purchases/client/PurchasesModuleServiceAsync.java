@@ -10,6 +10,6 @@ public interface PurchasesModuleServiceAsync {
 
 	void getActivePurchases(AsyncCallback<List<PurchaseProxy>> callback);
 
-	void complitePurchase(PurchaseProxy proxy, AsyncCallback<Void> callback);
+	void complitePurchase(String id, AsyncCallback<Void> callback);
 
 }

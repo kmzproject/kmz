@@ -179,4 +179,7 @@ public class ProductElementTask implements IProjectTask {
 		return finish;
 	}
 
+	public void setDone(int done) {
+		this.done = done;
+	}
 }

@@ -12,6 +12,6 @@ public interface PurchasesModuleService extends RemoteService {
 
 	List<PurchaseProxy> getActivePurchases();
 
-	void complitePurchase(PurchaseProxy proxy);
+	void complitePurchase(String id);
 
 }

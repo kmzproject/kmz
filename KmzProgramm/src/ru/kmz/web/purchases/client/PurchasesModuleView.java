@@ -1,11 +1,19 @@
 package ru.kmz.web.purchases.client;
 
+import java.util.List;
+
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.purchases.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.info.Info;
 
 public class PurchasesModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
 
@@ -36,6 +44,34 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalPanel> imple
 	protected void createContainer() {
 		container = new VerticalPanel();
 		container.setSpacing(10);
+
+		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
+		compliteTextButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				List<PurchaseProxy> list = grid.getSelectionModel().getSelectedItems();
+				if (list == null || list.size() != 1) {
+					Info.display("Предупреждение", "Невозможно произвести редактирование");
+					return;
+				}
+
+				getService().complitePurchase(list.get(0).getId(), new AsyncCallback<Void>() {
+
+					@Override
+					public void onSuccess(Void result) {
+						update();
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+			}
+		});
+		container.add(compliteTextButton);
 
 		grid = PurchasesGrid.getCalculatorGrid();
 		container.add(grid);
