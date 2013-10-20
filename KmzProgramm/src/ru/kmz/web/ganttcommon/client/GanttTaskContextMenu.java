@@ -2,6 +2,7 @@ package ru.kmz.web.ganttcommon.client;
 
 import ru.kmz.web.ganttcommon.client.data.Task;
 
+import com.gantt.client.config.GanttConfig.TaskType;
 import com.gantt.client.event.TaskContextMenuEvent;
 import com.gantt.client.event.TaskContextMenuEvent.TaskContextMenuHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -53,8 +54,13 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 	}
 
 	private void updateItems() {
-		boolean isComplite = taskModel.getPercentDone() == 100;
-		setCompliteMenuItem.setEnabled(!isComplite);
-		setNotCompliteMenuItem.setEnabled(isComplite);
+		if (taskModel.getTaskType() == TaskType.PARENT) {
+			setCompliteMenuItem.setEnabled(false);
+			setNotCompliteMenuItem.setEnabled(false);
+		} else {
+			boolean isComplite = taskModel.getPercentDone() == 100;
+			setCompliteMenuItem.setEnabled(!isComplite);
+			setNotCompliteMenuItem.setEnabled(isComplite);
+		}
 	}
 }
