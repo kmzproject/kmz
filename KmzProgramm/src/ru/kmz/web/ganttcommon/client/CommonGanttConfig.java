@@ -50,16 +50,21 @@ public class CommonGanttConfig extends GanttConfig {
 		// Define column width
 		this.columnWidth = 40;
 		// Enable task contextMenu
-		this.taskContextMenuEnabled = false;
+		this.taskContextMenuEnabled = true;
 		// Enable dependency contextMenu
 		this.dependencyContextMenuEnabled = false;
 		//
+		this.taskContextMenu = new GanttTaskContextMenu();
 
 		this.taskProperties = TaskProps.props;
 		this.dependencyProperties = DependencyProps.depProps;
 
 		// Cascade Changes
 		this.cascadeChanges = false;
+	}
+
+	public GanttTaskContextMenu getTaskContextMenu() {
+		return (GanttTaskContextMenu) this.taskContextMenu;
 	}
 
 }

@@ -19,7 +19,7 @@ public class PurchasesModuleServiceImpl extends RemoteServiceServlet implements 
 
 	@Override
 	public void complitePurchase(String id) {
-		ProductElementTaskDataUtils.compliteTask(id);
+		ProductElementTaskDataUtils.setTaskComplitePersents(id, 100);
 	}
 
 }

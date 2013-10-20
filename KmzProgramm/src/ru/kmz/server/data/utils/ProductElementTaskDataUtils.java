@@ -25,16 +25,17 @@ public class ProductElementTaskDataUtils {
 		return list;
 	}
 
-	public static void compliteTask(String key) {
+	public static ProductElementTask setTaskComplitePersents(String key, int persents) {
 		PersistenceManager pm = null;
+		ProductElementTask task;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			ProductElementTask task = pm.getObjectById(ProductElementTask.class, key);
-			task.setDone(100);
+			task = pm.getObjectById(ProductElementTask.class, key);
+			task.setDone(persents);
 			pm.makePersistent(task);
 		} finally {
 			pm.close();
 		}
-
+		return task;
 	}
 }

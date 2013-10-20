@@ -5,6 +5,7 @@ import java.util.Date;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.OrderDataUtils;
+import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.data.utils.ResourcesDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.server.engine.gant.GanttProjectsService;
@@ -76,6 +77,11 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
 		service.save(template, input.getDate());
 
+	}
+
+	@Override
+	public void setCompliteTaskPersents(String id, int persents) {
+		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
 	}
 
 }

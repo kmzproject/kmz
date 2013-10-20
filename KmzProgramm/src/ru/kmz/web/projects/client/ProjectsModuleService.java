@@ -15,4 +15,6 @@ public interface ProjectsModuleService extends RemoteService {
 
 	void save(CalculatorInputDataProxy input, String orderId);
 
+	void setCompliteTaskPersents(String id, int persents);
+
 }

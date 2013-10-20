@@ -40,9 +40,10 @@ import com.sencha.gxt.widget.core.client.treegrid.TreeGrid;
 
 public class CommonGanttContainer implements IsWidget {
 
-	public CommonGanttContainer(GanttData data) {
+	public CommonGanttContainer(GanttData data, GanttTaskContextMenuHandler handler) {
 		this.ganttData = data;
 		this.scale = ScaleConstants.WEEK;
+		this.handler = handler;
 	}
 
 	private GanttData ganttData;
@@ -54,6 +55,7 @@ public class CommonGanttContainer implements IsWidget {
 
 	private TreeStore<Task> dataTaskStore;
 	private ListStore<Dependency> dataDepStore;
+	private GanttTaskContextMenuHandler handler;
 	private VerticalLayoutContainer container;
 
 	@Override
@@ -77,6 +79,7 @@ public class CommonGanttContainer implements IsWidget {
 		// Create the Gxt Scheduler
 		gantt = new CommonGantt(dataTaskStore, dataDepStore, config);
 		gantt.setLineStore(createLines());
+		gantt.setContextMenuHandler(handler);
 
 		setStartEnd();
 
@@ -85,13 +88,16 @@ public class CommonGanttContainer implements IsWidget {
 		container.add(gantt, new VerticalLayoutData(1, 1));
 	}
 
-	public void refreshData(GanttData ganttData) {
+	public void refreshAsNewData(GanttData ganttData) {
 		this.ganttData = ganttData;
 		IDemoData data = new DataTransformator(this.ganttData);
 		setData(data);
 		setStartEnd();
-		gantt.setLineStore(createLines());
 		gantt.refresh();
+	}
+
+	public CommonGantt getGantt() {
+		return gantt;
 	}
 
 	public void expandAll() {
