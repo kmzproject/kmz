@@ -112,4 +112,8 @@ public class Task implements HasResourceType {
 	public String getResourceType() {
 		return resourceType;
 	}
+	
+	public boolean isComplite(){
+		return percentDone == 100;
+	}
 }
