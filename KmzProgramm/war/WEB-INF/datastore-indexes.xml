@@ -1,0 +1,15 @@
+<!-- Indices written at Sun, 20 Oct 2013 13:35:32 MSK -->
+
+<datastore-indexes autoGenerate="true">
+
+    <datastore-index kind="ProductElementTask" ancestor="false" source="manual">
+        <property name="resourceType" direction="asc"/>
+        <property name="done" direction="asc"/>
+    </datastore-index>
+    
+	<datastore-index kind="ProductElementTask" ancestor="false">
+		<property name="parentId" direction="asc" />
+		<property name="orderNum" direction="asc" />
+	</datastore-index>
+
+</datastore-indexes>

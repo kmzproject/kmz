@@ -17,7 +17,7 @@ public class ProductElementTaskDataUtils {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.ORDER + "' && done !=100");
+			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.ORDER + "' && done <100");
 			list = (List<ProductElementTask>) q.execute();
 		} finally {
 			pm.close();
