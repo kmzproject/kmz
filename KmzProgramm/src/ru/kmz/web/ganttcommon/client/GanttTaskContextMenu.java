@@ -24,7 +24,7 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				handler.setPersentDone(taskModel.getId(), 100);
+				setTaskComplitePersents(100);
 			}
 		});
 		add(setCompliteMenuItem);
@@ -34,10 +34,15 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				handler.setPersentDone(taskModel.getId(), 0);
+				setTaskComplitePersents(0);
 			}
 		});
 		add(setNotCompliteMenuItem);
+	}
+	
+	private void setTaskComplitePersents(int persents){
+		handler.setPersentDone(taskModel.getId(), persents);
+		taskModel.setPercentDone(persents);
 	}
 
 	public void setHandler(GanttTaskContextMenuHandler handler) {
