@@ -7,7 +7,6 @@ import java.util.List;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 
-import com.gantt.client.config.GanttConfig.TaskType;
 import com.sencha.gxt.core.client.util.DateWrapper;
 
 public class DataTransformator implements IDemoData {
@@ -33,8 +32,7 @@ public class DataTransformator implements IDemoData {
 
 	private Task getTask(GraphData data, DateWrapper dw) {
 		Task task = new Task(data.getId(), data.getName(), data.getPlanStart(), data.getPlanFinish(),
-				data.getDuration(), data.getComplite(), data.isMilestone() ? TaskType.MILESTONE
-						: data.isFolder() ? TaskType.PARENT : TaskType.LEAF, data.getResourceType());
+				data.getDuration(), data.getComplite(), data.getTaskType(), data.getResourceType());
 		for (GraphData child : data.getChilds()) {
 			Task childTask = getTask(child, dw);
 			task.addChild(childTask);

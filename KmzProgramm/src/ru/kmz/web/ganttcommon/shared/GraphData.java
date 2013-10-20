@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gantt.client.config.GanttConfig.TaskType;
+
 import ru.kmz.web.common.shared.HasResourceType;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 
@@ -64,8 +66,14 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 		this.name = name.replace("\"", "_");
 	}
 
-	public boolean isMilestone() {
-		return duration == 0;
+	public TaskType getTaskType() {
+		if (isFolder()) {
+			return TaskType.PARENT;
+		}
+		if (duration == 0) {
+			return TaskType.MILESTONE;
+		}
+		return TaskType.LEAF;
 	}
 
 	public boolean isFolder() {

@@ -6,6 +6,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.gantt.client.config.GanttConfig.TaskType;
+
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
@@ -42,8 +44,10 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 
 		Assert.assertEquals("Тестовый заказ 1", rootOrder.getName());
 		Assert.assertEquals(ResourceTypes.PRODUCT_ORDER, rootOrder.getResourceType());
+		Assert.assertEquals(TaskType.PARENT, rootOrder.getTaskType());
 		Assert.assertEquals("Изделие", rootTemplate.getName());
 		Assert.assertEquals(ResourceTypes.PRODUCT, rootTemplate.getResourceType());
+		Assert.assertEquals(TaskType.PARENT, rootTemplate.getTaskType());
 
 		GraphData rootOrderProduct = rootOrder.getChilds().get(0);
 		Assert.assertEquals("Изделие", rootOrderProduct.getName());

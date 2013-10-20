@@ -7,6 +7,8 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.gantt.client.config.GanttConfig.TaskType;
+
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
@@ -48,6 +50,7 @@ public class NoDataProjectsService extends DataTestEveryNew {
 		Assert.assertEquals(1, data.getChilds().size());
 		GraphData order = data.getChilds().get(0);
 		Assert.assertEquals("Тестовый заказ 1", order.getName());
+		Assert.assertEquals(TaskType.PARENT, order.getTaskType());
 		Assert.assertEquals(date, order.getPlanStart());
 		Assert.assertEquals(date, order.getPlanFinish());
 	}
