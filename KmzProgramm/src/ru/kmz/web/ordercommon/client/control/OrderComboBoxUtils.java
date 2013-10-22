@@ -25,7 +25,7 @@ public class OrderComboBoxUtils {
 		orderBox.setTriggerAction(TriggerAction.ALL);
 		orderBox.setEditable(false);
 		orderBox.setValue(list.get(0));
-		orderBox.setWidth(150);
+		orderBox.setWidth(220);
 
 		OrderCommon.getService().getOrders(new AsyncCallbackWithErrorMessage<List<OrderProxy>>() {
 			@Override
