@@ -37,14 +37,12 @@ public class CheckOrder extends DataTestEveryNew {
 		input.setDate(DateUtils.getOffsetDate(date, 1));
 		input.setTemplateId(template.getKeyStr());
 		input.setByFinishDate(true);
-		input.setUseResource(false);
-		input.setShowOtherTasks(true);
-		String orderId = order.getKeyStr();
+		input.setOrderId(order.getKeyStr());
 
-		service.save(input, orderId);
+		service.save(input);
 
 		input.setDate(date);
-		service.save(input, orderId);
+		service.save(input);
 
 		GanttData data = service.getCurrentTasks();
 
@@ -75,16 +73,17 @@ public class CheckOrder extends DataTestEveryNew {
 		input.setDate(DateUtils.getOffsetDate(date, 2));
 		input.setTemplateId(template.getKeyStr());
 		input.setByFinishDate(true);
-		input.setUseResource(false);
-		input.setShowOtherTasks(true);
 
-		service.save(input, order1.getKeyStr());
+		input.setOrderId(order1.getKeyStr());
+		service.save(input);
 
 		input.setDate(DateUtils.getOffsetDate(date, 1));
-		service.save(input, order2.getKeyStr());
+		input.setOrderId(order2.getKeyStr());
+		service.save(input);
 
 		input.setDate(date);
-		service.save(input, order3.getKeyStr());
+		input.setOrderId(order3.getKeyStr());
+		service.save(input);
 
 		GanttData data = service.getCurrentTasks();
 
@@ -114,16 +113,17 @@ public class CheckOrder extends DataTestEveryNew {
 		input.setDate(DateUtils.getOffsetDate(date, 2));
 		input.setTemplateId(template.getKeyStr());
 		input.setByFinishDate(true);
-		input.setUseResource(false);
-		input.setShowOtherTasks(true);
 
-		service.save(input, order1.getKeyStr());
+		input.setOrderId(order1.getKeyStr());
+		service.save(input);
 
 		input.setDate(DateUtils.getOffsetDate(date, 1));
-		service.save(input, order2.getKeyStr());
+		input.setOrderId(order2.getKeyStr());
+		service.save(input);
 
 		input.setDate(date);
-		service.save(input, order3.getKeyStr());
+		input.setOrderId(order3.getKeyStr());
+		service.save(input);
 
 		input.setDate(DateUtils.getOffsetDate(date, 3));
 		GanttData data = service.getGantResultData(input);

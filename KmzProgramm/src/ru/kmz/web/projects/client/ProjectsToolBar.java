@@ -6,7 +6,6 @@ import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
-import ru.kmz.web.ordercommon.client.window.OrderSelectWindow;
 import ru.kmz.web.projects.client.window.SelectCalculationInfo;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 
@@ -57,22 +56,32 @@ public class ProjectsToolBar implements IsWidget {
 
 					@Override
 					public void update(final CalculatorInputDataProxy value) {
-						final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
-						box.setProgressText("Обработка...");
-						box.auto();
-						box.show();
-						ProjectsModuleView.getService().getGantResultData(value, new AsyncCallbackWithErrorMessage<GanttData>() {
-							@Override
-							public void onSuccess(GanttData result) {
-								if (result.getError() != null) {
-									Info.display("Error", "Ошибка при обработке " + result.getError());
-								} else {
-									projectModulesView.update(result);
+						if (value.getOrderId() == null) {
+							final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
+							box.setProgressText("Обработка...");
+							box.auto();
+							box.show();
+							ProjectsModuleView.getService().getGantResultData(value, new AsyncCallbackWithErrorMessage<GanttData>() {
+								@Override
+								public void onSuccess(GanttData result) {
+									if (result.getError() != null) {
+										Info.display("Error", "Ошибка при обработке " + result.getError());
+									} else {
+										projectModulesView.update(result);
+									}
+									ProjectsToolBar.this.inputData = value;
+									box.hide();
 								}
-								ProjectsToolBar.this.inputData = value;
-								box.hide();
-							}
-						});
+							});
+						} else {
+							ProjectsModuleView.getService().save(ProjectsToolBar.this.inputData, new AsyncCallbackWithErrorMessage<Void>() {
+								@Override
+								public void onSuccess(Void result) {
+									Info.display("Сохранены", "Успешно сохранил");
+									projectModulesView.update();
+								}
+							});
+						}
 					}
 				});
 				window.show();
@@ -80,29 +89,6 @@ public class ProjectsToolBar implements IsWidget {
 			}
 		});
 		toolBar.add(selectCalculationDataButton);
-
-		TextButton selectDataButton = new TextButton("Сохранить");
-		selectDataButton.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-				OrderSelectWindow window = new OrderSelectWindow();
-				window.setUpdatable(new IUpdatableWithValue<KeyValueData>() {
-					@Override
-					public void update(KeyValueData value) {
-						ProjectsModuleView.getService().save(ProjectsToolBar.this.inputData, value.getKey(), new AsyncCallbackWithErrorMessage<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								Info.display("Сохранены", "Успешно сохранил");
-								projectModulesView.update();
-							}
-						});
-					}
-				});
-				window.show();
-			}
-		});
-		toolBar.add(selectDataButton);
 
 		TextButton showAll = new TextButton("Раскрыть все");
 		showAll.addSelectHandler(new SelectHandler() {

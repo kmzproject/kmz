@@ -36,18 +36,16 @@ public class SetCompliteTask extends DataTestEveryNew {
 		input.setDate(DateUtils.getOffsetDate(date, 1));
 		input.setTemplateId(template.getKeyStr());
 		input.setByFinishDate(true);
-		input.setUseResource(false);
-		input.setShowOtherTasks(true);
-		String orderId = order.getKeyStr();
+		input.setOrderId(order.getKeyStr());
 
-		service.save(input, orderId);
+		service.save(input);
 
 		GanttData data = service.getCurrentTasks();
 
 		GraphData rootProductElement = getElement(data);
 
 		Assert.assertEquals(0, rootProductElement.getComplite());
-		
+
 		service.setCompliteTaskPersents(rootProductElement.getId(), 100);
 		data = service.getCurrentTasks();
 		rootProductElement = getElement(data);
@@ -63,13 +61,13 @@ public class SetCompliteTask extends DataTestEveryNew {
 		rootProductElement = getElement(data);
 		Assert.assertEquals(45, rootProductElement.getComplite());
 	}
-	
-	private GraphData getElement(GanttData data){
+
+	private GraphData getElement(GanttData data) {
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 		GraphData rootProductElement = rootProduct.getChilds().get(0);
 		return rootProductElement;
-		
+
 	}
 
 }

@@ -41,9 +41,9 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 		input.setDate(date);
 		input.setTemplateId(template.getKeyStr());
 		input.setByStartDate(true);
-		input.setUseResource(false);
 		String orderId = order.getKeyStr();
-		projectsService.save(input, orderId);
+		input.setOrderId(orderId);
+		projectsService.save(input);
 
 		List<PurchaseProxy> purchases = service.getActivePurchases();
 
@@ -64,9 +64,9 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 		input.setDate(date);
 		input.setTemplateId(template.getKeyStr());
 		input.setByStartDate(true);
-		input.setUseResource(false);
 		String orderId = order.getKeyStr();
-		projectsService.save(input, orderId);
+		input.setOrderId(orderId);
+		projectsService.save(input);
 
 		List<PurchaseProxy> purchases = service.getActivePurchases();
 
@@ -85,8 +85,8 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 
 		Assert.assertEquals(16, rootProducte.getComplite());
 		Assert.assertEquals(16, rootOrder.getComplite());
-		
-		projectsService.save(input, orderId);
+
+		projectsService.save(input);
 		ganttData = projectsService.getCurrentTasks();
 		rootOrder = ganttData.getChilds().get(0);
 		Assert.assertEquals(8, rootOrder.getComplite());

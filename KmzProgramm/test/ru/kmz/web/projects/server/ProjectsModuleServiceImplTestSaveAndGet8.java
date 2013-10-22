@@ -31,10 +31,8 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		input.setDate(date);
 		input.setTemplateId(template.getKeyStr());
 		input.setByStartDate(true);
-		input.setUseResource(false);
-		input.setShowOtherTasks(true);
-		String orderId = order.getKeyStr();
-		service.save(input, orderId);
+		input.setOrderId(order.getKeyStr());
+		service.save(input);
 
 		GanttData data = service.getGantResultData(input);
 

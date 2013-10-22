@@ -10,8 +10,8 @@ public class CalculatorInputDataProxy implements Serializable {
 	private boolean byFinishDate;
 	private boolean byStartDate;
 	private boolean useResource;
-	private boolean showOtherTasks;
 	private String templateId;
+	private String orderId;
 
 	public boolean isByFinishDate() {
 		return byFinishDate;
@@ -53,12 +53,12 @@ public class CalculatorInputDataProxy implements Serializable {
 		this.useResource = useResource;
 	}
 
-	public boolean isShowOtherTasks() {
-		return showOtherTasks;
+	public String getOrderId() {
+		return orderId;
 	}
 
-	public void setShowOtherTasks(boolean showOtherTasks) {
-		this.showOtherTasks = showOtherTasks;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 }

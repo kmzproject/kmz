@@ -11,7 +11,7 @@ public interface ProjectsModuleServiceAsync {
 
 	void getGantResultData(CalculatorInputDataProxy input, AsyncCallback<GanttData> callback);
 
-	void save(CalculatorInputDataProxy input, String orderId, AsyncCallback<Void> callback);
+	void save(CalculatorInputDataProxy input, AsyncCallback<Void> callback);
 
 	void setCompliteTaskPersents(String id, int persents, AsyncCallback<Void> callback);
 }

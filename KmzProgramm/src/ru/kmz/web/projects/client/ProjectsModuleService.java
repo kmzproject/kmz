@@ -13,7 +13,7 @@ public interface ProjectsModuleService extends RemoteService {
 	
 	GanttData getGantResultData(CalculatorInputDataProxy input);
 
-	void save(CalculatorInputDataProxy input, String orderId);
+	void save(CalculatorInputDataProxy input);
 
 	void setCompliteTaskPersents(String id, int persents);
 

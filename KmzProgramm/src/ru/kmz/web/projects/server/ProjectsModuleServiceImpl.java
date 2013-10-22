@@ -68,8 +68,10 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 		return data;
 	}
 
-	public void save(CalculatorInputDataProxy input, String orderId) {
+	public void save(CalculatorInputDataProxy input) {
 		NewProjectService service = new NewProjectService();
+
+		String orderId = input.getOrderId();
 		Order order = OrderDataUtils.getOrder(orderId);
 		service.setOrder(order);
 		service.setService(new CalculateExecutionNoResourceService());

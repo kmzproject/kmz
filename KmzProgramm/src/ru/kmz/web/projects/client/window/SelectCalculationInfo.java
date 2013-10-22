@@ -5,6 +5,7 @@ import java.util.Date;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.CommonSelectWindow;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.ordercommon.client.control.OrderComboBoxUtils;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 
@@ -16,7 +17,7 @@ import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.form.CheckBox;
+import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.form.Radio;
@@ -27,9 +28,8 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 	private Label templateName;
 	private Radio radioFinish;
 	private Radio radioStart;
-	private CheckBox checkBoxShowOtherTasks;
-	private CheckBox checkBoxResources;
 	private DateField dataField;
+	private ComboBox<KeyValueData> orderComboBox;
 
 	public SelectCalculationInfo() {
 		super();
@@ -45,18 +45,6 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		dataField.setAutoValidate(true);
 		dataField.setValue(new Date());
 		container.add(new FieldLabel(dataField, "Дата"));
-
-		checkBoxResources = new CheckBox();
-		checkBoxResources.setBoxLabel("Использовать ресурсы в расчетах");
-		checkBoxResources.setEnabled(false);
-		checkBoxResources.setValue(false);
-		container.add(checkBoxResources);
-
-		checkBoxShowOtherTasks = new CheckBox();
-		checkBoxShowOtherTasks.setBoxLabel("Отображать загрузку предприятия");
-		checkBoxShowOtherTasks.setEnabled(true);
-		checkBoxShowOtherTasks.setValue(true);
-		container.add(checkBoxShowOtherTasks);
 
 		radioFinish = new Radio();
 		radioFinish.setBoxLabel("По дате завершения");
@@ -89,6 +77,9 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 
 		container.add(new FieldLabel(templatePanel, "Шаблон"));
 
+		orderComboBox = OrderComboBoxUtils.createOrderCompoBox(true);
+		container.add(new FieldLabel(orderComboBox, "Заказ"));
+
 		return container;
 	}
 
@@ -98,8 +89,9 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		input.setByFinishDate(radioFinish.getValue());
 		input.setByStartDate(radioStart.getValue());
 		input.setTemplateId(templateId);
-		input.setUseResource(checkBoxResources.getValue());
-		input.setShowOtherTasks(checkBoxShowOtherTasks.getValue());
+		if (orderComboBox.getValue() != null) {
+			input.setOrderId(orderComboBox.getValue().getKey());
+		}
 		return input;
 	}
 
