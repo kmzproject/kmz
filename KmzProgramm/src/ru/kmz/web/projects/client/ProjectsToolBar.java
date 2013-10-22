@@ -27,7 +27,6 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 public class ProjectsToolBar implements IsWidget {
 
 	private ToolBar toolBar;
-	private CalculatorInputDataProxy inputData;
 	private ProjectsModuleView projectModulesView;
 	private ComboBox<KeyValueData> scalaCombo;
 
@@ -55,26 +54,26 @@ public class ProjectsToolBar implements IsWidget {
 				window.setUpdatable(new IUpdatableWithValue<CalculatorInputDataProxy>() {
 
 					@Override
-					public void update(final CalculatorInputDataProxy value) {
-						if (value.getOrderId() == null) {
+					public void update(final CalculatorInputDataProxy inputData) {
+						if (inputData.getOrderId() == null) {
 							final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
 							box.setProgressText("Обработка...");
 							box.auto();
 							box.show();
-							ProjectsModuleView.getService().getGantResultData(value, new AsyncCallbackWithErrorMessage<GanttData>() {
+							ProjectsModuleView.getService().getGantResultData(inputData, new AsyncCallbackWithErrorMessage<GanttData>() {
 								@Override
 								public void onSuccess(GanttData result) {
 									if (result.getError() != null) {
 										Info.display("Error", "Ошибка при обработке " + result.getError());
 									} else {
 										projectModulesView.update(result);
+										Info.display("Расчет", "Выполнен расчет без сохранения, для сохранения выберите заказ");
 									}
-									ProjectsToolBar.this.inputData = value;
 									box.hide();
 								}
 							});
 						} else {
-							ProjectsModuleView.getService().save(ProjectsToolBar.this.inputData, new AsyncCallbackWithErrorMessage<Void>() {
+							ProjectsModuleView.getService().save(inputData, new AsyncCallbackWithErrorMessage<Void>() {
 								@Override
 								public void onSuccess(Void result) {
 									Info.display("Сохранены", "Успешно сохранил");
