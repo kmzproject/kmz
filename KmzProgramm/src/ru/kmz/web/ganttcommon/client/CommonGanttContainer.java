@@ -27,6 +27,7 @@ import com.scheduler.client.core.timeaxis.preconfig.YearTimeAxisGenerator;
 import com.scheduler.client.zone.Line;
 import com.scheduler.client.zone.LineProperties;
 import com.scheduler.client.zone.ZoneGeneratorInt;
+import com.sencha.gxt.core.client.dom.ScrollSupport.ScrollMode;
 import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
 import com.sencha.gxt.core.client.util.DateWrapper;
 import com.sencha.gxt.data.shared.ListStore;
@@ -84,7 +85,9 @@ public class CommonGanttContainer implements IsWidget {
 		setStartEnd();
 
 		container = new VerticalLayoutContainer();
-		container.setHeight(1000);
+		container.setHeight(500);
+		container.setScrollMode(ScrollMode.ALWAYS);
+
 		container.add(gantt, new VerticalLayoutData(1, 1));
 	}
 
