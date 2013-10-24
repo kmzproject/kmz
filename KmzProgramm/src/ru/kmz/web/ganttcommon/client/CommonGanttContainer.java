@@ -31,6 +31,8 @@ import com.sencha.gxt.core.client.dom.ScrollSupport.ScrollMode;
 import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
 import com.sencha.gxt.core.client.util.DateWrapper;
 import com.sencha.gxt.data.shared.ListStore;
+import com.sencha.gxt.data.shared.Store;
+import com.sencha.gxt.data.shared.Store.StoreFilter;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
@@ -52,7 +54,6 @@ public class CommonGanttContainer implements IsWidget {
 	private String scale;
 
 	private CommonGantt gantt;
-	ListStore<Task> taskStore;
 
 	private TreeStore<Task> dataTaskStore;
 	private ListStore<Dependency> dataDepStore;
@@ -171,10 +172,11 @@ public class CommonGanttContainer implements IsWidget {
 			dataTaskStore.clear();
 		}
 		Task root = data.getTasks();
+
 		for (Task base : root.getChildren()) {
 			dataTaskStore.add(base);
 			if (base.hasChildren()) {
-				processFolder(dataTaskStore, base);
+				processFolder(base);
 			}
 		}
 
@@ -224,11 +226,30 @@ public class CommonGanttContainer implements IsWidget {
 		return cm;
 	}
 
-	private static void processFolder(TreeStore<Task> store, Task folder) {
+	public void setFilterResourceType(final String resourceType) {
+		if (resourceType != null) {
+			if (dataTaskStore.getFilters() != null) {
+				dataTaskStore.getFilters().clear();
+			}
+			StoreFilter<Task> filter = new StoreFilter<Task>() {
+				@Override
+				public boolean select(Store<Task> store, Task parent, Task item) {
+					return !item.getResourceType().equals(resourceType);
+				}
+			};
+			dataTaskStore.addFilter(filter);
+			dataTaskStore.setEnableFilters(true);
+		} else {
+			dataTaskStore.setEnableFilters(false);
+		}
+		gantt.refresh();
+	}
+
+	private void processFolder(Task folder) {
 		for (Task child : folder.getChildren()) {
-			store.add(folder, child);
+			dataTaskStore.add(folder, child);
 			if (child.hasChildren()) {
-				processFolder(store, child);
+				processFolder(child);
 			}
 		}
 	}

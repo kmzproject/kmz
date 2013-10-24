@@ -4,6 +4,7 @@ import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 import ru.kmz.web.projects.client.window.SelectCalculationInfo;
@@ -28,7 +29,6 @@ public class ProjectsToolBar implements IsWidget {
 
 	private ToolBar toolBar;
 	private ProjectsModuleView projectModulesView;
-	private ComboBox<KeyValueData> scalaCombo;
 
 	public ProjectsToolBar(ProjectsModuleView projectModulesView) {
 		this.projectModulesView = projectModulesView;
@@ -108,24 +108,25 @@ public class ProjectsToolBar implements IsWidget {
 
 		toolBar.add(refreshButton);
 
-		toolBar.add(new FieldLabel(getCombobox(), "Масштаб"));
+		toolBar.add(new FieldLabel(getScaleComboBox(), "Масштаб"));
+		toolBar.add(new FieldLabel(getFiltersComboBox(), "Скрыть"));
 
 	}
 
-	private ComboBox<KeyValueData> getCombobox() {
+	private ComboBox<KeyValueData> getScaleComboBox() {
 		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
 		list.add(new KeyValueData(ScaleConstants.DAY, "День"));
 		list.add(new KeyValueData(ScaleConstants.WEEK, "Неделя"));
 		list.add(new KeyValueData(ScaleConstants.MONTH, "Месяц"));
 
-		scalaCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
-		scalaCombo.setForceSelection(true);
-		scalaCombo.setTypeAhead(true);
-		scalaCombo.setTriggerAction(TriggerAction.ALL);
-		scalaCombo.setEditable(false);
-		scalaCombo.setValue(list.get(1));
+		ComboBox<KeyValueData> scaleCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
+		scaleCombo.setForceSelection(true);
+		scaleCombo.setTypeAhead(true);
+		scaleCombo.setTriggerAction(TriggerAction.ALL);
+		scaleCombo.setEditable(false);
+		scaleCombo.setValue(list.get(1));
 
-		scalaCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
+		scaleCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
 
 			@Override
 			public void onSelection(SelectionEvent<KeyValueData> event) {
@@ -133,7 +134,31 @@ public class ProjectsToolBar implements IsWidget {
 			}
 		});
 
-		return scalaCombo;
+		return scaleCombo;
+	}
+
+	private ComboBox<KeyValueData> getFiltersComboBox() {
+		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
+		list.add(new KeyValueData(null, ""));
+		list.add(new KeyValueData(ResourceTypesConsts.ORDER, "Закупки"));
+		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE, "Сборку"));
+
+		ComboBox<KeyValueData> filterCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
+		filterCombo.setForceSelection(true);
+		filterCombo.setTypeAhead(true);
+		filterCombo.setTriggerAction(TriggerAction.ALL);
+		filterCombo.setEditable(false);
+		filterCombo.setValue(list.get(0));
+
+		filterCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
+
+			@Override
+			public void onSelection(SelectionEvent<KeyValueData> event) {
+				projectModulesView.getGantt().setFilterResourceType(event.getSelectedItem().getKey());
+			}
+		});
+
+		return filterCombo;
 	}
 
 }
