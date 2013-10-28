@@ -87,4 +87,9 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
 	}
 
+	@Override
+	public void deleteProduct(String id) {
+		ProductElementTaskDataUtils.deleteProduct(id);
+	}
+
 }

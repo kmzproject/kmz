@@ -17,6 +17,8 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 
 	private MenuItem setCompliteMenuItem;
 	private MenuItem setNotCompliteMenuItem;
+	private MenuItem setNewDateMenuItem;
+	private MenuItem deleteMenuItem;
 	private GanttTaskContextMenuHandler handler;
 
 	public GanttTaskContextMenu() {
@@ -36,13 +38,30 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 
 		setNotCompliteMenuItem = new MenuItem("Отметить как не выполненную");
 		setNotCompliteMenuItem.addSelectionHandler(new SelectionHandler<Item>() {
-
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
 				setTaskComplitePersents(0);
 			}
 		});
 		add(setNotCompliteMenuItem);
+
+		setNewDateMenuItem = new MenuItem("Изменить даты");
+		setNewDateMenuItem.addSelectionHandler(new SelectionHandler<Item>() {
+			@Override
+			public void onSelection(SelectionEvent<Item> event) {
+				handler.showNewDateSelector(taskModel.getId());
+			}
+		});
+		add(setNewDateMenuItem);
+
+		deleteMenuItem = new MenuItem("Удалить");
+		deleteMenuItem.addSelectionHandler(new SelectionHandler<Item>() {
+			@Override
+			public void onSelection(SelectionEvent<Item> event) {
+				handler.delete(taskModel.getId());
+			}
+		});
+		add(deleteMenuItem);
 	}
 
 	private boolean isCompliteChildrens(Task task) {
@@ -76,10 +95,14 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 		if (taskModel.getTaskType() == TaskType.PARENT) {
 			setCompliteMenuItem.setEnabled(false);
 			setNotCompliteMenuItem.setEnabled(false);
+			setNewDateMenuItem.setEnabled(true);
+			deleteMenuItem.setEnabled(true);
 		} else {
 			boolean isComplite = taskModel.isComplite();
 			setCompliteMenuItem.setEnabled(!isComplite);
 			setNotCompliteMenuItem.setEnabled(isComplite);
+			setNewDateMenuItem.setEnabled(false);
+			deleteMenuItem.setEnabled(false);
 		}
 	}
 }

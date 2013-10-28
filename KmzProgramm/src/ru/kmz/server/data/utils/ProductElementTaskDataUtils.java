@@ -38,4 +38,16 @@ public class ProductElementTaskDataUtils {
 		}
 		return task;
 	}
+
+	public static void deleteProduct(String key) {
+		PersistenceManager pm = null;
+		ProductElementTask task;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			task = pm.getObjectById(ProductElementTask.class, key);
+			pm.deletePersistent(task);
+		} finally {
+			pm.close();
+		}
+	}
 }

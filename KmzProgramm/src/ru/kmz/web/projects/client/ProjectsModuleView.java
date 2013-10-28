@@ -105,4 +105,23 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 		});
 	}
 
+	@Override
+	public void showNewDateSelector(String id) {
+
+	}
+
+	@Override
+	public void delete(String id) {
+		final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
+		box.show();
+		getService().deleteProduct(id, new AsyncCallbackWithErrorMessage<Void>(box) {
+			@Override
+			public void onSuccess(Void result) {
+				box.hide();
+				Info.display("Операция завершена", "Обновления сохранены");
+				update();
+			}
+		});
+	}
+
 }

@@ -17,4 +17,6 @@ public interface ProjectsModuleService extends RemoteService {
 
 	void setCompliteTaskPersents(String id, int persents);
 
+	void deleteProduct(String id);
+
 }
