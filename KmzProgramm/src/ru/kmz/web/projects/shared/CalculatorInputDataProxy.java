@@ -12,6 +12,7 @@ public class CalculatorInputDataProxy implements Serializable {
 	private boolean useResource;
 	private String templateId;
 	private String orderId;
+	private int count;
 
 	public boolean isByFinishDate() {
 		return byFinishDate;
@@ -59,6 +60,14 @@ public class CalculatorInputDataProxy implements Serializable {
 
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getCount() {
+		return count;
 	}
 
 }

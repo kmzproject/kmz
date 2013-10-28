@@ -52,6 +52,9 @@ public class ProductElementTask implements IProjectTask {
 	@Persistent
 	private int done;
 
+	@Persistent
+	private int count;
+
 	@NotPersistent
 	private List<ProductElementTask> childs;
 
@@ -147,8 +150,15 @@ public class ProductElementTask implements IProjectTask {
 		return proxy;
 	}
 
+	private String getNameAndCount() {
+		if (count == 1) {
+			return name;
+		}
+		return count + "x " + name;
+	}
+
 	public GraphData asGraphDataProxy() {
-		GraphData graphData = new GraphData(getKeyStr(), name, duration, resourceType);
+		GraphData graphData = new GraphData(getKeyStr(), getNameAndCount(), duration, resourceType);
 		graphData.setComplite(done);
 		return graphData;
 	}
@@ -183,5 +193,13 @@ public class ProductElementTask implements IProjectTask {
 
 	public void setDone(int done) {
 		this.done = done;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

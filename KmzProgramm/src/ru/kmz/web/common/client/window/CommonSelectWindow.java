@@ -43,7 +43,11 @@ public abstract class CommonSelectWindow<T> extends Window {
 
 		@Override
 		public void onSelect(SelectEvent event) {
-			updatableForm.update(getSelectedValue());
+			T result = getSelectedValue();
+			if (result == null) {
+				return;
+			}
+			updatableForm.update(result);
 			super.onSelect(event);
 		}
 	}

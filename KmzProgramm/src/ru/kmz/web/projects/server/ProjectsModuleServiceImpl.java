@@ -74,6 +74,7 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 		String orderId = input.getOrderId();
 		Order order = OrderDataUtils.getOrder(orderId);
 		service.setOrder(order);
+		service.setCount(input.getCount());
 		service.setService(new CalculateExecutionNoResourceService());
 
 		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());

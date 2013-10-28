@@ -14,12 +14,17 @@ public class NewProjectService {
 
 	private ICalcucateExecutionServiceInterface service;
 	private Order order;
+	private int count;
 
 	public NewProjectService() {
 	}
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	public void setService(ICalcucateExecutionServiceInterface service) {
@@ -39,12 +44,11 @@ public class NewProjectService {
 		ResourceTask resourceTask = service.getResult().get(element);
 		ProductElementTask task;
 		if (parentElementTask == null) {
-			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(),
-					resourceTask, order);
+			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(), resourceTask, order);
 		} else {
-			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(),
-					resourceTask, parentElementTask);
+			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(), resourceTask, parentElementTask);
 		}
+		task.setCount(count);
 		task = OrderDataUtils.edit(task);
 
 		if (element.hasChild()) {

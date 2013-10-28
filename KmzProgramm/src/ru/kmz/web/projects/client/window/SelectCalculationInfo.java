@@ -1,5 +1,6 @@
 package ru.kmz.web.projects.client.window;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import ru.kmz.web.common.client.data.KeyValueData;
@@ -8,6 +9,7 @@ import ru.kmz.web.ordercommon.client.control.OrderComboBoxUtils;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.templatecommon.client.control.TemplateComboBoxUtils;
 
+import com.google.gwt.text.client.IntegerParser;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.sencha.gxt.core.client.util.ToggleGroup;
 import com.sencha.gxt.widget.core.client.container.Container;
@@ -16,6 +18,8 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.form.Radio;
+import com.sencha.gxt.widget.core.client.form.TextField;
+import com.sencha.gxt.widget.core.client.info.Info;
 
 public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDataProxy> {
 
@@ -24,10 +28,11 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 	private DateField dataField;
 	private ComboBox<KeyValueData> templateComboBox;
 	private ComboBox<KeyValueData> orderComboBox;
+	private TextField countField;
 
 	public SelectCalculationInfo() {
 		super();
-		setPixelSize(370, 180);
+		setPixelSize(370, 200);
 	}
 
 	@Override
@@ -61,6 +66,10 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		orderComboBox = OrderComboBoxUtils.createOrderCompoBox(true);
 		container.add(new FieldLabel(orderComboBox, "Заказ"));
 
+		countField = new TextField();
+		countField.setValue("1");
+		container.add(new FieldLabel(countField, "Количество"));
+
 		return container;
 	}
 
@@ -72,6 +81,13 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		input.setTemplateId(templateComboBox.getValue().getKey());
 		if (orderComboBox.getValue() != null) {
 			input.setOrderId(orderComboBox.getValue().getKey());
+		}
+		try {
+			int count = IntegerParser.instance().parse(countField.getValue());
+			input.setCount(count);
+		} catch (ParseException ex) {
+			Info.display("Ошибка", "Не верный формат данных");
+			return null;
 		}
 		return input;
 	}
