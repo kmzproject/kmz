@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.client.data.DataTransformator;
 import ru.kmz.web.ganttcommon.client.data.Dependency;
 import ru.kmz.web.ganttcommon.client.data.DependencyProps;
@@ -44,12 +45,13 @@ import com.sencha.gxt.widget.core.client.treegrid.TreeGrid;
 public class CommonGanttContainer implements IsWidget {
 
 	public CommonGanttContainer(GanttData data, GanttTaskContextMenuHandler handler) {
-		this.ganttData = data;
+		this.ganttData = new DataTransformator(data);
+		;
 		this.scale = ScaleConstants.WEEK;
 		this.handler = handler;
 	}
 
-	private GanttData ganttData;
+	private IDemoData ganttData;
 	protected boolean showPercentDone;
 	private String scale;
 
@@ -70,8 +72,7 @@ public class CommonGanttContainer implements IsWidget {
 
 	private void createContainer() {
 		// resources
-		IDemoData data = new DataTransformator(ganttData);
-		setData(data);
+		setData(ganttData);
 
 		CommonGanttConfig config = new CommonGanttConfig();
 		config.setLeftColumns(createStaticColumns());
@@ -92,16 +93,15 @@ public class CommonGanttContainer implements IsWidget {
 		container.add(gantt, new VerticalLayoutData(1, 1));
 	}
 
-	public void refreshAsNewData(GanttData ganttData) {
-		this.ganttData = ganttData;
-		IDemoData data = new DataTransformator(this.ganttData);
-		setData(data);
-		setStartEnd();
-		gantt.refresh();
+	public void refresh() {
+		this.gantt.refresh();
 	}
 
-	public CommonGantt getGantt() {
-		return gantt;
+	public void refreshAsNewData(GanttData ganttData) {
+		this.ganttData = new DataTransformator(ganttData);
+		setData(this.ganttData);
+		setStartEnd();
+		gantt.refresh();
 	}
 
 	public void expandAll() {
@@ -226,23 +226,50 @@ public class CommonGanttContainer implements IsWidget {
 		return cm;
 	}
 
-	public void setFilterResourceType(final String resourceType) {
+	/** Этот механизм так же полностью раскрыват все узлы */
+	public void setFilterResourceType(String resourceType) {
 		if (resourceType != null) {
 			if (dataTaskStore.getFilters() != null) {
 				dataTaskStore.getFilters().clear();
 			}
-			StoreFilter<Task> filter = new StoreFilter<Task>() {
-				@Override
-				public boolean select(Store<Task> store, Task parent, Task item) {
-					return !item.getResourceType().equals(resourceType);
-				}
-			};
+			StoreFilter<Task> filter = null;
+			if (ResourceTypesConsts.ORDER.equals(resourceType)) {
+				filter = new StoreFilter<Task>() {
+					@Override
+					public boolean select(Store<Task> store, Task parent, Task item) {
+						return !item.getResourceType().equals(ResourceTypesConsts.ORDER);
+					}
+				};
+			} else if (ResourceTypesConsts.ASSEMBLAGE.equals(resourceType)) {
+				filter = new StoreFilter<Task>() {
+					@Override
+					public boolean select(Store<Task> store, Task parent, Task item) {
+						return !item.getResourceType().equals(ResourceTypesConsts.ORDER) && !item.getResourceType().equals(ResourceTypesConsts.PREPARE)
+								&& !item.getResourceType().equals(ResourceTypesConsts.ASSEMBLAGE);
+					}
+				};
+			}
 			dataTaskStore.addFilter(filter);
 			dataTaskStore.setEnableFilters(true);
 		} else {
 			dataTaskStore.setEnableFilters(false);
 		}
 		gantt.refresh();
+	}
+
+	public void removeAllTaskByResourceType(String resourceType) {
+		recRemoveTasks(resourceType, this.ganttData.getTasks());
+	}
+
+	private void recRemoveTasks(String resource, Task task) {
+		if (task.getResourceType() != null && task.getResourceType().equals(resource)) {
+			dataTaskStore.remove(task);
+		} else {
+			for (Task t : task.getChildren()) {
+				recRemoveTasks(resource, t);
+			}
+		}
+
 	}
 
 	private void processFolder(Task folder) {

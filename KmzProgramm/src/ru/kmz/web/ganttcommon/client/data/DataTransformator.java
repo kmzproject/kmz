@@ -31,8 +31,8 @@ public class DataTransformator implements IDemoData {
 	}
 
 	private Task getTask(GraphData data, DateWrapper dw) {
-		Task task = new Task(data.getId(), data.getName(), data.getPlanStart(), data.getPlanFinish(),
-				data.getDuration(), data.getComplite(), data.getTaskType(), data.getResourceType());
+		Task task = new Task(data.getId(), data.getName(), data.getPlanStart(), data.getPlanFinish(), data.getDuration(), data.getComplite(),
+				data.getTaskType(), data.getResourceType());
 		for (GraphData child : data.getChilds()) {
 			Task childTask = getTask(child, dw);
 			task.addChild(childTask);
@@ -44,6 +44,16 @@ public class DataTransformator implements IDemoData {
 	public List<Dependency> getDependencies() {
 		List<Dependency> list = new ArrayList<Dependency>();
 		return list;
+	}
+
+	@Override
+	public Date getDateStart() {
+		return data.getDateStart();
+	}
+
+	@Override
+	public Date getDateFinish() {
+		return data.getDateFinish();
 	}
 
 }

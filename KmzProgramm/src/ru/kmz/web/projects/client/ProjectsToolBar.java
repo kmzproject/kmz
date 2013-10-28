@@ -154,7 +154,8 @@ public class ProjectsToolBar implements IsWidget {
 
 			@Override
 			public void onSelection(SelectionEvent<KeyValueData> event) {
-				projectModulesView.getGantt().setFilterResourceType(event.getSelectedItem().getKey());
+				// projectModulesView.getGantt().setFilterResourceType(event.getSelectedItem().getKey());
+				projectModulesView.getGantt().removeAllTaskByResourceType(event.getSelectedItem().getKey());
 			}
 		});
 

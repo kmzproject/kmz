@@ -100,7 +100,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 			public void onSuccess(Void result) {
 				box.hide();
 				Info.display("Операция завершена", "Обновления сохранены");
-				gantt.getGantt().refresh();
+				gantt.refresh();
 			}
 		});
 	}
