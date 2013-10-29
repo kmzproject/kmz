@@ -1,5 +1,7 @@
 package ru.kmz.web.projects.client;
 
+import java.util.Date;
+
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
@@ -7,9 +9,11 @@ import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.ganttcommon.client.GanttTaskContextMenuHandler;
 import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
+import ru.kmz.web.projects.client.window.SetProductNewDateSector;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.sencha.gxt.widget.core.client.Window;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.info.Info;
@@ -95,33 +99,42 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	public void setPersentDone(String id, int persents) {
 		final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
 		box.show();
-		getService().setCompliteTaskPersents(id, persents, new AsyncCallbackWithErrorMessage<Void>(box) {
-			@Override
-			public void onSuccess(Void result) {
-				box.hide();
-				Info.display("Операция завершена", "Обновления сохранены");
-				gantt.refresh();
-			}
-		});
+		getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box));
 	}
 
 	@Override
-	public void showNewDateSelector(String id) {
+	public void showNewDateSelector(final String id) {
+		SetProductNewDateSector selector = new SetProductNewDateSector();
+		selector.setUpdatable(new IUpdatableWithValue<Date>() {
 
+			@Override
+			public void update(Date value) {
+				final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
+				box.show();
+				getService().updateDate(id, value, new UpdateAfteOperation(box));
+			}
+		});
+		selector.show();
 	}
 
 	@Override
 	public void delete(String id) {
 		final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
 		box.show();
-		getService().deleteProduct(id, new AsyncCallbackWithErrorMessage<Void>(box) {
-			@Override
-			public void onSuccess(Void result) {
-				box.hide();
-				Info.display("Операция завершена", "Обновления сохранены");
-				update();
-			}
-		});
+		getService().deleteProduct(id, new UpdateAfteOperation(box));
+	}
+
+	private class UpdateAfteOperation extends AsyncCallbackWithErrorMessage<Void> {
+		public UpdateAfteOperation(Window window) {
+			super(window);
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			window.hide();
+			Info.display("Операция завершена", "Изменения сохранены");
+			update();
+		}
 	}
 
 }

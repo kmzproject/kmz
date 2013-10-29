@@ -6,7 +6,7 @@ import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.server.data.utils.OrderDataUtils;
+import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.engine.resources.ICalcucateExecutionServiceInterface;
 import ru.kmz.server.engine.resources.ResourceTask;
 
@@ -49,7 +49,7 @@ public class NewProjectService {
 			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(), resourceTask, parentElementTask);
 		}
 		task.setCount(count);
-		task = OrderDataUtils.edit(task);
+		task = ProductElementTaskDataUtils.edit(task);
 
 		if (element.hasChild()) {
 			for (ProductTemplateElement e : element.getChilds()) {

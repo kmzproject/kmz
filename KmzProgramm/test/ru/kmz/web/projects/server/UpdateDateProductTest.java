@@ -17,7 +17,7 @@ import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.test.DataTestEveryNew;
 
-public class DeleteProductTest extends DataTestEveryNew {
+public class UpdateDateProductTest extends DataTestEveryNew {
 
 	private ProjectsModuleServiceImpl service;
 
@@ -29,6 +29,7 @@ public class DeleteProductTest extends DataTestEveryNew {
 	@Test
 	public void SimpleTest() {
 		Date date = DateUtils.getDate("2013/10/01");
+		Date newDate = DateUtils.getDate("2013/10/15");
 
 		Template template = TemplateTestData.createTemplateShort5();
 		Order order = OrderTestData.createOrders1().get(0);
@@ -44,12 +45,14 @@ public class DeleteProductTest extends DataTestEveryNew {
 
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
+		Assert.assertEquals(date, rootProduct.getPlanFinish());
 
-		service.deleteProduct(rootProduct.getId());
+		service.updateDate(rootProduct.getId(), newDate);
 
 		data = service.getCurrentTasks();
 		rootOrder = data.getChilds().get(0);
-		Assert.assertEquals(0, rootOrder.getChilds().size());
+		rootProduct = rootOrder.getChilds().get(0);
+		Assert.assertEquals(newDate, rootProduct.getPlanFinish());
 
 	}
 

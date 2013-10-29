@@ -50,4 +50,60 @@ public class ProductElementTaskDataUtils {
 			pm.close();
 		}
 	}
+
+	public static ProductElementTask getTaskFull(String key) {
+		PersistenceManager pm = null;
+		ProductElementTask task;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			task = pm.getObjectById(ProductElementTask.class, key);
+			loadAllChild(pm, task);
+		} finally {
+			pm.close();
+		}
+		return task;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void loadAllChild(PersistenceManager pm, ProductElementTask task) {
+		Query query = pm.newQuery(ProductElementTask.class, " parentId == :parentKey");
+		query.setOrdering("orderNum");
+		List<ProductElementTask> list = (List<ProductElementTask>) query.execute(task.getKey());
+		for (ProductElementTask e : list) {
+			task.add(e);
+			loadAllChild(pm, e);
+		}
+	}
+
+	public static ProductElementTask edit(ProductElementTask task) {
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			pm.makePersistent(task);
+		} finally {
+			pm.close();
+		}
+		return task;
+	}
+
+	public static ProductElementTask editFull(ProductElementTask task) {
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			editAllChild(pm, task);
+		} finally {
+			pm.close();
+		}
+		return task;
+	}
+
+	public static void editAllChild(PersistenceManager pm, ProductElementTask task) {
+		if (task.hasChild()) {
+			for (ProductElementTask e : task.getChilds()) {
+				pm.makePersistent(e);
+				editAllChild(pm, e);
+			}
+		}
+	}
+
 }

@@ -13,7 +13,7 @@ public abstract class AsyncCallbackWithErrorMessage<T> implements AsyncCallback<
 		this.window = window;
 	}
 
-	private Window window;
+	protected Window window;
 
 	@Override
 	public void onFailure(Throwable caught) {

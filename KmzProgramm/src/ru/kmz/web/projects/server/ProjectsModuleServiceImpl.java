@@ -12,6 +12,7 @@ import ru.kmz.server.engine.gant.GanttProjectsService;
 import ru.kmz.server.engine.gant.GanttTemplateCalculationService;
 import ru.kmz.server.engine.projects.GetOrdersService;
 import ru.kmz.server.engine.projects.NewProjectService;
+import ru.kmz.server.engine.projects.UpdateProductElementTaskService;
 import ru.kmz.server.engine.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.resources.CalculateExecutionNoResourceService;
 import ru.kmz.server.utils.DateUtils;
@@ -90,6 +91,12 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 	@Override
 	public void deleteProduct(String id) {
 		ProductElementTaskDataUtils.deleteProduct(id);
+	}
+
+	@Override
+	public void updateDate(String id, Date date) {
+		UpdateProductElementTaskService service = new UpdateProductElementTaskService(id, date);
+		service.update();
 	}
 
 }

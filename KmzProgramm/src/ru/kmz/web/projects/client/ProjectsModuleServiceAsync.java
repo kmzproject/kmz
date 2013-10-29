@@ -1,5 +1,7 @@
 package ru.kmz.web.projects.client;
 
+import java.util.Date;
+
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 
@@ -16,4 +18,6 @@ public interface ProjectsModuleServiceAsync {
 	void setCompliteTaskPersents(String id, int persents, AsyncCallback<Void> callback);
 
 	void deleteProduct(String id, AsyncCallback<Void> callback);
+
+	void updateDate(String id, Date date, AsyncCallback<Void> callback);
 }

@@ -65,30 +65,7 @@ public class OrderDataUtils {
 		List<ProductElementTask> list = (List<ProductElementTask>) q.execute(order.getKey());
 		for (ProductElementTask element : list) {
 			order.add(element);
-			loadAllChild(pm, element);
+			ProductElementTaskDataUtils.loadAllChild(pm, element);
 		}
 	}
-
-	@SuppressWarnings("unchecked")
-	private static void loadAllChild(PersistenceManager pm, ProductElementTask element) {
-		Query query = pm.newQuery(ProductElementTask.class, " parentId == :parentKey");
-		query.setOrdering("orderNum");
-		List<ProductElementTask> list = (List<ProductElementTask>) query.execute(element.getKey());
-		for (ProductElementTask e : list) {
-			element.add(e);
-			loadAllChild(pm, e);
-		}
-	}
-
-	public static ProductElementTask edit(ProductElementTask element) {
-		PersistenceManager pm = null;
-		try {
-			pm = PMF.get().getPersistenceManager();
-			pm.makePersistent(element);
-		} finally {
-			pm.close();
-		}
-		return element;
-	}
-
 }

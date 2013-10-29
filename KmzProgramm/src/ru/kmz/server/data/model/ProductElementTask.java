@@ -11,6 +11,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.server.engine.resources.ResourceTask;
+import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.purchases.shared.PurchaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
@@ -201,5 +202,10 @@ public class ProductElementTask implements IProjectTask {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public void addOffset(int offset) {
+		finish = DateUtils.getOffsetDate(finish, offset);
+		start = DateUtils.getOffsetDate(start, offset);
 	}
 }
