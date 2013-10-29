@@ -1,12 +1,9 @@
 package ru.kmz.web.projects.client;
 
-import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
-import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
-import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 import ru.kmz.web.projects.client.window.SelectCalculationInfo;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
@@ -17,13 +14,11 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
-import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class ProjectsToolBar implements IsWidget {
@@ -57,21 +52,7 @@ public class ProjectsToolBar implements IsWidget {
 					@Override
 					public void update(final CalculatorInputDataProxy inputData) {
 						if (inputData.getOrderId() == null) {
-							final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
-							box.show();
-
-							ProjectsModuleView.getService().getGantResultData(inputData, new AsyncCallbackWithErrorMessage<GanttData>() {
-								@Override
-								public void onSuccess(GanttData result) {
-									if (result.getError() != null) {
-										Info.display("Error", "Ошибка при обработке " + result.getError());
-									} else {
-										projectModulesView.update(result);
-										Info.display("Расчет", "Выполнен расчет без сохранения, для сохранения выберите заказ");
-									}
-									box.hide();
-								}
-							});
+							projectModulesView.calculateNewProduct(inputData);
 						} else {
 							projectModulesView.createNewProduct(inputData);
 						}

@@ -68,21 +68,15 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void update() {
-		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
+		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
 		box.show();
+		getService().getCurrentTasks(new UpdateGanttData(box));
+	}
 
-		getService().getCurrentTasks(new AsyncCallbackWithErrorMessage<GanttData>() {
-
-			@Override
-			public void onSuccess(GanttData result) {
-				if (result.getError() != null) {
-					Info.display("Error", "Ошибка при обработке " + result.getError());
-				} else {
-					update(result);
-				}
-				box.hide();
-			}
-		});
+	public void calculateNewProduct(CalculatorInputDataProxy inputData) {
+		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
+		box.show();
+		getService().getGantResultData(inputData, new UpdateGanttData(box, true));
 	}
 
 	@Override
@@ -97,7 +91,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void setPersentDone(String id, int persents) {
-		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
+		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
 		getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box, false));
 	}
@@ -109,7 +103,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 			@Override
 			public void update(Date value) {
-				final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
+				AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 				box.show();
 				getService().updateDate(id, value, new UpdateAfteOperation(box, true));
 			}
@@ -119,15 +113,39 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void delete(String id) {
-		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
+		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
 		getService().deleteProduct(id, new UpdateAfteOperation(box, true));
 	}
 
 	public void createNewProduct(CalculatorInputDataProxy inputData) {
-		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
+		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
 		getService().save(inputData, new UpdateAfteOperation(box, true));
+	}
+
+	private class UpdateGanttData extends AsyncCallbackWithErrorMessage<GanttData> {
+
+		private boolean calculate;
+
+		public UpdateGanttData(Window window) {
+			this(window, false);
+		}
+
+		public UpdateGanttData(Window window, boolean calculate) {
+			super(window);
+			this.calculate = calculate;
+		}
+
+		@Override
+		public void onSuccess(GanttData result) {
+			if (calculate) {
+				Info.display("Расчет", "Выполнен расчет без сохранения, для сохранения выберите заказ");
+			}
+			update(result);
+			window.hide();
+		}
+
 	}
 
 	private class UpdateAfteOperation extends AsyncCallbackWithErrorMessage<Void> {

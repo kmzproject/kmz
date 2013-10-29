@@ -42,7 +42,7 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 	@Override
 	public GanttData getGantResultData(CalculatorInputDataProxy input) {
 		if (!isValid(input)) {
-			return GanttData.getError("Не верный формат даты");
+			throw new IllegalArgumentException("Не верная дата");
 		}
 		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
 

@@ -93,7 +93,7 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 	}
 
 	private void updateItems() {
-		if (taskModel.getResourceType() == ResourceTypesConsts.PRODUCT) {
+		if (taskModel.getResourceType().equals(ResourceTypesConsts.PRODUCT)) {
 			setNewDateMenuItem.setEnabled(true);
 			deleteMenuItem.setEnabled(true);
 		} else {
