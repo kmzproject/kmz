@@ -22,4 +22,17 @@ public class KeyValueData {
 		this.key = value;
 		this.value = value;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof KeyValueData) {
+			return ((KeyValueData) obj).key.equals(key);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return key.hashCode();
+	}
 }
