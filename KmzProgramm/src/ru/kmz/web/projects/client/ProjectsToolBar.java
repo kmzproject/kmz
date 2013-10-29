@@ -4,6 +4,7 @@ import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
@@ -56,10 +57,9 @@ public class ProjectsToolBar implements IsWidget {
 					@Override
 					public void update(final CalculatorInputDataProxy inputData) {
 						if (inputData.getOrderId() == null) {
-							final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
-							box.setProgressText("Обработка...");
-							box.auto();
+							final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
 							box.show();
+
 							ProjectsModuleView.getService().getGantResultData(inputData, new AsyncCallbackWithErrorMessage<GanttData>() {
 								@Override
 								public void onSuccess(GanttData result) {
@@ -73,13 +73,7 @@ public class ProjectsToolBar implements IsWidget {
 								}
 							});
 						} else {
-							ProjectsModuleView.getService().save(inputData, new AsyncCallbackWithErrorMessage<Void>() {
-								@Override
-								public void onSuccess(Void result) {
-									Info.display("Сохранены", "Успешно сохранил");
-									projectModulesView.update();
-								}
-							});
+							projectModulesView.createNewProduct(inputData);
 						}
 					}
 				});

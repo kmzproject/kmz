@@ -6,10 +6,12 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
 import ru.kmz.web.ganttcommon.client.GanttTaskContextMenuHandler;
 import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.window.SetProductNewDateSector;
+import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -66,9 +68,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void update() {
-		final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
-		box.setProgressText("Обработка...");
-		box.auto();
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
 		box.show();
 
 		getService().getCurrentTasks(new AsyncCallbackWithErrorMessage<GanttData>() {
@@ -97,9 +97,9 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void setPersentDone(String id, int persents) {
-		final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
-		getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box));
+		getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box, false));
 	}
 
 	@Override
@@ -109,9 +109,9 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 			@Override
 			public void update(Date value) {
-				final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
+				final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 				box.show();
-				getService().updateDate(id, value, new UpdateAfteOperation(box));
+				getService().updateDate(id, value, new UpdateAfteOperation(box, true));
 			}
 		});
 		selector.show();
@@ -119,21 +119,34 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void delete(String id) {
-		final AutoProgressMessageBox box = new AutoProgressMessageBox("Выполнение операции", "Это может занять некоторое время");
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
-		getService().deleteProduct(id, new UpdateAfteOperation(box));
+		getService().deleteProduct(id, new UpdateAfteOperation(box, true));
+	}
+
+	public void createNewProduct(CalculatorInputDataProxy inputData) {
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
+		box.show();
+		getService().save(inputData, new UpdateAfteOperation(box, true));
 	}
 
 	private class UpdateAfteOperation extends AsyncCallbackWithErrorMessage<Void> {
-		public UpdateAfteOperation(Window window) {
+		private boolean reload;
+
+		public UpdateAfteOperation(Window window, boolean reload) {
 			super(window);
+			this.reload = reload;
 		}
 
 		@Override
 		public void onSuccess(Void result) {
 			window.hide();
 			Info.display("Операция завершена", "Изменения сохранены");
-			update();
+			if (reload) {
+				update();
+			} else {
+				gantt.refresh();
+			}
 		}
 	}
 

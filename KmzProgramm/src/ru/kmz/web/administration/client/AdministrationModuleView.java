@@ -2,6 +2,7 @@ package ru.kmz.web.administration.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -60,9 +61,7 @@ public class AdministrationModuleView extends AbstarctModuleView<VerticalPanel> 
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				final AutoProgressMessageBox box = new AutoProgressMessageBox("Запрос данных на сервере", "Это может занять некоторое время");
-				box.setProgressText("Обработка...");
-				box.auto();
+				final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 				box.show();
 
 				getService().recreateData(new AsyncCallbackWithErrorMessage<Void>() {

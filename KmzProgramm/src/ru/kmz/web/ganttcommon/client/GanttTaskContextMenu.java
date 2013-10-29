@@ -1,5 +1,6 @@
 package ru.kmz.web.ganttcommon.client;
 
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.client.data.Task;
 
 import com.gantt.client.config.GanttConfig.TaskType;
@@ -92,17 +93,21 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 	}
 
 	private void updateItems() {
+		if (taskModel.getResourceType() == ResourceTypesConsts.PRODUCT) {
+			setNewDateMenuItem.setEnabled(true);
+			deleteMenuItem.setEnabled(true);
+		} else {
+			setNewDateMenuItem.setEnabled(false);
+			deleteMenuItem.setEnabled(false);
+		}
+
 		if (taskModel.getTaskType() == TaskType.PARENT) {
 			setCompliteMenuItem.setEnabled(false);
 			setNotCompliteMenuItem.setEnabled(false);
-			setNewDateMenuItem.setEnabled(true);
-			deleteMenuItem.setEnabled(true);
 		} else {
 			boolean isComplite = taskModel.isComplite();
 			setCompliteMenuItem.setEnabled(!isComplite);
 			setNotCompliteMenuItem.setEnabled(isComplite);
-			setNewDateMenuItem.setEnabled(false);
-			deleteMenuItem.setEnabled(false);
 		}
 	}
 }
