@@ -2,7 +2,6 @@ package ru.kmz.web.templatecommon.shared;
 
 import java.io.Serializable;
 
-
 @SuppressWarnings("serial")
 public class TemplateTreeDataProxy implements Serializable {
 
@@ -17,6 +16,10 @@ public class TemplateTreeDataProxy implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getId() {

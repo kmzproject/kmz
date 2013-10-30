@@ -14,6 +14,11 @@ public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 
 	private ComboBox<KeyValueData> templateBox;
 
+	public TemplateSelectWindow() {
+		super();
+		setPixelSize(500, 50);
+	}
+
 	@Override
 	protected Container getInfoContainer() {
 		final VerticalLayoutContainer p = new VerticalLayoutContainer();

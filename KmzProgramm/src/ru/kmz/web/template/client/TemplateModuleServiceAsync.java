@@ -16,4 +16,6 @@ public interface TemplateModuleServiceAsync extends TemplateCommonServiceAsync {
 
 	void save(TemplateTreeNodeBaseProxy proxy, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 
+	void editTemplate(TemplateTreeDataProxy proxy, AsyncCallback<Void> callback);
+
 }

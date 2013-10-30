@@ -16,4 +16,6 @@ public interface TemplateModuleService extends TemplateCommonService {
 	void deleteTemplateTreeNode(String key);
 
 	TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy);
+
+	void editTemplate(TemplateTreeDataProxy proxy);
 }

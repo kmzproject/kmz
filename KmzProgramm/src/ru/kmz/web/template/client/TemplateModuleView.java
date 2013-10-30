@@ -4,6 +4,7 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.template.client.window.TemplateNameWindow;
 import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
@@ -25,6 +26,8 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 	private static TemplateModuleView instanse;
 	private Label label;
 	private Container treeContainer;
+	private TemplateTreeDataProxy selectedTemplate;
+	private TextButton chancgeTemplate;
 
 	@Override
 	public void onModuleLoad() {
@@ -65,6 +68,31 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 			}
 		});
 		toolBar.add(select);
+
+		chancgeTemplate = new TextButton("Изменить");
+		chancgeTemplate.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				TemplateNameWindow window = new TemplateNameWindow();
+				window.setData(selectedTemplate);
+				window.show();
+			}
+		});
+		chancgeTemplate.setEnabled(false);
+		toolBar.add(chancgeTemplate);
+
+		TextButton createTemplate = new TextButton("Создать");
+		createTemplate.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				TemplateNameWindow window = new TemplateNameWindow();
+				window.show();
+			}
+		});
+		toolBar.add(createTemplate);
+
 		return toolBar;
 	}
 
@@ -84,12 +112,16 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {
+				selectedTemplate = result;
+				chancgeTemplate.setEnabled(true);
+
 				treeContainer.clear();
 				TemplateTree tree = new TemplateTree();
 				tree.setRoot(result.getTreeRoot());
 				treeContainer.add(tree);
 
 				label.setText(result.getName());
+
 			}
 		});
 	}
