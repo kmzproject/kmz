@@ -33,6 +33,6 @@ public class KeyValueData {
 
 	@Override
 	public int hashCode() {
-		return key.hashCode();
+		return key!=null? key.hashCode() : 0;
 	}
 }
