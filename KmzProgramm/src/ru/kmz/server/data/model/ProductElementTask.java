@@ -31,6 +31,9 @@ public class ProductElementTask implements IProjectTask {
 	private String name;
 
 	@Persistent
+	private String code;
+
+	@Persistent
 	private int duration;
 
 	@Persistent
@@ -202,6 +205,10 @@ public class ProductElementTask implements IProjectTask {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public void addOffset(int offset) {
