@@ -5,8 +5,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import com.google.appengine.api.datastore.Key;
+
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.Calendar;
+import ru.kmz.server.data.model.CalendarRecord;
 
 public class CalendarDataUtils {
 
@@ -33,6 +36,31 @@ public class CalendarDataUtils {
 			pm.close();
 		}
 		return calendar;
+	}
+
+	public static CalendarRecord edit(CalendarRecord record) {
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			pm.makePersistent(record);
+		} finally {
+			pm.close();
+		}
+		return record;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<CalendarRecord> getRecords(Key calendarId) {
+		List<CalendarRecord> list = null;
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Query q = pm.newQuery(CalendarRecord.class, " calendarId == :calendarKey");
+			list = (List<CalendarRecord>) q.execute(calendarId);
+		} finally {
+			pm.close();
+		}
+		return list;
 	}
 
 }

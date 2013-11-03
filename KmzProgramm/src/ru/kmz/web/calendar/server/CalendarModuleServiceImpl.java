@@ -1,10 +1,10 @@
 package ru.kmz.web.calendar.server;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import ru.kmz.server.data.model.Calendar;
+import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.utils.CalendarDataUtils;
 import ru.kmz.web.calendar.client.CalendarModuleService;
 import ru.kmz.web.calendar.shared.CalendarProxy;
@@ -23,8 +23,12 @@ public class CalendarModuleServiceImpl extends RemoteServiceServlet implements C
 
 	@Override
 	public List<CalendarRecordProxy> getCalendarRecords() {
-		List<CalendarRecordProxy> list = new ArrayList<CalendarRecordProxy>();
-		list.add(new CalendarRecordProxy("1", new Date(), "123"));
-		return list;
+		Calendar calendar = CalendarDataUtils.getCalendar();
+		List<CalendarRecord> list = CalendarDataUtils.getRecords(calendar.getKey());
+		List<CalendarRecordProxy> result = new ArrayList<CalendarRecordProxy>();
+		for (CalendarRecord record : list) {
+			result.add(record.asProxy());
+		}
+		return result;
 	}
 }

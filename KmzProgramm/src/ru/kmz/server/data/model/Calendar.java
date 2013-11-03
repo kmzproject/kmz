@@ -27,4 +27,8 @@ public class Calendar {
 	public CalendarProxy asProxy() {
 		return new CalendarProxy(KeyFactory.keyToString(key), name);
 	}
+
+	public Key getKey() {
+		return key;
+	}
 }
