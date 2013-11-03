@@ -21,7 +21,7 @@ public class CreateEditTemplateTest extends DataTestEveryNew {
 	}
 
 	@Test
-	public void getDateTest2() {
+	public void editTemplate() {
 		Template template = TemplateTestData.createTemplateShort2();
 		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
 		Assert.assertEquals("Demo Template Short2", proxy.getName());
@@ -37,4 +37,20 @@ public class CreateEditTemplateTest extends DataTestEveryNew {
 		rootProxy = proxy.getTreeRoot();
 		Assert.assertEquals("NewTemplateName", rootProxy.getName());
 	}
+
+	@Test
+	public void createTemplate() {
+
+		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy();
+		proxy.setName("NewTemplate");
+		service.editTemplate(proxy);
+		proxy = service.getTemplateList().get(0);
+		proxy = service.getData(proxy.getId());
+
+		Assert.assertEquals("NewTemplate", proxy.getName());
+		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
+		Assert.assertNotNull(rootProxy);
+		Assert.assertEquals("NewTemplate", rootProxy.getName());
+	}
+
 }

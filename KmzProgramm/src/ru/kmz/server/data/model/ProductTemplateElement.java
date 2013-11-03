@@ -122,15 +122,12 @@ public class ProductTemplateElement {
 		return childs != null && childs.size() != 0;
 	}
 
-	public TemplateTreeNodeBaseProxy asProxy() {
-		if (!hasChild()) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(getKeyStr(), name, duration, resourceType);
-			return proxy;
-		}
-
+	public TemplateTreeNodeFolderProxy asProxy() {
 		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, duration, resourceType);
-		for (ProductTemplateElement child : childs) {
-			proxy.add(child.asProxy());
+		if (hasChild()) {
+			for (ProductTemplateElement child : childs) {
+				proxy.add(child.asProxy());
+			}
 		}
 		return proxy;
 	}
