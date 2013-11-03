@@ -110,6 +110,10 @@ public class ProductTemplateElement {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getDuration() {
 		return duration;
 	}

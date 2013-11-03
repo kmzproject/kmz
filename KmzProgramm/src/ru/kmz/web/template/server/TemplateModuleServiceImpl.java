@@ -47,8 +47,13 @@ public class TemplateModuleServiceImpl extends TemplateCommonServiceImpl impleme
 
 	@Override
 	public void editTemplate(TemplateTreeDataProxy proxy) {
-		// TODO Auto-generated method stub
+		Template template = TemplateDataUtils.getTemplate(proxy.getId());
+		template.setName(proxy.getName());
+		ProductTemplateElement rootElement = template.getRootElement();
+		rootElement.setName(proxy.getName());
 
+		TemplateDataUtils.edit(template);
+		TemplateDataUtils.edit(rootElement);
 	}
 
 }
