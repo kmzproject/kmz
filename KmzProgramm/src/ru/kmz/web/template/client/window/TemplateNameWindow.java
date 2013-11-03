@@ -18,7 +18,7 @@ public class TemplateNameWindow extends CommonDirectoryWindow<TemplateTreeDataPr
 
 	public TemplateNameWindow() {
 		super();
-		setPixelSize(500, 150);
+		setPixelSize(500, 50);
 		setHeadingText("Шаблон");
 	}
 

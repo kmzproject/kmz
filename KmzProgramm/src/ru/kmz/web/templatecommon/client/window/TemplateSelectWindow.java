@@ -17,6 +17,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 	public TemplateSelectWindow() {
 		super();
 		setPixelSize(500, 50);
+		setHeadingText("Выбор шаблона");
 	}
 
 	@Override
