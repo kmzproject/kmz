@@ -1,5 +1,6 @@
 package ru.kmz.web.administration.server;
 
+import ru.kmz.server.data.generator.CalendarTestData;
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.ResourceTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
@@ -15,5 +16,6 @@ public class AdministrationModuleServiceImpl extends RemoteServiceServlet implem
 		TemplateTestData.createDemoTemplates();
 		OrderTestData.createOrders2();
 		ResourceTestData.createReource1();
+		CalendarTestData.craeteCalendar1();
 	}
 }

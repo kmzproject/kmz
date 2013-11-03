@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.web.administration.client.AdministrationModuleView;
+import ru.kmz.web.calendar.client.CalendarModuleView;
 import ru.kmz.web.common.client.IKmzModule;
 import ru.kmz.web.order.client.OrderModuleView;
 import ru.kmz.web.projects.client.ProjectsModuleView;
 import ru.kmz.web.purchases.client.PurchasesModuleView;
-import ru.kmz.web.resources.client.ResourcesModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
 
 import com.google.gwt.user.client.ui.IsWidget;
@@ -36,7 +36,8 @@ public class KmzNavigation implements IsWidget {
 		list.add(OrderModuleView.getInstance());
 		list.add(PurchasesModuleView.getInstance());
 		list.add(TemplateModuleView.getInstance());
-		list.add(ResourcesModuleView.getInstance());
+		list.add(CalendarModuleView.getInstance());
+//		list.add(ResourcesModuleView.getInstance());
 		list.add(AdministrationModuleView.getInstance());
 		return list;
 	}

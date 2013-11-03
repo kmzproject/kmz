@@ -8,6 +8,7 @@
 	<inherits name="ru.kmz.web.projects.ProjectsModule" />
 	<inherits name="ru.kmz.web.purchases.PurchasesModule" />
 	<inherits name="ru.kmz.web.administration.AdministrationModule" />
+	<inherits name="ru.kmz.web.calendar.CalendarModule" />
 	<source path='client' />
 	<source path='shared' />
 	<entry-point class='ru.kmz.web.main.client.KmzProgramm' />
