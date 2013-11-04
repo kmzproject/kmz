@@ -96,6 +96,16 @@ public class CalendarModuleView extends AbstarctModuleView<VerticalLayoutContain
 		});
 		toolBar.add(deleteButton);
 
+		TextButton updateButton = new TextButton("Обновить");
+		updateButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				update();
+			}
+		});
+		toolBar.add(updateButton);
+
 		return toolBar;
 	}
 
