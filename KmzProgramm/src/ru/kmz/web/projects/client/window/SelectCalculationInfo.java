@@ -56,6 +56,7 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		container.add(new FieldLabel(countField, "Количество"));
 
 		useWeekend = new CheckBox();
+		useWeekend.setValue(true);
 		container.add(new FieldLabel(useWeekend, "Учитывать выходные"));
 
 		return container;

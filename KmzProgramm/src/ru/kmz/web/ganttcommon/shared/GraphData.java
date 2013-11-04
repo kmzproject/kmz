@@ -27,11 +27,12 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 		childs = new ArrayList<GraphData>();
 	}
 
-	public GraphData(String id, String name, int duration, String resourceType) {
+	public GraphData(String id, String name, int duration, int durationWork, String resourceType) {
 		this();
 		this.id = id;
 		this.name = name;
 		this.duration = duration;
+		this.durationWork = durationWork;
 		this.resourceType = resourceType;
 	}
 

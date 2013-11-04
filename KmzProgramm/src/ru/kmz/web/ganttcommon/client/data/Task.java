@@ -17,6 +17,7 @@ public class Task implements HasResourceType {
 	int percentDone;
 	TaskType taskType;
 	String resourceType;
+	String durationCol;
 
 	private List<Task> children = new ArrayList<Task>();
 
@@ -24,8 +25,7 @@ public class Task implements HasResourceType {
 		setChildren(children);
 	}
 
-	public Task(String id, String name, Date start, Date endDateTime, int duration, int percentDone, TaskType taskType,
-			String resourceType) {
+	public Task(String id, String name, Date start, Date endDateTime, int duration, int durationWork, int percentDone, TaskType taskType, String resourceType) {
 		this.id = id;
 		this.name = name;
 		this.startDateTime = start;
@@ -34,6 +34,12 @@ public class Task implements HasResourceType {
 		this.percentDone = percentDone;
 		this.taskType = taskType;
 		this.resourceType = resourceType;
+		if (duration != durationWork && durationWork != 0) {
+			this.durationCol = duration + " (" + durationWork + ")";
+		} else {
+			this.durationCol = duration + "";
+		}
+
 	}
 
 	public String getId() {
@@ -112,8 +118,12 @@ public class Task implements HasResourceType {
 	public String getResourceType() {
 		return resourceType;
 	}
-	
-	public boolean isComplite(){
+
+	public boolean isComplite() {
 		return percentDone == 100;
+	}
+
+	public String getDurationCol() {
+		return durationCol;
 	}
 }

@@ -204,7 +204,7 @@ public class CommonGanttContainer implements IsWidget {
 		column2.setCell(new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")));
 		configs.add(column2);
 
-		ColumnConfig<Task, Integer> column3 = new ColumnConfig<Task, Integer>(TaskProps.props.duration());
+		ColumnConfig<Task, String> column3 = new ColumnConfig<Task, String>(TaskProps.props.durationCol());
 		column3.setHeader("Продолж.");
 		column3.setWidth(70);
 		column3.setSortable(true);

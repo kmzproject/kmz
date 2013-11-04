@@ -34,7 +34,7 @@ public class ProductElementTask implements IProjectTask {
 	private String code;
 
 	@Persistent
-	private int duration;
+	private int durationWork;
 
 	@Persistent
 	private String resourceType;
@@ -64,31 +64,31 @@ public class ProductElementTask implements IProjectTask {
 
 	public void updateData(TemplateTreeNodeBaseProxy proxy) {
 		this.name = proxy.getName();
-		this.duration = proxy.getDuration();
+		this.durationWork = proxy.getDuration();
 		this.resourceType = proxy.getResourceType();
 	}
 
-	private ProductElementTask(String name, String resourseType, ResourceTask task) {
+	private ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task) {
 		this.name = name;
 		this.resourceType = resourseType;
+		this.durationWork = durationWork;
 
 		if (task != null) {
 			this.start = task.getStart();
 			this.finish = task.getFinish();
-			this.duration = DateUtils.diffInDays(start, finish);
 		}
 
 	}
 
-	public ProductElementTask(String name, String resourseType, ResourceTask task, Order order) {
-		this(name, resourseType, task);
+	public ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task, Order order) {
+		this(name, durationWork, resourseType, task);
 
 		this.parentId = null;
 		this.orderId = order.getKey();
 	}
 
-	public ProductElementTask(String name, String resourseType, ResourceTask task, ProductElementTask parent) {
-		this(name, resourseType, task);
+	public ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task, ProductElementTask parent) {
+		this(name, durationWork, resourseType, task);
 
 		this.parentId = parent.getKey();
 		this.orderId = parent.getOrderId();
@@ -133,21 +133,17 @@ public class ProductElementTask implements IProjectTask {
 		return name;
 	}
 
-	public int getDuration() {
-		return duration;
-	}
-
 	public boolean hasChild() {
 		return childs != null && childs.size() != 0;
 	}
 
 	public TemplateTreeNodeBaseProxy asProxy() {
 		if (!hasChild()) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(getKeyStr(), name, duration, resourceType);
+			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(getKeyStr(), name, durationWork, resourceType);
 			return proxy;
 		}
 
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, duration, resourceType);
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, durationWork, resourceType);
 		for (ProductElementTask child : childs) {
 			proxy.add(child.asProxy());
 		}
@@ -162,7 +158,8 @@ public class ProductElementTask implements IProjectTask {
 	}
 
 	public GraphData asGraphDataProxy() {
-		GraphData graphData = new GraphData(getKeyStr(), getNameAndCount(), duration, resourceType);
+		int duration = DateUtils.diffInDays(start, finish);
+		GraphData graphData = new GraphData(getKeyStr(), getNameAndCount(), duration, durationWork, resourceType);
 		graphData.setComplite(done);
 		return graphData;
 	}

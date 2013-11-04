@@ -44,9 +44,9 @@ public class NewProjectService {
 		ResourceTask resourceTask = service.getResult().get(element);
 		ProductElementTask task;
 		if (parentElementTask == null) {
-			task = new ProductElementTask(element.getName(), element.getResourceType(), resourceTask, order);
+			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(), resourceTask, order);
 		} else {
-			task = new ProductElementTask(element.getName(), element.getResourceType(), resourceTask, parentElementTask);
+			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(), resourceTask, parentElementTask);
 		}
 		task.setCount(count);
 		task = ProductElementTaskDataUtils.edit(task);

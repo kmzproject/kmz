@@ -81,13 +81,14 @@ public class CalculateAndSaveUseWeekendTest extends DataTestEveryNew {
 		Assert.assertEquals(DateUtils.getDate("2013/11/06"), element1.getPlanFinish());
 		Assert.assertEquals(DateUtils.getDate("2013/11/05"), element1.getPlanStart());
 		Assert.assertEquals(1, element1.getDuration());
+		Assert.assertEquals(1, element1.getDurationWork());
 
 		GraphData element2 = rootProduct.getChilds().get(1);
 		Assert.assertEquals("Сборка 2", element2.getName());
 		Assert.assertEquals(DateUtils.getDate("2013/11/06"), element2.getPlanFinish());
 		Assert.assertEquals(DateUtils.getDate("2013/11/01"), element2.getPlanStart());
 		Assert.assertEquals(5, element2.getDuration());
-
+		Assert.assertEquals(2, element2.getDurationWork());
 	}
 
 }
