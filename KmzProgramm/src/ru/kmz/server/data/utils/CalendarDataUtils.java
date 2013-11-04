@@ -24,6 +24,8 @@ public class CalendarDataUtils {
 		} finally {
 			em.close();
 		}
+		if (list.size() != 1)
+			return null;
 		return list.get(0);
 	}
 

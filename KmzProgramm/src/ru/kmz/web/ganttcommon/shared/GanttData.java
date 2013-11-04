@@ -9,6 +9,7 @@ import java.util.List;
 public class GanttData implements Serializable, IGraphDataContainer {
 
 	private List<GraphData> childs;
+	private List<Date> calendarRecords;
 	private String name;
 	private Date dateStart;
 	private Date dateFinish;
@@ -64,5 +65,13 @@ public class GanttData implements Serializable, IGraphDataContainer {
 		GanttData gantt = new GanttData();
 		gantt.error = error;
 		return gantt;
+	}
+
+	public List<Date> getCalendarRecords() {
+		return calendarRecords;
+	}
+
+	public void setCalendarRecords(List<Date> records) {
+		this.calendarRecords = records;
 	}
 }

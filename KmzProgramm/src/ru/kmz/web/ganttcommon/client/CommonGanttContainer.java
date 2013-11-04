@@ -46,9 +46,9 @@ public class CommonGanttContainer implements IsWidget {
 
 	public CommonGanttContainer(GanttData data, GanttTaskContextMenuHandler handler) {
 		this.ganttData = new DataTransformator(data);
-		;
 		this.scale = ScaleConstants.WEEK;
 		this.handler = handler;
+		calendarGenerator = new CalendarZoneGenerator(data.getCalendarRecords());
 	}
 
 	private IDemoData ganttData;
@@ -61,6 +61,7 @@ public class CommonGanttContainer implements IsWidget {
 	private ListStore<Dependency> dataDepStore;
 	private GanttTaskContextMenuHandler handler;
 	private VerticalLayoutContainer container;
+	private CalendarZoneGenerator calendarGenerator;
 
 	@Override
 	public Widget asWidget() {
@@ -117,10 +118,9 @@ public class CommonGanttContainer implements IsWidget {
 	}
 
 	private List<ZoneGeneratorInt> getZones() {
-		// Add zones to weekends
 		ArrayList<ZoneGeneratorInt> zoneGenerators = new ArrayList<ZoneGeneratorInt>();
-		// zoneGenerators.add(new WeekendZoneGenerator()); // Create a zone
-		// every
+		zoneGenerators.add(calendarGenerator);
+//		zoneGenerators.add(new WeekendZoneGenerator());
 		return zoneGenerators;
 	}
 

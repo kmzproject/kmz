@@ -1,12 +1,16 @@
 package ru.kmz.server.engine.gant;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import ru.kmz.server.data.model.Calendar;
+import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.IProjectTask;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
+import ru.kmz.server.data.utils.CalendarDataUtils;
 import ru.kmz.server.engine.projects.GetOrdersService;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
@@ -36,6 +40,20 @@ public class GanttProjectsService {
 		minMaxDate.prepare();
 		data.setDateStart(minMaxDate.getMinDate());
 		data.setDateFinish(minMaxDate.getMaxDate());
+
+		addCalendarRecords();
+	}
+
+	private void addCalendarRecords() {
+		List<Date> calendarRecords = new ArrayList<Date>();
+		Calendar calendar = CalendarDataUtils.getCalendar();
+		if (calendar != null) {
+			List<CalendarRecord> records = CalendarDataUtils.getRecords(calendar.getKey());
+			for (CalendarRecord calendarRecord : records) {
+				calendarRecords.add(new Date(calendarRecord.getDate().getTime()));
+			}
+		}
+		data.setCalendarRecords(calendarRecords);
 	}
 
 	protected MinMaxDate process() {
