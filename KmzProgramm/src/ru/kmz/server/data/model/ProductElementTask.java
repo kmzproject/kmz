@@ -13,6 +13,7 @@ import javax.jdo.annotations.PrimaryKey;
 import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.kmz.web.production.shared.ProductionProxy;
 import ru.kmz.web.purchases.shared.PurchaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
@@ -166,6 +167,10 @@ public class ProductElementTask implements IProjectTask {
 
 	public PurchaseProxy asPurchaseProxy() {
 		return new PurchaseProxy(getKeyStr(), name, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
+	}
+
+	public ProductionProxy asProductionProxy() {
+		return new ProductionProxy(getKeyStr(), name, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
 	}
 
 	public String getResourceType() {

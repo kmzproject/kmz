@@ -33,11 +33,16 @@
 		<servlet-name>calendarModule</servlet-name>
 		<servlet-class>ru.kmz.web.calendar.server.CalendarModuleServiceImpl</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>productionModule</servlet-name>
+		<servlet-class>ru.kmz.web.production.server.ProductionModuleServiceImpl</servlet-class>
+	</servlet>
 
 	<servlet>
 		<servlet-name>administrationModule</servlet-name>
 		<servlet-class>ru.kmz.web.administration.server.AdministrationModuleServiceImpl</servlet-class>
 	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>administrationModule</servlet-name>
@@ -82,6 +87,11 @@
 		<servlet-name>calendarModule</servlet-name>
 		<url-pattern>/calendarmodule/calendarModule</url-pattern>
 		<url-pattern>/kmzprogramm/calendarModule</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>productionModule</servlet-name>
+		<url-pattern>/productionmodule/productionModule</url-pattern>
+		<url-pattern>/kmzprogramm/productionModule</url-pattern>
 	</servlet-mapping>
 
 

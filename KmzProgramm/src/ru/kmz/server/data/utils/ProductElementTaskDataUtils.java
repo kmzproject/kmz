@@ -25,6 +25,20 @@ public class ProductElementTaskDataUtils {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<ProductElementTask> getNotComplitedAssemblages() {
+		List<ProductElementTask> list = null;
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.ASSEMBLAGE + "' && done <100");
+			list = (List<ProductElementTask>) q.execute();
+		} finally {
+			pm.close();
+		}
+		return list;
+	}
+
 	public static ProductElementTask setTaskComplitePersents(String key, int persents) {
 		PersistenceManager pm = null;
 		ProductElementTask task;

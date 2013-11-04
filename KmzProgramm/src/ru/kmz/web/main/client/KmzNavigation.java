@@ -7,6 +7,7 @@ import ru.kmz.web.administration.client.AdministrationModuleView;
 import ru.kmz.web.calendar.client.CalendarModuleView;
 import ru.kmz.web.common.client.IKmzModule;
 import ru.kmz.web.order.client.OrderModuleView;
+import ru.kmz.web.production.client.ProductionModuleView;
 import ru.kmz.web.projects.client.ProjectsModuleView;
 import ru.kmz.web.purchases.client.PurchasesModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
@@ -33,11 +34,12 @@ public class KmzNavigation implements IsWidget {
 	private List<IKmzModule> getMdules() {
 		List<IKmzModule> list = new ArrayList<IKmzModule>();
 		list.add(ProjectsModuleView.getInstance());
+		list.add(ProductionModuleView.getInstance());
 		list.add(OrderModuleView.getInstance());
 		list.add(PurchasesModuleView.getInstance());
 		list.add(TemplateModuleView.getInstance());
 		list.add(CalendarModuleView.getInstance());
-//		list.add(ResourcesModuleView.getInstance());
+		// list.add(ResourcesModuleView.getInstance());
 		list.add(AdministrationModuleView.getInstance());
 		return list;
 	}
