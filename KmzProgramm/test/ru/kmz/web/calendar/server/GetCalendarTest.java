@@ -35,7 +35,7 @@ public class GetCalendarTest extends DataTestEveryNew {
 	@Test
 	public void getDateTest2() {
 
-		CalendarTestData.craeteCalendar1();
+		CalendarTestData.craeteCalendar2();
 
 		List<CalendarRecordProxy> list = service.getCalendarRecords();
 		Assert.assertEquals(3, list.size());

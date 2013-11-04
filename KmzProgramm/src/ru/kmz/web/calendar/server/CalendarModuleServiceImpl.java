@@ -6,7 +6,9 @@ import java.util.List;
 import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.utils.CalendarDataUtils;
+import ru.kmz.server.engine.calculator.GenerateWeekendService;
 import ru.kmz.web.calendar.client.CalendarModuleService;
+import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
 import ru.kmz.web.calendar.shared.CalendarProxy;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 
@@ -30,5 +32,16 @@ public class CalendarModuleServiceImpl extends RemoteServiceServlet implements C
 			result.add(record.asProxy());
 		}
 		return result;
+	}
+
+	@Override
+	public void calculateWeekends(CalculateCalendarParamProxy params) {
+		Calendar calendar = CalendarDataUtils.getCalendar();
+		if (params.getFrom().before(params.getTo())) {
+			GenerateWeekendService service = new GenerateWeekendService(calendar.getKey(), params.getFrom(), params.getTo());
+			service.calculate();
+		} else {
+			throw new IllegalArgumentException("Дата завершения не может быть меньше даты начала");
+		}
 	}
 }

@@ -41,4 +41,12 @@ public class CalendarRecord {
 	public CalendarRecordProxy asProxy() {
 		return new CalendarRecordProxy(KeyFactory.keyToString(key), new Date(date.getTime()), comment);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof CalendarRecord) {
+			return calendarId.equals(((CalendarRecord) obj).calendarId) && date.equals(((CalendarRecord) obj).date);
+		}
+		return false;
+	}
 }

@@ -2,6 +2,7 @@ package ru.kmz.web.calendar.client;
 
 import java.util.List;
 
+import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
 import ru.kmz.web.calendar.shared.CalendarProxy;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 
@@ -15,4 +16,5 @@ public interface CalendarModuleService extends RemoteService {
 
 	List<CalendarRecordProxy> getCalendarRecords();
 
+	void calculateWeekends(CalculateCalendarParamProxy params);
 }
