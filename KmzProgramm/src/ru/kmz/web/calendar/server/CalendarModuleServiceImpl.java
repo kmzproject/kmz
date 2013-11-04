@@ -6,6 +6,7 @@ import java.util.List;
 import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.utils.CalendarDataUtils;
+import ru.kmz.server.engine.calculator.CreateCalendarRecordService;
 import ru.kmz.server.engine.calculator.GenerateWeekendService;
 import ru.kmz.web.calendar.client.CalendarModuleService;
 import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
@@ -52,7 +53,9 @@ public class CalendarModuleServiceImpl extends RemoteServiceServlet implements C
 
 	@Override
 	public void createCalendarRecord(CalendarRecordProxy proxy) {
-		// TODO Auto-generated method stub
-
+		Calendar calendar = CalendarDataUtils.getCalendar();
+		CreateCalendarRecordService service = new CreateCalendarRecordService(calendar.getKey());
+		service.create(proxy.getDate(), proxy.getComment());
 	}
+
 }

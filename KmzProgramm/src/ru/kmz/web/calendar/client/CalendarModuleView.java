@@ -1,10 +1,12 @@
 package ru.kmz.web.calendar.client;
 
 import ru.kmz.web.calendar.client.window.CalculateCalendarWindow;
+import ru.kmz.web.calendar.client.window.CalendarRecordProperties;
 import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 
 import com.google.gwt.core.client.GWT;
@@ -16,7 +18,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
-public class CalendarModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<CalculateCalendarParamProxy> {
+public class CalendarModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<CalculateCalendarParamProxy>, IUpdatable {
 
 	private final static CalendarModuleServiceAsync service = GWT.create(CalendarModuleService.class);
 
@@ -59,6 +61,19 @@ public class CalendarModuleView extends AbstarctModuleView<VerticalLayoutContain
 			}
 		});
 		toolBar.add(calculateButton);
+
+		TextButton addButton = new TextButton("Добавить");
+		addButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+
+				CalendarRecordProperties window = new CalendarRecordProperties();
+				window.setUpdatable(CalendarModuleView.this);
+				window.show();
+			}
+		});
+		toolBar.add(addButton);
 
 		TextButton deleteButton = new TextButton("Удалить");
 		deleteButton.addSelectHandler(new SelectHandler() {
@@ -107,5 +122,10 @@ public class CalendarModuleView extends AbstarctModuleView<VerticalLayoutContain
 			}
 
 		});
+	}
+
+	@Override
+	public void update() {
+		grid.updateData();
 	}
 }

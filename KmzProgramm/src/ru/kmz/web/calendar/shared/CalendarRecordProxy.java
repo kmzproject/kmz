@@ -25,8 +25,12 @@ public class CalendarRecordProxy implements Serializable {
 		return comment;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public CalendarRecordProxy(String id, Date date, String comment) {

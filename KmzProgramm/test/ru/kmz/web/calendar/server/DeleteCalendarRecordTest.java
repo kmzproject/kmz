@@ -21,7 +21,7 @@ public class DeleteCalendarRecordTest extends DataTestEveryNew {
 	}
 
 	@Test
-	public void calculateTest1() {
+	public void deleteTest1() {
 
 		CalendarTestData.craeteCalendar2();
 

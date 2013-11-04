@@ -73,7 +73,5 @@ public class CalendarDataUtils {
 		} finally {
 			pm.close();
 		}
-
 	}
-
 }
