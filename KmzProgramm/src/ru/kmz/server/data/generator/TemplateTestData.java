@@ -120,9 +120,9 @@ public class TemplateTestData {
 
 		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short6", template));
 
-		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 1", 1, ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 2", 2, ResourceTypes.PREPARE, root));
-		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 3", 3, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Обработка 1", 1, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Обработка 2", 2, ResourceTypes.PREPARE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Обработка 3", 3, ResourceTypes.PREPARE, root));
 		return template;
 	}
 
@@ -225,6 +225,17 @@ public class TemplateTestData {
 		TemplateDataUtils.edit(elementLavel1 = new ProductTemplateElement("Направляющий аппарат", 5, ResourceTypes.ASSEMBLAGE, root));
 		TemplateDataUtils.edit(new ProductTemplateElement("Закупка (на)", 3, ResourceTypes.ORDER, elementLavel1));
 
+		return template;
+	}
+
+	public static Template createTemplateShort12() {
+		Template template = TemplateDataUtils.edit(new Template("Demo Template Short12"));
+
+		ProductTemplateElement root = TemplateDataUtils.edit(new ProductTemplateElement("Изделие Short12", template));
+
+		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 1", 1, ResourceTypes.ASSEMBLAGE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 2", 2, ResourceTypes.ASSEMBLAGE, root));
+		TemplateDataUtils.edit(new ProductTemplateElement("Сборка 3", 3, ResourceTypes.ASSEMBLAGE, root));
 		return template;
 	}
 

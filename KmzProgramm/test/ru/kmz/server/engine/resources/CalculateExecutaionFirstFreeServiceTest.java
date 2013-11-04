@@ -8,6 +8,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.ResourceTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.ProductTemplateElement;
@@ -63,21 +64,22 @@ public class CalculateExecutaionFirstFreeServiceTest extends DataTestEveryNew {
 		Map<ProductTemplateElement, ResourceTask> result = service.getResult();
 
 		ProductTemplateElement element1 = template.getRootElement().getChilds().get(0);
-		Assert.assertEquals("Сборка 1", element1.getName());
+		Assert.assertEquals("Обработка 1", element1.getName());
+		Assert.assertEquals(ResourceTypes.PREPARE, element1.getResourceType());
 		ResourceTask task1 = result.get(element1);
 		Assert.assertEquals("Test1", task1.getResource().getName());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 0), task1.getStart());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 1), task1.getFinish());
 
 		ProductTemplateElement element2 = template.getRootElement().getChilds().get(1);
-		Assert.assertEquals("Сборка 2", element2.getName());
+		Assert.assertEquals("Обработка 2", element2.getName());
 		ResourceTask task2 = result.get(element2);
 		Assert.assertEquals("Test1", task2.getResource().getName());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 1), task2.getStart());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 3), task2.getFinish());
 
 		ProductTemplateElement element3 = template.getRootElement().getChilds().get(2);
-		Assert.assertEquals("Сборка 3", element3.getName());
+		Assert.assertEquals("Обработка 3", element3.getName());
 		ResourceTask task3 = result.get(element3);
 		Assert.assertEquals("Test1", task3.getResource().getName());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 3), task3.getStart());
