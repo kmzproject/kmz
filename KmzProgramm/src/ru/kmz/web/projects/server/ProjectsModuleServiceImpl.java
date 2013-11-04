@@ -76,10 +76,13 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 		Order order = OrderDataUtils.getOrder(orderId);
 		service.setOrder(order);
 		service.setCount(input.getCount());
-		service.setService(new CalculateExecutionNoResourceService());
+		CalculateExecutionNoResourceService calculateService = new CalculateExecutionNoResourceService();
+		calculateService.setUseWeekend(input.isUseWeekend());
+		service.setService(calculateService);
 
 		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
-		service.save(template, input.getDate());
+		Date date = DateUtils.getDateNoTime(input.getDate());
+		service.save(template, date);
 
 	}
 

@@ -13,6 +13,12 @@ public class CalculatorInputDataProxy implements Serializable {
 	private String templateId;
 	private String orderId;
 	private int count;
+	private boolean useWeekend;
+
+	public CalculatorInputDataProxy() {
+		byFinishDate = true;
+		count = 1;
+	}
 
 	public boolean isByFinishDate() {
 		return byFinishDate;
@@ -20,6 +26,9 @@ public class CalculatorInputDataProxy implements Serializable {
 
 	public void setByFinishDate(boolean byFinishDate) {
 		this.byFinishDate = byFinishDate;
+		if (byFinishDate) {
+			byStartDate = false;
+		}
 	}
 
 	public boolean isByStartDate() {
@@ -28,6 +37,9 @@ public class CalculatorInputDataProxy implements Serializable {
 
 	public void setByStartDate(boolean byStartDate) {
 		this.byStartDate = byStartDate;
+		if (byStartDate) {
+			byFinishDate = false;
+		}
 	}
 
 	public Date getDate() {
@@ -68,6 +80,14 @@ public class CalculatorInputDataProxy implements Serializable {
 
 	public int getCount() {
 		return count;
+	}
+
+	public boolean isUseWeekend() {
+		return useWeekend;
+	}
+
+	public void setUseWeekend(boolean useWeekend) {
+		this.useWeekend = useWeekend;
 	}
 
 }

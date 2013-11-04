@@ -27,7 +27,6 @@ public class ProjectsModuleServiceImplTest7 extends DataTestEveryNew {
 		Date start = DateUtils.getDate("2013/10/01");
 		input.setDate(start);
 		input.setTemplateId(template.getKeyStr());
-		input.setByStartDate(true);
 		input.setUseResource(true);
 		GanttData data = service.getGantResultData(input);
 

@@ -27,7 +27,6 @@ public class ProjectsModuleServiceImplTestSave8 extends DataTestEveryNew {
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
 		input.setTemplateId(template.getKeyStr());
-		input.setByStartDate(true);
 		String orderId = order.getKeyStr();
 		input.setOrderId(orderId);
 		service.save(input);

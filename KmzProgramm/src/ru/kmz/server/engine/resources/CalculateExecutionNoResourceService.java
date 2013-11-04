@@ -6,24 +6,34 @@ import java.util.Map;
 
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
+import ru.kmz.server.engine.calculator.CalendarOffsetService;
 import ru.kmz.server.utils.DateUtils;
 
 public class CalculateExecutionNoResourceService implements ICalcucateExecutionServiceInterface {
 
 	private Map<ProductTemplateElement, ResourceTask> result;
+	private boolean useWeekend;
+	private CalendarOffsetService calendarService;
 
 	public CalculateExecutionNoResourceService() {
 		result = new HashMap<ProductTemplateElement, ResourceTask>();
 	}
 
+	public void setUseWeekend(boolean useWeekend) {
+		this.useWeekend = useWeekend;
+	}
+
 	@Override
 	public void calculate(Template template, Date date) {
+		if (useWeekend) {
+			calendarService = new CalendarOffsetService();
+		}
 		calculateElementStart(template.getRootElement(), date);
 	}
 
 	public Date calculateElementStart(ProductTemplateElement element, Date finish) {
 
-		Date start = DateUtils.getOffsetDate(finish, -element.getDuration());
+		Date start = getStartOffset(finish, element);
 
 		ResourceTask task = new ResourceTask(start, finish, element.getDuration());
 
@@ -35,6 +45,14 @@ public class CalculateExecutionNoResourceService implements ICalcucateExecutionS
 
 		result.put(element, task);
 		return task.getStart();
+	}
+
+	private Date getStartOffset(Date finish, ProductTemplateElement element) {
+		if (useWeekend) {
+			return calendarService.getOffsetDate(finish, -element.getDuration());
+		} else {
+			return DateUtils.getOffsetDate(finish, -element.getDuration());
+		}
 	}
 
 	@Override

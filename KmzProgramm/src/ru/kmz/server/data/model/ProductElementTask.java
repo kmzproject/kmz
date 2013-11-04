@@ -68,27 +68,27 @@ public class ProductElementTask implements IProjectTask {
 		this.resourceType = proxy.getResourceType();
 	}
 
-	private ProductElementTask(String name, int duration, String resourseType, ResourceTask task) {
+	private ProductElementTask(String name, String resourseType, ResourceTask task) {
 		this.name = name;
-		this.duration = duration;
 		this.resourceType = resourseType;
 
 		if (task != null) {
 			this.start = task.getStart();
 			this.finish = task.getFinish();
+			this.duration = DateUtils.diffInDays(start, finish);
 		}
 
 	}
 
-	public ProductElementTask(String name, int duration, String resourseType, ResourceTask task, Order order) {
-		this(name, duration, resourseType, task);
+	public ProductElementTask(String name, String resourseType, ResourceTask task, Order order) {
+		this(name, resourseType, task);
 
 		this.parentId = null;
 		this.orderId = order.getKey();
 	}
 
-	public ProductElementTask(String name, int duration, String resourseType, ResourceTask task, ProductElementTask parent) {
-		this(name, duration, resourseType, task);
+	public ProductElementTask(String name, String resourseType, ResourceTask task, ProductElementTask parent) {
+		this(name, resourseType, task);
 
 		this.parentId = parent.getKey();
 		this.orderId = parent.getOrderId();

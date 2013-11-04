@@ -11,24 +11,22 @@ import ru.kmz.web.templatecommon.client.control.TemplateComboBoxUtils;
 
 import com.google.gwt.text.client.IntegerParser;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.sencha.gxt.core.client.util.ToggleGroup;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
+import com.sencha.gxt.widget.core.client.form.CheckBox;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
-import com.sencha.gxt.widget.core.client.form.Radio;
 import com.sencha.gxt.widget.core.client.form.TextField;
 import com.sencha.gxt.widget.core.client.info.Info;
 
 public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDataProxy> {
 
-	private Radio radioFinish;
-	private Radio radioStart;
 	private DateField dataField;
 	private ComboBox<KeyValueData> templateComboBox;
 	private ComboBox<KeyValueData> orderComboBox;
 	private TextField countField;
+	private CheckBox useWeekend;
 
 	public SelectCalculationInfo() {
 		super();
@@ -47,19 +45,6 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		HorizontalPanel hp = new HorizontalPanel();
 		container.add(hp);
 
-		radioFinish = new Radio();
-		radioFinish.setBoxLabel("По дате завершения");
-		radioFinish.setValue(true);
-		hp.add(radioFinish);
-
-		radioStart = new Radio();
-		radioStart.setBoxLabel("По дате начала");
-		hp.add(radioStart);
-
-		ToggleGroup group = new ToggleGroup();
-		group.add(radioFinish);
-		group.add(radioStart);
-
 		templateComboBox = TemplateComboBoxUtils.createTemplateComboBox();
 		container.add(new FieldLabel(templateComboBox, "Шаблон"));
 
@@ -70,14 +55,15 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		countField.setValue("1");
 		container.add(new FieldLabel(countField, "Количество"));
 
+		useWeekend = new CheckBox();
+		container.add(new FieldLabel(useWeekend, "Учитывать выходные"));
+
 		return container;
 	}
 
 	private CalculatorInputDataProxy getInput() {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(dataField.getValue());
-		input.setByFinishDate(radioFinish.getValue());
-		input.setByStartDate(radioStart.getValue());
 		input.setTemplateId(templateComboBox.getValue().getKey());
 		if (orderComboBox.getValue() != null) {
 			input.setOrderId(orderComboBox.getValue().getKey());
@@ -89,6 +75,7 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 			Info.display("Ошибка", "Не верный формат данных");
 			return null;
 		}
+		input.setUseWeekend(useWeekend.getValue());
 		return input;
 	}
 

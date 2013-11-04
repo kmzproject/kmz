@@ -49,4 +49,8 @@ public class CalendarRecord {
 		}
 		return false;
 	}
+
+	public Date getDate() {
+		return date;
+	}
 }

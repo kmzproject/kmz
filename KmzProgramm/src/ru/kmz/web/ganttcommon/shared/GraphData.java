@@ -18,6 +18,7 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 	private Date planStart;
 	private Date planFinish;
 	private int duration;
+	private int durationWork;
 	private int complite;
 	private String resourceType;
 	private List<GraphData> childs;
@@ -109,6 +110,14 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 	@Override
 	public int compareTo(GraphData ganttData) {
 		return planStart.compareTo(ganttData.planStart);
+	}
+
+	public int getDurationWork() {
+		return durationWork;
+	}
+
+	public void setDurationWork(int durationWork) {
+		this.durationWork = durationWork;
 	}
 
 }
