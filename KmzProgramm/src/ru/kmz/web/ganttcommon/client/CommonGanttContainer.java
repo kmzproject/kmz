@@ -120,7 +120,7 @@ public class CommonGanttContainer implements IsWidget {
 	private List<ZoneGeneratorInt> getZones() {
 		ArrayList<ZoneGeneratorInt> zoneGenerators = new ArrayList<ZoneGeneratorInt>();
 		zoneGenerators.add(calendarGenerator);
-//		zoneGenerators.add(new WeekendZoneGenerator());
+		// zoneGenerators.add(new WeekendZoneGenerator());
 		return zoneGenerators;
 	}
 
@@ -153,13 +153,13 @@ public class CommonGanttContainer implements IsWidget {
 	private ArrayList<TimeAxisGenerator> getTimeHeaders() {
 		ArrayList<TimeAxisGenerator> headers = new ArrayList<TimeAxisGenerator>();
 		if (scale.equals(ScaleConstants.DAY)) {
-			headers.add(new WeekTimeAxisGenerator("dd MMM"));
-			headers.add(new DayTimeAxisGenerator("EEE"));
+			headers.add(new WeekTimeAxisGenerator("dd.MM.yy"));
+			headers.add(new DayTimeAxisGenerator("dd"));
 		} else if (scale.equals(ScaleConstants.MONTH)) {
 			headers.add(new YearTimeAxisGenerator("yyyy"));
-			headers.add(new MonthTimeAxisGenerator("MMM"));
+			headers.add(new MonthTimeAxisGenerator("MM"));
 		} else if (scale.equals(ScaleConstants.WEEK)) {
-			headers.add(new MonthTimeAxisGenerator("MMM dd"));
+			headers.add(new MonthTimeAxisGenerator("dd.MM.yy"));
 			headers.add(new WeekTimeAxisGenerator("dd/MM"));
 		}
 		return headers;
