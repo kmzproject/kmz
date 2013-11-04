@@ -44,4 +44,15 @@ public class CalendarModuleServiceImpl extends RemoteServiceServlet implements C
 			throw new IllegalArgumentException("Дата завершения не может быть меньше даты начала");
 		}
 	}
+
+	@Override
+	public void deleteCalendarRecord(String recordId) {
+		CalendarDataUtils.delete(recordId);
+	}
+
+	@Override
+	public void createCalendarRecord(CalendarRecordProxy proxy) {
+		// TODO Auto-generated method stub
+
+	}
 }

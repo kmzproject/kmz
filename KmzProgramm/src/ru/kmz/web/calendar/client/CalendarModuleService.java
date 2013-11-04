@@ -17,4 +17,8 @@ public interface CalendarModuleService extends RemoteService {
 	List<CalendarRecordProxy> getCalendarRecords();
 
 	void calculateWeekends(CalculateCalendarParamProxy params);
+
+	void deleteCalendarRecord(String recordId);
+
+	void createCalendarRecord(CalendarRecordProxy proxy);
 }

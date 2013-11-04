@@ -15,4 +15,8 @@ public interface CalendarModuleServiceAsync {
 	void getCalendarRecords(AsyncCallback<List<CalendarRecordProxy>> callback);
 
 	void calculateWeekends(CalculateCalendarParamProxy params, AsyncCallback<Void> callback);
+
+	void deleteCalendarRecord(String recordId, AsyncCallback<Void> callback);
+
+	void createCalendarRecord(CalendarRecordProxy proxy, AsyncCallback<Void> callback);
 }

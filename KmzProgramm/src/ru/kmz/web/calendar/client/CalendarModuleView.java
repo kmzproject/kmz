@@ -2,6 +2,7 @@ package ru.kmz.web.calendar.client;
 
 import ru.kmz.web.calendar.client.window.CalculateCalendarWindow;
 import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
+import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
@@ -57,8 +58,28 @@ public class CalendarModuleView extends AbstarctModuleView<VerticalLayoutContain
 				window.show();
 			}
 		});
-
 		toolBar.add(calculateButton);
+
+		TextButton deleteButton = new TextButton("Удалить");
+		deleteButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				CalendarRecordProxy proxy = grid.getSelectionModel().getSelectedItem();
+				if (proxy == null) {
+					Info.display("Ошибка", "Необходимо выбрать запись");
+					return;
+				}
+				getService().deleteCalendarRecord(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						Info.display("Успех", "Запись успешно удалена");
+						grid.updateData();
+					}
+				});
+			}
+		});
+		toolBar.add(deleteButton);
 
 		return toolBar;
 	}

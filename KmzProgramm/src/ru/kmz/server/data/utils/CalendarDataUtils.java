@@ -5,11 +5,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import com.google.appengine.api.datastore.Key;
-
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
+
+import com.google.appengine.api.datastore.Key;
 
 public class CalendarDataUtils {
 
@@ -61,6 +61,19 @@ public class CalendarDataUtils {
 			pm.close();
 		}
 		return list;
+	}
+
+	public static void delete(String recordId) {
+		PersistenceManager pm = null;
+		CalendarRecord record;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			record = pm.getObjectById(CalendarRecord.class, recordId);
+			pm.deletePersistent(record);
+		} finally {
+			pm.close();
+		}
+
 	}
 
 }
