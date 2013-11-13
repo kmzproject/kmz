@@ -201,6 +201,10 @@ public class ProductElementTask implements IProjectTask {
 		this.done = done;
 	}
 
+	public int getDone() {
+		return done;
+	}
+
 	public int getCount() {
 		return count;
 	}
