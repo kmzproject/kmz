@@ -38,7 +38,7 @@ public class HistoryGrid extends CommonGrid<HistoryProxy> {
 		ListStore<HistoryProxy> store = new ListStore<HistoryProxy>(props.key());
 
 		ColumnConfig<HistoryProxy, Date> dateCol = new ColumnConfig<HistoryProxy, Date>(props.date(), 50, "Время");
-		dateCol.setCell(new DateCellFormatt());
+		dateCol.setCell(new DateAndTimeCellFormat());
 
 		ColumnConfig<HistoryProxy, String> nameCol = new ColumnConfig<HistoryProxy, String>(props.name(), 50, "Тип действия");
 		ColumnConfig<HistoryProxy, String> commentCol = new ColumnConfig<HistoryProxy, String>(props.comment(), 200, "Описание");
@@ -56,8 +56,6 @@ public class HistoryGrid extends CommonGrid<HistoryProxy> {
 
 	protected HistoryGrid(ListStore<HistoryProxy> store, ColumnModel<HistoryProxy> model) {
 		super(store, model);
-
-		setHeight(500);
 		setLoadOnInit(true);
 	}
 

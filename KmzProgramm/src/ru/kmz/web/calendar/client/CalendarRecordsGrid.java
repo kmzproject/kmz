@@ -7,7 +7,7 @@ import java.util.List;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
-import ru.kmz.web.common.client.control.DateCellFormatt;
+import ru.kmz.web.common.client.control.DateCellFormat;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -32,7 +32,7 @@ public class CalendarRecordsGrid extends CommonGrid<CalendarRecordProxy> {
 		ListStore<CalendarRecordProxy> store = new ListStore<CalendarRecordProxy>(props.key());
 
 		ColumnConfig<CalendarRecordProxy, Date> dateCol = new ColumnConfig<CalendarRecordProxy, Date>(props.date(), 50, "Дата");
-		dateCol.setCell(new DateCellFormatt());
+		dateCol.setCell(new DateCellFormat());
 		ColumnConfig<CalendarRecordProxy, String> commentCol = new ColumnConfig<CalendarRecordProxy, String>(props.comment(), 200, "Примечание");
 
 		List<ColumnConfig<CalendarRecordProxy, ?>> l = new ArrayList<ColumnConfig<CalendarRecordProxy, ?>>();

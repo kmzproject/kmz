@@ -6,7 +6,7 @@ import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
-import ru.kmz.web.common.client.control.DateCellFormatt;
+import ru.kmz.web.common.client.control.DateCellFormat;
 import ru.kmz.web.purchases.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
@@ -34,9 +34,9 @@ public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 		ColumnConfig<PurchaseProxy, String> orderNameCol = new ColumnConfig<PurchaseProxy, String>(props.orderName(), 300, "Название заказа");
 		ColumnConfig<PurchaseProxy, String> nameCol = new ColumnConfig<PurchaseProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<PurchaseProxy, Date> startCol = new ColumnConfig<PurchaseProxy, Date>(props.planStart(), 200, "Дата начала");
-		startCol.setCell(new DateCellFormatt());
+		startCol.setCell(new DateCellFormat());
 		ColumnConfig<PurchaseProxy, Date> finishCol = new ColumnConfig<PurchaseProxy, Date>(props.planFinish(), 200, "Дата завершения");
-		finishCol.setCell(new DateCellFormatt());
+		finishCol.setCell(new DateCellFormat());
 
 		List<ColumnConfig<PurchaseProxy, ?>> l = new ArrayList<ColumnConfig<PurchaseProxy, ?>>();
 		l.add(nameCol);
