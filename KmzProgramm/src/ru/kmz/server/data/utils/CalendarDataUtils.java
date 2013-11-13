@@ -8,6 +8,8 @@ import javax.jdo.Query;
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
+import ru.kmz.server.data.model.History;
+import ru.kmz.server.utils.HistoryUtils;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -71,7 +73,9 @@ public class CalendarDataUtils {
 		try {
 			pm = PMF.get().getPersistenceManager();
 			record = pm.getObjectById(CalendarRecord.class, recordId);
+			History history = HistoryUtils.getDeleteCalendarRecord(record);
 			pm.deletePersistent(record);
+			pm.makePersistent(history);
 		} finally {
 			pm.close();
 		}

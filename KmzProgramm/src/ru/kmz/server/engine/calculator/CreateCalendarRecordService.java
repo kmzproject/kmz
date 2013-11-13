@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.utils.CalendarDataUtils;
+import ru.kmz.server.utils.HistoryUtils;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -20,10 +21,10 @@ public class CreateCalendarRecordService {
 	}
 
 	public void create(Date date) {
-		create(date, null);
+		create(date, null, false);
 	}
 
-	public void create(Date date, String comment) {
+	private void create(Date date, String comment, boolean history) {
 		CalendarRecord cr = new CalendarRecord(calendarId, date, comment);
 		boolean contains = false;
 		for (CalendarRecord calendarRecord : records) {
@@ -33,8 +34,15 @@ public class CreateCalendarRecordService {
 			}
 		}
 		if (!contains) {
-			CalendarDataUtils.edit(cr);
+			cr = CalendarDataUtils.edit(cr);
+			if (history) {
+				HistoryUtils.createCalendarRecocd(cr);
+			}
 		}
+	}
+
+	public void create(Date date, String comment) {
+		create(date, comment, true);
 	}
 
 }

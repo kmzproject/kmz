@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ru.kmz.server.utils.DateUtils;
+import ru.kmz.server.utils.HistoryUtils;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -11,8 +12,10 @@ public class GenerateWeekendService {
 
 	private CreateCalendarRecordService createService;
 	private Date from, to;
+	private Key calendarId;
 
 	public GenerateWeekendService(Key calendarId, Date from, Date to) {
+		this.calendarId = calendarId;
 		createService = new CreateCalendarRecordService(calendarId);
 
 		this.from = DateUtils.getDateNoTime(from);
@@ -31,6 +34,7 @@ public class GenerateWeekendService {
 			iterations++;
 			calendar.add(Calendar.DAY_OF_YEAR, 1);
 		} while (iterations < 1000 && calendar.getTime().before(to));
+		HistoryUtils.createCalculateWeekends(calendarId, from, to);
 
 	}
 }

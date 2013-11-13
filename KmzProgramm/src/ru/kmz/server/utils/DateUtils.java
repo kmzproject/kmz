@@ -16,6 +16,10 @@ public class DateUtils {
 		return getDate(formatter.format(date));
 	}
 
+	public static String dateToString(Date date) {
+		return formatter.format(date);
+	}
+
 	public static Date getDate(String dateStr) {
 		try {
 			return formatter.parse(dateStr);

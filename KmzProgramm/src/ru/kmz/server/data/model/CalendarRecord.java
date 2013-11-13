@@ -7,6 +7,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 
 import com.google.appengine.api.datastore.Key;
@@ -52,5 +53,14 @@ public class CalendarRecord {
 
 	public Date getDate() {
 		return date;
+	}
+
+	public Key getCalendarId() {
+		return calendarId;
+	}
+
+	@Override
+	public String toString() {
+		return DateUtils.dateToString(date) + (comment == null ? "" : (" " + comment));
 	}
 }

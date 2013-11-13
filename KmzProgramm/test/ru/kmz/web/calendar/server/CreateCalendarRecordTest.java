@@ -10,15 +10,19 @@ import org.junit.Test;
 import ru.kmz.server.data.generator.CalendarTestData;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
+import ru.kmz.web.common.server.CommonServiceImpl;
+import ru.kmz.web.common.shared.HistoryProxy;
 import ru.test.DataTestEveryNew;
 
 public class CreateCalendarRecordTest extends DataTestEveryNew {
 
 	private CalendarModuleServiceImpl service;
+	private CommonServiceImpl commonService;
 
 	@Before
 	public void createService() {
 		service = new CalendarModuleServiceImpl();
+		commonService = new CommonServiceImpl();
 	}
 
 	@Test
@@ -54,5 +58,10 @@ public class CreateCalendarRecordTest extends DataTestEveryNew {
 
 		list = service.getCalendarRecords();
 		Assert.assertEquals(4, list.size());
+
+		List<HistoryProxy> history = commonService.getHistoryByObject(null);
+		Assert.assertEquals(1, history.size());
+		Assert.assertEquals("2013/11/09 Еще один выходной", history.get(0).getComment());
+
 	}
 }

@@ -2,6 +2,7 @@ package ru.kmz.server.utils;
 
 import java.util.Date;
 
+import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
@@ -17,6 +18,22 @@ public class HistoryUtils {
 		String EDIT_ORDER = "Изменен заказ";
 		String CREATE_PRODUCT = "Добавлено в производство";
 		String DELETE_PRODUCT = "Удалено из производства";
+		String CALCULATE_CALENDAR = "Расчет выходных дней";
+		String CREATE_CALENDAR_RECORD = "Добавлен выходной день";
+		String DELETE_CALENDAR_RECORD = "Удален выходной";
+	}
+
+	public static void createCalendarRecocd(CalendarRecord record) {
+		createHistory(record.getCalendarId(), HistoryName.CREATE_CALENDAR_RECORD, record.toString());
+	}
+
+	public static void createCalculateWeekends(Key calendarId, Date from, Date to) {
+		createHistory(calendarId, HistoryName.CALCULATE_CALENDAR,
+				"Автоматический расчет выходных дней с " + DateUtils.dateToString(from) + "  по " + DateUtils.dateToString(to));
+	}
+
+	public static History getDeleteCalendarRecord(CalendarRecord cr) {
+		return getHistory(cr.getCalendarId(), HistoryName.DELETE_CALENDAR_RECORD, cr.toString());
 	}
 
 	public static History getDeleteProductElementTask(ProductElementTask task) {
