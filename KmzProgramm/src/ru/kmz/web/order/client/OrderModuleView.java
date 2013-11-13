@@ -44,7 +44,7 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 
 		container.add(createToolBar());
 
-		grid = OrdersGrid.getCalculatorGrid();
+		grid = OrdersGrid.getOrderGrid();
 		container.add(grid);
 	}
 

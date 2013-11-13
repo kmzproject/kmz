@@ -43,7 +43,15 @@
 		<servlet-class>ru.kmz.web.administration.server.AdministrationModuleServiceImpl</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>commonModule</servlet-name>
+		<servlet-class>ru.kmz.web.common.server.CommonServiceImpl</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>commonModule</servlet-name>
+		<url-pattern>/kmzprogramm/commonModule</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>administrationModule</servlet-name>
 		<url-pattern>/kmzprogramm/administrationModule</url-pattern>

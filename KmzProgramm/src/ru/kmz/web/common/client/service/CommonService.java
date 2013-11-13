@@ -7,8 +7,8 @@ import ru.kmz.web.common.shared.HistoryProxy;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("common")
-public interface CommomService extends RemoteService {
+@RemoteServiceRelativePath("commonModule")
+public interface CommonService extends RemoteService {
 
 	List<HistoryProxy> getHistoryByObject(String keyStr);
 }

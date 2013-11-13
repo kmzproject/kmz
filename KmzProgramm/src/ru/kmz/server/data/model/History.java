@@ -10,6 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 import ru.kmz.web.common.shared.HistoryProxy;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @PersistenceCapable
 public class History {
@@ -58,7 +59,7 @@ public class History {
 	}
 
 	public HistoryProxy asProxy() {
-		return new HistoryProxy(name, comment, new Date(date.getTime()));
+		return new HistoryProxy(KeyFactory.keyToString(key), name, comment, new Date(date.getTime()), user);
 	}
 
 }

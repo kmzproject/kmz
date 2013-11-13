@@ -28,7 +28,7 @@ public class OrdersGrid extends CommonGrid<OrderProxy> {
 		props = GWT.create(OrderProxyProperties.class);
 	}
 
-	public static OrdersGrid getCalculatorGrid() {
+	public static OrdersGrid getOrderGrid() {
 		ListStore<OrderProxy> store = new ListStore<OrderProxy>(props.key());
 
 		ColumnConfig<OrderProxy, String> nameCol = new ColumnConfig<OrderProxy, String>(props.name(), 300, "Название заказа");

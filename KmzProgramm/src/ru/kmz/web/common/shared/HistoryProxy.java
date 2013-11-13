@@ -6,18 +6,24 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class HistoryProxy implements Serializable {
 
+	private String id;
 	private String name;
 	private String comment;
 	private Date date;
+	private String user;
 
 	public HistoryProxy() {
 
 	}
 
-	public HistoryProxy(String name, String comment, Date date) {
+	public HistoryProxy(String id, String name, String comment, Date date, String user) {
 		this.name = name;
 		this.comment = comment;
 		this.date = date;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -30,6 +36,10 @@ public class HistoryProxy implements Serializable {
 
 	public Date getDate() {
 		return date;
+	}
+
+	public String getUser() {
+		return user;
 	}
 
 }
