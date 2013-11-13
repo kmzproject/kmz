@@ -133,7 +133,7 @@ public class ProductTemplateElement {
 	}
 
 	public GraphData asGraphDataProxy() {
-		return new GraphData(key.getId() + "", name, duration, duration, resourceType);
+		return new GraphData(getKeyStr(), name, null, duration, duration, resourceType);
 	}
 
 	public String getResourceType() {

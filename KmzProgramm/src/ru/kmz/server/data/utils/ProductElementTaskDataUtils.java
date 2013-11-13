@@ -8,6 +8,7 @@ import javax.jdo.Query;
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.ProductElementTask;
+import ru.kmz.server.utils.HistoryUtils;
 
 public class ProductElementTaskDataUtils {
 
@@ -42,14 +43,17 @@ public class ProductElementTaskDataUtils {
 	public static ProductElementTask setTaskComplitePersents(String key, int persents) {
 		PersistenceManager pm = null;
 		ProductElementTask task;
+		int oldFact = 0;
 		try {
 			pm = PMF.get().getPersistenceManager();
 			task = pm.getObjectById(ProductElementTask.class, key);
+			oldFact = task.getDone();
 			task.setDone(persents);
 			pm.makePersistent(task);
 		} finally {
 			pm.close();
 		}
+		HistoryUtils.setFact(task, oldFact);
 		return task;
 	}
 

@@ -49,7 +49,7 @@ public class NoDataProjectsService extends DataTestEveryNew {
 
 		Assert.assertEquals(1, data.getChilds().size());
 		GraphData order = data.getChilds().get(0);
-		Assert.assertEquals("Тестовый заказ 1", order.getName());
+		Assert.assertEquals("Тестовый заказ 1 (Z-001)", order.getName());
 		Assert.assertEquals(TaskType.PARENT, order.getTaskType());
 		Assert.assertEquals(date, order.getPlanStart());
 		Assert.assertEquals(date, order.getPlanFinish());

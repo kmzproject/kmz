@@ -164,7 +164,7 @@ public class ProductElementTask implements IProjectTask {
 
 	public GraphData asGraphDataProxy() {
 		int duration = DateUtils.diffInDays(start, finish);
-		GraphData graphData = new GraphData(getKeyStr(), getNameAndCount(), duration, durationWork, resourceType);
+		GraphData graphData = new GraphData(getKeyStr(), getNameAndCount(), code, duration, durationWork, resourceType);
 		graphData.setComplite(done);
 		return graphData;
 	}
@@ -247,5 +247,10 @@ public class ProductElementTask implements IProjectTask {
 	public void addOffset(int offset) {
 		finish = DateUtils.getOffsetDate(finish, offset);
 		start = DateUtils.getOffsetDate(start, offset);
+	}
+
+	@Override
+	public String toString() {
+		return code + " " + getNameAndCount();
 	}
 }

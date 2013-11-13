@@ -17,13 +17,14 @@ public class HistoryUtils {
 		String EDIT_ORDER = "Изменен заказ";
 	}
 
-	public static void setFact(ProductElementTask task) {
-		createHistory(task.getKey(), HistoryName.SET_FACT, task.getName() + " факт=" + task.getDone());
+	public static void setFact(ProductElementTask task, int oldFact) {
+		createHistory(task.getKey(), HistoryName.SET_FACT, task.toString() + " было " + oldFact + " стало " + task.getDone());
 	}
 
 	public static void createOrder(Order order) {
 		createHistory(order.getKey(), HistoryName.CREATE_ORDER, order.toString());
 	}
+
 	public static void editOrder(Order order) {
 		createHistory(order.getKey(), HistoryName.EDIT_ORDER, order.toString());
 	}
