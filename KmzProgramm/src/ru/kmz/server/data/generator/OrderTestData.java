@@ -16,10 +16,10 @@ public class OrderTestData {
 
 	public static List<Order> createOrders2() {
 		List<Order> list = new ArrayList<Order>();
-		list.add(OrderDataUtils.edit(new Order("Гражданская", "", "")));
-		list.add(OrderDataUtils.edit(new Order("Первомайка", "", "")));
-		list.add(OrderDataUtils.edit(new Order("Рязанская ГРЭС", "", "")));
-		list.add(OrderDataUtils.edit(new Order("Березнинки", "", "")));
+		list.add(OrderDataUtils.edit(new Order("Гражданская", "Заказчик1", "1")));
+		list.add(OrderDataUtils.edit(new Order("Первомайка", "Заказчик2", "2")));
+		list.add(OrderDataUtils.edit(new Order("Рязанская ГРЭС", "Заказчик3", "3")));
+		list.add(OrderDataUtils.edit(new Order("Березнинки", "Заказчик4", "4")));
 		return list;
 	}
 

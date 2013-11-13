@@ -30,6 +30,12 @@ public class Order implements IProjectTask {
 	@Persistent
 	private String legalNumber;
 
+	@Persistent
+	private int number;
+
+	@Persistent
+	private String code;
+
 	@NotPersistent
 	private List<ProductElementTask> childs;
 
@@ -69,7 +75,7 @@ public class Order implements IProjectTask {
 	}
 
 	public OrderProxy asProxy() {
-		return new OrderProxy(KeyFactory.keyToString(key), name, customer, legalNumber);
+		return new OrderProxy(KeyFactory.keyToString(key), code, name, customer, legalNumber);
 	}
 
 	public List<ProductElementTask> getChilds() {
@@ -93,4 +99,22 @@ public class Order implements IProjectTask {
 		return childs != null && childs.size() != 0;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+		String code = "000" + number;
+		this.code = "Z-" + code.substring(code.length() - 3);
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	@Override
+	public String toString() {
+		return code + " " + name + " " + customer + " " + legalNumber;
+	}
 }

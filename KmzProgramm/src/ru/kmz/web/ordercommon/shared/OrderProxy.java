@@ -9,6 +9,7 @@ public class OrderProxy implements Serializable {
 	private String name;
 	private String customer;
 	private String legalNumber;
+	private String code;
 
 	public OrderProxy() {
 	}
@@ -37,11 +38,12 @@ public class OrderProxy implements Serializable {
 		this.customer = customer;
 	}
 
-	public OrderProxy(String id, String name, String customer, String legalNumber) {
+	public OrderProxy(String id, String code, String name, String customer, String legalNumber) {
 		this.id = id;
 		this.name = name;
 		this.customer = customer;
 		this.legalNumber = legalNumber;
+		this.code = code;
 	}
 
 	public String getLegalNumber() {
@@ -50,5 +52,9 @@ public class OrderProxy implements Serializable {
 
 	public void setLegalNumber(String value) {
 		this.legalNumber = value;
+	}
+
+	public String getCode() {
+		return code;
 	}
 }

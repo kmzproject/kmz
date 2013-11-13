@@ -27,14 +27,32 @@ public class OrderDataUtils {
 	}
 
 	public static Order edit(Order order) {
-		PersistenceManager em = null;
+		PersistenceManager pm = null;
 		try {
-			em = PMF.get().getPersistenceManager();
-			em.makePersistent(order);
+			pm = PMF.get().getPersistenceManager();
+			if (order.getKey() == null) {
+				int number = getMaxOrderNumber(pm);
+				number++;
+				order.setNumber(number);
+			}
+			pm.makePersistent(order);
 		} finally {
-			em.close();
+			pm.close();
 		}
 		return order;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static int getMaxOrderNumber(PersistenceManager pm) {
+		Query q = pm.newQuery(Order.class);
+		q.setOrdering("number");
+		q.setRange(0, 1);
+		List<Order> list = (List<Order>) q.execute();
+		if (list.size() == 0)
+			return 0;
+		else {
+			return list.get(0).getNumber();
+		}
 	}
 
 	public static Order getOrder(String key) {

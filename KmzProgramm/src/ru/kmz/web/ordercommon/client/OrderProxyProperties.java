@@ -18,4 +18,6 @@ public interface OrderProxyProperties extends PropertyAccess<OrderProxy> {
 
 	ValueProvider<OrderProxy, String> legalNumber();
 
+	ValueProvider<OrderProxy, String> code();
+
 }

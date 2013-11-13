@@ -31,11 +31,13 @@ public class OrdersGrid extends CommonGrid<OrderProxy> {
 	public static OrdersGrid getOrderGrid() {
 		ListStore<OrderProxy> store = new ListStore<OrderProxy>(props.key());
 
-		ColumnConfig<OrderProxy, String> nameCol = new ColumnConfig<OrderProxy, String>(props.name(), 300, "Название заказа");
+		ColumnConfig<OrderProxy, String> codeCol = new ColumnConfig<OrderProxy, String>(props.code(), 50, "Код");
+		ColumnConfig<OrderProxy, String> nameCol = new ColumnConfig<OrderProxy, String>(props.name(), 200, "Название заказа");
 		ColumnConfig<OrderProxy, String> customerCol = new ColumnConfig<OrderProxy, String>(props.customer(), 200, "Заказчик");
 		ColumnConfig<OrderProxy, String> legalNumberCol = new ColumnConfig<OrderProxy, String>(props.legalNumber(), 200, "Договор");
 
 		List<ColumnConfig<OrderProxy, ?>> l = new ArrayList<ColumnConfig<OrderProxy, ?>>();
+		l.add(codeCol);
 		l.add(nameCol);
 		l.add(customerCol);
 		l.add(legalNumberCol);

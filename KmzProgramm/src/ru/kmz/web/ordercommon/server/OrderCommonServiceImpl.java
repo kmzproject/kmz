@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.utils.OrderDataUtils;
+import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.ordercommon.client.OrderCommonService;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 
@@ -24,15 +25,21 @@ public class OrderCommonServiceImpl extends RemoteServiceServlet implements Orde
 
 	@Override
 	public OrderProxy editOrder(OrderProxy proxy) {
+		boolean isNew = proxy.getId() == null;
 		Order order;
-		if (proxy.getId() != null) {
-			order = OrderDataUtils.getOrder(proxy.getId());
-		} else {
+		if (isNew) {
 			order = new Order();
+		} else {
+			order = OrderDataUtils.getOrder(proxy.getId());
 		}
 		order.updateData(proxy);
 		order = OrderDataUtils.edit(order);
 		proxy = order.asProxy();
+		if (isNew) {
+			HistoryUtils.createOrder(order);
+		} else {
+			HistoryUtils.editOrder(order);
+		}
 		return proxy;
 	}
 

@@ -27,13 +27,15 @@ public class HistoryDataUtils {
 	@SuppressWarnings("unchecked")
 	public static List<History> getLastHistories() {
 		List<History> list = null;
-		PersistenceManager em = null;
+		PersistenceManager pm = null;
 		try {
-			em = PMF.get().getPersistenceManager();
-			Query query = em.newQuery(History.class);
+			pm = PMF.get().getPersistenceManager();
+			Query query = pm.newQuery(History.class);
+			query.setOrdering("date DESC");
+			query.setRange(0, 50);
 			list = (List<History>) query.execute();
 		} finally {
-			em.close();
+			pm.close();
 		}
 		return list;
 
@@ -47,6 +49,7 @@ public class HistoryDataUtils {
 		try {
 			pm = PMF.get().getPersistenceManager();
 			Query q = pm.newQuery(History.class, " objectId == :objectId");
+			q.setOrdering("date");
 			list = (List<History>) q.execute(key);
 		} finally {
 			pm.close();
