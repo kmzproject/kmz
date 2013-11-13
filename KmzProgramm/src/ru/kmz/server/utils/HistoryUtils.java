@@ -16,6 +16,11 @@ public class HistoryUtils {
 		String CREATE_ORDER = "Создан заказ";
 		String EDIT_ORDER = "Изменен заказ";
 		String CREATE_PRODUCT = "Добавлено в производство";
+		String DELETE_PRODUCT = "Удалено из производства";
+	}
+
+	public static History getDeleteProductElementTask(ProductElementTask task) {
+		return getHistory(task.getKey(), HistoryName.DELETE_PRODUCT, task.toString() + " удалено из производства");
 	}
 
 	public static void addProductToOrder(ProductElementTask task) {
@@ -34,13 +39,17 @@ public class HistoryUtils {
 		createHistory(order.getKey(), HistoryName.EDIT_ORDER, order.toString());
 	}
 
-	private static void createHistory(Key key, String name, String comment) {
+	private static History getHistory(Key key, String name, String comment) {
 		History history = new History();
 		history.setDate(new Date());
 		history.setObjectId(key);
 		history.setComment(comment);
 		history.setName(name);
 
-		history = HistoryDataUtils.edit(history);
+		return history;
+	}
+
+	private static void createHistory(Key key, String name, String comment) {
+		HistoryDataUtils.edit(getHistory(key, name, comment));
 	}
 }

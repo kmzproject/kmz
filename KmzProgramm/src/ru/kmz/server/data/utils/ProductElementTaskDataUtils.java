@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.constants.ResourceTypes;
+import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.utils.HistoryUtils;
 
@@ -59,14 +60,25 @@ public class ProductElementTaskDataUtils {
 
 	public static void deleteProduct(String key) {
 		PersistenceManager pm = null;
-		ProductElementTask task;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			task = pm.getObjectById(ProductElementTask.class, key);
-			pm.deletePersistent(task);
+			ProductElementTask task = pm.getObjectById(ProductElementTask.class, key);
+			History history = HistoryUtils.getDeleteProductElementTask(task);
+			loadAllChild(pm, task);
+			deleteAndDeleteChilds(pm, task);
+			pm.makePersistent(history);
 		} finally {
 			pm.close();
 		}
+	}
+
+	private static void deleteAndDeleteChilds(PersistenceManager pm, ProductElementTask task) {
+		if (task.hasChild()) {
+			for (ProductElementTask child : task.getChilds()) {
+				deleteAndDeleteChilds(pm, child);
+			}
+		}
+		pm.deletePersistent(task);
 	}
 
 	public static ProductElementTask getTaskFull(String key) {

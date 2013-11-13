@@ -1,6 +1,7 @@
 package ru.kmz.web.projects.server;
 
 import java.util.Date;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -12,18 +13,26 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.utils.DateUtils;
+import ru.kmz.web.common.server.CommonServiceImpl;
+import ru.kmz.web.common.shared.HistoryProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.purchases.server.PurchasesModuleServiceImpl;
+import ru.kmz.web.purchases.shared.PurchaseProxy;
 import ru.test.DataTestEveryNew;
 
 public class DeleteProductTest extends DataTestEveryNew {
 
 	private ProjectsModuleServiceImpl service;
+	private PurchasesModuleServiceImpl purchaseService;
+	private CommonServiceImpl commonService;
 
 	@Before
 	public void createService() {
 		service = new ProjectsModuleServiceImpl();
+		purchaseService = new PurchasesModuleServiceImpl();
+		commonService = new CommonServiceImpl();
 	}
 
 	@Test
@@ -45,12 +54,21 @@ public class DeleteProductTest extends DataTestEveryNew {
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 
+		List<PurchaseProxy> purchases = purchaseService.getActivePurchases();
+		Assert.assertEquals(3, purchases.size());
+
 		service.deleteProduct(rootProduct.getId());
 
 		data = service.getCurrentTasks();
 		rootOrder = data.getChilds().get(0);
 		Assert.assertEquals(0, rootOrder.getChilds().size());
 
+		purchases = purchaseService.getActivePurchases();
+		Assert.assertEquals(0, purchases.size());
+
+		List<HistoryProxy> history = commonService.getHistoryByObject(null);
+		Assert.assertEquals(2, history.size());
+		Assert.assertEquals("I-001001 Изделие Short5 удалено из производства", history.get(0).getComment());
 	}
 
 }
