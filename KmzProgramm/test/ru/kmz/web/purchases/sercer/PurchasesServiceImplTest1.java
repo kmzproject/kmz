@@ -48,8 +48,11 @@ public class PurchasesServiceImplTest1 extends DataTestEveryNew {
 
 		Assert.assertEquals(3, purchases.size());
 		Assert.assertEquals("Покупка 1", purchases.get(0).getName());
+		Assert.assertEquals("D-001002", purchases.get(0).getCode());
 		Assert.assertEquals("Покупка 2", purchases.get(1).getName());
+		Assert.assertEquals("D-001003", purchases.get(1).getCode());
 		Assert.assertEquals("Покупка 3", purchases.get(2).getName());
+		Assert.assertEquals("D-001004", purchases.get(2).getCode());
 
 		Assert.assertEquals("Тестовый заказ 1", purchases.get(0).getOrderName());
 	}

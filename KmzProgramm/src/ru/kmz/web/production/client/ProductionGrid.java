@@ -31,7 +31,8 @@ public class ProductionGrid extends CommonGrid<ProductionProxy> {
 	public static ProductionGrid getCalculatorGrid() {
 		ListStore<ProductionProxy> store = new ListStore<ProductionProxy>(props.key());
 
-		ColumnConfig<ProductionProxy, String> orderNameCol = new ColumnConfig<ProductionProxy, String>(props.orderName(), 300, "Название заказа");
+		ColumnConfig<ProductionProxy, String> codeCol = new ColumnConfig<ProductionProxy, String>(props.code(), 50, "Код");
+		ColumnConfig<ProductionProxy, String> orderNameCol = new ColumnConfig<ProductionProxy, String>(props.orderName(), 100, "Название заказа");
 		ColumnConfig<ProductionProxy, String> nameCol = new ColumnConfig<ProductionProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<ProductionProxy, Date> startCol = new ColumnConfig<ProductionProxy, Date>(props.planStart(), 200, "Дата начала");
 		startCol.setCell(new DateCellFormat());
@@ -39,6 +40,7 @@ public class ProductionGrid extends CommonGrid<ProductionProxy> {
 		finishCol.setCell(new DateCellFormat());
 
 		List<ColumnConfig<ProductionProxy, ?>> l = new ArrayList<ColumnConfig<ProductionProxy, ?>>();
+		l.add(codeCol);
 		l.add(nameCol);
 		l.add(orderNameCol);
 		l.add(startCol);

@@ -10,6 +10,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GraphData;
@@ -33,6 +34,9 @@ public class ProductElementTask implements IProjectTask {
 
 	@Persistent
 	private String code;
+
+	@Persistent
+	private int number;
 
 	@Persistent
 	private int durationWork;
@@ -166,11 +170,11 @@ public class ProductElementTask implements IProjectTask {
 	}
 
 	public PurchaseProxy asPurchaseProxy() {
-		return new PurchaseProxy(getKeyStr(), name, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
+		return new PurchaseProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
 	}
 
 	public ProductionProxy asProductionProxy() {
-		return new ProductionProxy(getKeyStr(), name, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
+		return new ProductionProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
 	}
 
 	public String getResourceType() {
@@ -213,8 +217,31 @@ public class ProductElementTask implements IProjectTask {
 		this.count = count;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setNumberInfo(int number, String orderCode) {
+		this.number = number;
+		code = "000" + number;
+		code = code.substring(code.length() - 3);
+		String prefix = "0";
+		if (resourceType.equals(ResourceTypes.ASSEMBLAGE)) {
+			prefix = "A";
+		} else if (resourceType.equals(ResourceTypes.PREPARE)) {
+			prefix = "B";
+		} else if (resourceType.equals(ResourceTypes.FOLDER)) {
+			prefix = "F";
+		} else if (resourceType.equals(ResourceTypes.PRODUCT)) {
+			prefix = "I";
+		} else if (resourceType.equals(ResourceTypes.ORDER)) {
+			prefix = "D";
+		}
+		code = prefix + "-" + orderCode.substring(2) + code;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public int getNumber() {
+		return number;
 	}
 
 	public void addOffset(int offset) {

@@ -22,4 +22,5 @@ public interface ProductionProxyProperties extends PropertyAccess<ProductionProx
 
 	ValueProvider<ProductionProxy, Date> planFinish();
 
+	ValueProvider<ProductionProxy, String> code();
 }

@@ -31,7 +31,8 @@ public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 	public static PurchasesGrid getCalculatorGrid() {
 		ListStore<PurchaseProxy> store = new ListStore<PurchaseProxy>(props.key());
 
-		ColumnConfig<PurchaseProxy, String> orderNameCol = new ColumnConfig<PurchaseProxy, String>(props.orderName(), 300, "Название заказа");
+		ColumnConfig<PurchaseProxy, String> codeCol = new ColumnConfig<PurchaseProxy, String>(props.code(), 50, "Код");
+		ColumnConfig<PurchaseProxy, String> orderNameCol = new ColumnConfig<PurchaseProxy, String>(props.orderName(), 100, "Название заказа");
 		ColumnConfig<PurchaseProxy, String> nameCol = new ColumnConfig<PurchaseProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<PurchaseProxy, Date> startCol = new ColumnConfig<PurchaseProxy, Date>(props.planStart(), 200, "Дата начала");
 		startCol.setCell(new DateCellFormat());
@@ -39,6 +40,7 @@ public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 		finishCol.setCell(new DateCellFormat());
 
 		List<ColumnConfig<PurchaseProxy, ?>> l = new ArrayList<ColumnConfig<PurchaseProxy, ?>>();
+		l.add(codeCol);
 		l.add(nameCol);
 		l.add(orderNameCol);
 		l.add(startCol);

@@ -47,8 +47,11 @@ public class ProductionServiceImplTest1 extends DataTestEveryNew {
 
 		Assert.assertEquals(3, productions.size());
 		Assert.assertEquals("Сборка 1", productions.get(0).getName());
+		Assert.assertEquals("A-001002", productions.get(0).getCode());
 		Assert.assertEquals("Сборка 2", productions.get(1).getName());
+		Assert.assertEquals("A-001003", productions.get(1).getCode());
 		Assert.assertEquals("Сборка 3", productions.get(2).getName());
+		Assert.assertEquals("A-001004", productions.get(2).getCode());
 
 		Assert.assertEquals("Тестовый заказ 1", productions.get(0).getOrderName());
 	}

@@ -15,8 +15,10 @@ public class NewProjectService {
 	private ICalcucateExecutionServiceInterface service;
 	private Order order;
 	private int count;
+	private int taskNumber;
 
 	public NewProjectService() {
+		taskNumber = 0;
 	}
 
 	public void setOrder(Order order) {
@@ -49,6 +51,8 @@ public class NewProjectService {
 			task = new ProductElementTask(element.getName(), element.getDuration(), element.getResourceType(), resourceTask, parentElementTask);
 		}
 		task.setCount(count);
+		taskNumber++;
+		task.setNumberInfo(taskNumber, order.getCode());
 		task = ProductElementTaskDataUtils.edit(task);
 
 		if (element.hasChild()) {

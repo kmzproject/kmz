@@ -12,16 +12,18 @@ public class ProductionProxy implements Serializable {
 	private Date planStart;
 	private Date planFinish;
 	private boolean isComplite;
+	private String code;
 
 	public ProductionProxy() {
 	}
 
-	public ProductionProxy(String id, String name, Date planStart, Date planFinish, boolean isComplite) {
+	public ProductionProxy(String id, String name, String code, Date planStart, Date planFinish, boolean isComplite) {
 		this.id = id;
 		this.name = name;
 		this.planStart = planStart;
 		this.planFinish = planFinish;
 		this.isComplite = isComplite;
+		this.code = code;
 	}
 
 	public void setOrderName(String orderName) {
@@ -50,5 +52,9 @@ public class ProductionProxy implements Serializable {
 
 	public boolean isComplite() {
 		return isComplite;
+	}
+	
+	public String getCode(){
+		return code;
 	}
 }

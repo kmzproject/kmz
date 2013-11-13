@@ -22,4 +22,5 @@ public interface PurchaseProxyProperties extends PropertyAccess<PurchaseProxy> {
 
 	ValueProvider<PurchaseProxy, Date> planFinish();
 
+	ValueProvider<PurchaseProxy, String> code();
 }

@@ -105,8 +105,8 @@ public class Order implements IProjectTask {
 
 	public void setNumber(int number) {
 		this.number = number;
-		String code = "000" + number;
-		this.code = "Z-" + code.substring(code.length() - 3);
+		code = "000" + number;
+		code = "Z-" + code.substring(code.length() - 3);
 	}
 
 	public int getNumber() {

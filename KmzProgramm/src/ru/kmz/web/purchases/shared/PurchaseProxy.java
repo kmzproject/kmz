@@ -12,16 +12,18 @@ public class PurchaseProxy implements Serializable {
 	private Date planStart;
 	private Date planFinish;
 	private boolean isComplite;
+	private String code;
 
 	public PurchaseProxy() {
 	}
 
-	public PurchaseProxy(String id, String name, Date planStart, Date planFinish, boolean isComplite) {
+	public PurchaseProxy(String id, String name, String code, Date planStart, Date planFinish, boolean isComplite) {
 		this.id = id;
 		this.name = name;
 		this.planStart = planStart;
 		this.planFinish = planFinish;
 		this.isComplite = isComplite;
+		this.code = code;
 	}
 
 	public void setOrderName(String orderName) {
@@ -50,5 +52,9 @@ public class PurchaseProxy implements Serializable {
 
 	public boolean isComplite() {
 		return isComplite;
+	}
+	
+	public String getCode(){
+		return code;
 	}
 }
