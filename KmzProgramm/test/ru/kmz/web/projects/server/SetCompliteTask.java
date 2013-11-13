@@ -70,9 +70,9 @@ public class SetCompliteTask extends DataTestEveryNew {
 		Assert.assertEquals(3, histories.size());
 
 		Assert.assertEquals("Проставлен факт", histories.get(0).getName());
-		Assert.assertEquals("100", histories.get(0).getComment());
-		Assert.assertEquals("0", histories.get(1).getComment());
-		Assert.assertEquals("45", histories.get(2).getComment());
+		Assert.assertEquals("Покупка 1 факт=100", histories.get(0).getComment());
+		Assert.assertEquals("Покупка 1 факт=0", histories.get(1).getComment());
+		Assert.assertEquals("Покупка 1 факт=45", histories.get(2).getComment());
 
 	}
 

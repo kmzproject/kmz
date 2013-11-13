@@ -11,6 +11,9 @@ import ru.kmz.web.common.shared.HistoryProxy;
 import ru.kmz.web.common.shared.HistoryProxyProperties;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.data.client.loader.RpcProxy;
 import com.sencha.gxt.data.shared.ListStore;
@@ -75,6 +78,23 @@ public class HistoryGrid extends CommonGrid<HistoryProxy> {
 			}
 		};
 		return new PagingLoader<PagingLoadConfig, PagingLoadResult<HistoryProxy>>(proxy);
+	}
+	
+	
+	@Override
+	protected void inOnAfterFirstAttach() {
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				loader.load();
+				Timer timer = new Timer() {
+					public void run() {
+						loader.load();
+					}
+				};
+				timer.scheduleRepeating(1000 * 30);
+			}
+		});
 	}
 
 }

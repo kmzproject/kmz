@@ -15,7 +15,7 @@ public class HistoryUtils {
 	}
 
 	public static void setFact(ProductElementTask task) {
-		createHistory(task.getKey(), HistoryName.SET_FACT, "" + task.getDone());
+		createHistory(task.getKey(), HistoryName.SET_FACT, task.getName() + " факт=" + task.getDone());
 
 	}
 
