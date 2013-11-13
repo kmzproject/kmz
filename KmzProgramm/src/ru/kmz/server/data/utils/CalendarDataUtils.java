@@ -1,5 +1,6 @@
 package ru.kmz.server.data.utils;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -54,12 +55,29 @@ public class CalendarDataUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<CalendarRecord> getRecords(Key calendarId) {
+	public static List<CalendarRecord> getRecords(Key calendarId, Date limit) {
 		List<CalendarRecord> list = null;
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Query q = pm.newQuery(CalendarRecord.class, " calendarId == :calendarKey");
+			Query q = pm.newQuery(CalendarRecord.class, "this.date >= mydate && calendarId == calendarKey");
+			q.declareImports("import java.util.Date");
+			q.declareParameters("Date mydate, " + Key.class.getName() + " calendarKey");
+			System.out.println(q);
+			list = (List<CalendarRecord>) q.execute(limit, calendarId);
+		} finally {
+			pm.close();
+		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<CalendarRecord> getAllRecords(Key calendarId) {
+		List<CalendarRecord> list = null;
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Query q = pm.newQuery(CalendarRecord.class, "calendarId == :calendarKey");
 			list = (List<CalendarRecord>) q.execute(calendarId);
 		} finally {
 			pm.close();

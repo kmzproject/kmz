@@ -17,7 +17,7 @@ public class CreateCalendarRecordService {
 	public CreateCalendarRecordService(Key calendaeId) {
 		this.calendarId = calendaeId;
 
-		records = CalendarDataUtils.getRecords(calendaeId);
+		records = CalendarDataUtils.getAllRecords(calendaeId);
 	}
 
 	public void create(Date date) {

@@ -27,7 +27,7 @@ public class CalendarModuleServiceImpl extends RemoteServiceServlet implements C
 	@Override
 	public List<CalendarRecordProxy> getCalendarRecords() {
 		Calendar calendar = CalendarDataUtils.getCalendar();
-		List<CalendarRecord> list = CalendarDataUtils.getRecords(calendar.getKey());
+		List<CalendarRecord> list = CalendarDataUtils.getAllRecords(calendar.getKey());
 		List<CalendarRecordProxy> result = new ArrayList<CalendarRecordProxy>();
 		for (CalendarRecord record : list) {
 			result.add(record.asProxy());
