@@ -33,16 +33,17 @@ public class NewProjectService {
 		this.service = service;
 	}
 
-	public void save(Template template, Date date) {
+	public ProductElementTask save(Template template, Date date) {
 		service.calculate(template, date);
 
 		ProductTemplateElement root = template.getRootElement();
 
-		fill(null, root);
+		ProductElementTask task = fill(null, root);
+		return task;
 
 	}
 
-	private void fill(ProductElementTask parentElementTask, ProductTemplateElement element) {
+	private ProductElementTask fill(ProductElementTask parentElementTask, ProductTemplateElement element) {
 		ResourceTask resourceTask = service.getResult().get(element);
 		ProductElementTask task;
 		if (parentElementTask == null) {
@@ -60,5 +61,6 @@ public class NewProjectService {
 				fill(task, e);
 			}
 		}
+		return task;
 	}
 }

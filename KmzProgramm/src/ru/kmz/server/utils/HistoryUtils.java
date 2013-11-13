@@ -15,6 +15,11 @@ public class HistoryUtils {
 		String SET_FACT = "Проставлен факт";
 		String CREATE_ORDER = "Создан заказ";
 		String EDIT_ORDER = "Изменен заказ";
+		String CREATE_PRODUCT = "Добавлено в производство";
+	}
+
+	public static void addProductToOrder(ProductElementTask task) {
+		createHistory(task.getKey(), HistoryName.CREATE_PRODUCT, task.toString() + " добавлено в производство");
 	}
 
 	public static void setFact(ProductElementTask task, int oldFact) {

@@ -3,6 +3,7 @@ package ru.kmz.web.projects.server;
 import java.util.Date;
 
 import ru.kmz.server.data.model.Order;
+import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
@@ -16,6 +17,7 @@ import ru.kmz.server.engine.projects.UpdateProductElementTaskService;
 import ru.kmz.server.engine.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.resources.CalculateExecutionNoResourceService;
 import ru.kmz.server.utils.DateUtils;
+import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.ProjectsModuleService;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
@@ -82,7 +84,8 @@ public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements P
 
 		Template template = TemplateDataUtils.getTemplate(input.getTemplateId());
 		Date date = DateUtils.getDateNoTime(input.getDate());
-		service.save(template, date);
+		ProductElementTask task = service.save(template, date);
+		HistoryUtils.addProductToOrder(task);
 
 	}
 
