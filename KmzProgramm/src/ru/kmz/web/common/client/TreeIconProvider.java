@@ -16,13 +16,13 @@ public class TreeIconProvider<T extends HasResourceType> implements IconProvider
 			return TemplateTreeNodeImages.INSTANCE.assemblage();
 		if (node.getResourceType().equals(ResourceTypesConsts.PREPARE))
 			return TemplateTreeNodeImages.INSTANCE.prepare();
-		if (node.getResourceType().equals(ResourceTypesConsts.ORDER))
+		if (node.getResourceType().equals(ResourceTypesConsts.PURCHASE))
 			return TemplateTreeNodeImages.INSTANCE.order();
 		if (node.getResourceType().equals(ResourceTypesConsts.FOLDER))
 			return TemplateTreeNodeImages.INSTANCE.folder();
 		if (node.getResourceType().equals(ResourceTypesConsts.PRODUCT))
 			return TemplateTreeNodeImages.INSTANCE.product();
-		if (node.getResourceType().equals(ResourceTypesConsts.PRODUCT_ORDER))
+		if (node.getResourceType().equals(ResourceTypesConsts.ORDER))
 			return TemplateTreeNodeImages.INSTANCE.productOrder();
 		return null;
 	}

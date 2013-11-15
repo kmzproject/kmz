@@ -115,7 +115,7 @@ public class ProjectsToolBar implements IsWidget {
 	private ComboBox<KeyValueData> getFiltersComboBox() {
 		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
 		list.add(new KeyValueData(null, ""));
-		list.add(new KeyValueData(ResourceTypesConsts.ORDER, "Закупки"));
+		list.add(new KeyValueData(ResourceTypesConsts.PURCHASE, "Закупки"));
 		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE, "Сборку"));
 
 		ComboBox<KeyValueData> filterCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());

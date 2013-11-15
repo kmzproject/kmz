@@ -16,7 +16,7 @@ public class ResourcesDataUtilsTest1 extends DataTest {
 	public void TestCreateResource1() {
 		List<Resource> listBeforeAdd = ResourcesDataUtils.getAllResources();
 
-		Resource r = new Resource("Test1", ResourceTypes.ORDER);
+		Resource r = new Resource("Test1", ResourceTypes.PURCHASE);
 		r = ResourcesDataUtils.edit(r);
 		List<Resource> listAfterAdd = ResourcesDataUtils.getAllResources();
 		Assert.assertEquals(listBeforeAdd.size() + 1, listAfterAdd.size());

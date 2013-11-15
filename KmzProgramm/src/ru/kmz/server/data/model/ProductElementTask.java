@@ -230,7 +230,7 @@ public class ProductElementTask implements IProjectTask {
 			prefix = "F";
 		} else if (resourceType.equals(ResourceTypes.PRODUCT)) {
 			prefix = "I";
-		} else if (resourceType.equals(ResourceTypes.ORDER)) {
+		} else if (resourceType.equals(ResourceTypes.PURCHASE)) {
 			prefix = "D";
 		}
 		code = prefix + "-" + orderCode.substring(2) + code;

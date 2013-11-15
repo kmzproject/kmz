@@ -13,7 +13,7 @@ public class ResourceComboBoxUtils {
 	public static ComboBox<KeyValueData> createResourceComboBox() {
 		final ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
 
-		list.add(new KeyValueData(ResourceTypesConsts.ORDER));
+		list.add(new KeyValueData(ResourceTypesConsts.PURCHASE));
 		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE));
 		list.add(new KeyValueData(ResourceTypesConsts.PREPARE));
 

@@ -233,18 +233,18 @@ public class CommonGanttContainer implements IsWidget {
 				dataTaskStore.getFilters().clear();
 			}
 			StoreFilter<Task> filter = null;
-			if (ResourceTypesConsts.ORDER.equals(resourceType)) {
+			if (ResourceTypesConsts.PURCHASE.equals(resourceType)) {
 				filter = new StoreFilter<Task>() {
 					@Override
 					public boolean select(Store<Task> store, Task parent, Task item) {
-						return !item.getResourceType().equals(ResourceTypesConsts.ORDER);
+						return !item.getResourceType().equals(ResourceTypesConsts.PURCHASE);
 					}
 				};
 			} else if (ResourceTypesConsts.ASSEMBLAGE.equals(resourceType)) {
 				filter = new StoreFilter<Task>() {
 					@Override
 					public boolean select(Store<Task> store, Task parent, Task item) {
-						return !item.getResourceType().equals(ResourceTypesConsts.ORDER) && !item.getResourceType().equals(ResourceTypesConsts.PREPARE)
+						return !item.getResourceType().equals(ResourceTypesConsts.PURCHASE) && !item.getResourceType().equals(ResourceTypesConsts.PREPARE)
 								&& !item.getResourceType().equals(ResourceTypesConsts.ASSEMBLAGE);
 					}
 				};

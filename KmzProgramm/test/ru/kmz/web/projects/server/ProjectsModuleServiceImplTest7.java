@@ -38,7 +38,7 @@ public class ProjectsModuleServiceImplTest7 extends DataTestEveryNew {
 		GraphData d1_1 = root.getChilds().get(0).getChilds().get(0);
 		Assert.assertEquals("Покупка 1", d1_1.getName());
 		Assert.assertEquals(start, d1_1.getPlanStart());
-		Assert.assertEquals(ResourceTypes.ORDER, d1_1.getResourceType());
+		Assert.assertEquals(ResourceTypes.PURCHASE, d1_1.getResourceType());
 		Assert.assertEquals(DateUtils.getOffsetDate(start, 3), d1_1.getPlanFinish());
 
 		GraphData d1_2 = root.getChilds().get(1).getChilds().get(0);

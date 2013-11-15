@@ -26,7 +26,7 @@ public class TemplateModuleServiceImpl extends TemplateCommonServiceImpl impleme
 	@Override
 	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey) {
 		ProductTemplateElement parentElement = TemplateDataUtils.getProducteTemplateElement(parentKey);
-		ProductTemplateElement element = new ProductTemplateElement("Новый узел", 0, ResourceTypes.ORDER, parentElement);
+		ProductTemplateElement element = new ProductTemplateElement("Новый узел", 0, ResourceTypes.PURCHASE, parentElement);
 		element = TemplateDataUtils.edit(element);
 		return element.asProxy();
 	}
