@@ -38,7 +38,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public String getModuleName() {
-		return "Производство";
+		return "Планирование";
 	}
 
 	public static ProjectsModuleView getInstance() {

@@ -1,27 +1,18 @@
-package ru.kmz.web.production.client;
-
-import java.util.List;
+package ru.kmz.web.products.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
-import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
-import ru.kmz.web.production.shared.ProductionProxy;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
-public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
+public class ProductsModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
-	private static ProductionModuleView instanse;
-	private final static ProductionModuleServiceAsync service = GWT.create(ProductionModuleService.class);
-
-	private ProductionGrid grid;
+	private static ProductsModuleView instanse;
 
 	@Override
 	public void onModuleLoad() {
@@ -32,12 +23,12 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 
 	@Override
 	public String getModuleName() {
-		return "Производство";
+		return "Изделия";
 	}
 
-	public static ProductionModuleView getInstance() {
+	public static ProductsModuleView getInstance() {
 		if (instanse == null)
-			instanse = new ProductionModuleView();
+			instanse = new ProductsModuleView();
 		return instanse;
 	}
 
@@ -47,8 +38,6 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 
 		container.add(createToolBar());
 
-		grid = ProductionGrid.getCalculatorGrid();
-		container.add(grid);
 
 	}
 
@@ -59,17 +48,6 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				List<ProductionProxy> list = grid.getSelectionModel().getSelectedItems();
-				if (list == null || list.size() != 1) {
-					Info.display("Предупреждение", "Невозможно произвести редактирование");
-					return;
-				}
-				getService().compliteProduction(list.get(0).getId(), new AsyncCallbackWithErrorMessage<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						update();
-					}
-				});
 			}
 		});
 		toolBar.add(compliteTextButton);
@@ -87,13 +65,9 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 		return toolBar;
 	}
 
-	public static ProductionModuleServiceAsync getService() {
-		return service;
-	}
 
 	@Override
 	public void update() {
-		grid.updateData();
 	}
 
 }
