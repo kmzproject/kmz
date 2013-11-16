@@ -18,6 +18,7 @@ public class OrderDataUtils {
 		try {
 			em = PMF.get().getPersistenceManager();
 			Query query = em.newQuery(Order.class);
+			query.setOrdering("code");
 			list = (List<Order>) query.execute();
 		} finally {
 			em.close();
