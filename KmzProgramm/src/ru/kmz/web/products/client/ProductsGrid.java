@@ -7,6 +7,7 @@ import java.util.List;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
 import ru.kmz.web.common.client.control.DateCellFormat;
+import ru.kmz.web.projectscommon.client.ProductProxyProperties;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
 
 import com.google.gwt.core.client.GWT;

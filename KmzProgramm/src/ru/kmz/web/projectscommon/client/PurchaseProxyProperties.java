@@ -1,4 +1,4 @@
-package ru.kmz.web.purchases.client;
+package ru.kmz.web.projectscommon.client;
 
 import java.util.Date;
 
