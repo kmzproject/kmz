@@ -1,4 +1,4 @@
-package ru.kmz.web.production.server;
+package ru.kmz.web.projectscommon.server;
 
 import java.util.Date;
 import java.util.List;
@@ -15,19 +15,21 @@ import ru.kmz.server.data.model.Template;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
-import ru.kmz.web.production.shared.ProductionProxy;
+import ru.kmz.web.production.client.ProductionModuleService;
 import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
+import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.test.DataTestEveryNew;
 
-public class ProductionServiceImplTest1 extends DataTestEveryNew {
+public class ProductionTest1 extends DataTestEveryNew {
 
-	private ProductionModuleServiceImpl service;
+	private ProductionModuleService service;
 	private ProjectsModuleServiceImpl projectsService;
 
 	@Before
 	public void createService() {
-		service = new ProductionModuleServiceImpl();
+		service = new ProjectsCommonServiceImpl();
 		projectsService = new ProjectsModuleServiceImpl();
 	}
 

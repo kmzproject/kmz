@@ -8,15 +8,17 @@ import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
+import ru.kmz.web.production.client.ProductionModuleService;
 import ru.kmz.web.products.client.ProductsModuleService;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
+import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.purchases.client.PurchasesModuleService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class ProjectsCommonServiceImpl extends RemoteServiceServlet implements PurchasesModuleService, ProductsModuleService {
+public class ProjectsCommonServiceImpl extends RemoteServiceServlet implements PurchasesModuleService, ProductsModuleService, ProductionModuleService {
 
 	@Override
 	public List<PurchaseProxy> getActivePurchases() {
@@ -48,6 +50,27 @@ public class ProjectsCommonServiceImpl extends RemoteServiceServlet implements P
 			Order order = OrderDataUtils.getOrder(task.getOrderIdStr());
 
 			ProductProxy proxy = task.asProductProxy();
+			proxy.setOrderName(order.getName());
+			proxyList.add(proxy);
+		}
+		return proxyList;
+	}
+
+	@Override
+	public void compliteProduction(String id) {
+		// TODO: добавить логику на проверку завершенности под закупок
+		ProductElementTaskDataUtils.setTaskComplitePersents(id, 100);
+	}
+
+	@Override
+	public List<ProductionProxy> getActiveProductions() {
+		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.ASSEMBLAGE);
+		List<ProductionProxy> proxyList = new ArrayList<ProductionProxy>();
+
+		for (ProductElementTask task : list) {
+			Order order = OrderDataUtils.getOrder(task.getOrderIdStr());
+
+			ProductionProxy proxy = task.asProductionProxy();
 			proxy.setOrderName(order.getName());
 			proxyList.add(proxy);
 		}

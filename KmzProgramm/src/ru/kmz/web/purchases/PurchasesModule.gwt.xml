@@ -3,6 +3,5 @@
 <module rename-to="purchasesmodule">
 	<inherits name="ru.kmz.web.projectscommon.ProjectsCommon" />
 	<source path="client" />
-	<source path="shared" />
 	<entry-point class="ru.kmz.web.purchases.client.PurchasesModuleView" />
 </module>

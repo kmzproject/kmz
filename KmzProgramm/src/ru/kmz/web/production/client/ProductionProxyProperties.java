@@ -2,7 +2,7 @@ package ru.kmz.web.production.client;
 
 import java.util.Date;
 
-import ru.kmz.web.production.shared.ProductionProxy;
+import ru.kmz.web.projectscommon.shared.ProductionProxy;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;

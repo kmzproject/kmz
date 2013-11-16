@@ -2,7 +2,7 @@ package ru.kmz.web.production.client;
 
 import java.util.List;
 
-import ru.kmz.web.production.shared.ProductionProxy;
+import ru.kmz.web.projectscommon.shared.ProductionProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

@@ -6,7 +6,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
-import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.utils.HistoryUtils;
@@ -20,20 +19,6 @@ public class ProductElementTaskDataUtils {
 		try {
 			pm = PMF.get().getPersistenceManager();
 			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + resourceType + "' && done <100");
-			list = (List<ProductElementTask>) q.execute();
-		} finally {
-			pm.close();
-		}
-		return list;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<ProductElementTask> getNotComplitedAssemblages() {
-		List<ProductElementTask> list = null;
-		PersistenceManager pm = null;
-		try {
-			pm = PMF.get().getPersistenceManager();
-			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.ASSEMBLAGE + "' && done <100");
 			list = (List<ProductElementTask>) q.execute();
 		} finally {
 			pm.close();
