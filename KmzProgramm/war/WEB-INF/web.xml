@@ -26,7 +26,7 @@
 		<servlet-class>ru.kmz.web.projects.server.ProjectsModuleServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>purchasesModule</servlet-name>
+		<servlet-name>projectsCommon</servlet-name>
 		<servlet-class>ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
@@ -87,9 +87,9 @@
 		<url-pattern>/kmzprogramm/resourcesModule</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>purchasesModule</servlet-name>
+		<servlet-name>projectsCommon</servlet-name>
 		<url-pattern>/purchasesmodule/purchasesModule</url-pattern>
-		<url-pattern>/kmzprogramm/purchasesModule</url-pattern>
+		<url-pattern>/kmzprogramm/projectsCommon</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>calendarModule</servlet-name>

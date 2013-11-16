@@ -3,6 +3,7 @@ package ru.kmz.web.products.client;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.window.IUpdatable;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
@@ -13,6 +14,9 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 public class ProductsModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
 	private static ProductsModuleView instanse;
+	private final static ProductsModuleServiceAsync service = GWT.create(ProductsModuleService.class);
+
+	private ProductsGrid grid;
 
 	@Override
 	public void onModuleLoad() {
@@ -38,20 +42,14 @@ public class ProductsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 		container.add(createToolBar());
 
+		grid = ProductsGrid.getCalculatorGrid();
+		container.add(grid);
 
 	}
 
 	private ToolBar createToolBar() {
 		ToolBar toolBar = new ToolBar();
-		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
-		compliteTextButton.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-			}
-		});
-		toolBar.add(compliteTextButton);
-
+		
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
 
@@ -65,9 +63,13 @@ public class ProductsModuleView extends AbstarctModuleView<VerticalLayoutContain
 		return toolBar;
 	}
 
+	public static ProductsModuleServiceAsync getService() {
+		return service;
+	}
 
 	@Override
 	public void update() {
+		grid.updateData();
 	}
 
 }

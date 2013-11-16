@@ -19,11 +19,12 @@ import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
+import ru.kmz.web.purchases.client.PurchasesModuleService;
 import ru.test.DataTestEveryNew;
 
 public class PurchasesTest1 extends DataTestEveryNew {
 
-	private ProjectsCommonServiceImpl service;
+	private PurchasesModuleService service;
 	private ProjectsModuleServiceImpl projectsService;
 
 	@Before

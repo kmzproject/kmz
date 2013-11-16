@@ -14,12 +14,12 @@ import ru.kmz.server.utils.HistoryUtils;
 public class ProductElementTaskDataUtils {
 
 	@SuppressWarnings("unchecked")
-	public static List<ProductElementTask> getNotComplitedOrders() {
+	public static List<ProductElementTask> getNotComplitedTask(String resourceType) {
 		List<ProductElementTask> list = null;
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + ResourceTypes.PURCHASE + "' && done <100");
+			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + resourceType + "' && done <100");
 			list = (List<ProductElementTask>) q.execute();
 		} finally {
 			pm.close();
