@@ -25,7 +25,7 @@ import com.sencha.gxt.data.shared.PropertyAccess;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 
-public class ColumnExample implements IsWidget, EntryPoint {
+public class FunctioningCapacityChart implements IsWidget, EntryPoint {
 
 	public interface DataPropertyAccess extends PropertyAccess<FunctioningCapacityProxy> {
 		ValueProvider<FunctioningCapacityProxy, Integer> activitiesCount();
@@ -38,26 +38,34 @@ public class ColumnExample implements IsWidget, EntryPoint {
 
 	private static final DataPropertyAccess dataAccess = GWT.create(DataPropertyAccess.class);
 
-	@Override
-	public Widget asWidget() {
-		final ListStore<FunctioningCapacityProxy> store = new ListStore<FunctioningCapacityProxy>(dataAccess.nameKey());
+	private ListStore<FunctioningCapacityProxy> store;
+	private Chart<FunctioningCapacityProxy> chart;
+
+	public void setData(List<FunctioningCapacityProxy> list) {
+		store.clear();
+		store.addAll(list);
+		chart.redrawChart();
+	}
+
+	public FunctioningCapacityChart() {
+		store = new ListStore<FunctioningCapacityProxy>(dataAccess.nameKey());
 		List<FunctioningCapacityProxy> list = new ArrayList<FunctioningCapacityProxy>();
-		list.add(new FunctioningCapacityProxy("1", 3));
-		list.add(new FunctioningCapacityProxy("2", 4));
-		list.add(new FunctioningCapacityProxy("3", 5));
-		list.add(new FunctioningCapacityProxy("4", 6));
 		store.addAll(list);
 
-		final Chart<FunctioningCapacityProxy> chart = new Chart<FunctioningCapacityProxy>();
+		chart = new Chart<FunctioningCapacityProxy>();
 		chart.setStore(store);
 		chart.setShadowChart(true);
+	}
+
+	@Override
+	public Widget asWidget() {
 
 		NumericAxis<FunctioningCapacityProxy> axis = new NumericAxis<FunctioningCapacityProxy>();
 		axis.setMaximum(10);
 		axis.setMinimum(0);
 		axis.setPosition(Position.LEFT);
 		axis.addField(dataAccess.activitiesCount());
-		TextSprite title = new TextSprite("Количество работ");
+		TextSprite title = new TextSprite("Количество активностей");
 		title.setFontSize(18);
 		axis.setTitleConfig(title);
 		axis.setDisplayGrid(true);
@@ -67,7 +75,7 @@ public class ColumnExample implements IsWidget, EntryPoint {
 		CategoryAxis<FunctioningCapacityProxy, String> catAxis = new CategoryAxis<FunctioningCapacityProxy, String>();
 		catAxis.setPosition(Position.BOTTOM);
 		catAxis.setField(dataAccess.day());
-		title = new TextSprite("День");
+		title = new TextSprite("Дата");
 		title.setFontSize(18);
 		catAxis.setTitleConfig(title);
 		chart.addAxis(catAxis);

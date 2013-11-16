@@ -5,6 +5,11 @@
 	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
 	<!-- Servlets -->
+
+	<servlet>
+		<servlet-name>projectsChart</servlet-name>
+		<servlet-class>ru.kmz.web.projectschart.server.ProjectsChartServiceImpl</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>templateCommon</servlet-name>
 		<servlet-class>ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl</servlet-class>
@@ -82,6 +87,12 @@
 		<url-pattern>/calendarmodule/calendarModule</url-pattern>
 		<url-pattern>/kmzprogramm/calendarModule</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>projectsChart</servlet-name>
+		<url-pattern>/projectschartmodules/projectsChart</url-pattern>
+		<url-pattern>/kmzprogramm/projectsChart</url-pattern>
+	</servlet-mapping>
+
 
 
 	<!-- Default page to serve -->

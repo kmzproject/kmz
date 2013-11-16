@@ -1,8 +1,13 @@
 package ru.kmz.web.projectschart.client;
 
-import ru.kmz.web.common.client.AbstarctModuleView;
-import ru.kmz.web.common.client.window.IUpdatable;
+import java.util.List;
 
+import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.projectschart.shared.FunctioningCapacityProxy;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
@@ -13,6 +18,9 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 public class ProjectsChartModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
 	private static ProjectsChartModuleView instanse;
+	private static ProjectsChartServiceAsync service = GWT.create(ProjectsChartService.class);
+
+	private FunctioningCapacityChart chart;
 
 	@Override
 	public void onModuleLoad() {
@@ -38,7 +46,7 @@ public class ProjectsChartModuleView extends AbstarctModuleView<VerticalLayoutCo
 
 		container.add(createToolBar());
 
-		ColumnExample chart = new ColumnExample();
+		chart = new FunctioningCapacityChart();
 		container.add(chart);
 
 	}
@@ -58,9 +66,20 @@ public class ProjectsChartModuleView extends AbstarctModuleView<VerticalLayoutCo
 
 		return toolBar;
 	}
+	
+	public static ProjectsChartServiceAsync getService(){
+		return service;
+	}
 
 	@Override
 	public void update() {
-	}
+		getService().getFunctioningCapacity(new AsyncCallbackWithErrorMessage<List<FunctioningCapacityProxy>>() {
 
+			@Override
+			public void onSuccess(List<FunctioningCapacityProxy> result) {
+				chart.setData(result);
+			}
+			
+		});
+	}
 }
