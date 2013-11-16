@@ -78,6 +78,7 @@ public class CalendarDataUtils {
 		try {
 			pm = PMF.get().getPersistenceManager();
 			Query q = pm.newQuery(CalendarRecord.class, "calendarId == :calendarKey");
+			q.setOrdering("date");
 			list = (List<CalendarRecord>) q.execute(calendarId);
 		} finally {
 			pm.close();
