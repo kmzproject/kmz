@@ -4,6 +4,7 @@
 	<inherits name="ru.kmz.web.projectscommon.ProjectsCommon" />
 	<inherits name="ru.kmz.web.templatecommon.TemplateCommon" />
 	<inherits name="ru.kmz.web.ordercommon.OrderCommon" />
+	<inherits name="ru.kmz.web.ganttcommon.GantModule" />
 	<source path="client" />
 	<source path="shared" />
 	<entry-point class="ru.kmz.web.projects.client.ProjectsModuleView" />
