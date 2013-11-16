@@ -1,4 +1,4 @@
-package ru.kmz.web.purchases.sercer;
+package ru.kmz.web.projectscommon.server;
 
 import java.util.Date;
 import java.util.List;
@@ -17,18 +17,18 @@ import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
-import ru.kmz.web.purchases.server.PurchasesModuleServiceImpl;
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.test.DataTestEveryNew;
 
-public class PurchasesServiceImplTest1 extends DataTestEveryNew {
+public class PurchasesTest1 extends DataTestEveryNew {
 
-	private PurchasesModuleServiceImpl service;
+	private ProjectsCommonServiceImpl service;
 	private ProjectsModuleServiceImpl projectsService;
 
 	@Before
 	public void createService() {
-		service = new PurchasesModuleServiceImpl();
+		service = new ProjectsCommonServiceImpl();
 		projectsService = new ProjectsModuleServiceImpl();
 	}
 

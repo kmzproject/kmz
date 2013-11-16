@@ -1,4 +1,4 @@
-package ru.kmz.web.purchases.shared;
+package ru.kmz.web.projectscommon.shared;
 
 import java.io.Serializable;
 import java.util.Date;

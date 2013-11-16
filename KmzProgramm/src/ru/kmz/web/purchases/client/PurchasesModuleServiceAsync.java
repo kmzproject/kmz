@@ -2,7 +2,7 @@ package ru.kmz.web.purchases.client;
 
 import java.util.List;
 
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

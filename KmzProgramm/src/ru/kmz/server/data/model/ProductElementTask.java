@@ -15,7 +15,7 @@ import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.production.shared.ProductionProxy;
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 

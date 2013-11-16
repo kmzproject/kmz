@@ -27,7 +27,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>purchasesModule</servlet-name>
-		<servlet-class>ru.kmz.web.purchases.server.PurchasesModuleServiceImpl</servlet-class>
+		<servlet-class>ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>calendarModule</servlet-name>

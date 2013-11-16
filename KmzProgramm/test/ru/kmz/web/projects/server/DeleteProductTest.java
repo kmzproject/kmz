@@ -18,20 +18,21 @@ import ru.kmz.web.common.shared.HistoryProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
-import ru.kmz.web.purchases.server.PurchasesModuleServiceImpl;
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
+import ru.kmz.web.purchases.client.PurchasesModuleService;
 import ru.test.DataTestEveryNew;
 
 public class DeleteProductTest extends DataTestEveryNew {
 
 	private ProjectsModuleServiceImpl service;
-	private PurchasesModuleServiceImpl purchaseService;
+	private PurchasesModuleService purchaseService;
 	private CommonServiceImpl commonService;
 
 	@Before
 	public void createService() {
 		service = new ProjectsModuleServiceImpl();
-		purchaseService = new PurchasesModuleServiceImpl();
+		purchaseService = new ProjectsCommonServiceImpl();
 		commonService = new CommonServiceImpl();
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;

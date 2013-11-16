@@ -7,7 +7,7 @@ import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 public class PurchasesListUtils {
 

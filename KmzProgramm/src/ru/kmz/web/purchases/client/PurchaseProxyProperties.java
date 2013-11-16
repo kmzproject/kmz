@@ -2,7 +2,7 @@ package ru.kmz.web.purchases.client;
 
 import java.util.Date;
 
-import ru.kmz.web.purchases.shared.PurchaseProxy;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;
