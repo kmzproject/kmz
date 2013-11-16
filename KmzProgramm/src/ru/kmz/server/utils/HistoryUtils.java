@@ -6,9 +6,12 @@ import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
+import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.HistoryDataUtils;
+import ru.kmz.server.data.utils.TemplateDataUtils;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public class HistoryUtils {
 
@@ -21,6 +24,22 @@ public class HistoryUtils {
 		String CALCULATE_CALENDAR = "Расчет выходных дней";
 		String CREATE_CALENDAR_RECORD = "Добавлен выходной день";
 		String DELETE_CALENDAR_RECORD = "Удален выходной";
+
+		String TEMPLATE_CREATE = "Создан шаблон";
+		String TEMPLATE_EDIT = "Внесены изменения в шаблон";
+	}
+
+	public static void editTemplate(Key templateId) {
+		Template template = TemplateDataUtils.getTemplate(KeyFactory.keyToString(templateId));
+		editTemplate(template);
+	}
+
+	public static void editTemplate(Template template) {
+		createHistory(template.getKey(), HistoryName.TEMPLATE_EDIT, template.toString());
+	}
+
+	public static void createTemplate(Template template) {
+		createHistory(template.getKey(), HistoryName.TEMPLATE_CREATE, template.toString());
 	}
 
 	public static void createCalendarRecocd(CalendarRecord record) {

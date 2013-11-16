@@ -66,4 +66,9 @@ public class Template {
 		return proxy;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

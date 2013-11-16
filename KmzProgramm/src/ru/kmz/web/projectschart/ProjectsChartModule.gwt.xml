@@ -3,6 +3,5 @@
 <module rename-to="projectschartmodules">
 	<inherits name="ru.kmz.web.common.KMZCommon" />
 	<source path="client" />
-	<source path="shared" />
 	<entry-point class="ru.kmz.web.projectschart.client.ProjectsChartModuleView" />
 </module>
