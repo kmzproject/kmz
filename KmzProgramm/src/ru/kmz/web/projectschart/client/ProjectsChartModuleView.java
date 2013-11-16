@@ -38,18 +38,13 @@ public class ProjectsChartModuleView extends AbstarctModuleView<VerticalLayoutCo
 
 		container.add(createToolBar());
 
+		ColumnExample chart = new ColumnExample();
+		container.add(chart);
+
 	}
 
 	private ToolBar createToolBar() {
 		ToolBar toolBar = new ToolBar();
-		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
-		compliteTextButton.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-			}
-		});
-		toolBar.add(compliteTextButton);
 
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
