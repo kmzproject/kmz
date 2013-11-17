@@ -16,16 +16,15 @@ import ru.kmz.server.engine.projects.NewProjectService;
 import ru.kmz.server.engine.projects.UpdateProductElementTaskService;
 import ru.kmz.server.engine.resources.CalculateExecutaionFirstFreeService;
 import ru.kmz.server.engine.resources.CalculateExecutionNoResourceService;
+import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.ProjectsModuleService;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 @SuppressWarnings("serial")
-public class ProjectsModuleServiceImpl extends RemoteServiceServlet implements ProjectsModuleService {
+public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements ProjectsModuleService {
 
 	@Override
 	public GanttData getCurrentTasks() {

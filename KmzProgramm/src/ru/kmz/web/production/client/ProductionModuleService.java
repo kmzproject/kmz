@@ -7,7 +7,7 @@ import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("projectsCommon")
+@RemoteServiceRelativePath("projectsCommon.rpc")
 public interface ProductionModuleService extends RemoteService {
 
 	void compliteProduction(String id);

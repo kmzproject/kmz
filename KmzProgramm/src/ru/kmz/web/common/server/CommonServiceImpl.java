@@ -5,13 +5,12 @@ import java.util.List;
 
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.utils.HistoryDataUtils;
+import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.web.common.client.service.CommonService;
 import ru.kmz.web.common.shared.HistoryProxy;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 @SuppressWarnings("serial")
-public class CommonServiceImpl extends RemoteServiceServlet implements CommonService {
+public class CommonServiceImpl extends AbstractServiceImpl implements CommonService {
 
 	@Override
 	public List<HistoryProxy> getHistoryByObject(String keyStr) {

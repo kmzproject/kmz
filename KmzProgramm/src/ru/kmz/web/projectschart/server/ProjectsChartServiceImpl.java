@@ -6,15 +6,14 @@ import java.util.List;
 
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
+import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.projectschart.client.ProjectsChartService;
 import ru.kmz.web.projectschart.shared.FunctioningCapacityParams;
 import ru.kmz.web.projectschart.shared.FunctioningCapacityProxy;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 @SuppressWarnings("serial")
-public class ProjectsChartServiceImpl extends RemoteServiceServlet implements ProjectsChartService {
+public class ProjectsChartServiceImpl extends AbstractServiceImpl implements ProjectsChartService {
 
 	@Override
 	public List<FunctioningCapacityProxy> getFunctioningCapacity(FunctioningCapacityParams params) {

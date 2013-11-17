@@ -9,7 +9,7 @@ import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("calendarModule")
+@RemoteServiceRelativePath("calendarModule.rpc")
 public interface CalendarModuleService extends RemoteService {
 
 	CalendarProxy getCalendar();

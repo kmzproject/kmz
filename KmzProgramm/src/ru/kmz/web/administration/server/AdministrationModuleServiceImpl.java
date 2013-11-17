@@ -4,12 +4,11 @@ import ru.kmz.server.data.generator.CalendarTestData;
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.ResourceTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
+import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.web.administration.client.AdministrationModuleService;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 @SuppressWarnings("serial")
-public class AdministrationModuleServiceImpl extends RemoteServiceServlet implements AdministrationModuleService {
+public class AdministrationModuleServiceImpl extends AbstractServiceImpl implements AdministrationModuleService {
 
 	@Override
 	public void recreateData() {

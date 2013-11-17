@@ -7,7 +7,7 @@ import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("projectsCommon")
+@RemoteServiceRelativePath("projectsCommon.rpc")
 public interface PurchasesModuleService extends RemoteService {
 
 	List<PurchaseProxy> getActivePurchases();

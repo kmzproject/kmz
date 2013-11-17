@@ -15,11 +15,26 @@
 		<property name="mappings">
 			<value>
 				/**/orderCommon.rpc=orderCommon
+				/**/calendarModule.rpc=calendarModule
+				/**/commonModule.rpc=commonModule
+				/**/projectsChart.rpc=projectsChart
+				/**/templateCommon.rpc=templateCommon
+				/**/resourcesModule.rpc=resourcesModule
+				/**/projectsModule.rpc=projectsModule
+				/**/projectsCommon.rpc=projectsCommon
+				/**/administrationModule.rpc=administrationModule
 			</value>
 		</property>
 	</bean>
 
-	<bean id="orderCommon" class="ru.kmz.web.ordercommon.server.OrderCommonServiceImpl">
-	</bean>
+	<bean id="orderCommon" class="ru.kmz.web.ordercommon.server.OrderCommonServiceImpl"/>
+	<bean id="calendarModule" class="ru.kmz.web.calendar.server.CalendarModuleServiceImpl"/>
+	<bean id="commonModule" class="ru.kmz.web.common.server.CommonServiceImpl"/>
+	<bean id="projectsChart" class="ru.kmz.web.projectschart.server.ProjectsChartServiceImpl"/>
+	<bean id="templateCommon" class="ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl"/>
+	<bean id="resourcesModule" class="ru.kmz.web.resources.server.ResourcesModuleServiceImpl"/>
+	<bean id="projectsModule" class="ru.kmz.web.projects.server.ProjectsModuleServiceImpl"/>
+	<bean id="projectsCommon" class="ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl"/>
+	<bean id="administrationModule" class="ru.kmz.web.administration.server.AdministrationModuleServiceImpl"/>
 
 </beans>

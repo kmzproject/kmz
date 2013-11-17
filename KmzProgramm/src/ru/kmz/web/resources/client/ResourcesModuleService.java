@@ -7,7 +7,7 @@ import ru.kmz.web.resources.shared.ResourceProxy;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("resourcesModule")
+@RemoteServiceRelativePath("resourcesModule.rpc")
 public interface ResourcesModuleService extends RemoteService {
 
 	List<ResourceProxy> getAllResources();

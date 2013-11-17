@@ -8,15 +8,14 @@ import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.utils.CalendarDataUtils;
 import ru.kmz.server.engine.calculator.CreateCalendarRecordService;
 import ru.kmz.server.engine.calculator.GenerateWeekendService;
+import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.web.calendar.client.CalendarModuleService;
 import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
 import ru.kmz.web.calendar.shared.CalendarProxy;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 @SuppressWarnings("serial")
-public class CalendarModuleServiceImpl extends RemoteServiceServlet implements CalendarModuleService {
+public class CalendarModuleServiceImpl extends AbstractServiceImpl implements CalendarModuleService {
 	@Override
 	public CalendarProxy getCalendar() {
 		Calendar calendar = CalendarDataUtils.getCalendar();

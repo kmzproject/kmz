@@ -8,7 +8,7 @@ import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("projectsModule")
+@RemoteServiceRelativePath("projectsModule.rpc")
 public interface ProjectsModuleService extends RemoteService {
 
 	GanttData getCurrentTasks();

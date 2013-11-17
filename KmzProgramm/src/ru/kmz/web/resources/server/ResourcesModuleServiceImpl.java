@@ -5,13 +5,12 @@ import java.util.List;
 
 import ru.kmz.server.data.model.Resource;
 import ru.kmz.server.data.utils.ResourcesDataUtils;
+import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.web.resources.client.ResourcesModuleService;
 import ru.kmz.web.resources.shared.ResourceProxy;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 @SuppressWarnings("serial")
-public class ResourcesModuleServiceImpl extends RemoteServiceServlet implements ResourcesModuleService {
+public class ResourcesModuleServiceImpl extends AbstractServiceImpl implements ResourcesModuleService {
 
 	@Override
 	public List<ResourceProxy> getAllResources() {
