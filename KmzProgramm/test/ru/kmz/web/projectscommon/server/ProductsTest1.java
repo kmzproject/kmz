@@ -35,7 +35,7 @@ public class ProductsTest1 extends DataTestEveryNew {
 		Template template = TemplateTestData.createTemplateShort5();
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
-		Date date = DateUtils.getDate("2013/10/01");
+		Date date = DateUtils.getDate("2013/10/10");
 		input.setDate(date);
 		input.setTemplateId(template.getKeyStr());
 		String orderId = order.getKeyStr();
@@ -47,6 +47,8 @@ public class ProductsTest1 extends DataTestEveryNew {
 		Assert.assertEquals(1, products.size());
 		Assert.assertEquals("Изделие Short5", products.get(0).getName());
 		Assert.assertEquals("I-001001", products.get(0).getCode());
+		// Assert.assertEquals(DateUtils.getDate("2013/10/07"), products.get(0).getPlanStart()); информация не хранится (пок)
+		Assert.assertEquals(date, products.get(0).getPlanFinish());
 
 		Assert.assertEquals("Тестовый заказ 1", products.get(0).getOrderName());
 	}

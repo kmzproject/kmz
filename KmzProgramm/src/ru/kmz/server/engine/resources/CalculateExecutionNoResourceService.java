@@ -29,6 +29,7 @@ public class CalculateExecutionNoResourceService implements ICalcucateExecutionS
 			calendarService = new CalendarOffsetService();
 		}
 		calculateElementStart(template.getRootElement(), date);
+		printMap();
 	}
 
 	public Date calculateElementStart(ProductTemplateElement element, Date finish) {
@@ -58,6 +59,12 @@ public class CalculateExecutionNoResourceService implements ICalcucateExecutionS
 	@Override
 	public Map<ProductTemplateElement, ResourceTask> getResult() {
 		return result;
+	}
+
+	public void printMap() {
+		for (ProductTemplateElement element : result.keySet()) {
+			System.out.println(element + " -> " + result.get(element));
+		}
 	}
 
 }

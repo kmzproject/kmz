@@ -1,5 +1,6 @@
 package ru.kmz.server.data.utils;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -121,4 +122,17 @@ public class ProductElementTaskDataUtils {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<ProductElementTask> getTasksByDate(Date from, Date to, String resourceType) {
+		List<ProductElementTask> list = null;
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Query query = pm.newQuery(ProductElementTask.class, " resourceType == '" + resourceType + "' &&  start>=:startParam ");
+			list = (List<ProductElementTask>) query.execute(from);
+		} finally {
+			pm.close();
+		}
+		return list;
+	}
 }
