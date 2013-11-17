@@ -4,8 +4,28 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
-	<!-- Servlets -->
+	<servlet>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/mvc-dispatcher-servlet.xml, /WEB-INF/spring-security.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Servlets -->
 	<servlet>
 		<servlet-name>projectsChart</servlet-name>
 		<servlet-class>ru.kmz.web.projectschart.server.ProjectsChartServiceImpl</servlet-class>
@@ -13,10 +33,6 @@
 	<servlet>
 		<servlet-name>templateCommon</servlet-name>
 		<servlet-class>ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>orderCommon</servlet-name>
-		<servlet-class>ru.kmz.web.ordercommon.server.OrderCommonServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>resourcesModule</servlet-name>
@@ -64,12 +80,6 @@
 		<url-pattern>/templatemodule/templateCommon</url-pattern>
 		<url-pattern>/kmzprogramm/templateCommon</url-pattern>
 		<url-pattern>/projectsmodule/templateCommon</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>orderCommon</servlet-name>
-		<url-pattern>/kmzprogramm/orderCommon</url-pattern>
-		<url-pattern>/projectsmodule/orderCommon</url-pattern>
-		<url-pattern>/ordermodule/orderCommon</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
