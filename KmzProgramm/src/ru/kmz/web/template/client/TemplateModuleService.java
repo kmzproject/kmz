@@ -6,7 +6,7 @@ import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("templateCommon")
+@RemoteServiceRelativePath("templateCommon.rpc")
 public interface TemplateModuleService extends TemplateCommonService {
 
 	TemplateTreeDataProxy getData(String key);

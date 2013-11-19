@@ -7,6 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import ru.kmz.server.data.PMF;
+import ru.kmz.server.data.generator.CalendarTestData;
 import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.History;
@@ -27,8 +28,9 @@ public class CalendarDataUtils {
 		} finally {
 			em.close();
 		}
-		if (list.size() != 1)
-			return null;
+		if (list.size() != 1) {
+			return CalendarTestData.craeteCalendar1();
+		}
 		return list.get(0);
 	}
 
