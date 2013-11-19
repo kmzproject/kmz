@@ -6,7 +6,7 @@ import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
-import ru.kmz.web.common.client.control.DateCellFormat;
+import ru.kmz.web.common.client.control.DateCellFormatColor;
 import ru.kmz.web.projectscommon.client.ProductionProxyProperties;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 
@@ -36,9 +36,9 @@ public class ProductionGrid extends CommonGrid<ProductionProxy> {
 		ColumnConfig<ProductionProxy, String> orderNameCol = new ColumnConfig<ProductionProxy, String>(props.orderName(), 100, "Название заказа");
 		ColumnConfig<ProductionProxy, String> nameCol = new ColumnConfig<ProductionProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<ProductionProxy, Date> startCol = new ColumnConfig<ProductionProxy, Date>(props.planStart(), 200, "Дата начала");
-		startCol.setCell(new DateCellFormat());
+		startCol.setCell(new DateCellFormatColor());
 		ColumnConfig<ProductionProxy, Date> finishCol = new ColumnConfig<ProductionProxy, Date>(props.planFinish(), 200, "Дата завершения");
-		finishCol.setCell(new DateCellFormat());
+		finishCol.setCell(new DateCellFormatColor());
 
 		List<ColumnConfig<ProductionProxy, ?>> l = new ArrayList<ColumnConfig<ProductionProxy, ?>>();
 		l.add(codeCol);

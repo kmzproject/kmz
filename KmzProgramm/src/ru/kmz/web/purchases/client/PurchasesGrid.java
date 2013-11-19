@@ -6,7 +6,7 @@ import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
-import ru.kmz.web.common.client.control.DateCellFormat;
+import ru.kmz.web.common.client.control.DateCellFormatColor;
 import ru.kmz.web.projectscommon.client.PurchaseProxyProperties;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
@@ -36,9 +36,9 @@ public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 		ColumnConfig<PurchaseProxy, String> orderNameCol = new ColumnConfig<PurchaseProxy, String>(props.orderName(), 100, "Название заказа");
 		ColumnConfig<PurchaseProxy, String> nameCol = new ColumnConfig<PurchaseProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<PurchaseProxy, Date> startCol = new ColumnConfig<PurchaseProxy, Date>(props.planStart(), 200, "Дата начала");
-		startCol.setCell(new DateCellFormat());
+		startCol.setCell(new DateCellFormatColor());
 		ColumnConfig<PurchaseProxy, Date> finishCol = new ColumnConfig<PurchaseProxy, Date>(props.planFinish(), 200, "Дата завершения");
-		finishCol.setCell(new DateCellFormat());
+		finishCol.setCell(new DateCellFormatColor());
 
 		List<ColumnConfig<PurchaseProxy, ?>> l = new ArrayList<ColumnConfig<PurchaseProxy, ?>>();
 		l.add(codeCol);
