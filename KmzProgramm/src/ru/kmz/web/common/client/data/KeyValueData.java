@@ -25,7 +25,11 @@ public class KeyValueData {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
 		if (obj instanceof KeyValueData) {
+			if (key == null || ((KeyValueData) obj).key == null)
+				return false;
 			return ((KeyValueData) obj).key.equals(key);
 		}
 		return false;
@@ -33,6 +37,6 @@ public class KeyValueData {
 
 	@Override
 	public int hashCode() {
-		return key!=null? key.hashCode() : 0;
+		return key != null ? key.hashCode() : 0;
 	}
 }
