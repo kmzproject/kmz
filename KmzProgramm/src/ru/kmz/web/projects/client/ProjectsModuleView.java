@@ -12,6 +12,7 @@ import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.window.SetProductNewDateSector;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projectscommon.client.ProjectsCommonModule;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -93,7 +94,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	public void setPersentDone(String id, int persents) {
 		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
-		getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box, false));
+		ProjectsCommonModule.getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box, false));
 	}
 
 	@Override

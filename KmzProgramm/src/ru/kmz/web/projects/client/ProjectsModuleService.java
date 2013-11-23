@@ -17,8 +17,6 @@ public interface ProjectsModuleService extends RemoteService {
 
 	void save(CalculatorInputDataProxy input);
 
-	void setCompliteTaskPersents(String id, int persents);
-
 	void deleteProduct(String id);
 
 	void updateDate(String id, Date date);

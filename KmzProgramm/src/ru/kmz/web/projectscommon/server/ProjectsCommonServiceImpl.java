@@ -11,13 +11,20 @@ import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.web.production.client.ProductionModuleService;
 import ru.kmz.web.products.client.ProductsModuleService;
+import ru.kmz.web.projectscommon.client.ProjectsCommonService;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.purchases.client.PurchasesModuleService;
 
 @SuppressWarnings("serial")
-public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements PurchasesModuleService, ProductsModuleService, ProductionModuleService {
+public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements PurchasesModuleService, ProductsModuleService, ProductionModuleService,
+		ProjectsCommonService {
+
+	@Override
+	public void setCompliteTaskPersents(String id, int persents) {
+		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
+	}
 
 	@Override
 	public List<PurchaseProxy> getActivePurchases() {

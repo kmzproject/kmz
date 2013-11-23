@@ -89,11 +89,6 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 	}
 
 	@Override
-	public void setCompliteTaskPersents(String id, int persents) {
-		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
-	}
-
-	@Override
 	public void deleteProduct(String id) {
 		ProductElementTaskDataUtils.deleteProduct(id);
 	}

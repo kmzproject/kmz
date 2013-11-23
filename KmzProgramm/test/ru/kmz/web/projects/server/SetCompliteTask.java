@@ -18,17 +18,20 @@ import ru.kmz.web.common.shared.HistoryProxy;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
 import ru.test.DataTestEveryNew;
 
 public class SetCompliteTask extends DataTestEveryNew {
 
 	private ProjectsModuleServiceImpl service;
 	private CommonServiceImpl commonService;
+	private ProjectsCommonServiceImpl projectsCommonService;
 
 	@Before
 	public void createService() {
 		service = new ProjectsModuleServiceImpl();
 		commonService = new CommonServiceImpl();
+		projectsCommonService = new ProjectsCommonServiceImpl();
 	}
 
 	@Test
@@ -51,17 +54,17 @@ public class SetCompliteTask extends DataTestEveryNew {
 
 		Assert.assertEquals(0, rootProductElement.getComplite());
 
-		service.setCompliteTaskPersents(rootProductElement.getId(), 100);
+		projectsCommonService.setCompliteTaskPersents(rootProductElement.getId(), 100);
 		data = service.getCurrentTasks();
 		rootProductElement = getElement(data);
 		Assert.assertEquals(100, rootProductElement.getComplite());
 
-		service.setCompliteTaskPersents(rootProductElement.getId(), 0);
+		projectsCommonService.setCompliteTaskPersents(rootProductElement.getId(), 0);
 		data = service.getCurrentTasks();
 		rootProductElement = getElement(data);
 		Assert.assertEquals(0, rootProductElement.getComplite());
 
-		service.setCompliteTaskPersents(rootProductElement.getId(), 45);
+		projectsCommonService.setCompliteTaskPersents(rootProductElement.getId(), 45);
 		data = service.getCurrentTasks();
 		rootProductElement = getElement(data);
 		Assert.assertEquals(45, rootProductElement.getComplite());

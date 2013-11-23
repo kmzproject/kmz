@@ -15,8 +15,6 @@ public interface ProjectsModuleServiceAsync {
 
 	void save(CalculatorInputDataProxy input, AsyncCallback<Void> callback);
 
-	void setCompliteTaskPersents(String id, int persents, AsyncCallback<Void> callback);
-
 	void deleteProduct(String id, AsyncCallback<Void> callback);
 
 	void updateDate(String id, Date date, AsyncCallback<Void> callback);
