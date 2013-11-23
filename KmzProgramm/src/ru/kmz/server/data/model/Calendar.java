@@ -25,10 +25,14 @@ public class Calendar {
 	}
 
 	public CalendarProxy asProxy() {
-		return new CalendarProxy(KeyFactory.keyToString(key), name);
+		return new CalendarProxy(getKeyStr(), name);
 	}
 
 	public Key getKey() {
 		return key;
+	}
+
+	public String getKeyStr() {
+		return KeyFactory.keyToString(key);
 	}
 }

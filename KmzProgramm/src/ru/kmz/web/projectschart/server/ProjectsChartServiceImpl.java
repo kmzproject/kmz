@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.ProductElementTask;
+import ru.kmz.server.data.utils.CalendarDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.DateUtils;
@@ -25,14 +27,24 @@ public class ProjectsChartServiceImpl extends AbstractServiceImpl implements Pro
 		}
 
 		List<ProductElementTask> tasks = ProductElementTaskDataUtils.getTasksByDate(params.getFrom(), params.getTo(), params.getResourceType());
+		List<CalendarRecord> calendarRecords = CalendarDataUtils.getAllRecords();
 
 		List<FunctioningCapacityProxy> list = new ArrayList<FunctioningCapacityProxy>();
 		Date date = params.getFrom();
 		while (date.before(params.getTo())) {
 			int activitiesCount = 0;
-			for (ProductElementTask task : tasks) {
-				if ((task.getStart().before(date) || task.getStart().equals(date)) && (task.getFinish().after(date))) {
-					activitiesCount++;
+			boolean isWeekend = false;
+			for (CalendarRecord calendarRecord : calendarRecords) {
+				if (date.equals(calendarRecord.getDate())) {
+					isWeekend = true;
+					break;
+				}
+			}
+			if (!isWeekend) {
+				for (ProductElementTask task : tasks) {
+					if ((task.getStart().before(date) || task.getStart().equals(date)) && (task.getFinish().after(date))) {
+						activitiesCount++;
+					}
 				}
 			}
 			list.add(new FunctioningCapacityProxy(DateUtils.dateToString(date), activitiesCount));

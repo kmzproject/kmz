@@ -73,6 +73,10 @@ public class CalendarDataUtils {
 		return list;
 	}
 
+	public static List<CalendarRecord> getAllRecords() {
+		return getAllRecords(getCalendar().getKey());
+	}
+
 	@SuppressWarnings("unchecked")
 	public static List<CalendarRecord> getAllRecords(Key calendarId) {
 		List<CalendarRecord> list = null;
