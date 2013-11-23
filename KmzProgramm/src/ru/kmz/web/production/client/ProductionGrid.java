@@ -35,6 +35,7 @@ public class ProductionGrid extends CommonGrid<ProductionProxy> {
 		ColumnConfig<ProductionProxy, String> codeCol = new ColumnConfig<ProductionProxy, String>(props.code(), 50, "Код");
 		ColumnConfig<ProductionProxy, String> orderNameCol = new ColumnConfig<ProductionProxy, String>(props.orderName(), 100, "Название заказа");
 		ColumnConfig<ProductionProxy, String> nameCol = new ColumnConfig<ProductionProxy, String>(props.name(), 200, "Закупка");
+		ColumnConfig<ProductionProxy, String> taskStateCol = new ColumnConfig<ProductionProxy, String>(props.taskState(), 100, "Состояние");
 		ColumnConfig<ProductionProxy, Date> startCol = new ColumnConfig<ProductionProxy, Date>(props.planStart(), 200, "Дата начала");
 		startCol.setCell(new DateCellFormatColor());
 		ColumnConfig<ProductionProxy, Date> finishCol = new ColumnConfig<ProductionProxy, Date>(props.planFinish(), 200, "Дата завершения");
@@ -43,6 +44,7 @@ public class ProductionGrid extends CommonGrid<ProductionProxy> {
 		List<ColumnConfig<ProductionProxy, ?>> l = new ArrayList<ColumnConfig<ProductionProxy, ?>>();
 		l.add(codeCol);
 		l.add(nameCol);
+		l.add(taskStateCol);
 		l.add(orderNameCol);
 		l.add(startCol);
 		l.add(finishCol);

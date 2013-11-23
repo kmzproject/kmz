@@ -32,7 +32,7 @@ public class HistoryUtils {
 	}
 
 	public static void createTaskStarted(ProductElementTask task) {
-		createHistory(task.getKey(), HistoryName.TASK_STARTED, "Работа началась");
+		createHistory(task.getKey(), HistoryName.TASK_STARTED, task.toString() + " работа началась");
 	}
 
 	public static void editTemplate(Key templateId) {
