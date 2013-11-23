@@ -56,7 +56,7 @@ public class AdministrationModuleView extends AbstarctModuleView<VerticalPanel> 
 		container.add(buttonContainer);
 
 		TextButton select = new TextButton("Удалить все данные и создать новые тестовые");
-
+		select.setEnabled(false);
 		select.addSelectHandler(new SelectHandler() {
 
 			@Override
