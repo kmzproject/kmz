@@ -6,4 +6,6 @@ public interface ProjectsCommonServiceAsync {
 
 	void setCompliteTaskPersents(String id, int persents, AsyncCallback<Void> callback);
 
+	void setTaskAsStartedPersents(String id, AsyncCallback<Void> callback);
+
 }

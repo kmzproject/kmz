@@ -2,11 +2,12 @@ package ru.kmz.web.production.client;
 
 import java.util.List;
 
+import ru.kmz.web.projectscommon.client.ProjectsCommonServiceAsync;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface ProductionModuleServiceAsync {
+public interface ProductionModuleServiceAsync extends ProjectsCommonServiceAsync {
 
 	void getActiveProductions(AsyncCallback<List<ProductionProxy>> callback);
 

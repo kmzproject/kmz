@@ -9,6 +9,7 @@ import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.services.AbstractServiceImpl;
+import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.production.client.ProductionModuleService;
 import ru.kmz.web.products.client.ProductsModuleService;
 import ru.kmz.web.projectscommon.client.ProjectsCommonService;
@@ -24,6 +25,14 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	@Override
 	public void setCompliteTaskPersents(String id, int persents) {
 		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
+	}
+
+	@Override
+	public void setTaskAsStartedPersents(String id) {
+		ProductElementTask task = ProductElementTaskDataUtils.getTask(id);
+		task.setTaskStateAsStarted();
+		ProductElementTaskDataUtils.edit(task);
+		HistoryUtils.createTaskStarted(task);
 	}
 
 	@Override

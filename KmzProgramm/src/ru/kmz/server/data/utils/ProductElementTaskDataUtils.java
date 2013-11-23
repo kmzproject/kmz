@@ -27,6 +27,18 @@ public class ProductElementTaskDataUtils {
 		return list;
 	}
 
+	public static ProductElementTask getTask(String key) {
+		PersistenceManager pm = null;
+		ProductElementTask task;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			task = pm.getObjectById(ProductElementTask.class, key);
+		} finally {
+			pm.close();
+		}
+		return task;
+	}
+
 	public static ProductElementTask setTaskComplitePersents(String key, int persents) {
 		PersistenceManager pm = null;
 		ProductElementTask task;

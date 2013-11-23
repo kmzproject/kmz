@@ -27,6 +27,12 @@ public class HistoryUtils {
 
 		String TEMPLATE_CREATE = "Создан шаблон";
 		String TEMPLATE_EDIT = "Внесены изменения в шаблон";
+
+		String TASK_STARTED = "Работа началась";
+	}
+
+	public static void createTaskStarted(ProductElementTask task) {
+		createHistory(task.getKey(), HistoryName.TASK_STARTED, "Работа началась");
 	}
 
 	public static void editTemplate(Key templateId) {

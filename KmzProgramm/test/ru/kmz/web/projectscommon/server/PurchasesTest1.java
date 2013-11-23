@@ -17,7 +17,6 @@ import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
-import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.purchases.client.PurchasesModuleService;
 import ru.test.DataTestEveryNew;
@@ -92,6 +91,30 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		ganttData = projectsService.getCurrentTasks();
 		rootOrder = ganttData.getChilds().get(0);
 		Assert.assertEquals(8, rootOrder.getComplite());
+	}
+
+	@Test
+	public void taskStartedTest() {
+		Template template = TemplateTestData.createTemplateShort5();
+		Order order = OrderTestData.createOrders1().get(0);
+		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
+		Date date = DateUtils.getDate("2013/10/01");
+		input.setDate(date);
+		input.setTemplateId(template.getKeyStr());
+		String orderId = order.getKeyStr();
+		input.setOrderId(orderId);
+		projectsService.save(input);
+
+		List<PurchaseProxy> purchases = service.getActivePurchases();
+
+		Assert.assertEquals(3, purchases.size());
+		Assert.assertEquals("Запланировано", purchases.get(0).getTaskState());
+
+		service.setTaskAsStartedPersents(purchases.get(0).getId());
+
+		purchases = service.getActivePurchases();
+		Assert.assertEquals(3, purchases.size());
+		Assert.assertEquals("В работе", purchases.get(0).getTaskState());
 	}
 
 }

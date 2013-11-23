@@ -8,4 +8,6 @@ public interface ProjectsCommonService extends RemoteService {
 
 	void setCompliteTaskPersents(String id, int persents);
 
+	void setTaskAsStartedPersents(String id);
+
 }
