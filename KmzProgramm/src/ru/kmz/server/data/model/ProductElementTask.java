@@ -37,6 +37,7 @@ public class ProductElementTask implements IProjectTask {
 	private String code;
 
 	@Persistent
+	/** Номер работы, для вычисленя кода */
 	private int number;
 
 	@Persistent
@@ -52,14 +53,18 @@ public class ProductElementTask implements IProjectTask {
 	private Key orderId;
 
 	@Persistent
+	/** Плановая дата начала */
 	private Date start;
 	@Persistent
+	/** Плановая дата финиша */
 	private Date finish;
 
 	@Persistent
+	/** Номер для сортировки */
 	private int orderNum;
 
 	@Persistent
+	/** Процент выполнения */
 	private int done;
 
 	@Persistent
@@ -177,11 +182,10 @@ public class ProductElementTask implements IProjectTask {
 	public ProductionProxy asProductionProxy() {
 		return new ProductionProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
 	}
-	
+
 	public ProductProxy asProductProxy() {
 		return new ProductProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
 	}
-	
 
 	public String getResourceType() {
 		return resourceType;
