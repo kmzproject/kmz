@@ -2,6 +2,10 @@ package ru.kmz.server.utils;
 
 import java.util.Date;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.model.Order;
@@ -82,9 +86,18 @@ public class HistoryUtils {
 	}
 
 	private static History getHistory(Key key, String name, String comment) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName;
+		if (auth == null) {
+			userName = "Nemo";
+		} else {
+			User user = (User) auth.getPrincipal();
+			userName = user.getUsername();
+		}
 		History history = new History();
 		history.setDate(new Date());
 		history.setObjectId(key);
+		history.setUser(userName);
 		history.setComment(comment);
 		history.setName(name);
 

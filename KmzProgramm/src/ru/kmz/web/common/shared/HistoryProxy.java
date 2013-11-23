@@ -20,6 +20,7 @@ public class HistoryProxy implements Serializable {
 		this.name = name;
 		this.comment = comment;
 		this.date = date;
+		this.user = user;
 	}
 
 	public String getId() {
