@@ -10,15 +10,16 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.data.constants.ProductElementTaskStates;
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskProxy;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -35,6 +36,10 @@ public class ProductElementTask implements IProjectTask {
 
 	@Persistent
 	private String code;
+
+	@Persistent
+	/** Состояние работы (@see ru.kmz.server.data.constants.ProductElementTaskStates) */
+	private String taskState;
 
 	@Persistent
 	/** Номер работы, для вычисленя кода */
@@ -88,6 +93,8 @@ public class ProductElementTask implements IProjectTask {
 			this.start = task.getStart();
 			this.finish = task.getFinish();
 		}
+
+		this.taskState = ProductElementTaskStates.PLANNED;
 
 	}
 
@@ -148,19 +155,6 @@ public class ProductElementTask implements IProjectTask {
 		return childs != null && childs.size() != 0;
 	}
 
-	public TemplateTreeNodeBaseProxy asProxy() {
-		if (!hasChild()) {
-			TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy(getKeyStr(), name, durationWork, resourceType);
-			return proxy;
-		}
-
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, durationWork, resourceType);
-		for (ProductElementTask child : childs) {
-			proxy.add(child.asProxy());
-		}
-		return proxy;
-	}
-
 	private String getNameAndCount() {
 		if (count == 1) {
 			return name;
@@ -175,16 +169,20 @@ public class ProductElementTask implements IProjectTask {
 		return graphData;
 	}
 
+	public ProductElementTaskProxy asProxy() {
+		return new ProductElementTaskProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
+	}
+
 	public PurchaseProxy asPurchaseProxy() {
-		return new PurchaseProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
+		return new PurchaseProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public ProductionProxy asProductionProxy() {
-		return new ProductionProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
+		return new ProductionProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public ProductProxy asProductProxy() {
-		return new ProductProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done == 100);
+		return new ProductProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public String getResourceType() {
@@ -212,7 +210,16 @@ public class ProductElementTask implements IProjectTask {
 	}
 
 	public void setDone(int done) {
+		if (done == 100) {
+			this.taskState = ProductElementTaskStates.FINISHED;
+		} else if (done > 0) {
+			this.taskState = ProductElementTaskStates.STARTED;
+		}
 		this.done = done;
+	}
+
+	public void setTaskStateAsStarted() {
+		this.taskState = ProductElementTaskStates.STARTED;
 	}
 
 	public int getDone() {
