@@ -218,8 +218,12 @@ public class ProductElementTask implements IProjectTask {
 		this.done = done;
 	}
 
-	public void setTaskStateAsStarted() {
-		this.taskState = ProductElementTaskStates.STARTED;
+	public boolean setTaskStateAsStarted() {
+		if (taskState == null || !taskState.equals(ProductElementTaskStates.STARTED)) {
+			this.taskState = ProductElementTaskStates.STARTED;
+			return true;
+		}
+		return false;
 	}
 
 	public int getDone() {

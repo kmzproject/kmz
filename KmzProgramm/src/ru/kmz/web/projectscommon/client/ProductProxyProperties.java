@@ -3,6 +3,7 @@ package ru.kmz.web.projectscommon.client;
 import java.util.Date;
 
 import ru.kmz.web.projectscommon.shared.ProductProxy;
+import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;
@@ -23,4 +24,7 @@ public interface ProductProxyProperties extends PropertyAccess<ProductProxy> {
 	ValueProvider<ProductProxy, Date> planFinish();
 
 	ValueProvider<ProductProxy, String> code();
+
+	ValueProvider<PurchaseProxy, String> taskState();
+
 }

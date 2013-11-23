@@ -30,9 +30,10 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	@Override
 	public void setTaskAsStartedPersents(String id) {
 		ProductElementTask task = ProductElementTaskDataUtils.getTask(id);
-		task.setTaskStateAsStarted();
-		ProductElementTaskDataUtils.edit(task);
-		HistoryUtils.createTaskStarted(task);
+		if (task.setTaskStateAsStarted()) {
+			ProductElementTaskDataUtils.edit(task);
+			HistoryUtils.createTaskStarted(task);
+		}
 	}
 
 	@Override

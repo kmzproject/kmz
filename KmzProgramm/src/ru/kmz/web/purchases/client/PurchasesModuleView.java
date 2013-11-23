@@ -1,9 +1,8 @@
 package ru.kmz.web.purchases.client;
 
-import java.util.List;
-
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
@@ -13,7 +12,6 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
@@ -45,26 +43,36 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
+		grid = PurchasesGrid.getCalculatorGrid();
+
 		container.add(createToolBar());
 
-		grid = PurchasesGrid.getCalculatorGrid();
 		container.add(grid);
-
 	}
 
 	private ToolBar createToolBar() {
 		ToolBar toolBar = new ToolBar();
-		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
-		compliteTextButton.addSelectHandler(new SelectHandler() {
 
+		TextButton setStartedTextButton = new TextButton("Работа началась");
+		setStartedTextButton.addSelectHandler(new CommonGridRowSelectHandler<PurchaseProxy>(grid) {
 			@Override
-			public void onSelect(SelectEvent event) {
-				List<PurchaseProxy> list = grid.getSelectionModel().getSelectedItems();
-				if (list == null || list.size() != 1) {
-					Info.display("Предупреждение", "Невозможно произвести редактирование");
-					return;
-				}
-				getService().complitePurchase(list.get(0).getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			protected void onSelect(PurchaseProxy object) {
+				getService().setTaskAsStartedPersents(object.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						update();
+					}
+				});
+			}
+		});
+
+		toolBar.add(setStartedTextButton);
+
+		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
+		compliteTextButton.addSelectHandler(new CommonGridRowSelectHandler<PurchaseProxy>(grid) {
+			@Override
+			protected void onSelect(PurchaseProxy object) {
+				getService().complitePurchase(object.getId(), new AsyncCallbackWithErrorMessage<Void>() {
 					@Override
 					public void onSuccess(Void result) {
 						update();
