@@ -120,12 +120,13 @@ public class TemplateTree implements IsWidget {
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+				TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
 				if (item == null) {
 					Info.display("Error", "Не выбран удел для сохранения");
 					return;
 				}
 				infoContainer.saveValue(item);
+				tree.refresh(item);
 				TemplateModuleView.getService().save(item, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
 					@Override
 					public void onSuccess(TemplateTreeNodeBaseProxy result) {
