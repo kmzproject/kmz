@@ -26,9 +26,16 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 
 	@Override
 	public GanttData getCurrentTasks(GanttDataFilter filter) {
+		if (filter == null) {
+			filter = new GanttDataFilter();
+		}
+
+		GetOrdersService getOrdersService = new GetOrdersService();
+		getOrdersService.setOrderIds(filter.getOrderIds());
+
 		GanttProjectsService service = new GanttProjectsService();
 
-		service.setGetOrdersService(new GetOrdersService());
+		service.setGetOrdersService(getOrdersService);
 		service.calculate();
 		GanttData data = service.getGantData();
 		return data;

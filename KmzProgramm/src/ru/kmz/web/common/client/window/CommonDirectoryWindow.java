@@ -18,6 +18,10 @@ public abstract class CommonDirectoryWindow<T> extends Window {
 		setPixelSize(500, 100);
 		setModal(true);
 		setBlinkModal(true);
+		createButtons();
+	}
+
+	protected void createButtons() {
 		TextButton cancelButton = new TextButton("Отмена");
 		cancelButton.addSelectHandler(new CancelSelectHandler(this));
 		TextButton saveButton = new TextButton("Сохранить");
@@ -32,11 +36,15 @@ public abstract class CommonDirectoryWindow<T> extends Window {
 
 	protected abstract void editProcess();
 
+	public T getObject() {
+		return object;
+	}
+
 	public void setUpdatable(IUpdatable form) {
 		this.updatableForm = form;
 	}
 
-	private class SaveSelectHandler extends CancelSelectHandler {
+	protected class SaveSelectHandler extends CancelSelectHandler {
 
 		public SaveSelectHandler() {
 			super(CommonDirectoryWindow.this);

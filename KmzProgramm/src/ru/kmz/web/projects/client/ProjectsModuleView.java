@@ -30,7 +30,6 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	private static ProjectsModuleView instanse;
 	private ProjectsToolBar buttonsToolBar;
 	private ProjectsGantt gantt;
-	private GanttDataFilter filter;
 
 	@Override
 	public void onModuleLoad() {
@@ -73,6 +72,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	public void update() {
 		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
 		box.show();
+		GanttDataFilter filter = buttonsToolBar.getFilter();
 		getService().getCurrentTasks(filter, new UpdateGanttData(box));
 	}
 

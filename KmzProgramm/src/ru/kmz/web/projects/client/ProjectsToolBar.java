@@ -2,11 +2,14 @@ package ru.kmz.web.projects.client;
 
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.data.KeyValueDataProperties;
+import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
+import ru.kmz.web.projects.client.window.GanttDataFilterWindow;
 import ru.kmz.web.projects.client.window.SelectCalculationInfo;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projects.shared.GanttDataFilter;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -25,6 +28,7 @@ public class ProjectsToolBar implements IsWidget {
 
 	private ToolBar toolBar;
 	private ProjectsModuleView projectModulesView;
+	private GanttDataFilterWindow filterWindow;
 
 	public ProjectsToolBar(ProjectsModuleView projectModulesView) {
 		this.projectModulesView = projectModulesView;
@@ -38,7 +42,20 @@ public class ProjectsToolBar implements IsWidget {
 		return toolBar;
 	}
 
+	public GanttDataFilter getFilter() {
+		return filterWindow.getObject();
+	}
+
 	private void createButtonPanel() {
+		filterWindow = new GanttDataFilterWindow();
+		filterWindow.setUpdatable(new IUpdatable() {
+			@Override
+			public void update() {
+				filterWindow.hide();
+				projectModulesView.update();
+			}
+		});
+
 		toolBar = new ToolBar();
 
 		TextButton selectCalculationDataButton = new TextButton("Добавить новое изделиe");
@@ -69,6 +86,17 @@ public class ProjectsToolBar implements IsWidget {
 		});
 		toolBar.add(showAll);
 
+		toolBar.add(new FieldLabel(getScaleComboBox(), "Масштаб"));
+
+		TextButton filterButton = new TextButton("Фильтр");
+		filterButton.addSelectHandler(new SelectHandler() {
+			@Override
+			public void onSelect(SelectEvent event) {
+				filterWindow.show();
+			}
+		});
+		toolBar.add(filterButton);
+
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
 			@Override
@@ -76,11 +104,9 @@ public class ProjectsToolBar implements IsWidget {
 				projectModulesView.update();
 			}
 		});
-
 		toolBar.add(refreshButton);
 
-		toolBar.add(new FieldLabel(getScaleComboBox(), "Масштаб"));
-		toolBar.add(new FieldLabel(getFiltersComboBox(), "Скрыть"));
+//		toolBar.add(new FieldLabel(getFiltersComboBox(), "Скрыть"));
 
 	}
 
@@ -108,6 +134,7 @@ public class ProjectsToolBar implements IsWidget {
 		return scaleCombo;
 	}
 
+	@Deprecated
 	private ComboBox<KeyValueData> getFiltersComboBox() {
 		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
 		list.add(new KeyValueData(null, ""));
