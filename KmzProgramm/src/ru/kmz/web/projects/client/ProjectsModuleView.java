@@ -12,6 +12,7 @@ import ru.kmz.web.ganttcommon.client.ProjectsGantt;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.window.SetProductNewDateSector;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projects.shared.GanttDataFilter;
 import ru.kmz.web.projectscommon.client.ProjectsCommonModule;
 
 import com.google.gwt.core.client.GWT;
@@ -29,6 +30,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	private static ProjectsModuleView instanse;
 	private ProjectsToolBar buttonsToolBar;
 	private ProjectsGantt gantt;
+	private GanttDataFilter filter;
 
 	@Override
 	public void onModuleLoad() {
@@ -71,7 +73,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	public void update() {
 		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
 		box.show();
-		getService().getCurrentTasks(new UpdateGanttData(box));
+		getService().getCurrentTasks(filter, new UpdateGanttData(box));
 	}
 
 	@Override

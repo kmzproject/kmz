@@ -50,7 +50,7 @@ public class DeleteProductTest extends DataTestEveryNew {
 
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
@@ -60,7 +60,7 @@ public class DeleteProductTest extends DataTestEveryNew {
 
 		service.deleteProduct(rootProduct.getId());
 
-		data = service.getCurrentTasks();
+		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		Assert.assertEquals(0, rootOrder.getChilds().size());
 

@@ -7,13 +7,13 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gantt.client.config.GanttConfig.TaskType;
-
 import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.test.DataTestEveryNew;
+
+import com.gantt.client.config.GanttConfig.TaskType;
 
 public class NoDataProjectsService extends DataTestEveryNew {
 
@@ -26,7 +26,7 @@ public class NoDataProjectsService extends DataTestEveryNew {
 
 	@Test
 	public void getNoOrdersTest() {
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 		Assert.assertEquals("Производство", data.getName());
 
 		Date date = DateUtils.getDateNoTime(new Date());
@@ -40,7 +40,7 @@ public class NoDataProjectsService extends DataTestEveryNew {
 	public void getOneEmpltOrderTest() {
 		OrderTestData.createOrders1();
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 		Assert.assertEquals("Производство", data.getName());
 
 		Date date = DateUtils.getDateNoTime(new Date());

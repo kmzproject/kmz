@@ -33,7 +33,7 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		input.setOrderId(order.getKeyStr());
 		input.setCount(2);
 		service.save(input);
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		Assert.assertEquals(1, data.getChilds().size());
 		GraphData rootOrder = data.getChilds().get(0);

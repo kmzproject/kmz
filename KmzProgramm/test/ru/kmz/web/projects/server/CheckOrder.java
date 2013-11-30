@@ -44,7 +44,7 @@ public class CheckOrder extends DataTestEveryNew {
 		input.setDate(date);
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		Assert.assertEquals(1, data.getChilds().size());
 		GraphData rootOrder = data.getChilds().get(0);
@@ -85,7 +85,7 @@ public class CheckOrder extends DataTestEveryNew {
 		input.setOrderId(order3.getKeyStr());
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		Assert.assertEquals(3, data.getChilds().size());
 		GraphData rootOrder1 = data.getChilds().get(0);

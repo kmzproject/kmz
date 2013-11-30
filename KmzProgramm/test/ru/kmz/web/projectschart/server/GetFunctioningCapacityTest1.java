@@ -52,7 +52,7 @@ public class GetFunctioningCapacityTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		GanttData data = projectsService.getCurrentTasks();
+		GanttData data = projectsService.getCurrentTasks(null);
 
 		Date dateStart = DateUtils.getDate("2013/11/07");
 
@@ -94,7 +94,7 @@ public class GetFunctioningCapacityTest1 extends DataTestEveryNew {
 		input.setUseWeekend(true);
 		projectsService.save(input);
 
-		GanttData data = projectsService.getCurrentTasks();
+		GanttData data = projectsService.getCurrentTasks(null);
 
 		Date dateStart = DateUtils.getDate("2013/11/06");
 

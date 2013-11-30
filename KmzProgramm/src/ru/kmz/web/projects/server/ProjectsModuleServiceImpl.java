@@ -19,12 +19,13 @@ import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.ProjectsModuleService;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projects.shared.GanttDataFilter;
 
 @SuppressWarnings("serial")
 public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements ProjectsModuleService {
 
 	@Override
-	public GanttData getCurrentTasks() {
+	public GanttData getCurrentTasks(GanttDataFilter filter) {
 		GanttProjectsService service = new GanttProjectsService();
 
 		service.setGetOrdersService(new GetOrdersService());

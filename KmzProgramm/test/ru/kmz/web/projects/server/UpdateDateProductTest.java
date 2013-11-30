@@ -41,7 +41,7 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
@@ -49,7 +49,7 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 
 		service.updateDate(rootProduct.getId(), newDate);
 
-		data = service.getCurrentTasks();
+		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		rootProduct = rootOrder.getChilds().get(0);
 		Assert.assertEquals(newDate, rootProduct.getPlanFinish());

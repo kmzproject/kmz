@@ -42,7 +42,7 @@ public class CalculateAndSaveUseWeekendTest extends DataTestEveryNew {
 		input.setUseWeekend(true);
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		Assert.assertEquals(DateUtils.getDate("2013/11/06"), data.getDateFinish());
 		Assert.assertEquals(DateUtils.getDate("2013/11/03"), data.getDateStart());
@@ -62,7 +62,7 @@ public class CalculateAndSaveUseWeekendTest extends DataTestEveryNew {
 		input.setUseWeekend(true);
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		Assert.assertEquals(DateUtils.getDate("2013/11/06"), data.getDateFinish());
 		Assert.assertEquals(DateUtils.getDate("2013/10/31"), data.getDateStart());

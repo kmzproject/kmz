@@ -48,24 +48,24 @@ public class SetCompliteTask extends DataTestEveryNew {
 
 		service.save(input);
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		GraphData rootProductElement = getElement(data);
 
 		Assert.assertEquals(0, rootProductElement.getComplite());
 
 		projectsCommonService.setCompliteTaskPersents(rootProductElement.getId(), 100);
-		data = service.getCurrentTasks();
+		data = service.getCurrentTasks(null);
 		rootProductElement = getElement(data);
 		Assert.assertEquals(100, rootProductElement.getComplite());
 
 		projectsCommonService.setCompliteTaskPersents(rootProductElement.getId(), 0);
-		data = service.getCurrentTasks();
+		data = service.getCurrentTasks(null);
 		rootProductElement = getElement(data);
 		Assert.assertEquals(0, rootProductElement.getComplite());
 
 		projectsCommonService.setCompliteTaskPersents(rootProductElement.getId(), 45);
-		data = service.getCurrentTasks();
+		data = service.getCurrentTasks(null);
 		rootProductElement = getElement(data);
 		Assert.assertEquals(45, rootProductElement.getComplite());
 

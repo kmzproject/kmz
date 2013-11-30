@@ -79,7 +79,7 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		purchases = service.getActivePurchases(null);
 		Assert.assertEquals(2, purchases.size());
 
-		GanttData ganttData = projectsService.getCurrentTasks();
+		GanttData ganttData = projectsService.getCurrentTasks(null);
 		GraphData rootOrder = ganttData.getChilds().get(0);
 		GraphData rootProducte = rootOrder.getChilds().get(0);
 		GraphData element1 = rootProducte.getChilds().get(0);
@@ -89,7 +89,7 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		Assert.assertEquals(16, rootOrder.getComplite());
 
 		projectsService.save(input);
-		ganttData = projectsService.getCurrentTasks();
+		ganttData = projectsService.getCurrentTasks(null);
 		rootOrder = ganttData.getChilds().get(0);
 		Assert.assertEquals(8, rootOrder.getComplite());
 	}

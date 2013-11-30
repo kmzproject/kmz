@@ -22,7 +22,7 @@ public class IncludeCalendarDateTest extends DataTestEveryNew {
 	public void SimpleTest() {
 		CalendarTestData.craeteCalendar2();
 
-		GanttData data = service.getCurrentTasks();
+		GanttData data = service.getCurrentTasks(null);
 
 		Assert.assertEquals(3, data.getCalendarRecords().size());
 
