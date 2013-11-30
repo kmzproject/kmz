@@ -48,7 +48,7 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		templateComboBox = TemplateComboBoxUtils.createTemplateComboBox();
 		container.add(new FieldLabel(templateComboBox, "Шаблон"));
 
-		orderComboBox = OrderComboBoxUtils.createOrderCompoBox(true);
+		orderComboBox = OrderComboBoxUtils.createOrderCompoBox(false);
 		container.add(new FieldLabel(orderComboBox, "Заказ"));
 
 		countField = new TextField();

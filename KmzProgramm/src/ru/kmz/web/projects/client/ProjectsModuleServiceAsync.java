@@ -11,8 +11,6 @@ public interface ProjectsModuleServiceAsync {
 
 	void getCurrentTasks(AsyncCallback<GanttData> callback);
 
-	void getGantResultData(CalculatorInputDataProxy input, AsyncCallback<GanttData> callback);
-
 	void save(CalculatorInputDataProxy input, AsyncCallback<Void> callback);
 
 	void deleteProduct(String id, AsyncCallback<Void> callback);

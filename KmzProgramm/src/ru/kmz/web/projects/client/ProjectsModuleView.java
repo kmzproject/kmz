@@ -74,12 +74,6 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 		getService().getCurrentTasks(new UpdateGanttData(box));
 	}
 
-	public void calculateNewProduct(CalculatorInputDataProxy inputData) {
-		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
-		box.show();
-		getService().getGantResultData(inputData, new UpdateGanttData(box, true));
-	}
-
 	@Override
 	public void update(GanttData ganttData) {
 		if (gantt == null) {

@@ -13,8 +13,6 @@ public interface ProjectsModuleService extends RemoteService {
 
 	GanttData getCurrentTasks();
 
-	GanttData getGantResultData(CalculatorInputDataProxy input);
-
 	void save(CalculatorInputDataProxy input);
 
 	void deleteProduct(String id);

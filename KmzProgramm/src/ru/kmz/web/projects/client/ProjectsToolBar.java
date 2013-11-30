@@ -51,11 +51,7 @@ public class ProjectsToolBar implements IsWidget {
 
 					@Override
 					public void update(final CalculatorInputDataProxy inputData) {
-						if (inputData.getOrderId() == null) {
-							projectModulesView.calculateNewProduct(inputData);
-						} else {
-							projectModulesView.createNewProduct(inputData);
-						}
+						projectModulesView.createNewProduct(inputData);
 					}
 				});
 				window.show();
