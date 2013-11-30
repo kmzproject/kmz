@@ -8,6 +8,7 @@ import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
 import ru.kmz.web.common.client.control.DateCellFormatColor;
 import ru.kmz.web.projectscommon.client.PurchaseProxyProperties;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
@@ -24,6 +25,7 @@ import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 
 	private static final PurchaseProxyProperties props;
+	private ProductElementTaskGridFilter filter;
 
 	static {
 		props = GWT.create(PurchaseProxyProperties.class);
@@ -60,12 +62,16 @@ public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
 		setLoadOnInit(true);
 	}
 
+	public void setFilter(ProductElementTaskGridFilter filter) {
+		this.filter = filter;
+	}
+
 	@Override
 	protected PagingLoader<PagingLoadConfig, PagingLoadResult<PurchaseProxy>> createLoader() {
 		RpcProxy<PagingLoadConfig, PagingLoadResult<PurchaseProxy>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<PurchaseProxy>>() {
 			@Override
 			public void load(PagingLoadConfig loadConfig, final AsyncCallback<PagingLoadResult<PurchaseProxy>> callback) {
-				PurchasesModuleView.getService().getActivePurchases(new AsyncCallbackWithErrorMessage<List<PurchaseProxy>>() {
+				PurchasesModuleView.getService().getActivePurchases(filter, new AsyncCallbackWithErrorMessage<List<PurchaseProxy>>() {
 					@Override
 					public void onSuccess(List<PurchaseProxy> result) {
 						PagingLoadResultBean<PurchaseProxy> r = new PagingLoadResultBean<PurchaseProxy>();

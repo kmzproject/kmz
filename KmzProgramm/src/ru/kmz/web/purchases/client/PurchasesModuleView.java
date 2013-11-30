@@ -4,6 +4,7 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 
 import com.google.gwt.core.client.GWT;
@@ -12,6 +13,8 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.form.DateField;
+import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
@@ -20,6 +23,7 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 	private final static PurchasesModuleServiceAsync service = GWT.create(PurchasesModuleService.class);
 
 	private PurchasesGrid grid;
+	private DateField dateFrom, dateTo;
 
 	@Override
 	public void onModuleLoad() {
@@ -92,6 +96,12 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 		});
 		toolBar.add(refreshButton);
 
+		dateFrom = new DateField();
+		toolBar.add(new FieldLabel(dateFrom, "Начиная с"));
+
+		dateTo = new DateField();
+		toolBar.add(new FieldLabel(dateTo, "по"));
+
 		return toolBar;
 	}
 
@@ -101,6 +111,10 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 
 	@Override
 	public void update() {
+		ProductElementTaskGridFilter filter = new ProductElementTaskGridFilter();
+		filter.setFrom(dateFrom.getValue());
+		filter.setTo(dateTo.getValue());
+		grid.setFilter(filter);
 		grid.updateData();
 	}
 

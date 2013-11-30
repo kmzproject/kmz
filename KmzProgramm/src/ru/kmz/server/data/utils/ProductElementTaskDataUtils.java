@@ -1,5 +1,6 @@
 package ru.kmz.server.data.utils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,22 +10,48 @@ import javax.jdo.Query;
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.data.model.ProductElementTask;
+import ru.kmz.server.utils.DateUtils;
 import ru.kmz.server.utils.HistoryUtils;
 
 public class ProductElementTaskDataUtils {
 
 	@SuppressWarnings("unchecked")
-	public static List<ProductElementTask> getNotComplitedTask(String resourceType) {
+	public static List<ProductElementTask> getNotComplitedTask(String resourceType, Date from, Date to) {
 		List<ProductElementTask> list = null;
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
 			Query q = pm.newQuery(ProductElementTask.class, " resourceType == '" + resourceType + "' && done <100");
 			list = (List<ProductElementTask>) q.execute();
+			if (from != null || to != null) {
+				List<ProductElementTask> result = new ArrayList<ProductElementTask>();
+				if (from != null) {
+					from = DateUtils.getDateNoTime(from);
+				}
+				if (to != null) {
+					to = DateUtils.getDateNoTime(to);
+				}
+
+				for (ProductElementTask productElementTask : list) {
+					if (from != null) {
+						if (productElementTask.getStart().before(from)) {
+							continue;
+						}
+					}
+					if (to != null) {
+						if (productElementTask.getStart().after(to)) {
+							continue;
+						}
+					}
+					result.add(productElementTask);
+				}
+				return result;
+			} else {
+				return list;
+			}
 		} finally {
 			pm.close();
 		}
-		return list;
 	}
 
 	public static ProductElementTask getTask(String key) {

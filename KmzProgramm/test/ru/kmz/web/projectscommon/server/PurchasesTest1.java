@@ -17,6 +17,7 @@ import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.purchases.client.PurchasesModuleService;
 import ru.test.DataTestEveryNew;
@@ -44,7 +45,7 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		List<PurchaseProxy> purchases = service.getActivePurchases();
+		List<PurchaseProxy> purchases = service.getActivePurchases(null);
 
 		Assert.assertEquals(3, purchases.size());
 		Assert.assertEquals("Покупка 1", purchases.get(0).getName());
@@ -69,13 +70,13 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		List<PurchaseProxy> purchases = service.getActivePurchases();
+		List<PurchaseProxy> purchases = service.getActivePurchases(null);
 
 		Assert.assertEquals(3, purchases.size());
 
 		service.complitePurchase(purchases.get(0).getId());
 
-		purchases = service.getActivePurchases();
+		purchases = service.getActivePurchases(null);
 		Assert.assertEquals(2, purchases.size());
 
 		GanttData ganttData = projectsService.getCurrentTasks();
@@ -105,16 +106,50 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		List<PurchaseProxy> purchases = service.getActivePurchases();
+		List<PurchaseProxy> purchases = service.getActivePurchases(null);
 
 		Assert.assertEquals(3, purchases.size());
 		Assert.assertEquals("Запланировано", purchases.get(0).getTaskState());
 
 		service.setTaskAsStartedPersents(purchases.get(0).getId());
 
-		purchases = service.getActivePurchases();
+		purchases = service.getActivePurchases(null);
 		Assert.assertEquals(3, purchases.size());
 		Assert.assertEquals("В работе", purchases.get(0).getTaskState());
+	}
+
+	@Test
+	public void testFilter() {
+		Template template = TemplateTestData.createTemplateShort5();
+		Order order = OrderTestData.createOrders1().get(0);
+		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
+		Date date = DateUtils.getDate("2013/10/20");
+		input.setDate(date);
+		input.setTemplateId(template.getKeyStr());
+		String orderId = order.getKeyStr();
+		input.setOrderId(orderId);
+		projectsService.save(input);
+
+		ProductElementTaskGridFilter filter = new ProductElementTaskGridFilter();
+		filter.setTo(DateUtils.getDate("2013/10/20"));
+		List<PurchaseProxy> purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(3, purchases.size());
+
+		filter.setTo(DateUtils.getDate("2013/10/19"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(3, purchases.size());
+
+		filter.setTo(DateUtils.getDate("2013/10/18"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(2, purchases.size());
+
+		filter.setTo(DateUtils.getDate("2013/10/17"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(1, purchases.size());
+
+		filter.setTo(DateUtils.getDate("2013/10/16"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(0, purchases.size());
 	}
 
 }

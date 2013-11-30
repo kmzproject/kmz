@@ -55,7 +55,7 @@ public class DeleteProductTest extends DataTestEveryNew {
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 
-		List<PurchaseProxy> purchases = purchaseService.getActivePurchases();
+		List<PurchaseProxy> purchases = purchaseService.getActivePurchases(null);
 		Assert.assertEquals(3, purchases.size());
 
 		service.deleteProduct(rootProduct.getId());
@@ -64,7 +64,7 @@ public class DeleteProductTest extends DataTestEveryNew {
 		rootOrder = data.getChilds().get(0);
 		Assert.assertEquals(0, rootOrder.getChilds().size());
 
-		purchases = purchaseService.getActivePurchases();
+		purchases = purchaseService.getActivePurchases(null);
 		Assert.assertEquals(0, purchases.size());
 
 		List<HistoryProxy> history = commonService.getHistoryByObject(null);

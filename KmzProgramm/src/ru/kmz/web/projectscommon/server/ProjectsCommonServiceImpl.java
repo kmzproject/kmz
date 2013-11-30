@@ -13,6 +13,7 @@ import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.production.client.ProductionModuleService;
 import ru.kmz.web.products.client.ProductsModuleService;
 import ru.kmz.web.projectscommon.client.ProjectsCommonService;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
@@ -37,8 +38,11 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	}
 
 	@Override
-	public List<PurchaseProxy> getActivePurchases() {
-		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.PURCHASE);
+	public List<PurchaseProxy> getActivePurchases(ProductElementTaskGridFilter filter) {
+		if (filter == null) {
+			filter = new ProductElementTaskGridFilter();
+		}
+		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.PURCHASE, filter.getFrom(), filter.getTo());
 		List<PurchaseProxy> proxyList = new ArrayList<PurchaseProxy>();
 
 		for (ProductElementTask task : list) {
@@ -59,7 +63,12 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 
 	@Override
 	public List<ProductProxy> getActiveProducts() {
-		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.PRODUCT);
+		ProductElementTaskGridFilter filter = null;
+		if (filter == null) {
+			filter = new ProductElementTaskGridFilter();
+		}
+
+		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.PRODUCT, filter.getFrom(), filter.getTo());
 		List<ProductProxy> proxyList = new ArrayList<ProductProxy>();
 
 		for (ProductElementTask task : list) {
@@ -80,7 +89,12 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 
 	@Override
 	public List<ProductionProxy> getActiveProductions() {
-		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.ASSEMBLAGE);
+		ProductElementTaskGridFilter filter = null;
+		if (filter == null) {
+			filter = new ProductElementTaskGridFilter();
+		}
+
+		List<ProductElementTask> list = ProductElementTaskDataUtils.getNotComplitedTask(ResourceTypes.ASSEMBLAGE, filter.getFrom(), filter.getTo());
 		List<ProductionProxy> proxyList = new ArrayList<ProductionProxy>();
 
 		for (ProductElementTask task : list) {
