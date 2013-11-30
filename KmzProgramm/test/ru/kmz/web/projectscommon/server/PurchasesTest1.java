@@ -150,6 +150,29 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		filter.setTo(DateUtils.getDate("2013/10/16"));
 		purchases = service.getActivePurchases(filter);
 		Assert.assertEquals(0, purchases.size());
+
+		filter.setTo(null);
+
+		filter.setFrom(DateUtils.getDate("2013/10/16"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(3, purchases.size());
+
+		filter.setFrom(DateUtils.getDate("2013/10/17"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(3, purchases.size());
+
+		filter.setFrom(DateUtils.getDate("2013/10/18"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(3, purchases.size());
+
+		filter.setFrom(DateUtils.getDate("2013/10/19"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(3, purchases.size());
+
+		filter.setFrom(DateUtils.getDate("2013/10/20"));
+		purchases = service.getActivePurchases(filter);
+		Assert.assertEquals(0, purchases.size());
+
 	}
 
 }

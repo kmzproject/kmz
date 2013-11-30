@@ -18,7 +18,6 @@ import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.production.client.ProductionModuleService;
 import ru.kmz.web.projects.server.ProjectsModuleServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
-import ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.test.DataTestEveryNew;
 
@@ -45,7 +44,7 @@ public class ProductionTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		List<ProductionProxy> productions = service.getActiveProductions();
+		List<ProductionProxy> productions = service.getActiveProductions(null);
 
 		Assert.assertEquals(3, productions.size());
 		Assert.assertEquals("Сборка 1", productions.get(0).getName());
@@ -70,13 +69,13 @@ public class ProductionTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		List<ProductionProxy> productions = service.getActiveProductions();
+		List<ProductionProxy> productions = service.getActiveProductions(null);
 
 		Assert.assertEquals(3, productions.size());
 
 		service.compliteProduction(productions.get(0).getId());
 
-		productions = service.getActiveProductions();
+		productions = service.getActiveProductions(null);
 		Assert.assertEquals(2, productions.size());
 
 		GanttData ganttData = projectsService.getCurrentTasks();

@@ -34,7 +34,7 @@ public class ProductElementTaskDataUtils {
 
 				for (ProductElementTask productElementTask : list) {
 					if (from != null) {
-						if (productElementTask.getStart().before(from)) {
+						if (!productElementTask.getFinish().after(from)) {
 							continue;
 						}
 					}

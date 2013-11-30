@@ -62,8 +62,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	}
 
 	@Override
-	public List<ProductProxy> getActiveProducts() {
-		ProductElementTaskGridFilter filter = null;
+	public List<ProductProxy> getActiveProducts(ProductElementTaskGridFilter filter) {
 		if (filter == null) {
 			filter = new ProductElementTaskGridFilter();
 		}
@@ -88,8 +87,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	}
 
 	@Override
-	public List<ProductionProxy> getActiveProductions() {
-		ProductElementTaskGridFilter filter = null;
+	public List<ProductionProxy> getActiveProductions(ProductElementTaskGridFilter filter) {
 		if (filter == null) {
 			filter = new ProductElementTaskGridFilter();
 		}

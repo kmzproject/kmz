@@ -3,6 +3,7 @@ package ru.kmz.web.production.client;
 import java.util.List;
 
 import ru.kmz.web.projectscommon.client.ProjectsCommonService;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -13,6 +14,6 @@ public interface ProductionModuleService extends RemoteService, ProjectsCommonSe
 
 	void compliteProduction(String id);
 
-	List<ProductionProxy> getActiveProductions();
+	List<ProductionProxy> getActiveProductions(ProductElementTaskGridFilter filter);
 
 }

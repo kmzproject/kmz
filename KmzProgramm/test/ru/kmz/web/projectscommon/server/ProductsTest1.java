@@ -42,7 +42,7 @@ public class ProductsTest1 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
-		List<ProductProxy> products = service.getActiveProducts();
+		List<ProductProxy> products = service.getActiveProducts(null);
 
 		Assert.assertEquals(1, products.size());
 		Assert.assertEquals("Изделие Short5", products.get(0).getName());

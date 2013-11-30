@@ -49,7 +49,7 @@ public class ProductsModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	private ToolBar createToolBar() {
 		ToolBar toolBar = new ToolBar();
-		
+
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
 

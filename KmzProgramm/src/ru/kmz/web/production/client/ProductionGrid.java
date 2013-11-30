@@ -8,6 +8,7 @@ import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
 import ru.kmz.web.common.client.control.DateCellFormatColor;
 import ru.kmz.web.projectscommon.client.ProductionProxyProperties;
+import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 
 import com.google.gwt.core.client.GWT;
@@ -24,6 +25,7 @@ import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 public class ProductionGrid extends CommonGrid<ProductionProxy> {
 
 	private static final ProductionProxyProperties props;
+	private ProductElementTaskGridFilter filter;
 
 	static {
 		props = GWT.create(ProductionProxyProperties.class);
@@ -60,12 +62,16 @@ public class ProductionGrid extends CommonGrid<ProductionProxy> {
 		setLoadOnInit(true);
 	}
 
+	public void setFilter(ProductElementTaskGridFilter filter) {
+		this.filter = filter;
+	}
+
 	@Override
 	protected PagingLoader<PagingLoadConfig, PagingLoadResult<ProductionProxy>> createLoader() {
 		RpcProxy<PagingLoadConfig, PagingLoadResult<ProductionProxy>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<ProductionProxy>>() {
 			@Override
 			public void load(PagingLoadConfig loadConfig, final AsyncCallback<PagingLoadResult<ProductionProxy>> callback) {
-				ProductionModuleView.getService().getActiveProductions(new AsyncCallbackWithErrorMessage<List<ProductionProxy>>() {
+				ProductionModuleView.getService().getActiveProductions(filter, new AsyncCallbackWithErrorMessage<List<ProductionProxy>>() {
 					@Override
 					public void onSuccess(List<ProductionProxy> result) {
 						PagingLoadResultBean<ProductionProxy> r = new PagingLoadResultBean<ProductionProxy>();
