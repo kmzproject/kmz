@@ -12,7 +12,6 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.server.data.constants.ProductElementTaskStates;
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projectscommon.shared.ProductElementTaskProxy;
@@ -81,39 +80,28 @@ public class ProductElementTask implements IProjectTask {
 		this.resourceType = proxy.getResourceType();
 	}
 
-	private ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task) {
-		this.name = name;
-		this.resourceType = resourseType;
-		this.durationWork = durationWork;
-
-		if (task != null) {
-			this.start = task.getStart();
-			this.finish = task.getFinish();
-		}
-
-		this.taskState = ProductElementTaskStates.PLANNED;
-
-	}
-
-	public ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task, Order order) {
-		this(name, durationWork, resourseType, task);
+	public ProductElementTask(ProductTemplateElement template, Long orderId) {
+		this.name = template.getName();
+		this.resourceType = template.getResourceType();
+		this.durationWork = template.getDuration();
 
 		this.parentId = null;
-		this.orderId = order.getId();
+		this.taskState = ProductElementTaskStates.PLANNED;
+
+		this.orderId = orderId;
 	}
 
-	public ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task, ProductElementTask parent) {
-		this(name, durationWork, resourseType, task);
+	public ProductElementTask(ProductTemplateElement template, ProductElementTask parent) {
+		this(template, parent.getOrderId());
 
 		this.parentId = parent.getId();
-		this.orderId = parent.getOrderId();
 
 		if (parent.hasChild()) {
 			int katenok = parent.getChilds().size();
 			this.orderNum = katenok;
 		}
-
 		parent.add(this);
+
 	}
 
 	public Long getParentId() {
@@ -263,4 +251,13 @@ public class ProductElementTask implements IProjectTask {
 	public String toString() {
 		return code + " " + getNameAndCount();
 	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public void setFinish(Date finish) {
+		this.finish = finish;
+	}
+
 }
