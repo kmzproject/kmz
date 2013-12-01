@@ -6,6 +6,7 @@ import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
+import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.engine.calculator.CalendarOffsetService;
 
@@ -87,7 +88,19 @@ public class CreateNewProductService {
 	}
 
 	private void updateOrderStartFinish(ProductElementTask product) {
-		// TODO: реализовать хранение времени начала и завершение заказа, при изменении времени заказа заносить запись в лог
+		boolean isEdit = false;
+		if (order.getFinish() == null || order.getFinish().before(product.getFinish())) {
+			order.setFinish(product.getFinish());
+			isEdit = true;
+		}
+		if (order.getStart() == null || order.getStart().after(product.getStart())) {
+			order.setStart(product.getStart());
+			isEdit = true;
+		}
+		if (isEdit) {
+			order = OrderDataUtils.edit(order);
+			// TODO: запись в историю - изменилась дата заказа
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 package ru.kmz.server.data.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -32,6 +33,13 @@ public class Order implements IProjectTask {
 
 	@Persistent
 	private String code;
+
+	@Persistent
+	private Date start;
+	@Persistent
+	private Date finish;
+	@Persistent
+	private int done;
 
 	@NotPersistent
 	private List<ProductElementTask> childs;
@@ -105,5 +113,25 @@ public class Order implements IProjectTask {
 	@Override
 	public String toString() {
 		return code + " " + name + " " + customer + " " + legalNumber;
+	}
+
+	@Override
+	public Date getStart() {
+		return start;
+	}
+
+	@Override
+	public Date getFinish() {
+		return finish;
+	}
+
+	@Override
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	@Override
+	public void setFinish(Date finish) {
+		this.finish = finish;
 	}
 }
