@@ -3,8 +3,8 @@ package ru.kmz.web.ordercommon.client.control;
 import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.data.KeyLongValueDataProperties;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.ordercommon.client.OrderCommon;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 
@@ -14,12 +14,9 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
 
 public class OrderComboBoxUtils {
 
-	public static ComboBox<KeyValueData> createOrderCompoBox(boolean addEmpty) {
-		final ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		if (addEmpty) {
-			list.add(new KeyValueData("", null));
-		}
-		final ComboBox<KeyValueData> orderBox = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
+	public static ComboBox<KeyValueData<Long>> createOrderCompoBox() {
+		final ListStore<KeyValueData<Long>> list = new ListStore<KeyValueData<Long>>(KeyLongValueDataProperties.prop.key());
+		final ComboBox<KeyValueData<Long>> orderBox = new ComboBox<KeyValueData<Long>>(list, KeyLongValueDataProperties.prop.value());
 		orderBox.setForceSelection(true);
 		orderBox.setTypeAhead(true);
 		orderBox.setTriggerAction(TriggerAction.ALL);
@@ -31,16 +28,12 @@ public class OrderComboBoxUtils {
 			@Override
 			public void onSuccess(List<OrderProxy> result) {
 				for (OrderProxy proxy : result) {
-					list.add(new KeyValueData(proxy.getId(), proxy.getName()));
+					list.add(new KeyValueData<Long>(proxy.getId(), proxy.getName()));
 				}
 			}
 
 		});
 
 		return orderBox;
-	}
-
-	public static ComboBox<KeyValueData> createOrderCompoBox() {
-		return createOrderCompoBox(false);
 	}
 }

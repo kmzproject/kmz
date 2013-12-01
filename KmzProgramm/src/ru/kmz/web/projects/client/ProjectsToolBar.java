@@ -1,10 +1,9 @@
 package ru.kmz.web.projects.client;
 
+import ru.kmz.web.common.client.data.KeyStringValueDataProperties;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
-import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.ScaleConstants;
 import ru.kmz.web.projects.client.window.GanttDataFilterWindow;
 import ru.kmz.web.projects.client.window.SelectCalculationInfo;
@@ -110,54 +109,27 @@ public class ProjectsToolBar implements IsWidget {
 
 	}
 
-	private ComboBox<KeyValueData> getScaleComboBox() {
-		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		list.add(new KeyValueData(ScaleConstants.DAY, "День"));
-		list.add(new KeyValueData(ScaleConstants.WEEK, "Неделя"));
-		list.add(new KeyValueData(ScaleConstants.MONTH, "Месяц"));
+	private ComboBox<KeyValueData<String>> getScaleComboBox() {
+		ListStore<KeyValueData<String>> list = new ListStore<KeyValueData<String>>(KeyStringValueDataProperties.prop.key());
+		list.add(new KeyValueData<String>(ScaleConstants.DAY, "День"));
+		list.add(new KeyValueData<String>(ScaleConstants.WEEK, "Неделя"));
+		list.add(new KeyValueData<String>(ScaleConstants.MONTH, "Месяц"));
 
-		ComboBox<KeyValueData> scaleCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
+		ComboBox<KeyValueData<String>> scaleCombo = new ComboBox<KeyValueData<String>>(list, KeyStringValueDataProperties.prop.value());
 		scaleCombo.setForceSelection(true);
 		scaleCombo.setTypeAhead(true);
 		scaleCombo.setTriggerAction(TriggerAction.ALL);
 		scaleCombo.setEditable(false);
 		scaleCombo.setValue(list.get(1));
 
-		scaleCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
+		scaleCombo.addSelectionHandler(new SelectionHandler<KeyValueData<String>>() {
 
 			@Override
-			public void onSelection(SelectionEvent<KeyValueData> event) {
+			public void onSelection(SelectionEvent<KeyValueData<String>> event) {
 				projectModulesView.getGantt().changeScale(event.getSelectedItem().getKey());
 			}
 		});
 
 		return scaleCombo;
 	}
-
-	@Deprecated
-	private ComboBox<KeyValueData> getFiltersComboBox() {
-		ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		list.add(new KeyValueData(null, ""));
-		list.add(new KeyValueData(ResourceTypesConsts.PURCHASE, "Закупки"));
-		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE, "Сборку"));
-
-		ComboBox<KeyValueData> filterCombo = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
-		filterCombo.setForceSelection(true);
-		filterCombo.setTypeAhead(true);
-		filterCombo.setTriggerAction(TriggerAction.ALL);
-		filterCombo.setEditable(false);
-		filterCombo.setValue(list.get(0));
-
-		filterCombo.addSelectionHandler(new SelectionHandler<KeyValueData>() {
-
-			@Override
-			public void onSelection(SelectionEvent<KeyValueData> event) {
-				// projectModulesView.getGantt().setFilterResourceType(event.getSelectedItem().getKey());
-				projectModulesView.getGantt().removeAllTaskByResourceType(event.getSelectedItem().getKey());
-			}
-		});
-
-		return filterCombo;
-	}
-
 }

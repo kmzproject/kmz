@@ -23,8 +23,8 @@ import com.sencha.gxt.widget.core.client.info.Info;
 public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDataProxy> {
 
 	private DateField dataField;
-	private ComboBox<KeyValueData> templateComboBox;
-	private ComboBox<KeyValueData> orderComboBox;
+	private ComboBox<KeyValueData<Long>> templateComboBox;
+	private ComboBox<KeyValueData<Long>> orderComboBox;
 	private TextField countField;
 	private CheckBox useWeekend;
 
@@ -48,7 +48,7 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 		templateComboBox = TemplateComboBoxUtils.createTemplateComboBox();
 		container.add(new FieldLabel(templateComboBox, "Шаблон"));
 
-		orderComboBox = OrderComboBoxUtils.createOrderCompoBox(false);
+		orderComboBox = OrderComboBoxUtils.createOrderCompoBox();
 		container.add(new FieldLabel(orderComboBox, "Заказ"));
 
 		countField = new TextField();
@@ -65,9 +65,9 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 	private CalculatorInputDataProxy getInput() {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(dataField.getValue());
-		input.setTemplateId(templateComboBox.getValue().getKeyLong());
+		input.setTemplateId(templateComboBox.getValue().getKey());
 		if (orderComboBox.getValue() != null) {
-			input.setOrderId(orderComboBox.getValue().getKeyLong());
+			input.setOrderId(orderComboBox.getValue().getKey());
 		}
 		try {
 			int count = IntegerParser.instance().parse(countField.getValue());

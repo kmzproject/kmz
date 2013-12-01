@@ -10,9 +10,9 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.Verti
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 
-public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
+public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData<Long>> {
 
-	private ComboBox<KeyValueData> templateBox;
+	private ComboBox<KeyValueData<Long>> templateBox;
 
 	public TemplateSelectWindow() {
 		super();
@@ -32,7 +32,7 @@ public class TemplateSelectWindow extends CommonSelectWindow<KeyValueData> {
 	}
 
 	@Override
-	protected KeyValueData getSelectedValue() {
+	protected KeyValueData<Long> getSelectedValue() {
 		return templateBox.getValue();
 	}
 }

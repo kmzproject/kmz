@@ -29,7 +29,7 @@ public class ProjectsChartModuleView extends AbstarctModuleView<VerticalLayoutCo
 
 	private FunctioningCapacityChart chart;
 	private DateField dateFrom, dateTo;
-	private ComboBox<KeyValueData> resourceComboBox;
+	private ComboBox<KeyValueData<String>> resourceComboBox;
 
 	@Override
 	public void onModuleLoad() {

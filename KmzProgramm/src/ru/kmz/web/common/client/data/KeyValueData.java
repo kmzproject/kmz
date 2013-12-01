@@ -1,49 +1,37 @@
 package ru.kmz.web.common.client.data;
 
-import com.google.gwt.text.client.IntegerParser;
+public class KeyValueData<T> {
 
-public class KeyValueData {
-
-	private String key;
-	private long keyLong;
+	private T key;
 	private String value;
 
-	public KeyValueData(String key, String value) {
+	public KeyValueData(T key, String value) {
 		this.key = key;
 		this.value = value;
 	}
 
-	public KeyValueData(long key, String value) {
-		this.key = "" + key;
-		this.keyLong = key;
-		this.value = value;
+	public KeyValueData(T key) {
+		this.key = key;
+		this.value = key.toString();
 	}
 
-	public String getKey() {
+	public T getKey() {
 		return key;
-	}
-
-	public long getKeyLong() {
-		return keyLong;
 	}
 
 	public String getValue() {
 		return value;
 	}
 
-	public KeyValueData(String value) {
-		this.key = value;
-		this.value = value;
-	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
 		if (obj instanceof KeyValueData) {
-			if (key == null || ((KeyValueData) obj).key == null)
+			if (key == null || ((KeyValueData<T>) obj).key == null)
 				return false;
-			return ((KeyValueData) obj).key.equals(key);
+			return ((KeyValueData<T>) obj).key.equals(key);
 		}
 		return false;
 	}

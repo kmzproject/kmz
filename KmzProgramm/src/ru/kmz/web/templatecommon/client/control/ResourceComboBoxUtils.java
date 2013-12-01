@@ -1,7 +1,7 @@
 package ru.kmz.web.templatecommon.client.control;
 
+import ru.kmz.web.common.client.data.KeyStringValueDataProperties;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
@@ -10,14 +10,14 @@ import com.sencha.gxt.widget.core.client.form.ComboBox;
 
 public class ResourceComboBoxUtils {
 
-	public static ComboBox<KeyValueData> createResourceComboBox() {
-		final ListStore<KeyValueData> list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
+	public static ComboBox<KeyValueData<String>> createResourceComboBox() {
+		final ListStore<KeyValueData<String>> list = new ListStore<KeyValueData<String>>(KeyStringValueDataProperties.prop.key());
 
-		list.add(new KeyValueData(ResourceTypesConsts.PURCHASE));
-		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE));
-		list.add(new KeyValueData(ResourceTypesConsts.PREPARE));
+		list.add(new KeyValueData<String>(ResourceTypesConsts.PURCHASE));
+		list.add(new KeyValueData<String>(ResourceTypesConsts.ASSEMBLAGE));
+		list.add(new KeyValueData<String>(ResourceTypesConsts.PREPARE));
 
-		ComboBox<KeyValueData> resourceBox = new ComboBox<KeyValueData>(list, KeyValueDataProperties.prop.value());
+		ComboBox<KeyValueData<String>> resourceBox = new ComboBox<KeyValueData<String>>(list, KeyStringValueDataProperties.prop.value());
 		resourceBox.setForceSelection(true);
 		resourceBox.setTypeAhead(true);
 		resourceBox.setTriggerAction(TriggerAction.ALL);

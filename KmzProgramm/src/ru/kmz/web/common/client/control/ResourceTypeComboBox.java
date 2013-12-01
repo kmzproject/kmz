@@ -1,28 +1,27 @@
 package ru.kmz.web.common.client.control;
 
+import ru.kmz.web.common.client.data.KeyStringValueDataProperties;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.data.KeyValueDataProperties;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 
-public class ResourceTypeComboBox extends ComboBox<KeyValueData> {
+public class ResourceTypeComboBox extends ComboBox<KeyValueData<String>> {
 
-	private static ListStore<KeyValueData> list;
-
+	private static ListStore<KeyValueData<String>> list;
 	static {
-		list = new ListStore<KeyValueData>(KeyValueDataProperties.prop.key());
-		list.add(new KeyValueData(ResourceTypesConsts.ASSEMBLAGE));
-		list.add(new KeyValueData(ResourceTypesConsts.PREPARE));
-		list.add(new KeyValueData(ResourceTypesConsts.PURCHASE));
-		list.add(new KeyValueData(ResourceTypesConsts.FOLDER));
+		list = new ListStore<KeyValueData<String>>(KeyStringValueDataProperties.prop.key());
+		list.add(new KeyValueData<String>(ResourceTypesConsts.ASSEMBLAGE));
+		list.add(new KeyValueData<String>(ResourceTypesConsts.PREPARE));
+		list.add(new KeyValueData<String>(ResourceTypesConsts.PURCHASE));
+		list.add(new KeyValueData<String>(ResourceTypesConsts.FOLDER));
 	}
 
 	public void setValue(String value) {
-		for (KeyValueData data : list.getAll()) {
-			if (data.getKey().equals(value)) {
+		for (KeyValueData<String> data : list.getAll()) {
+			if (data.getValue().equals(value)) {
 				this.setValue(data);
 				return;
 			}
@@ -30,7 +29,7 @@ public class ResourceTypeComboBox extends ComboBox<KeyValueData> {
 	}
 
 	public ResourceTypeComboBox() {
-		super(list, KeyValueDataProperties.prop.value());
+		super(list, KeyStringValueDataProperties.prop.value());
 		setForceSelection(true);
 		setTypeAhead(true);
 		setTriggerAction(TriggerAction.ALL);

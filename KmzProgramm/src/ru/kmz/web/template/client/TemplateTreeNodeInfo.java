@@ -20,7 +20,7 @@ public class TemplateTreeNodeInfo implements IsWidget {
 	private FlowLayoutContainer container;
 
 	private TextField name;
-	private ComboBox<KeyValueData> resourceType;
+	private ComboBox<KeyValueData<String>> resourceType;
 	private TextField duration;
 
 	@Override
@@ -50,7 +50,7 @@ public class TemplateTreeNodeInfo implements IsWidget {
 	public void setValue(TemplateTreeNodeBaseProxy value) {
 		name.setValue(value.getName());
 		duration.setValue(value.getDuration() + "");
-		resourceType.setValue(new KeyValueData(value.getResourceType()));
+		resourceType.setValue(new KeyValueData<String>(value.getResourceType()));
 	}
 
 	public void saveValue(TemplateTreeNodeBaseProxy proxy) {

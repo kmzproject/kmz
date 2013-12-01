@@ -19,7 +19,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
-public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<KeyValueData> {
+public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<KeyValueData<Long>> {
 
 	private final static TemplateModuleServiceAsync service = GWT.create(TemplateModuleService.class);
 
@@ -107,8 +107,8 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 	}
 
 	@Override
-	public void update(KeyValueData data) {
-		getService().getData(data.getKeyLong(), new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>() {
+	public void update(KeyValueData<Long> data) {
+		getService().getData(data.getKey(), new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>() {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {
