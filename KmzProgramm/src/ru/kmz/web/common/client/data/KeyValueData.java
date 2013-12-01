@@ -19,6 +19,10 @@ public class KeyValueData<T> {
 		return key;
 	}
 
+	public String getKeyStr() {
+		return key.toString();
+	}
+
 	public String getValue() {
 		return value;
 	}

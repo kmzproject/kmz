@@ -7,7 +7,7 @@ import com.sencha.gxt.data.shared.PropertyAccess;
 
 interface KeyValueDataProperties<T> extends PropertyAccess<KeyValueData<T>> {
 
-	@Path("key")
+	@Path("keyStr")
 	ModelKeyProvider<KeyValueData<T>> key();
 
 	@Path("value")
