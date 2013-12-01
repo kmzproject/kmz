@@ -64,7 +64,7 @@ public class CreateNewProductService {
 
 		if (templateElement.hasChild()) {
 			for (ProductTemplateElement e : templateElement.getChilds()) {
-				createProductElementTask(e, task, finishDate);
+				createProductElementTask(e, task, task.getStart());
 			}
 			if (templateElement.getDuration() == 0) {
 				task.setStart(getChildsStart(task));
