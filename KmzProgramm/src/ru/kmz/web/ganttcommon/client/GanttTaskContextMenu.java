@@ -50,7 +50,7 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 		setNewDateMenuItem.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				handler.showNewDateSelector(taskModel.getId());
+				handler.showNewDateSelector(taskModel.getIdLong());
 			}
 		});
 		add(setNewDateMenuItem);
@@ -59,7 +59,7 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 		deleteMenuItem.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				handler.delete(taskModel.getId());
+				handler.delete(taskModel.getIdLong());
 			}
 		});
 		add(deleteMenuItem);
@@ -75,7 +75,7 @@ public class GanttTaskContextMenu extends Menu implements TaskContextMenuHandler
 	}
 
 	private void setTaskComplitePersents(int persents) {
-		handler.setPersentDone(taskModel.getId(), persents);
+		handler.setPersentDone(taskModel.getIdLong(), persents);
 		taskModel.setPercentDone(persents);
 	}
 

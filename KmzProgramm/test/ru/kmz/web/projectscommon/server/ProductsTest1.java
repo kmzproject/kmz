@@ -37,9 +37,8 @@ public class ProductsTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/10");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		List<ProductProxy> products = service.getActiveProducts(null);

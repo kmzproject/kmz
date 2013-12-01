@@ -36,9 +36,9 @@ public class CheckOrder extends DataTestEveryNew {
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(DateUtils.getOffsetDate(date, 1));
-		input.setTemplateId(template.getKeyStr());
+		input.setTemplateId(template.getId());
 		input.setByFinishDate(true);
-		input.setOrderId(order.getKeyStr());
+		input.setOrderId(order.getId());
 
 		service.save(input);
 
@@ -72,18 +72,18 @@ public class CheckOrder extends DataTestEveryNew {
 
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(DateUtils.getOffsetDate(date, 2));
-		input.setTemplateId(template.getKeyStr());
+		input.setTemplateId(template.getId());
 		input.setByFinishDate(true);
 
-		input.setOrderId(order1.getKeyStr());
+		input.setOrderId(order1.getId());
 		service.save(input);
 
 		input.setDate(DateUtils.getOffsetDate(date, 1));
-		input.setOrderId(order2.getKeyStr());
+		input.setOrderId(order2.getId());
 		service.save(input);
 
 		input.setDate(date);
-		input.setOrderId(order3.getKeyStr());
+		input.setOrderId(order3.getId());
 		service.save(input);
 
 		GanttData data = service.getCurrentTasks(null);
@@ -100,7 +100,7 @@ public class CheckOrder extends DataTestEveryNew {
 		Assert.assertEquals(DateUtils.getOffsetDate(startDate, 2), rootOrder3.getPlanStart());
 
 		GanttDataFilter filter = new GanttDataFilter();
-		filter.addOrderId(order1.getKeyStr());
+		filter.addOrderId(order1.getId());
 		data = service.getCurrentTasks(filter);
 		Assert.assertEquals(1, data.getChilds().size());
 

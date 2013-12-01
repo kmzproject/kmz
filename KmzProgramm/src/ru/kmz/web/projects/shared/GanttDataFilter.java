@@ -7,17 +7,17 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class GanttDataFilter implements Serializable {
 
-	private List<String> orderIds;
+	private List<Long> orderIds;
 
 	public GanttDataFilter() {
-		orderIds = new ArrayList<String>();
+		orderIds = new ArrayList<Long>();
 	}
 
-	public List<String> getOrderIds() {
+	public List<Long> getOrderIds() {
 		return orderIds;
 	}
 
-	public void addOrderId(String orderId) {
+	public void addOrderId(long orderId) {
 		this.orderIds.add(orderId);
 	}
 

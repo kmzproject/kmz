@@ -8,7 +8,7 @@ public class ProductProxy extends ProductElementTaskProxy {
 		super();
 	}
 
-	public ProductProxy(String id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
+	public ProductProxy(long id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
 		super(id, name, code, planStart, planFinish, done, taskState);
 	}
 

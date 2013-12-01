@@ -42,9 +42,9 @@ public class SetCompliteTask extends DataTestEveryNew {
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(DateUtils.getOffsetDate(date, 1));
-		input.setTemplateId(template.getKeyStr());
+		input.setTemplateId(template.getId());
 		input.setByFinishDate(true);
-		input.setOrderId(order.getKeyStr());
+		input.setOrderId(order.getId());
 
 		service.save(input);
 

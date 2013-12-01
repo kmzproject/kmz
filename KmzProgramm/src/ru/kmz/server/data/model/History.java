@@ -9,15 +9,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.common.shared.HistoryProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class History {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private Date date;
@@ -32,11 +29,7 @@ public class History {
 	private String user;
 
 	@Persistent
-	private Key objectId;
-
-	public void setKey(Key key) {
-		this.key = key;
-	}
+	private Long objectId;
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -54,12 +47,12 @@ public class History {
 		this.user = user;
 	}
 
-	public void setObjectId(Key objectId) {
+	public void setObjectId(Long objectId) {
 		this.objectId = objectId;
 	}
 
 	public HistoryProxy asProxy() {
-		return new HistoryProxy(KeyFactory.keyToString(key), name, comment, new Date(date.getTime()), user);
+		return new HistoryProxy(id, name, comment, new Date(date.getTime()), user);
 	}
 
 }

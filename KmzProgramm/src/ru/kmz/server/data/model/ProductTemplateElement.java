@@ -14,15 +14,12 @@ import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class ProductTemplateElement {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private String name;
@@ -34,10 +31,10 @@ public class ProductTemplateElement {
 	private String resourceType;
 
 	@Persistent
-	private Key parentId;
+	private Long parentId;
 
 	@Persistent
-	private Key templateId;
+	private Long templateId;
 
 	@Persistent
 	private int orderNum;
@@ -56,7 +53,7 @@ public class ProductTemplateElement {
 		this.duration = 0;
 		this.resourceType = ResourceTypes.PRODUCT;
 		this.parentId = null;
-		this.templateId = template.getKey();
+		this.templateId = template.getId();
 		orderNum = 0;
 
 		template.setRootElement(this);
@@ -66,7 +63,7 @@ public class ProductTemplateElement {
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourseType;
-		this.parentId = parent.getKey();
+		this.parentId = parent.getId();
 		this.templateId = parent.getTemplateId();
 
 		if (parent.hasChild()) {
@@ -78,11 +75,11 @@ public class ProductTemplateElement {
 		parent.add(this);
 	}
 
-	public Key getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public Key getTemplateId() {
+	public Long getTemplateId() {
 		return templateId;
 	}
 
@@ -91,19 +88,11 @@ public class ProductTemplateElement {
 			childs = new ArrayList<ProductTemplateElement>();
 		}
 		childs.add(child);
-		child.parentId = key;
+		child.parentId = id;
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public Key getParentKey() {
-		return parentId;
-	}
-
-	public String getKeyStr() {
-		return KeyFactory.keyToString(key);
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -123,7 +112,7 @@ public class ProductTemplateElement {
 	}
 
 	public TemplateTreeNodeFolderProxy asProxy() {
-		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(getKeyStr(), name, duration, resourceType);
+		TemplateTreeNodeFolderProxy proxy = new TemplateTreeNodeFolderProxy(id, name, duration, resourceType);
 		if (hasChild()) {
 			for (ProductTemplateElement child : childs) {
 				proxy.add(child.asProxy());
@@ -133,7 +122,7 @@ public class ProductTemplateElement {
 	}
 
 	public GraphData asGraphDataProxy() {
-		return new GraphData(getKeyStr(), name, null, duration, duration, resourceType);
+		return new GraphData(id, name, null, duration, duration, resourceType);
 	}
 
 	public String getResourceType() {
@@ -147,7 +136,7 @@ public class ProductTemplateElement {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ProductTemplateElement) {
-			return ((ProductTemplateElement) obj).key.equals(key);
+			return ((ProductTemplateElement) obj).id.equals(id);
 		}
 		return false;
 	}

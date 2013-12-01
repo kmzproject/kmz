@@ -1,17 +1,30 @@
 package ru.kmz.web.common.client.data;
 
+import com.google.gwt.text.client.IntegerParser;
+
 public class KeyValueData {
 
 	private String key;
+	private long keyLong;
 	private String value;
 
-	public KeyValueData(String ket, String value) {
-		this.key = ket;
+	public KeyValueData(String key, String value) {
+		this.key = key;
+		this.value = value;
+	}
+
+	public KeyValueData(long key, String value) {
+		this.key = "" + key;
+		this.keyLong = key;
 		this.value = value;
 	}
 
 	public String getKey() {
 		return key;
+	}
+
+	public long getKeyLong() {
+		return keyLong;
 	}
 
 	public String getValue() {

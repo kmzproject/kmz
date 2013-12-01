@@ -7,15 +7,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.resources.shared.ResourceProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class Resource {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private String name;
@@ -29,8 +26,7 @@ public class Resource {
 		name = proxy.getName();
 		resourceType = proxy.getResourceType();
 		if (proxy.getId() != 0) {
-			Key k = KeyFactory.createKey(getClass().getSimpleName(), proxy.getId());
-			setKey(k);
+			id = proxy.getId();
 		}
 	}
 
@@ -40,12 +36,8 @@ public class Resource {
 		this.resourceType = resourceType;
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -65,13 +57,13 @@ public class Resource {
 	}
 
 	public ResourceProxy asProxy() {
-		ResourceProxy proxy = new ResourceProxy(getKey().getId(), getName(), getResourceType());
+		ResourceProxy proxy = new ResourceProxy(id, getName(), getResourceType());
 		return proxy;
 	}
 
 	@Override
 	public String toString() {
-		return key + "" + name + " " + resourceType;
+		return id + "" + name + " " + resourceType;
 	}
 
 }

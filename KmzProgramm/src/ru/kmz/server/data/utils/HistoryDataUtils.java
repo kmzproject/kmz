@@ -8,9 +8,6 @@ import javax.jdo.Query;
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.History;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 public class HistoryDataUtils {
 
 	public static History edit(History history) {
@@ -42,8 +39,7 @@ public class HistoryDataUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<History> getHistoriesByObject(String keyStr) {
-		Key key = KeyFactory.stringToKey(keyStr);
+	public static List<History> getHistoriesByObject(Long key) {
 		List<History> list = null;
 		PersistenceManager pm = null;
 		try {

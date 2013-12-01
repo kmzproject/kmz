@@ -35,9 +35,9 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
+		input.setTemplateId(template.getId());
 		input.setByFinishDate(true);
-		input.setOrderId(order.getKeyStr());
+		input.setOrderId(order.getId());
 
 		service.save(input);
 

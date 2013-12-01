@@ -23,7 +23,7 @@ public class OrderCommonServiceImpl extends AbstractServiceImpl implements Order
 
 	@Override
 	public OrderProxy editOrder(OrderProxy proxy) {
-		boolean isNew = proxy.getId() == null;
+		boolean isNew = proxy.getId() == 0;
 		Order order;
 		if (isNew) {
 			order = new Order();

@@ -39,9 +39,8 @@ public class ProductionTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		List<ProductionProxy> productions = service.getActiveProductions(null);
@@ -64,9 +63,8 @@ public class ProductionTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		List<ProductionProxy> productions = service.getActiveProductions(null);

@@ -14,7 +14,7 @@ public interface ProjectsModuleServiceAsync {
 
 	void save(CalculatorInputDataProxy input, AsyncCallback<Void> callback);
 
-	void deleteProduct(String id, AsyncCallback<Void> callback);
+	void deleteProduct(long id, AsyncCallback<Void> callback);
 
-	void updateDate(String id, Date date, AsyncCallback<Void> callback);
+	void updateDate(long id, Date date, AsyncCallback<Void> callback);
 }

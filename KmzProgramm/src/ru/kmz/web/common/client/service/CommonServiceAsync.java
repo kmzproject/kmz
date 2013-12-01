@@ -8,6 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface CommonServiceAsync {
 
-	void getHistoryByObject(String keyStr, AsyncCallback<List<HistoryProxy>> callback);
+	void getHistoryByObject(Long keyStr, AsyncCallback<List<HistoryProxy>> callback);
 
 }

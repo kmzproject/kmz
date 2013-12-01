@@ -14,6 +14,6 @@ public interface PurchasesModuleService extends RemoteService, ProjectsCommonSer
 
 	List<PurchaseProxy> getActivePurchases(ProductElementTaskGridFilter filter);
 
-	void complitePurchase(String id);
+	void complitePurchase(long id);
 
 }

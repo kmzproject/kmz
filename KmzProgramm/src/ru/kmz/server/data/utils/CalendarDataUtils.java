@@ -1,6 +1,5 @@
 package ru.kmz.server.data.utils;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -12,8 +11,6 @@ import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.History;
 import ru.kmz.server.utils.HistoryUtils;
-
-import com.google.appengine.api.datastore.Key;
 
 public class CalendarDataUtils {
 
@@ -56,29 +53,29 @@ public class CalendarDataUtils {
 		return record;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<CalendarRecord> getRecords(Key calendarId, Date limit) {
-		List<CalendarRecord> list = null;
-		PersistenceManager pm = null;
-		try {
-			pm = PMF.get().getPersistenceManager();
-			Query q = pm.newQuery(CalendarRecord.class, "this.date >= mydate && calendarId == calendarKey");
-			q.declareImports("import java.util.Date");
-			q.declareParameters("Date mydate, " + Key.class.getName() + " calendarKey");
-			System.out.println(q);
-			list = (List<CalendarRecord>) q.execute(limit, calendarId);
-		} finally {
-			pm.close();
-		}
-		return list;
-	}
+//	@SuppressWarnings("unchecked")
+//	public static List<CalendarRecord> getRecords(Long calendarId, Date limit) {
+//		List<CalendarRecord> list = null;
+//		PersistenceManager pm = null;
+//		try {
+//			pm = PMF.get().getPersistenceManager();
+//			Query q = pm.newQuery(CalendarRecord.class, "this.date >= mydate && calendarId == calendarKey");
+//			q.declareImports("import java.util.Date");
+//			q.declareParameters("Date mydate, Long calendarKey");
+//			System.out.println(q);
+//			list = (List<CalendarRecord>) q.execute(limit, calendarId);
+//		} finally {
+//			pm.close();
+//		}
+//		return list;
+//	}
 
 	public static List<CalendarRecord> getAllRecords() {
-		return getAllRecords(getCalendar().getKey());
+		return getAllRecords(getCalendar().getId());
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<CalendarRecord> getAllRecords(Key calendarId) {
+	public static List<CalendarRecord> getAllRecords(Long calendarId) {
 		List<CalendarRecord> list = null;
 		PersistenceManager pm = null;
 		try {
@@ -92,7 +89,7 @@ public class CalendarDataUtils {
 		return list;
 	}
 
-	public static void delete(String recordId) {
+	public static void delete(Long recordId) {
 		PersistenceManager pm = null;
 		CalendarRecord record;
 		try {

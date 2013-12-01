@@ -9,7 +9,6 @@ import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.web.template.client.TemplateModuleService;
-import ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
@@ -27,7 +26,7 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void getDateTest1() {
 		Template template = TemplateTestData.createTemplate1();
-		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getId());
 		Assert.assertEquals(proxy.getName(), template.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
@@ -40,34 +39,31 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void getDateTest2() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getId());
 		Assert.assertEquals(proxy.getName(), template.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
-		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0)
-				.getName(), "Вал");
+		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0).getName(), "Вал");
 	}
 
 	@Test
 	public void getDateTest4() {
 		Template template = TemplateTestData.createTemplateShort4();
-		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getId());
 		Assert.assertEquals(proxy.getName(), template.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();
-		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0)
-				.getName(), "Вал часть 1");
+		Assert.assertEquals(((TemplateTreeNodeFolderProxy) rootProxy.getChildren().get(0)).getChildren().get(0).getName(), "Вал часть 1");
 	}
 
 	@Test
 	public void createNewTemplateTreeNodeTest() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateTreeNodeBaseProxy newNodeProxy = service.createNewTemplateTreeNode(template.getRootElement()
-				.getKeyStr());
+		TemplateTreeNodeBaseProxy newNodeProxy = service.createNewTemplateTreeNode(template.getRootElement().getId());
 
-		template = TemplateDataUtils.getTemplate(template.getKeyStr());
+		template = TemplateDataUtils.getTemplate(template.getId());
 		Assert.assertEquals(template.getRootElement().getChilds().get(1).getName(), "Новый узел");
-		Assert.assertEquals(template.getRootElement().getChilds().get(1).getKeyStr(), newNodeProxy.getId());
+		Assert.assertEquals(template.getRootElement().getChilds().get(1).getId(), newNodeProxy.getId());
 	}
 
 	@Test
@@ -80,21 +76,21 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 		sourceProxy.setResourceType("New Resource Type1");
 		TemplateTreeNodeBaseProxy proxy = service.save(sourceProxy);
 
-		template = TemplateDataUtils.getTemplate(template.getKeyStr());
+		template = TemplateDataUtils.getTemplate(template.getId());
 		Assert.assertEquals(template.getRootElement().getChilds().get(0).getName(), "New Name Test1");
 		Assert.assertEquals(template.getRootElement().getChilds().get(0).getDuration(), 123);
 		Assert.assertEquals(template.getRootElement().getChilds().get(0).getResourceType(), "New Resource Type1");
 
-		Assert.assertEquals(template.getRootElement().getChilds().get(0).getKeyStr(), proxy.getId());
+		Assert.assertEquals(template.getRootElement().getChilds().get(0).getId(), proxy.getId());
 	}
 
 	@Test
 	public void deleteTest() {
 		Template template = TemplateTestData.createTemplateShort2();
 
-		service.deleteTemplateTreeNode(template.getRootElement().getChilds().get(0).getChilds().get(0).getKeyStr());
+		service.deleteTemplateTreeNode(template.getRootElement().getChilds().get(0).getChilds().get(0).getId());
 
-		template = TemplateDataUtils.getTemplate(template.getKeyStr());
+		template = TemplateDataUtils.getTemplate(template.getId());
 		Assert.assertEquals(template.getRootElement().getChilds().get(0).hasChild(), false);
 	}
 

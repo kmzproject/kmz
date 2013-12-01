@@ -10,6 +10,7 @@ import com.gantt.client.config.GanttConfig.TaskType;
 
 public class Task implements HasResourceType {
 	String id;
+	long idLong;
 	String name;
 	Date startDateTime;
 	Date endDateTime;
@@ -25,8 +26,9 @@ public class Task implements HasResourceType {
 		setChildren(children);
 	}
 
-	public Task(String id, String name, Date start, Date endDateTime, int duration, int durationWork, int percentDone, TaskType taskType, String resourceType) {
-		this.id = id;
+	public Task(long id, String name, Date start, Date endDateTime, int duration, int durationWork, int percentDone, TaskType taskType, String resourceType) {
+		this.id = "" + id;
+		this.idLong = id;
 		this.name = name;
 		this.startDateTime = start;
 		this.endDateTime = endDateTime;
@@ -48,6 +50,10 @@ public class Task implements HasResourceType {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public long getIdLong() {
+		return idLong;
 	}
 
 	public String getName() {

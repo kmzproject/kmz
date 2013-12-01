@@ -29,8 +29,8 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		input.setOrderId(order.getKeyStr());
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		input.setCount(2);
 		service.save(input);
 		GanttData data = service.getCurrentTasks(null);

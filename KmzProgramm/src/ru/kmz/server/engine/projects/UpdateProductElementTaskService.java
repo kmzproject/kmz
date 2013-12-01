@@ -8,10 +8,10 @@ import ru.kmz.server.utils.DateUtils;
 
 public class UpdateProductElementTaskService {
 
-	private String key;
+	private long key;
 	private Date date;
 
-	public UpdateProductElementTaskService(String key, Date date) {
+	public UpdateProductElementTaskService(long key, Date date) {
 		this.key = key;
 		this.date = date;
 	}

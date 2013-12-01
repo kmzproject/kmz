@@ -6,15 +6,13 @@ import java.util.Date;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.server.utils.HistoryUtils;
 
-import com.google.appengine.api.datastore.Key;
-
 public class GenerateWeekendService {
 
 	private CreateCalendarRecordService createService;
 	private Date from, to;
-	private Key calendarId;
+	private long calendarId;
 
-	public GenerateWeekendService(Key calendarId, Date from, Date to) {
+	public GenerateWeekendService(long calendarId, Date from, Date to) {
 		this.calendarId = calendarId;
 		createService = new CreateCalendarRecordService(calendarId);
 

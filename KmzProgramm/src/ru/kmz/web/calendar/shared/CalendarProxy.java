@@ -5,13 +5,13 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class CalendarProxy implements Serializable {
 
-	private String id;
+	private long id;
 	private String name;
 
 	public CalendarProxy() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -19,7 +19,7 @@ public class CalendarProxy implements Serializable {
 		return name;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -27,7 +27,7 @@ public class CalendarProxy implements Serializable {
 		this.name = name;
 	}
 
-	public CalendarProxy(String id, String name) {
+	public CalendarProxy(long id, String name) {
 		this.id = id;
 		this.name = name;
 	}

@@ -44,7 +44,7 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 	public void save(CalculatorInputDataProxy input) {
 		NewProjectService service = new NewProjectService();
 
-		String orderId = input.getOrderId();
+		long orderId = input.getOrderId();
 		Order order = OrderDataUtils.getOrder(orderId);
 		service.setOrder(order);
 		service.setCount(input.getCount());
@@ -60,12 +60,12 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 	}
 
 	@Override
-	public void deleteProduct(String id) {
+	public void deleteProduct(long id) {
 		ProductElementTaskDataUtils.deleteProduct(id);
 	}
 
 	@Override
-	public void updateDate(String id, Date date) {
+	public void updateDate(long id, Date date) {
 		UpdateProductElementTaskService service = new UpdateProductElementTaskService(id, date);
 		service.update();
 	}

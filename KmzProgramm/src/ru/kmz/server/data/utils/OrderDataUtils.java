@@ -31,7 +31,7 @@ public class OrderDataUtils {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			if (order.getKey() == null) {
+			if (order.getId() == null) {
 				int number = getMaxOrderNumber(pm);
 				number++;
 				order.setNumber(number);
@@ -56,7 +56,7 @@ public class OrderDataUtils {
 		}
 	}
 
-	public static Order getOrder(String key) {
+	public static Order getOrder(Long key) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
@@ -81,7 +81,7 @@ public class OrderDataUtils {
 	@SuppressWarnings("unchecked")
 	private static void loadAllChild(PersistenceManager pm, Order order) {
 		Query q = pm.newQuery(ProductElementTask.class, " parentId == null && orderId == :orderKey");
-		List<ProductElementTask> list = (List<ProductElementTask>) q.execute(order.getKey());
+		List<ProductElementTask> list = (List<ProductElementTask>) q.execute(order.getId());
 		for (ProductElementTask element : list) {
 			order.add(element);
 			ProductElementTaskDataUtils.loadAllChild(pm, element);

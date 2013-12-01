@@ -13,7 +13,7 @@ import ru.kmz.web.common.shared.HistoryProxy;
 public class CommonServiceImpl extends AbstractServiceImpl implements CommonService {
 
 	@Override
-	public List<HistoryProxy> getHistoryByObject(String keyStr) {
+	public List<HistoryProxy> getHistoryByObject(Long keyStr) {
 		List<History> histories;
 		if (keyStr != null) {
 			histories = HistoryDataUtils.getHistoriesByObject(keyStr);

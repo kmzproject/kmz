@@ -2,9 +2,9 @@ package ru.kmz.web.ganttcommon.client;
 
 public interface GanttTaskContextMenuHandler {
 
-	void setPersentDone(String id, int persents);
+	void setPersentDone(long id, int persents);
 
-	void showNewDateSelector(String id);
+	void showNewDateSelector(long id);
 
-	void delete(String id);
+	void delete(long id);
 }

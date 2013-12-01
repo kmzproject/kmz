@@ -48,7 +48,7 @@ public class GanttProjectsService {
 		List<Date> calendarRecords = new ArrayList<Date>();
 		Calendar calendar = CalendarDataUtils.getCalendar();
 		if (calendar != null) {
-			List<CalendarRecord> records = CalendarDataUtils.getAllRecords(calendar.getKey());
+			List<CalendarRecord> records = CalendarDataUtils.getAllRecords(calendar.getId());
 			for (CalendarRecord calendarRecord : records) {
 				calendarRecords.add(new Date(calendarRecord.getDate().getTime()));
 			}

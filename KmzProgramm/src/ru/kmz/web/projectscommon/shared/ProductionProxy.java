@@ -9,7 +9,7 @@ public class ProductionProxy extends ProductElementTaskProxy {
 		super();
 	}
 
-	public ProductionProxy(String id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
+	public ProductionProxy(long id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
 		super(id, name, code, planStart, planFinish, done, taskState);
 	}
 }

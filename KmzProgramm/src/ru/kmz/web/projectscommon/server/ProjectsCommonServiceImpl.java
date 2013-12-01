@@ -24,12 +24,12 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 		ProjectsCommonService {
 
 	@Override
-	public void setCompliteTaskPersents(String id, int persents) {
+	public void setCompliteTaskPersents(long id, int persents) {
 		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
 	}
 
 	@Override
-	public void setTaskAsStartedPersents(String id) {
+	public void setTaskAsStartedPersents(long id) {
 		ProductElementTask task = ProductElementTaskDataUtils.getTask(id);
 		if (task.setTaskStateAsStarted()) {
 			ProductElementTaskDataUtils.edit(task);
@@ -46,7 +46,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 		List<PurchaseProxy> proxyList = new ArrayList<PurchaseProxy>();
 
 		for (ProductElementTask task : list) {
-			Order order = OrderDataUtils.getOrder(task.getOrderIdStr());
+			Order order = OrderDataUtils.getOrder(task.getOrderId());
 
 			PurchaseProxy proxy = task.asPurchaseProxy();
 			proxy.setOrderName(order.getName());
@@ -57,7 +57,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	}
 
 	@Override
-	public void complitePurchase(String id) {
+	public void complitePurchase(long id) {
 		ProductElementTaskDataUtils.setTaskComplitePersents(id, 100);
 	}
 
@@ -71,7 +71,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 		List<ProductProxy> proxyList = new ArrayList<ProductProxy>();
 
 		for (ProductElementTask task : list) {
-			Order order = OrderDataUtils.getOrder(task.getOrderIdStr());
+			Order order = OrderDataUtils.getOrder(task.getOrderId());
 
 			ProductProxy proxy = task.asProductProxy();
 			proxy.setOrderName(order.getName());
@@ -81,7 +81,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	}
 
 	@Override
-	public void compliteProduction(String id) {
+	public void compliteProduction(long id) {
 		// TODO: добавить логику на проверку завершенности под закупок
 		ProductElementTaskDataUtils.setTaskComplitePersents(id, 100);
 	}
@@ -96,7 +96,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 		List<ProductionProxy> proxyList = new ArrayList<ProductionProxy>();
 
 		for (ProductElementTask task : list) {
-			Order order = OrderDataUtils.getOrder(task.getOrderIdStr());
+			Order order = OrderDataUtils.getOrder(task.getOrderId());
 
 			ProductionProxy proxy = task.asProductionProxy();
 			proxy.setOrderName(order.getName());

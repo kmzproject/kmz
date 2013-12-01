@@ -8,11 +8,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface TemplateModuleServiceAsync extends TemplateCommonServiceAsync {
 
-	void getData(String key, AsyncCallback<TemplateTreeDataProxy> callback);
+	void getData(long key, AsyncCallback<TemplateTreeDataProxy> callback);
 
-	void createNewTemplateTreeNode(String parentKey, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
+	void createNewTemplateTreeNode(long parentKey, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 
-	void deleteTemplateTreeNode(String key, AsyncCallback<Void> callback);
+	void deleteTemplateTreeNode(long key, AsyncCallback<Void> callback);
 
 	void save(TemplateTreeNodeBaseProxy proxy, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 

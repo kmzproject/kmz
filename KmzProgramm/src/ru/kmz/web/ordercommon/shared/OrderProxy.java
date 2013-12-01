@@ -5,7 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class OrderProxy implements Serializable {
 
-	private String id;
+	private long id;
 	private String name;
 	private String customer;
 	private String legalNumber;
@@ -14,7 +14,7 @@ public class OrderProxy implements Serializable {
 	public OrderProxy() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -22,7 +22,7 @@ public class OrderProxy implements Serializable {
 		return name;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -38,7 +38,7 @@ public class OrderProxy implements Serializable {
 		this.customer = customer;
 	}
 
-	public OrderProxy(String id, String code, String name, String customer, String legalNumber) {
+	public OrderProxy(long id, String code, String name, String customer, String legalNumber) {
 		this.id = id;
 		this.name = name;
 		this.customer = customer;

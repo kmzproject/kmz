@@ -21,7 +21,7 @@ public class ResourcesDataUtilsTest1 extends DataTest {
 		List<Resource> listAfterAdd = ResourcesDataUtils.getAllResources();
 		Assert.assertEquals(listBeforeAdd.size() + 1, listAfterAdd.size());
 
-		ResourcesDataUtils.delete(r.getKey().getId());
+		ResourcesDataUtils.delete(r.getId());
 		List<Resource> listAfterDelete = ResourcesDataUtils.getAllResources();
 		Assert.assertEquals(listBeforeAdd.size(), listAfterDelete.size());
 

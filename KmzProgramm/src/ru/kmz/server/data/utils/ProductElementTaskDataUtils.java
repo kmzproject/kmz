@@ -54,7 +54,7 @@ public class ProductElementTaskDataUtils {
 		}
 	}
 
-	public static ProductElementTask getTask(String key) {
+	public static ProductElementTask getTask(Long key) {
 		PersistenceManager pm = null;
 		ProductElementTask task;
 		try {
@@ -66,7 +66,7 @@ public class ProductElementTaskDataUtils {
 		return task;
 	}
 
-	public static ProductElementTask setTaskComplitePersents(String key, int persents) {
+	public static ProductElementTask setTaskComplitePersents(Long key, int persents) {
 		PersistenceManager pm = null;
 		ProductElementTask task;
 		int oldFact = 0;
@@ -83,7 +83,7 @@ public class ProductElementTaskDataUtils {
 		return task;
 	}
 
-	public static void deleteProduct(String key) {
+	public static void deleteProduct(Long key) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
@@ -106,7 +106,7 @@ public class ProductElementTaskDataUtils {
 		pm.deletePersistent(task);
 	}
 
-	public static ProductElementTask getTaskFull(String key) {
+	public static ProductElementTask getTaskFull(Long key) {
 		PersistenceManager pm = null;
 		ProductElementTask task;
 		try {
@@ -123,7 +123,7 @@ public class ProductElementTaskDataUtils {
 	public static void loadAllChild(PersistenceManager pm, ProductElementTask task) {
 		Query query = pm.newQuery(ProductElementTask.class, " parentId == :parentKey");
 		query.setOrdering("orderNum");
-		List<ProductElementTask> list = (List<ProductElementTask>) query.execute(task.getKey());
+		List<ProductElementTask> list = (List<ProductElementTask>) query.execute(task.getId());
 		for (ProductElementTask e : list) {
 			task.add(e);
 			loadAllChild(pm, e);

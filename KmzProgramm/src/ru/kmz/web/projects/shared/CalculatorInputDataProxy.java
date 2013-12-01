@@ -10,8 +10,8 @@ public class CalculatorInputDataProxy implements Serializable {
 	private boolean byFinishDate;
 	private boolean byStartDate;
 	private boolean useResource;
-	private String templateId;
-	private String orderId;
+	private long templateId;
+	private long orderId;
 	private int count;
 	private boolean useWeekend;
 
@@ -50,11 +50,11 @@ public class CalculatorInputDataProxy implements Serializable {
 		this.date = date;
 	}
 
-	public String getTemplateId() {
+	public long getTemplateId() {
 		return templateId;
 	}
 
-	public void setTemplateId(String templateId) {
+	public void setTemplateId(long templateId) {
 		this.templateId = templateId;
 	}
 
@@ -66,11 +66,11 @@ public class CalculatorInputDataProxy implements Serializable {
 		this.useResource = useResource;
 	}
 
-	public String getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(String orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 

@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gantt.client.config.GanttConfig.TaskType;
-
 import ru.kmz.web.common.shared.HasResourceType;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
+
+import com.gantt.client.config.GanttConfig.TaskType;
 
 @SuppressWarnings("serial")
 public class GraphData implements Serializable, HasResourceType, IGraphDataContainer, Comparable<GraphData> {
 
-	private String id;
+	private long id;
 	private String name;
 	private Date planStart;
 	private Date planFinish;
@@ -27,12 +27,12 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 		childs = new ArrayList<GraphData>();
 	}
 
-	public GraphData(String id, String name, String code, int duration, int durationWork, String resourceType) {
+	public GraphData(long id, String name, String code, int duration, int durationWork, String resourceType) {
 		this();
 		this.id = id;
 		this.name = name;
-		if (code!=null){
-			this.name+=" ("+code+")";
+		if (code != null) {
+			this.name += " (" + code + ")";
 		}
 		this.duration = duration;
 		this.durationWork = durationWork;
@@ -93,7 +93,7 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 		complite = value;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 

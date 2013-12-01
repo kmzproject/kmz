@@ -28,7 +28,7 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 	}
 
 	@Override
-	public TemplateTreeDataProxy getData(String key) {
+	public TemplateTreeDataProxy getData(long key) {
 		Template template = TemplateDataUtils.getTemplate(key);
 		TemplateTreeDataProxy proxy = template.asProxy();
 		return proxy;
@@ -39,7 +39,7 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 	 *            - id узла или шублона если узел верхнего уровня
 	 */
 	@Override
-	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey) {
+	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentKey) {
 		ProductTemplateElement parentElement = TemplateDataUtils.getProducteTemplateElement(parentKey);
 		ProductTemplateElement element = new ProductTemplateElement("Новый узел", 0, ResourceTypes.PURCHASE, parentElement);
 		element = TemplateDataUtils.edit(element);
@@ -47,7 +47,7 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 	}
 
 	@Override
-	public void deleteTemplateTreeNode(String key) {
+	public void deleteTemplateTreeNode(long key) {
 		TemplateDataUtils.deleteProductTemplateElement(key);
 	}
 
@@ -63,7 +63,7 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 
 	@Override
 	public void editTemplate(TemplateTreeDataProxy proxy) {
-		if (proxy.getId() != null) {
+		if (proxy.getId() != 0) {
 			Template template = TemplateDataUtils.getTemplate(proxy.getId());
 			template.setName(proxy.getName());
 			ProductTemplateElement rootElement = template.getRootElement();

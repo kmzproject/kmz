@@ -47,8 +47,8 @@ public class GetFunctioningCapacityTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date dateFinish = DateUtils.getDate("2013/11/10");
 		input.setDate(dateFinish);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
+		input.setTemplateId(template.getId());
+		long orderId = order.getId();
 		input.setOrderId(orderId);
 		projectsService.save(input);
 
@@ -83,13 +83,13 @@ public class GetFunctioningCapacityTest1 extends DataTestEveryNew {
 	public void getChartDataAndWeekendTest() {
 		Template template = TemplateTestData.createTemplateShort5();
 		Calendar calendar = CalendarTestData.craeteCalendar1();
-		calendarService.createCalendarRecord(new CalendarRecordProxy(calendar.getKeyStr(), DateUtils.getDate("2013/11/08"), "A Day"));
+		calendarService.createCalendarRecord(new CalendarRecordProxy(calendar.getId(), DateUtils.getDate("2013/11/08"), "A Day"));
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date dateFinish = DateUtils.getDate("2013/11/10");
 		input.setDate(dateFinish);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
+		input.setTemplateId(template.getId());
+		long orderId = order.getId();
 		input.setOrderId(orderId);
 		input.setUseWeekend(true);
 		projectsService.save(input);

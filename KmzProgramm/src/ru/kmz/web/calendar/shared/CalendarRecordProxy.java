@@ -6,14 +6,14 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class CalendarRecordProxy implements Serializable {
 
-	private String id;
+	private long id;
 	private Date date;
 	private String comment;
 
 	public CalendarRecordProxy() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -33,7 +33,7 @@ public class CalendarRecordProxy implements Serializable {
 		this.comment = comment;
 	}
 
-	public CalendarRecordProxy(String id, Date date, String comment) {
+	public CalendarRecordProxy(long id, Date date, String comment) {
 		this.id = id;
 		this.date = date;
 		this.comment = comment;

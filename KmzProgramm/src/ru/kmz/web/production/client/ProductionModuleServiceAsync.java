@@ -12,6 +12,5 @@ public interface ProductionModuleServiceAsync extends ProjectsCommonServiceAsync
 
 	void getActiveProductions(ProductElementTaskGridFilter filter, AsyncCallback<List<ProductionProxy>> callback);
 
-	void compliteProduction(String id, AsyncCallback<Void> callback);
-
+	void compliteProduction(long id, AsyncCallback<Void> callback);
 }

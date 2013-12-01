@@ -7,15 +7,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.web.calendar.shared.CalendarProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class Calendar {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private String name;
@@ -25,14 +22,10 @@ public class Calendar {
 	}
 
 	public CalendarProxy asProxy() {
-		return new CalendarProxy(getKeyStr(), name);
+		return new CalendarProxy(id, name);
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public String getKeyStr() {
-		return KeyFactory.keyToString(key);
+	public Long getId() {
+		return id;
 	}
 }

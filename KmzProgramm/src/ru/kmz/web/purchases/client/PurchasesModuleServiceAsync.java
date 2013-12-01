@@ -12,6 +12,6 @@ public interface PurchasesModuleServiceAsync extends ProjectsCommonServiceAsync 
 
 	void getActivePurchases(ProductElementTaskGridFilter filter, AsyncCallback<List<PurchaseProxy>> callback);
 
-	void complitePurchase(String id, AsyncCallback<Void> callback);
+	void complitePurchase(long id, AsyncCallback<Void> callback);
 
 }

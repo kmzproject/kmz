@@ -7,7 +7,7 @@ import ru.kmz.web.common.shared.HasResourceType;
 @SuppressWarnings("serial")
 public class TemplateTreeNodeBaseProxy implements Serializable, HasResourceType {
 
-	private String id;
+	private Long id;
 
 	private String name;
 
@@ -19,14 +19,14 @@ public class TemplateTreeNodeBaseProxy implements Serializable, HasResourceType 
 
 	}
 
-	public TemplateTreeNodeBaseProxy(String id, String name, int duration, String resourceType) {
+	public TemplateTreeNodeBaseProxy(Long id, String name, int duration, String resourceType) {
 		this.id = id;
 		this.name = name;
 		this.duration = duration;
 		this.resourceType = resourceType;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -45,14 +45,14 @@ public class TemplateTreeNodeBaseProxy implements Serializable, HasResourceType 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof TemplateTreeNodeBaseProxy) {
-			return ((TemplateTreeNodeBaseProxy) obj).id.equals(id);
+			return ((TemplateTreeNodeBaseProxy) obj).id == id;
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return id.intValue();
 	}
 
 	public void setDuration(int duration) {

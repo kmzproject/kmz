@@ -13,15 +13,12 @@ import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class Order implements IProjectTask {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private String name;
@@ -54,16 +51,8 @@ public class Order implements IProjectTask {
 		this.legalNumber = proxy.getLegalNumber();
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public String getKeyStr() {
-		return KeyFactory.keyToString(key);
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -75,7 +64,7 @@ public class Order implements IProjectTask {
 	}
 
 	public OrderProxy asProxy() {
-		return new OrderProxy(KeyFactory.keyToString(key), code, name, customer, legalNumber);
+		return new OrderProxy(id, code, name, customer, legalNumber);
 	}
 
 	public List<ProductElementTask> getChilds() {
@@ -91,7 +80,7 @@ public class Order implements IProjectTask {
 
 	@Override
 	public GraphData asGraphDataProxy() {
-		return new GraphData(getKeyStr(), name, code, 0, 0, ResourceTypesConsts.ORDER);
+		return new GraphData(id, name, code, 0, 0, ResourceTypesConsts.ORDER);
 	}
 
 	@Override

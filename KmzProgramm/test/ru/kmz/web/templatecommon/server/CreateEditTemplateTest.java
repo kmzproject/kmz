@@ -8,7 +8,6 @@ import org.junit.Test;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.web.template.client.TemplateModuleService;
-import ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 import ru.test.DataTestEveryNew;
@@ -25,7 +24,7 @@ public class CreateEditTemplateTest extends DataTestEveryNew {
 	@Test
 	public void editTemplate() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateTreeDataProxy proxy = service.getData(template.getKeyStr());
+		TemplateTreeDataProxy proxy = service.getData(template.getId());
 		Assert.assertEquals("Demo Template Short2", proxy.getName());
 
 		TemplateTreeNodeFolderProxy rootProxy = proxy.getTreeRoot();

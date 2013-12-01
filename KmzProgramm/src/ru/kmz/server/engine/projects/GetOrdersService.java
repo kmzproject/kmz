@@ -8,9 +8,9 @@ import ru.kmz.server.data.utils.OrderDataUtils;
 
 public class GetOrdersService {
 
-	private List<String> orderIds;
+	private List<Long> orderIds;
 
-	public void setOrderIds(List<String> orderIds) {
+	public void setOrderIds(List<Long> orderIds) {
 		this.orderIds = orderIds;
 	}
 
@@ -30,7 +30,7 @@ public class GetOrdersService {
 
 		List<Order> filteredList = new ArrayList<Order>();
 		for (Order order : orders) {
-			if (orderIds.contains(order.getKeyStr())) {
+			if (orderIds.contains(order.getId())) {
 				filteredList.add(order);
 			}
 		}

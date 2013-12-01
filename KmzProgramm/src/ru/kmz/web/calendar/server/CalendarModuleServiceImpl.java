@@ -26,7 +26,7 @@ public class CalendarModuleServiceImpl extends AbstractServiceImpl implements Ca
 	@Override
 	public List<CalendarRecordProxy> getCalendarRecords() {
 		Calendar calendar = CalendarDataUtils.getCalendar();
-		List<CalendarRecord> list = CalendarDataUtils.getAllRecords(calendar.getKey());
+		List<CalendarRecord> list = CalendarDataUtils.getAllRecords(calendar.getId());
 		List<CalendarRecordProxy> result = new ArrayList<CalendarRecordProxy>();
 		for (CalendarRecord record : list) {
 			result.add(record.asProxy());
@@ -38,7 +38,7 @@ public class CalendarModuleServiceImpl extends AbstractServiceImpl implements Ca
 	public void calculateWeekends(CalculateCalendarParamProxy params) {
 		Calendar calendar = CalendarDataUtils.getCalendar();
 		if (params.getFrom().before(params.getTo())) {
-			GenerateWeekendService service = new GenerateWeekendService(calendar.getKey(), params.getFrom(), params.getTo());
+			GenerateWeekendService service = new GenerateWeekendService(calendar.getId(), params.getFrom(), params.getTo());
 			service.calculate();
 		} else {
 			throw new IllegalArgumentException("Дата завершения не может быть меньше даты начала");
@@ -46,14 +46,14 @@ public class CalendarModuleServiceImpl extends AbstractServiceImpl implements Ca
 	}
 
 	@Override
-	public void deleteCalendarRecord(String recordId) {
+	public void deleteCalendarRecord(long recordId) {
 		CalendarDataUtils.delete(recordId);
 	}
 
 	@Override
 	public void createCalendarRecord(CalendarRecordProxy proxy) {
 		Calendar calendar = CalendarDataUtils.getCalendar();
-		CreateCalendarRecordService service = new CreateCalendarRecordService(calendar.getKey());
+		CreateCalendarRecordService service = new CreateCalendarRecordService(calendar.getId());
 		service.create(proxy.getDate(), proxy.getComment());
 	}
 

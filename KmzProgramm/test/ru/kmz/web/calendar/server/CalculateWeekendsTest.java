@@ -133,4 +133,29 @@ public class CalculateWeekendsTest extends DataTestEveryNew {
 		Assert.assertEquals("Автоматический расчет выходных дней с 2013/12/01  по 2013/12/28", history.get(0).getComment());
 	}
 
+	@Test
+	public void calculateCalculeteTest5CheckDoubles() {
+
+		CalendarTestData.craeteCalendar1();
+
+		CalculateCalendarParamProxy params = new CalculateCalendarParamProxy(DateUtils.getDateAndTime("2013/12/01 11:00"),
+				DateUtils.getDateAndTime("2013/12/28 11:00"));
+		service.calculateWeekends(params);
+
+		params = new CalculateCalendarParamProxy(DateUtils.getDateAndTime("2013/12/01 11:01"), DateUtils.getDateAndTime("2013/12/28 11:01"));
+		service.calculateWeekends(params);
+
+		List<CalendarRecordProxy> list = service.getCalendarRecords();
+		Assert.assertEquals(7, list.size());
+
+		Assert.assertEquals(DateUtils.getDate("2013/12/01"), list.get(0).getDate());
+		Assert.assertEquals(DateUtils.getDate("2013/12/07"), list.get(1).getDate());
+		Assert.assertEquals(DateUtils.getDate("2013/12/08"), list.get(2).getDate());
+		Assert.assertEquals(DateUtils.getDate("2013/12/14"), list.get(3).getDate());
+		Assert.assertEquals(DateUtils.getDate("2013/12/15"), list.get(4).getDate());
+		Assert.assertEquals(DateUtils.getDate("2013/12/21"), list.get(5).getDate());
+		Assert.assertEquals(DateUtils.getDate("2013/12/22"), list.get(6).getDate());
+
+	}
+
 }

@@ -48,11 +48,11 @@ public class TemplateDataUtils {
 		return list;
 	}
 
-	public static Template getTemplate(String key) {
+	public static Template getTemplate(Long id) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Template template = pm.getObjectById(Template.class, key);
+			Template template = pm.getObjectById(Template.class, id);
 			loadAllChild(pm, template);
 			return template;
 		} finally {
@@ -60,11 +60,11 @@ public class TemplateDataUtils {
 		}
 	}
 
-	public static ProductTemplateElement getProducteTemplateElement(String key) {
+	public static ProductTemplateElement getProducteTemplateElement(Long id) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			ProductTemplateElement element = pm.getObjectById(ProductTemplateElement.class, key);
+			ProductTemplateElement element = pm.getObjectById(ProductTemplateElement.class, id);
 			loadAllChild(pm, element);
 			return element;
 		} finally {
@@ -78,7 +78,7 @@ public class TemplateDataUtils {
 	private static void loadAllChild(PersistenceManager pm, ProductTemplateElement element) {
 		Query query = pm.newQuery(ProductTemplateElement.class, " parentId == :parentKey");
 		query.setOrdering("orderNum");
-		List<ProductTemplateElement> list = (List<ProductTemplateElement>) query.execute(element.getKey());
+		List<ProductTemplateElement> list = (List<ProductTemplateElement>) query.execute(element.getId());
 		for (ProductTemplateElement producteTemplateElement : list) {
 			element.add(producteTemplateElement);
 			loadAllChild(pm, producteTemplateElement);
@@ -87,13 +87,16 @@ public class TemplateDataUtils {
 
 	@SuppressWarnings("unchecked")
 	private static void loadAllChild(PersistenceManager pm, Template template) {
-		Query q = pm.newQuery(ProductTemplateElement.class, " parentId == null && templateId == :templateKey");
-		List<ProductTemplateElement> list = (List<ProductTemplateElement>) q.execute(template.getKey());
-		template.setRootElement(list.get(0));
-		loadAllChild(pm, template.getRootElement());
+		Query q = pm.newQuery(ProductTemplateElement.class, " parentId == null && templateId == templateKey");
+		q.declareParameters("long templateKey");
+		List<ProductTemplateElement> list = (List<ProductTemplateElement>) q.execute(template.getId());
+		if (list.size() == 1) {
+			template.setRootElement(list.get(0));
+			loadAllChild(pm, template.getRootElement());
+		}
 	}
 
-	public static void deleteProductTemplateElement(String key) {
+	public static void deleteProductTemplateElement(Long key) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();

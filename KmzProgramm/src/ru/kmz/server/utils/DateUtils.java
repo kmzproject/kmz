@@ -8,7 +8,9 @@ import java.util.Date;
 public class DateUtils {
 
 	private static final String FORMAT = "yyyy/MM/dd";
+	private static final String DATE_AND_TIME_FORMAT = "yyyy/MM/dd hh:mm";
 	private static final SimpleDateFormat formatter = new SimpleDateFormat(FORMAT);
+	private static final SimpleDateFormat dateAndTimeformatter = new SimpleDateFormat(DATE_AND_TIME_FORMAT);
 	private static final long milisecondsInDay = 24 * 60 * 60 * 1000;
 	private static final Calendar c = Calendar.getInstance();
 
@@ -23,6 +25,15 @@ public class DateUtils {
 	public static Date getDate(String dateStr) {
 		try {
 			return formatter.parse(dateStr);
+		} catch (ParseException e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	public static Date getDateAndTime(String dateAndTimeStr) {
+		try {
+			return dateAndTimeformatter.parse(dateAndTimeStr);
 		} catch (ParseException e) {
 			System.out.println(e);
 		}

@@ -37,8 +37,8 @@ public class CalculateAndSaveUseWeekendTest extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/11/06");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		input.setOrderId(order.getKeyStr());
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		input.setUseWeekend(true);
 		service.save(input);
 
@@ -57,8 +57,8 @@ public class CalculateAndSaveUseWeekendTest extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/11/06");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		input.setOrderId(order.getKeyStr());
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		input.setUseWeekend(true);
 		service.save(input);
 

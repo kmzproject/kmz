@@ -9,7 +9,7 @@ public class PurchaseProxy extends ProductElementTaskProxy {
 		super();
 	}
 
-	public PurchaseProxy(String id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
+	public PurchaseProxy(long id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
 		super(id, name, code, planStart, planFinish, done, taskState);
 	}
 }

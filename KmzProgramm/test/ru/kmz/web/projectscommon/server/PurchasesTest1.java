@@ -40,9 +40,8 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		List<PurchaseProxy> purchases = service.getActivePurchases(null);
@@ -65,9 +64,8 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		List<PurchaseProxy> purchases = service.getActivePurchases(null);
@@ -101,9 +99,8 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		List<PurchaseProxy> purchases = service.getActivePurchases(null);
@@ -125,9 +122,8 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/20");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
-		input.setOrderId(orderId);
+		input.setTemplateId(template.getId());
+		input.setOrderId(order.getId());
 		projectsService.save(input);
 
 		ProductElementTaskGridFilter filter = new ProductElementTaskGridFilter();

@@ -32,7 +32,7 @@ public class HistoryGrid extends CommonGrid<HistoryProxy> {
 		props = GWT.create(HistoryProxyProperties.class);
 	}
 
-	private String objectId;
+	private Long objectId;
 
 	public static HistoryGrid getHistoryGrid() {
 		ListStore<HistoryProxy> store = new ListStore<HistoryProxy>(props.key());
@@ -77,8 +77,7 @@ public class HistoryGrid extends CommonGrid<HistoryProxy> {
 		};
 		return new PagingLoader<PagingLoadConfig, PagingLoadResult<HistoryProxy>>(proxy);
 	}
-	
-	
+
 	@Override
 	protected void inOnAfterFirstAttach() {
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {

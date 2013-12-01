@@ -6,7 +6,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class HistoryProxy implements Serializable {
 
-	private String id;
+	private long id;
 	private String name;
 	private String comment;
 	private Date date;
@@ -16,14 +16,14 @@ public class HistoryProxy implements Serializable {
 
 	}
 
-	public HistoryProxy(String id, String name, String comment, Date date, String user) {
+	public HistoryProxy(long id, String name, String comment, Date date, String user) {
 		this.name = name;
 		this.comment = comment;
 		this.date = date;
 		this.user = user;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 

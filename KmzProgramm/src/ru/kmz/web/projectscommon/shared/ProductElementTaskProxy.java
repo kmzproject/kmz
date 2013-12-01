@@ -6,7 +6,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class ProductElementTaskProxy implements Serializable {
 
-	private String id;
+	private long id;
 	private String orderName;
 	private String name;
 	private Date planStart;
@@ -19,7 +19,7 @@ public class ProductElementTaskProxy implements Serializable {
 	public ProductElementTaskProxy() {
 	}
 
-	public ProductElementTaskProxy(String id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
+	public ProductElementTaskProxy(long id, String name, String code, Date planStart, Date planFinish, int done, String taskState) {
 		this.id = id;
 		this.name = name;
 		this.planStart = planStart;
@@ -42,7 +42,7 @@ public class ProductElementTaskProxy implements Serializable {
 		this.orderName = orderName;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 

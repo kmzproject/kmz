@@ -108,7 +108,7 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 	@Override
 	public void update(KeyValueData data) {
-		getService().getData(data.getKey(), new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>() {
+		getService().getData(data.getKeyLong(), new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>() {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {

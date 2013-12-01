@@ -9,15 +9,12 @@ import javax.jdo.annotations.PrimaryKey;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class Template {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private String name;
@@ -37,16 +34,8 @@ public class Template {
 		rootElement = element;
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public String getKeyStr() {
-		return KeyFactory.keyToString(key);
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -62,7 +51,7 @@ public class Template {
 		if (rootElement != null) {
 			rootProxy = (TemplateTreeNodeFolderProxy) rootElement.asProxy();
 		}
-		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(getKeyStr(), name, rootProxy);
+		TemplateTreeDataProxy proxy = new TemplateTreeDataProxy(id, name, rootProxy);
 		return proxy;
 	}
 

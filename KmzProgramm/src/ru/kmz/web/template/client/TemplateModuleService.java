@@ -9,11 +9,11 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("templateCommon.rpc")
 public interface TemplateModuleService extends TemplateCommonService {
 
-	TemplateTreeDataProxy getData(String key);
+	TemplateTreeDataProxy getData(long key);
 
-	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(String parentKey);
+	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentKey);
 
-	void deleteTemplateTreeNode(String key);
+	void deleteTemplateTreeNode(long key);
 
 	TemplateTreeNodeBaseProxy save(TemplateTreeNodeBaseProxy proxy);
 

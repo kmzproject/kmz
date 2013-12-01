@@ -6,8 +6,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("projectsCommon.rpc")
 public interface ProjectsCommonService extends RemoteService {
 
-	void setCompliteTaskPersents(String id, int persents);
+	void setCompliteTaskPersents(long id, int persents);
 
-	void setTaskAsStartedPersents(String id);
+	void setTaskAsStartedPersents(long id);
 
 }

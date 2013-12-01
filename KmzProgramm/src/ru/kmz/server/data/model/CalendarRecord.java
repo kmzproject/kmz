@@ -10,15 +10,12 @@ import javax.jdo.annotations.PrimaryKey;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class CalendarRecord {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private Date date;
@@ -27,20 +24,20 @@ public class CalendarRecord {
 	private String comment;
 
 	@Persistent
-	private Key calendarId;
+	private Long calendarId;
 
-	public CalendarRecord(Key calendarId, Date date) {
+	public CalendarRecord(Long calendarId, Date date) {
 		this(calendarId, date, null);
 	}
 
-	public CalendarRecord(Key calendarId, Date date, String commnet) {
+	public CalendarRecord(Long calendarId, Date date, String commnet) {
 		this.date = date;
 		this.comment = commnet;
 		this.calendarId = calendarId;
 	}
 
 	public CalendarRecordProxy asProxy() {
-		return new CalendarRecordProxy(KeyFactory.keyToString(key), new Date(date.getTime()), comment);
+		return new CalendarRecordProxy(id, new Date(date.getTime()), comment);
 	}
 
 	@Override
@@ -55,7 +52,7 @@ public class CalendarRecord {
 		return date;
 	}
 
-	public Key getCalendarId() {
+	public Long getCalendarId() {
 		return calendarId;
 	}
 

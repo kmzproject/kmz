@@ -87,14 +87,14 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	}
 
 	@Override
-	public void setPersentDone(String id, int persents) {
+	public void setPersentDone(long id, int persents) {
 		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
 		ProjectsCommonModule.getService().setCompliteTaskPersents(id, persents, new UpdateAfteOperation(box, false));
 	}
 
 	@Override
-	public void showNewDateSelector(final String id) {
+	public void showNewDateSelector(final long id) {
 		SetProductNewDateSector selector = new SetProductNewDateSector();
 		selector.setUpdatable(new IUpdatableWithValue<Date>() {
 
@@ -109,7 +109,7 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(long id) {
 		AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 		box.show();
 		getService().deleteProduct(id, new UpdateAfteOperation(box, true));

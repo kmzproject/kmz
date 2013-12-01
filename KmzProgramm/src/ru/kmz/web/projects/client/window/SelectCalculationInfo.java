@@ -65,9 +65,9 @@ public class SelectCalculationInfo extends CommonSelectWindow<CalculatorInputDat
 	private CalculatorInputDataProxy getInput() {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		input.setDate(dataField.getValue());
-		input.setTemplateId(templateComboBox.getValue().getKey());
+		input.setTemplateId(templateComboBox.getValue().getKeyLong());
 		if (orderComboBox.getValue() != null) {
-			input.setOrderId(orderComboBox.getValue().getKey());
+			input.setOrderId(orderComboBox.getValue().getKeyLong());
 		}
 		try {
 			int count = IntegerParser.instance().parse(countField.getValue());

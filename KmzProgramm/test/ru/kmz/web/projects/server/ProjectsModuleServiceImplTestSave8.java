@@ -38,8 +38,8 @@ public class ProjectsModuleServiceImplTestSave8 extends DataTestEveryNew {
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
 		Date date = DateUtils.getDate("2013/10/01");
 		input.setDate(date);
-		input.setTemplateId(template.getKeyStr());
-		String orderId = order.getKeyStr();
+		input.setTemplateId(template.getId());
+		long orderId = order.getId();
 		input.setOrderId(orderId);
 		service.save(input);
 

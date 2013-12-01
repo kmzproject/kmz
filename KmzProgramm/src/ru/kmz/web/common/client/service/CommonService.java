@@ -10,5 +10,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("commonModule.rpc")
 public interface CommonService extends RemoteService {
 
-	List<HistoryProxy> getHistoryByObject(String keyStr);
+	List<HistoryProxy> getHistoryByObject(Long keyStr);
 }

@@ -7,14 +7,12 @@ import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.utils.CalendarDataUtils;
 import ru.kmz.server.utils.HistoryUtils;
 
-import com.google.appengine.api.datastore.Key;
-
 public class CreateCalendarRecordService {
 
-	private Key calendarId;
+	private long calendarId;
 	private List<CalendarRecord> records;
 
-	public CreateCalendarRecordService(Key calendaeId) {
+	public CreateCalendarRecordService(long calendaeId) {
 		this.calendarId = calendaeId;
 
 		records = CalendarDataUtils.getAllRecords(calendaeId);

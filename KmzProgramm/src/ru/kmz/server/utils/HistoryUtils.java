@@ -14,9 +14,6 @@ import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.HistoryDataUtils;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 public class HistoryUtils {
 
 	private static interface HistoryName {
@@ -36,27 +33,27 @@ public class HistoryUtils {
 	}
 
 	public static void createTaskStarted(ProductElementTask task) {
-		createHistory(task.getKey(), HistoryName.TASK_STARTED, task.toString() + " работа началась");
+		createHistory(task.getId(), HistoryName.TASK_STARTED, task.toString() + " работа началась");
 	}
 
-	public static void editTemplate(Key templateId) {
-		Template template = TemplateDataUtils.getTemplate(KeyFactory.keyToString(templateId));
+	public static void editTemplate(Long templateId) {
+		Template template = TemplateDataUtils.getTemplate(templateId);
 		editTemplate(template);
 	}
 
 	public static void editTemplate(Template template) {
-		createHistory(template.getKey(), HistoryName.TEMPLATE_EDIT, template.toString());
+		createHistory(template.getId(), HistoryName.TEMPLATE_EDIT, template.toString());
 	}
 
 	public static void createTemplate(Template template) {
-		createHistory(template.getKey(), HistoryName.TEMPLATE_CREATE, template.toString());
+		createHistory(template.getId(), HistoryName.TEMPLATE_CREATE, template.toString());
 	}
 
 	public static void createCalendarRecocd(CalendarRecord record) {
 		createHistory(record.getCalendarId(), HistoryName.CREATE_CALENDAR_RECORD, record.toString());
 	}
 
-	public static void createCalculateWeekends(Key calendarId, Date from, Date to) {
+	public static void createCalculateWeekends(long calendarId, Date from, Date to) {
 		createHistory(calendarId, HistoryName.CALCULATE_CALENDAR,
 				"Автоматический расчет выходных дней с " + DateUtils.dateToString(from) + "  по " + DateUtils.dateToString(to));
 	}
@@ -66,26 +63,26 @@ public class HistoryUtils {
 	}
 
 	public static History getDeleteProductElementTask(ProductElementTask task) {
-		return getHistory(task.getKey(), HistoryName.DELETE_PRODUCT, task.toString() + " удалено из производства");
+		return getHistory(task.getId(), HistoryName.DELETE_PRODUCT, task.toString() + " удалено из производства");
 	}
 
 	public static void addProductToOrder(ProductElementTask task) {
-		createHistory(task.getKey(), HistoryName.CREATE_PRODUCT, task.toString() + " добавлено в производство");
+		createHistory(task.getId(), HistoryName.CREATE_PRODUCT, task.toString() + " добавлено в производство");
 	}
 
 	public static void setFact(ProductElementTask task, int oldFact) {
-		createHistory(task.getKey(), HistoryName.SET_FACT, task.toString() + " было " + oldFact + " стало " + task.getDone());
+		createHistory(task.getId(), HistoryName.SET_FACT, task.toString() + " было " + oldFact + " стало " + task.getDone());
 	}
 
 	public static void createOrder(Order order) {
-		createHistory(order.getKey(), HistoryName.CREATE_ORDER, order.toString());
+		createHistory(order.getId(), HistoryName.CREATE_ORDER, order.toString());
 	}
 
 	public static void editOrder(Order order) {
-		createHistory(order.getKey(), HistoryName.EDIT_ORDER, order.toString());
+		createHistory(order.getId(), HistoryName.EDIT_ORDER, order.toString());
 	}
 
-	private static History getHistory(Key key, String name, String comment) {
+	private static History getHistory(long key, String name, String comment) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userName;
 		if (auth == null) {
@@ -104,7 +101,7 @@ public class HistoryUtils {
 		return history;
 	}
 
-	private static void createHistory(Key key, String name, String comment) {
+	private static void createHistory(long key, String name, String comment) {
 		HistoryDataUtils.edit(getHistory(key, name, comment));
 	}
 }

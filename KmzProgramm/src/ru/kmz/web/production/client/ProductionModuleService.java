@@ -12,7 +12,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("projectsCommon.rpc")
 public interface ProductionModuleService extends RemoteService, ProjectsCommonService {
 
-	void compliteProduction(String id);
+	void compliteProduction(long id);
 
 	List<ProductionProxy> getActiveProductions(ProductElementTaskGridFilter filter);
 

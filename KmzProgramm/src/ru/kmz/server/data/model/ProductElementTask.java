@@ -21,15 +21,12 @@ import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 @PersistenceCapable
 public class ProductElementTask implements IProjectTask {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long id;
 
 	@Persistent
 	private String name;
@@ -52,10 +49,10 @@ public class ProductElementTask implements IProjectTask {
 	private String resourceType;
 
 	@Persistent
-	private Key parentId;
+	private Long parentId;
 
 	@Persistent
-	private Key orderId;
+	private Long orderId;
 
 	@Persistent
 	/** Плановая дата начала */
@@ -102,13 +99,13 @@ public class ProductElementTask implements IProjectTask {
 		this(name, durationWork, resourseType, task);
 
 		this.parentId = null;
-		this.orderId = order.getKey();
+		this.orderId = order.getId();
 	}
 
 	public ProductElementTask(String name, int durationWork, String resourseType, ResourceTask task, ProductElementTask parent) {
 		this(name, durationWork, resourseType, task);
 
-		this.parentId = parent.getKey();
+		this.parentId = parent.getId();
 		this.orderId = parent.getOrderId();
 
 		if (parent.hasChild()) {
@@ -119,16 +116,12 @@ public class ProductElementTask implements IProjectTask {
 		parent.add(this);
 	}
 
-	public Key getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public Key getOrderId() {
+	public Long getOrderId() {
 		return orderId;
-	}
-
-	public String getOrderIdStr() {
-		return KeyFactory.keyToString(orderId);
 	}
 
 	public void add(ProductElementTask child) {
@@ -136,15 +129,11 @@ public class ProductElementTask implements IProjectTask {
 			childs = new ArrayList<ProductElementTask>();
 		}
 		childs.add(child);
-		child.parentId = key;
+		child.parentId = id;
 	}
 
-	public Key getKey() {
-		return key;
-	}
-
-	public String getKeyStr() {
-		return KeyFactory.keyToString(key);
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -164,25 +153,25 @@ public class ProductElementTask implements IProjectTask {
 
 	public GraphData asGraphDataProxy() {
 		int duration = DateUtils.diffInDays(start, finish);
-		GraphData graphData = new GraphData(getKeyStr(), getNameAndCount(), code, duration, durationWork, resourceType);
+		GraphData graphData = new GraphData(id, getNameAndCount(), code, duration, durationWork, resourceType);
 		graphData.setComplite(done);
 		return graphData;
 	}
 
 	public ProductElementTaskProxy asProxy() {
-		return new ProductElementTaskProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
+		return new ProductElementTaskProxy(id, name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public PurchaseProxy asPurchaseProxy() {
-		return new PurchaseProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
+		return new PurchaseProxy(id, name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public ProductionProxy asProductionProxy() {
-		return new ProductionProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
+		return new ProductionProxy(id, name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public ProductProxy asProductProxy() {
-		return new ProductProxy(getKeyStr(), name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
+		return new ProductProxy(id, name, code, new Date(start.getTime()), new Date(finish.getTime()), done, taskState);
 	}
 
 	public String getResourceType() {
@@ -196,7 +185,7 @@ public class ProductElementTask implements IProjectTask {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ProductElementTask) {
-			return ((ProductElementTask) obj).key.equals(key);
+			return ((ProductElementTask) obj).id.equals(id);
 		}
 		return false;
 	}
