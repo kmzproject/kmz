@@ -1,4 +1,4 @@
-package ru.kmz.server.engine.gant;
+package ru.kmz.server.engine.projects;
 
 public class DurationComplite {
 

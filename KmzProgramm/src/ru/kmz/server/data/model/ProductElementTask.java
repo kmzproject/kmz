@@ -13,6 +13,7 @@ import javax.jdo.annotations.PrimaryKey;
 import ru.kmz.server.data.constants.ProductElementTaskStates;
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.utils.DateUtils;
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projectscommon.shared.ProductElementTaskProxy;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
@@ -42,6 +43,7 @@ public class ProductElementTask implements IProjectTask {
 	private int number;
 
 	@Persistent
+	/** Время работы */
 	private int durationWork;
 
 	@Persistent
@@ -141,8 +143,7 @@ public class ProductElementTask implements IProjectTask {
 
 	public GraphData asGraphDataProxy() {
 		int duration = DateUtils.diffInDays(start, finish);
-		GraphData graphData = new GraphData(id, getNameAndCount(), code, duration, durationWork, resourceType);
-		graphData.setComplite(done);
+		GraphData graphData = new GraphData(id, getNameAndCount(), code, duration, durationWork, resourceType, done);
 		return graphData;
 	}
 
@@ -258,6 +259,16 @@ public class ProductElementTask implements IProjectTask {
 
 	public void setFinish(Date finish) {
 		this.finish = finish;
+	}
+
+	@Override
+	public int getDuration() {
+		return durationWork;
+	}
+
+	@Override
+	public boolean isFolder() {
+		return ResourceTypesConsts.isFolder(getResourceType());
 	}
 
 }

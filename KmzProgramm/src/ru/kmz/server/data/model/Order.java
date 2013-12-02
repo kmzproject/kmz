@@ -93,7 +93,7 @@ public class Order implements IProjectTask {
 		if (start != null && finish != null) {
 			duration = DateUtils.diffInDays(start, finish);
 		}
-		return new GraphData(id, name, code, duration, duration, ResourceTypesConsts.ORDER);
+		return new GraphData(id, name, code, duration, duration, ResourceTypesConsts.ORDER, done);
 	}
 
 	@Override
@@ -144,5 +144,25 @@ public class Order implements IProjectTask {
 	@Override
 	public void setFinish(Date finish) {
 		this.finish = finish;
+	}
+
+	@Override
+	public int getDone() {
+		return done;
+	}
+
+	@Override
+	public int getDuration() {
+		throw new IllegalArgumentException();
+	}
+
+	@Override
+	public void setDone(int done) {
+		this.done = done;
+	}
+
+	@Override
+	public boolean isFolder() {
+		return true;
 	}
 }

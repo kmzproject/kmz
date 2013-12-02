@@ -65,23 +65,6 @@ public class ProductElementTaskDataUtils {
 		return task;
 	}
 
-	public static ProductElementTask setTaskComplitePersents(Long key, int persents) {
-		PersistenceManager pm = null;
-		ProductElementTask task;
-		int oldFact = 0;
-		try {
-			pm = PMF.get().getPersistenceManager();
-			task = pm.getObjectById(ProductElementTask.class, key);
-			oldFact = task.getDone();
-			task.setDone(persents);
-			pm.makePersistent(task);
-		} finally {
-			pm.close();
-		}
-		HistoryUtils.setFact(task, oldFact);
-		return task;
-	}
-
 	public static void deleteProduct(Long key) {
 		PersistenceManager pm = null;
 		try {

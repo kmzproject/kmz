@@ -27,7 +27,7 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 		childs = new ArrayList<GraphData>();
 	}
 
-	public GraphData(long id, String name, String code, int duration, int durationWork, String resourceType) {
+	public GraphData(long id, String name, String code, int duration, int durationWork, String resourceType, int complite) {
 		this();
 		this.id = id;
 		this.name = name;
@@ -37,6 +37,7 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 		this.duration = duration;
 		this.durationWork = durationWork;
 		this.resourceType = resourceType;
+		this.complite = complite;
 	}
 
 	public String getName() {
@@ -87,10 +88,6 @@ public class GraphData implements Serializable, HasResourceType, IGraphDataConta
 
 	public int getComplite() {
 		return complite;
-	}
-
-	public void setComplite(int value) {
-		complite = value;
 	}
 
 	public long getId() {

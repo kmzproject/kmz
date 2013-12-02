@@ -10,7 +10,6 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 
@@ -119,10 +118,6 @@ public class ProductTemplateElement {
 			}
 		}
 		return proxy;
-	}
-
-	public GraphData asGraphDataProxy() {
-		return new GraphData(id, name, null, duration, duration, resourceType);
 	}
 
 	public String getResourceType() {

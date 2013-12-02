@@ -42,6 +42,7 @@ public class CreateNewProductService {
 		ProductTemplateElement rootTemplate = template.getRootElement();
 		ProductElementTask product = createProductElementTask(rootTemplate, null, finishDate);
 		updateOrderStartFinish(product);
+		updateOrderDone();
 		return product;
 	}
 
@@ -101,6 +102,11 @@ public class CreateNewProductService {
 			order = OrderDataUtils.edit(order);
 			// TODO: запись в историю - изменилась дата заказа
 		}
+	}
+
+	private void updateOrderDone() {
+		OrderDataUtils.loadOrder(order);
+		CompliteTaskService.calculatePersentsDone(order);
 	}
 
 }

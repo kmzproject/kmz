@@ -34,7 +34,7 @@ public class GanttProjectsService {
 	public void calculate() {
 		createGanttData();
 
-		MinMaxDate minMaxDate = process();
+		MinMaxDate minMaxDate = addProjectData();
 
 		minMaxDate.prepare();
 		data.setDateStart(minMaxDate.getMinDate());
@@ -52,11 +52,6 @@ public class GanttProjectsService {
 		data.setCalendarRecords(calendarRecords);
 	}
 
-	protected MinMaxDate process() {
-		MinMaxDate minMaxDate = addProjectData();
-		return minMaxDate;
-	}
-
 	protected void createGanttData() {
 		data = new GanttData("Производство");
 	}
@@ -71,7 +66,6 @@ public class GanttProjectsService {
 			date.set(new MinMaxDate(order));
 		}
 		sort();
-		calculateOrdersPersentsDone();
 		return date;
 	}
 
@@ -81,25 +75,6 @@ public class GanttProjectsService {
 		for (GraphData graphData : data.getChilds()) {
 			Collections.sort(graphData.getChilds());
 		}
-	}
-
-	private void calculateOrdersPersentsDone() {
-		for (GraphData orderData : data.getChilds()) {
-			calculatePersentsDone(orderData);
-		}
-	}
-
-	private DurationComplite calculatePersentsDone(GraphData graphData) {
-		DurationComplite dc = new DurationComplite();
-		for (GraphData child : graphData.getChilds()) {
-			dc.add(calculatePersentsDone(child));
-		}
-		if (!graphData.isFolder()) {
-			dc.add(new DurationComplite(graphData.getDuration(), graphData.getComplite()));
-		} else {
-			graphData.setComplite(dc.getPersent());
-		}
-		return dc;
 	}
 
 	private static void fill(IGraphDataContainer rootGraphData, IProjectTask task) {

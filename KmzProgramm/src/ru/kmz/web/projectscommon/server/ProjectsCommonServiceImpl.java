@@ -8,6 +8,7 @@ import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.OrderDataUtils;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
+import ru.kmz.server.engine.projects.CompliteTaskService;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.production.client.ProductionModuleService;
@@ -25,7 +26,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 
 	@Override
 	public void setCompliteTaskPersents(long id, int persents) {
-		ProductElementTaskDataUtils.setTaskComplitePersents(id, persents);
+		compliteProductElementTask(id, persents);
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 
 	@Override
 	public void complitePurchase(long id) {
-		ProductElementTaskDataUtils.setTaskComplitePersents(id, 100);
+		compliteProductElementTask(id, 100);
 	}
 
 	@Override
@@ -83,7 +84,12 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	@Override
 	public void compliteProduction(long id) {
 		// TODO: добавить логику на проверку завершенности под закупок
-		ProductElementTaskDataUtils.setTaskComplitePersents(id, 100);
+		compliteProductElementTask(id, 100);
+	}
+
+	private void compliteProductElementTask(long id, int persents) {
+		CompliteTaskService service = new CompliteTaskService(id);
+		service.complite(persents);
 	}
 
 	@Override

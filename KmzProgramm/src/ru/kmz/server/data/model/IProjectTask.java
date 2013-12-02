@@ -7,6 +7,8 @@ import ru.kmz.web.ganttcommon.shared.GraphData;
 
 public interface IProjectTask {
 
+	public Long getId();
+
 	public GraphData asGraphDataProxy();
 
 	public Date getStart();
@@ -17,7 +19,15 @@ public interface IProjectTask {
 
 	public void setFinish(Date finish);
 
+	public int getDone();
+
+	public void setDone(int done);
+
+	public int getDuration();
+
 	public boolean hasChild();
+
+	public boolean isFolder();
 
 	public List<ProductElementTask> getChilds();
 }

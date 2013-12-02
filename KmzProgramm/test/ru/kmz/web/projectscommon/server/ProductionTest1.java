@@ -78,17 +78,29 @@ public class ProductionTest1 extends DataTestEveryNew {
 
 		GanttData ganttData = projectsService.getCurrentTasks(null);
 		GraphData rootOrder = ganttData.getChilds().get(0);
-		GraphData rootProducte = rootOrder.getChilds().get(0);
-		GraphData element1 = rootProducte.getChilds().get(0);
+		GraphData rootProducte1 = rootOrder.getChilds().get(0);
+		GraphData element1 = rootProducte1.getChilds().get(0);
 		Assert.assertEquals(100, element1.getComplite());
 
-		Assert.assertEquals(16, rootProducte.getComplite());
+		Assert.assertEquals(16, rootProducte1.getComplite());
 		Assert.assertEquals(16, rootOrder.getComplite());
 
 		projectsService.save(input);
 		ganttData = projectsService.getCurrentTasks(null);
 		rootOrder = ganttData.getChilds().get(0);
-		Assert.assertEquals(8, rootOrder.getComplite());
+		rootProducte1 = rootOrder.getChilds().get(0);
+		Assert.assertEquals(16, rootProducte1.getComplite());
+		Assert.assertEquals(11, rootOrder.getComplite());
+
+		GraphData rootProducte2 = rootOrder.getChilds().get(1);
+		GraphData element2 = rootProducte2.getChilds().get(0);
+		service.compliteProduction(element2.getId());
+
+		ganttData = projectsService.getCurrentTasks(null);
+		rootOrder = ganttData.getChilds().get(0);
+		rootProducte2 = rootOrder.getChilds().get(1);
+		Assert.assertEquals(16, rootProducte2.getComplite());
+		Assert.assertEquals(16, rootOrder.getComplite());
 	}
 
 }

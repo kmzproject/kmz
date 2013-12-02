@@ -89,7 +89,7 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		projectsService.save(input);
 		ganttData = projectsService.getCurrentTasks(null);
 		rootOrder = ganttData.getChilds().get(0);
-		Assert.assertEquals(8, rootOrder.getComplite());
+		Assert.assertEquals(11, rootOrder.getComplite());
 	}
 
 	@Test
