@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.OrderTestData;
+import ru.kmz.server.data.utils.HistoryDataUtils;
 import ru.kmz.web.common.client.service.CommonService;
 import ru.kmz.web.common.server.CommonServiceImpl;
 import ru.kmz.web.common.shared.HistoryProxy;
@@ -23,6 +24,7 @@ public class OrderCommonServiceImplTest extends DataTestEveryNew {
 	public void createService() {
 		service = new OrderCommonServiceImpl();
 		commonService = new CommonServiceImpl();
+		HistoryDataUtils.cleanCash();
 	}
 
 	@Test

@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.CalendarTestData;
+import ru.kmz.server.data.utils.HistoryDataUtils;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.calendar.shared.CalculateCalendarParamProxy;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
@@ -24,6 +25,7 @@ public class CalculateWeekendsTest extends DataTestEveryNew {
 	public void createService() {
 		service = new CalendarModuleServiceImpl();
 		commonService = new CommonServiceImpl();
+		HistoryDataUtils.cleanCash();
 	}
 
 	@Test(expected = IllegalArgumentException.class)

@@ -58,12 +58,12 @@ public class HistoryUtils {
 				"Автоматический расчет выходных дней с " + DateUtils.dateToString(from) + "  по " + DateUtils.dateToString(to));
 	}
 
-	public static History getDeleteCalendarRecord(CalendarRecord cr) {
-		return getHistory(cr.getCalendarId(), HistoryName.DELETE_CALENDAR_RECORD, cr.toString());
+	public static void addDeleteCalendarRecord(CalendarRecord cr) {
+		createHistory(cr.getCalendarId(), HistoryName.DELETE_CALENDAR_RECORD, cr.toString());
 	}
 
-	public static History getDeleteProductElementTask(ProductElementTask task) {
-		return getHistory(task.getId(), HistoryName.DELETE_PRODUCT, task.toString() + " удалено из производства");
+	public static void addDeleteProductElementTask(ProductElementTask task) {
+		createHistory(task.getId(), HistoryName.DELETE_PRODUCT, task.toString() + " удалено из производства");
 	}
 
 	public static void addProductToOrder(ProductElementTask task) {
