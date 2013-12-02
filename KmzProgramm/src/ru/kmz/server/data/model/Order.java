@@ -10,6 +10,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
@@ -88,7 +89,11 @@ public class Order implements IProjectTask {
 
 	@Override
 	public GraphData asGraphDataProxy() {
-		return new GraphData(id, name, code, 0, 0, ResourceTypesConsts.ORDER);
+		int duration = 0;
+		if (start != null && finish != null) {
+			duration = DateUtils.diffInDays(start, finish);
+		}
+		return new GraphData(id, name, code, duration, duration, ResourceTypesConsts.ORDER);
 	}
 
 	@Override
@@ -117,11 +122,17 @@ public class Order implements IProjectTask {
 
 	@Override
 	public Date getStart() {
+		if (start == null) {
+			return DateUtils.getDateNoTime(new Date());
+		}
 		return start;
 	}
 
 	@Override
 	public Date getFinish() {
+		if (finish == null) {
+			return DateUtils.getDateNoTime(new Date());
+		}
 		return finish;
 	}
 

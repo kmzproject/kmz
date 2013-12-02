@@ -153,10 +153,10 @@ public class ProductElementTaskDataUtils {
 	public static void editAllChild(PersistenceManager pm, ProductElementTask task) {
 		if (task.hasChild()) {
 			for (ProductElementTask e : task.getChilds()) {
-				pm.makePersistent(e);
 				editAllChild(pm, e);
 			}
 		}
+		pm.makePersistent(task);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -89,11 +89,11 @@ public class CreateNewProductService {
 
 	private void updateOrderStartFinish(ProductElementTask product) {
 		boolean isEdit = false;
-		if (order.getFinish() == null || order.getFinish().before(product.getFinish())) {
+		if (!order.hasChild() || order.getFinish().before(product.getFinish())) {
 			order.setFinish(product.getFinish());
 			isEdit = true;
 		}
-		if (order.getStart() == null || order.getStart().after(product.getStart())) {
+		if (!order.hasChild() || order.getStart().after(product.getStart())) {
 			order.setStart(product.getStart());
 			isEdit = true;
 		}

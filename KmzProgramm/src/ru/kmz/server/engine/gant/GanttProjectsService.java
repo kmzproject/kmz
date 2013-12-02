@@ -67,8 +67,8 @@ public class GanttProjectsService {
 		MinMaxDate date = new MinMaxDate();
 		List<Order> orders = ordersService.getOrders();
 		for (Order order : orders) {
-			MinMaxDate orderDate = fill(data, order);
-			date.set(orderDate);
+			fill(data, order);
+			date.set(new MinMaxDate(order));
 		}
 		sort();
 		calculateOrdersPersentsDone();
@@ -102,37 +102,17 @@ public class GanttProjectsService {
 		return dc;
 	}
 
-	private static MinMaxDate fill(IGraphDataContainer rootGraphData, IProjectTask task) {
+	private static void fill(IGraphDataContainer rootGraphData, IProjectTask task) {
 		GraphData graphData = task.asGraphDataProxy();
 		rootGraphData.addChild(graphData);
 
-		if (graphData.isFolder()) {
-			MinMaxDate date = new MinMaxDate();
-			if (task.hasChild()) {
-				for (ProductElementTask e : task.getChilds()) {
-					MinMaxDate childDate = fill(graphData, e);
-					date.set(childDate);
-				}
-			}
-			date.prepare();
-			graphData.setPlanStart(date.getMinDate());
-			graphData.setPlanFinish(date.getMaxDate());
-			graphData.setDuration(date.getDuration());
-			return date;
+		graphData.setPlanStart(new Date(task.getStart().getTime()));
+		graphData.setPlanFinish(new Date(task.getFinish().getTime()));
 
-		} else {
-			ProductElementTask element = (ProductElementTask) task;
-			graphData.setPlanStart(new Date(element.getStart().getTime()));
-			graphData.setPlanFinish(new Date(element.getFinish().getTime()));
-			MinMaxDate date = new MinMaxDate(element);
-
-			if (element.hasChild()) {
-				for (ProductElementTask e : element.getChilds()) {
-					MinMaxDate childDate = fill(graphData, e);
-					date.set(childDate);
-				}
+		if (task.hasChild()) {
+			for (ProductElementTask e : task.getChilds()) {
+				fill(graphData, e);
 			}
-			return date;
 		}
 	}
 

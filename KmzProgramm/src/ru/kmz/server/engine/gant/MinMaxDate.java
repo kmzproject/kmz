@@ -2,7 +2,7 @@ package ru.kmz.server.engine.gant;
 
 import java.util.Date;
 
-import ru.kmz.server.data.model.ProductElementTask;
+import ru.kmz.server.data.model.IProjectTask;
 import ru.kmz.server.engine.resources.ResourceTask;
 import ru.kmz.server.utils.DateUtils;
 
@@ -19,7 +19,7 @@ public class MinMaxDate {
 		this.maxDate = task.getFinish();
 	}
 
-	public MinMaxDate(ProductElementTask task) {
+	public MinMaxDate(IProjectTask task) {
 		this.minDate = new Date(task.getStart().getTime());
 		this.maxDate = new Date(task.getFinish().getTime());
 	}
