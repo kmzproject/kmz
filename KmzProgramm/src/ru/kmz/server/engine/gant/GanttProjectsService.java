@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import ru.kmz.server.data.model.Calendar;
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.IProjectTask;
 import ru.kmz.server.data.model.Order;
@@ -46,12 +45,9 @@ public class GanttProjectsService {
 
 	private void addCalendarRecords() {
 		List<Date> calendarRecords = new ArrayList<Date>();
-		Calendar calendar = CalendarDataUtils.getCalendar();
-		if (calendar != null) {
-			List<CalendarRecord> records = CalendarDataUtils.getAllRecords(calendar.getId());
-			for (CalendarRecord calendarRecord : records) {
-				calendarRecords.add(new Date(calendarRecord.getDate().getTime()));
-			}
+		List<CalendarRecord> records = CalendarDataUtils.getAllRecords();
+		for (CalendarRecord calendarRecord : records) {
+			calendarRecords.add(new Date(calendarRecord.getDate().getTime()));
 		}
 		data.setCalendarRecords(calendarRecords);
 	}

@@ -11,21 +11,21 @@ import ru.kmz.server.data.model.History;
 
 public class HistoryDataUtils {
 
-	private static List<History> histories = null;
+	private static List<History> historyCache = null;
 
-	public static void cleanCash() {
-		histories = null;
+	static void cleanCache() {
+		historyCache = null;
 	}
 
 	public static History edit(History history) {
-		if (histories == null) {
-			initHistoriesCash();
+		if (historyCache == null) {
+			initHistoriesCache();
 		}
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
 			pm.makePersistent(history);
-			histories.add(0, history);
+			historyCache.add(0, history);
 		} finally {
 			pm.close();
 		}
@@ -33,15 +33,14 @@ public class HistoryDataUtils {
 	}
 
 	public static List<History> getLastHistories() {
-		if (histories == null) {
-			initHistoriesCash();
+		if (historyCache == null) {
+			initHistoriesCache();
 		}
-		return histories;
+		return historyCache;
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void initHistoriesCash() {
-		histories = new ArrayList<History>();
+	private static void initHistoriesCache() {
 		List<History> list = null;
 		PersistenceManager pm = null;
 		try {
@@ -50,10 +49,10 @@ public class HistoryDataUtils {
 			query.setOrdering("date DESC");
 			query.setRange(0, 50);
 			list = (List<History>) query.execute();
-			histories.addAll(list);
 		} finally {
 			pm.close();
 		}
+		historyCache = new ArrayList<History>(list);
 	}
 
 	@SuppressWarnings("unchecked")

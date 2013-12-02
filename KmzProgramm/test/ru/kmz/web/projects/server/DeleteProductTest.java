@@ -12,7 +12,6 @@ import ru.kmz.server.data.generator.OrderTestData;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Order;
 import ru.kmz.server.data.model.Template;
-import ru.kmz.server.data.utils.HistoryDataUtils;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.common.server.CommonServiceImpl;
 import ru.kmz.web.common.shared.HistoryProxy;
@@ -35,7 +34,6 @@ public class DeleteProductTest extends DataTestEveryNew {
 		service = new ProjectsModuleServiceImpl();
 		purchaseService = new ProjectsCommonServiceImpl();
 		commonService = new CommonServiceImpl();
-		HistoryDataUtils.cleanCash();
 	}
 
 	@Test

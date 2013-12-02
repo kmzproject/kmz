@@ -25,8 +25,7 @@ public class CalendarModuleServiceImpl extends AbstractServiceImpl implements Ca
 
 	@Override
 	public List<CalendarRecordProxy> getCalendarRecords() {
-		Calendar calendar = CalendarDataUtils.getCalendar();
-		List<CalendarRecord> list = CalendarDataUtils.getAllRecords(calendar.getId());
+		List<CalendarRecord> list = CalendarDataUtils.getAllRecords();
 		List<CalendarRecordProxy> result = new ArrayList<CalendarRecordProxy>();
 		for (CalendarRecord record : list) {
 			result.add(record.asProxy());

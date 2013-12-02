@@ -15,7 +15,7 @@ public class CalendarOffsetService extends OffsetService {
 	private Calendar current;
 
 	public CalendarOffsetService() {
-		List<CalendarRecord> records = CalendarDataUtils.getAllRecords(CalendarDataUtils.getCalendar().getId());
+		List<CalendarRecord> records = CalendarDataUtils.getAllRecords();
 		list = new ArrayList<Date>();
 		for (CalendarRecord record : records) {
 			list.add(record.getDate());

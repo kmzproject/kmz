@@ -3,6 +3,8 @@ package ru.test;
 import org.junit.After;
 import org.junit.Before;
 
+import ru.kmz.server.data.utils.CacheUtils;
+
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
@@ -12,6 +14,7 @@ public class DataTestEveryNew {
 
 	@Before
 	public void setUp() {
+		CacheUtils.cleanAllCaches();
 		helper.setUp();
 	}
 

@@ -1,5 +1,6 @@
 package ru.kmz.server.data.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -13,21 +14,33 @@ import ru.kmz.server.utils.HistoryUtils;
 
 public class CalendarDataUtils {
 
+	private static Calendar calendarCache;
+	private static List<CalendarRecord> calendarRecordsCache;
+
+	static void cleanCache() {
+		calendarCache = null;
+		calendarRecordsCache = null;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Calendar getCalendar() {
-		List<Calendar> list = null;
-		PersistenceManager em = null;
-		try {
-			em = PMF.get().getPersistenceManager();
-			Query query = em.newQuery(Calendar.class);
-			list = (List<Calendar>) query.execute();
-		} finally {
-			em.close();
+		if (calendarCache == null) {
+			List<Calendar> list = null;
+			PersistenceManager em = null;
+			try {
+				em = PMF.get().getPersistenceManager();
+				Query query = em.newQuery(Calendar.class);
+				list = (List<Calendar>) query.execute();
+			} finally {
+				em.close();
+			}
+			if (list.size() == 0) {
+				calendarCache = CalendarTestData.craeteCalendar1();
+			} else {
+				calendarCache = list.get(0);
+			}
 		}
-		if (list.size() != 1) {
-			return CalendarTestData.craeteCalendar1();
-		}
-		return list.get(0);
+		return calendarCache;
 	}
 
 	public static Calendar edit(Calendar calendar) {
@@ -42,39 +55,30 @@ public class CalendarDataUtils {
 	}
 
 	public static CalendarRecord edit(CalendarRecord record) {
+		if (calendarRecordsCache == null) {
+			initCalendarRecordsCache();
+		}
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
 			pm.makePersistent(record);
+			calendarRecordsCache.add(record);
 		} finally {
 			pm.close();
 		}
 		return record;
 	}
 
-//	@SuppressWarnings("unchecked")
-//	public static List<CalendarRecord> getRecords(Long calendarId, Date limit) {
-//		List<CalendarRecord> list = null;
-//		PersistenceManager pm = null;
-//		try {
-//			pm = PMF.get().getPersistenceManager();
-//			Query q = pm.newQuery(CalendarRecord.class, "this.date >= mydate && calendarId == calendarKey");
-//			q.declareImports("import java.util.Date");
-//			q.declareParameters("Date mydate, Long calendarKey");
-//			System.out.println(q);
-//			list = (List<CalendarRecord>) q.execute(limit, calendarId);
-//		} finally {
-//			pm.close();
-//		}
-//		return list;
-//	}
-
 	public static List<CalendarRecord> getAllRecords() {
-		return getAllRecords(getCalendar().getId());
+		if (calendarRecordsCache == null) {
+			initCalendarRecordsCache();
+		}
+		return calendarRecordsCache;
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<CalendarRecord> getAllRecords(Long calendarId) {
+	private static void initCalendarRecordsCache() {
+		Long calendarId = getCalendar().getId();
 		List<CalendarRecord> list = null;
 		PersistenceManager pm = null;
 		try {
@@ -85,7 +89,7 @@ public class CalendarDataUtils {
 		} finally {
 			pm.close();
 		}
-		return list;
+		calendarRecordsCache = new ArrayList<CalendarRecord>(list);
 	}
 
 	public static void delete(Long recordId) {
@@ -95,7 +99,9 @@ public class CalendarDataUtils {
 			pm = PMF.get().getPersistenceManager();
 			record = pm.getObjectById(CalendarRecord.class, recordId);
 			HistoryUtils.addDeleteCalendarRecord(record);
+			int recodrIndex = calendarRecordsCache.indexOf(record);
 			pm.deletePersistent(record);
+			calendarRecordsCache.remove(recodrIndex);
 		} finally {
 			pm.close();
 		}

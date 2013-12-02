@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.CalendarTestData;
-import ru.kmz.server.data.utils.HistoryDataUtils;
 import ru.kmz.web.calendar.shared.CalendarRecordProxy;
 import ru.kmz.web.common.server.CommonServiceImpl;
 import ru.kmz.web.common.shared.HistoryProxy;
@@ -23,7 +22,6 @@ public class DeleteCalendarRecordTest extends DataTestEveryNew {
 	public void createService() {
 		service = new CalendarModuleServiceImpl();
 		commonService = new CommonServiceImpl();
-		HistoryDataUtils.cleanCash();
 	}
 
 	@Test

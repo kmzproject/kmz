@@ -6,7 +6,6 @@
 		<property name="resourceType" direction="asc" />
 		<property name="done" direction="asc" />
 	</datastore-index>
-
 	<datastore-index kind="ProductElementTask" ancestor="false">
 		<property name="parentId" direction="asc" />
 		<property name="orderNum" direction="asc" />
@@ -15,4 +14,13 @@
 		<property name="parentId" direction="asc" />
 		<property name="orderNum" direction="asc" />
 	</datastore-index>
+	<datastore-index kind="CalendarRecord" ancestor="false" source="auto">
+		<property name="calendarId" direction="asc" />
+		<property name="date" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="CalendarRecord" ancestor="false" source="auto">
+		<property name="calendarId" direction="asc" />
+		<property name="date" direction="asc" />
+	</datastore-index>
+
 </datastore-indexes>
