@@ -101,6 +101,7 @@ public class CommonGanttContainer implements IsWidget {
 	public void refreshAsNewData(GanttData ganttData) {
 		this.ganttData = new DataTransformator(ganttData);
 		setData(this.ganttData);
+		calendarGenerator.setRecords(ganttData.getCalendarRecords());
 		setStartEnd();
 		gantt.refresh();
 	}

@@ -16,6 +16,10 @@ public class CalendarZoneGenerator implements ZoneGeneratorInt {
 		this.records = records;
 	}
 
+	public void setRecords(List<Date> records) {
+		this.records = records;
+	}
+
 	@Override
 	public List<Zone> generateZones(Date start, Date end) {
 		ArrayList<Zone> zones = new ArrayList<Zone>();
