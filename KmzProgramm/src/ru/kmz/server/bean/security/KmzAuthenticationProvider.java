@@ -2,23 +2,25 @@ package ru.kmz.server.bean.security;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import ru.kmz.server.bean.security.model.User;
 
+@Component
 public class KmzAuthenticationProvider implements AuthenticationProvider {
 
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		UserService userService = new UserService();
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
 

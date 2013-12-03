@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
 		user.setFirstName(username);
 		user.setLastName(username);
 		user.setUsername(username);
-		user.setPassword("123456");
+		user.setPassword("12345");
 		Role r = new Role();
 		r.setName("ROLE_USER");
 		List<Role> roles = new ArrayList<Role>();

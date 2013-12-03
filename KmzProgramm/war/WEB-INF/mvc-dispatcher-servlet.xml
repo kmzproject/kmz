@@ -1,6 +1,5 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -9,9 +8,11 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+	<context:annotation-config />
+	<context:component-scan base-package="ru.kmz.server.bean.security" />
+
 	<!-- Maps the request through to a concrete controller instance -->
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<value>
 				/**/orderCommon.rpc=orderCommon
@@ -27,14 +28,14 @@
 		</property>
 	</bean>
 
-	<bean id="orderCommon" class="ru.kmz.web.ordercommon.server.OrderCommonServiceImpl"/>
-	<bean id="calendarModule" class="ru.kmz.web.calendar.server.CalendarModuleServiceImpl"/>
-	<bean id="commonModule" class="ru.kmz.web.common.server.CommonServiceImpl"/>
-	<bean id="projectsChart" class="ru.kmz.web.projectschart.server.ProjectsChartServiceImpl"/>
-	<bean id="templateCommon" class="ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl"/>
-	<bean id="resourcesModule" class="ru.kmz.web.resources.server.ResourcesModuleServiceImpl"/>
-	<bean id="projectsModule" class="ru.kmz.web.projects.server.ProjectsModuleServiceImpl"/>
-	<bean id="projectsCommon" class="ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl"/>
-	<bean id="administrationModule" class="ru.kmz.web.administration.server.AdministrationModuleServiceImpl"/>
+	<bean id="orderCommon" class="ru.kmz.web.ordercommon.server.OrderCommonServiceImpl" />
+	<bean id="calendarModule" class="ru.kmz.web.calendar.server.CalendarModuleServiceImpl" />
+	<bean id="commonModule" class="ru.kmz.web.common.server.CommonServiceImpl" />
+	<bean id="projectsChart" class="ru.kmz.web.projectschart.server.ProjectsChartServiceImpl" />
+	<bean id="templateCommon" class="ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl" />
+	<bean id="resourcesModule" class="ru.kmz.web.resources.server.ResourcesModuleServiceImpl" />
+	<bean id="projectsModule" class="ru.kmz.web.projects.server.ProjectsModuleServiceImpl" />
+	<bean id="projectsCommon" class="ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl" />
+	<bean id="administrationModule" class="ru.kmz.web.administration.server.AdministrationModuleServiceImpl" />
 
 </beans>
