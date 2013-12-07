@@ -1,10 +1,9 @@
 package ru.kmz.web.projects.client;
 
-import java.util.Date;
-
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.projects.shared.GanttDataFilter;
+import ru.kmz.web.projects.shared.UpdateProjectElementTaskParams;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -18,6 +17,6 @@ public interface ProjectsModuleService extends RemoteService {
 
 	void deleteProduct(long id);
 
-	void updateDate(long id, Date date);
+	void updateDate(long id, UpdateProjectElementTaskParams params);
 
 }

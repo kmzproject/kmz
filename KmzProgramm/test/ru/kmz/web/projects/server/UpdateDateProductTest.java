@@ -15,6 +15,7 @@ import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
+import ru.kmz.web.projects.shared.UpdateProjectElementTaskParams;
 import ru.test.DataTestEveryNew;
 
 public class UpdateDateProductTest extends DataTestEveryNew {
@@ -47,7 +48,9 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 		Assert.assertEquals(date, rootProduct.getPlanFinish());
 
-		service.updateDate(rootProduct.getId(), newDate);
+		UpdateProjectElementTaskParams params = new UpdateProjectElementTaskParams();
+		params.setFinishDate(newDate);
+		service.updateDate(rootProduct.getId(), params);
 
 		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);

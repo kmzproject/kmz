@@ -13,6 +13,7 @@ import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.window.SetProductNewDateSector;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.projects.shared.GanttDataFilter;
+import ru.kmz.web.projects.shared.UpdateProjectElementTaskParams;
 import ru.kmz.web.projectscommon.client.ProjectsCommonModule;
 
 import com.google.gwt.core.client.GWT;
@@ -102,7 +103,9 @@ public class ProjectsModuleView extends AbstarctModuleView<VerticalLayoutContain
 			public void update(Date value) {
 				AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerOperation();
 				box.show();
-				getService().updateDate(id, value, new UpdateAfteOperation(box, true));
+				UpdateProjectElementTaskParams params = new UpdateProjectElementTaskParams();
+				params.setFinishDate(value);
+				getService().updateDate(id, params, new UpdateAfteOperation(box, true));
 			}
 		});
 		selector.show();

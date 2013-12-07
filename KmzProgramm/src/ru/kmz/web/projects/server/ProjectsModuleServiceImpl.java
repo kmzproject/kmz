@@ -20,6 +20,7 @@ import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.ProjectsModuleService;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.projects.shared.GanttDataFilter;
+import ru.kmz.web.projects.shared.UpdateProjectElementTaskParams;
 
 @SuppressWarnings("serial")
 public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements ProjectsModuleService {
@@ -69,8 +70,9 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 	}
 
 	@Override
-	public void updateDate(long id, Date date) {
-		UpdateProductElementTaskService service = new UpdateProductElementTaskService(id, date);
+	public void updateDate(long id, UpdateProjectElementTaskParams params) {
+		Date finishDate = params.getFinishDate();
+		UpdateProductElementTaskService service = new UpdateProductElementTaskService(id, finishDate);
 		service.update();
 	}
 
