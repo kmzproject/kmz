@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 
 import ru.kmz.server.data.model.CalendarRecord;
 import ru.kmz.server.data.model.History;
@@ -88,8 +87,10 @@ public class HistoryUtils {
 		if (auth == null) {
 			userName = "Nemo";
 		} else {
-			User user = (User) auth.getPrincipal();
-			userName = user.getUsername();
+//			User user = (User) auth.getPrincipal();
+//			userName = user.getUsername();
+			userName = (String) auth.getPrincipal();
+
 		}
 		History history = new History();
 		history.setDate(new Date());

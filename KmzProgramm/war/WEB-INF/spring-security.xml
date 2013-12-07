@@ -9,6 +9,7 @@
 	<http auto-config="true">
 		<intercept-url pattern="/**/*" access="ROLE_USER" />
 		<http-basic/>
+		<logout logout-success-url="/HelloPage.html" />
 	</http>
 
 	<authentication-manager alias="authenticationManager">
