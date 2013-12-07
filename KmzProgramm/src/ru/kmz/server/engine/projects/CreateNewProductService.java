@@ -105,8 +105,8 @@ public class CreateNewProductService {
 	}
 
 	private void updateOrderDone() {
-		OrderDataUtils.loadOrder(order);
-		CompliteTaskService.calculatePersentsDone(order);
+		UpdateDoneValueService service = new UpdateDoneValueService();
+		service.update(order);
 	}
 
 }

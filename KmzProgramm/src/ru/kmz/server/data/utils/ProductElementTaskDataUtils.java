@@ -10,7 +10,6 @@ import javax.jdo.Query;
 import ru.kmz.server.data.PMF;
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.utils.DateUtils;
-import ru.kmz.server.utils.HistoryUtils;
 
 public class ProductElementTaskDataUtils {
 
@@ -70,7 +69,6 @@ public class ProductElementTaskDataUtils {
 		try {
 			pm = PMF.get().getPersistenceManager();
 			ProductElementTask task = pm.getObjectById(ProductElementTask.class, key);
-			HistoryUtils.addDeleteProductElementTask(task);
 			loadAllChild(pm, task);
 			deleteAndDeleteChilds(pm, task);
 		} finally {

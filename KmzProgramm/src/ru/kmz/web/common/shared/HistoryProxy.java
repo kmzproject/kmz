@@ -43,4 +43,8 @@ public class HistoryProxy implements Serializable {
 		return user;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s %s %s %s", user, name, date, comment);
+	}
 }

@@ -11,6 +11,7 @@ import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.server.engine.gant.GanttProjectsService;
 import ru.kmz.server.engine.projects.CreateNewProductService;
 import ru.kmz.server.engine.projects.GetOrdersService;
+import ru.kmz.server.engine.projects.UpdateDoneValueService;
 import ru.kmz.server.engine.projects.UpdateProductElementTaskService;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.DateUtils;
@@ -59,7 +60,12 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 
 	@Override
 	public void deleteProduct(long id) {
+		ProductElementTask task = ProductElementTaskDataUtils.getTask(id);
+		HistoryUtils.addDeleteProductElementTask(task);
+		long orderId = task.getOrderId();
 		ProductElementTaskDataUtils.deleteProduct(id);
+		UpdateDoneValueService updateDoneService = new UpdateDoneValueService();
+		updateDoneService.updateByOrderId(orderId);
 	}
 
 	@Override

@@ -57,18 +57,27 @@ public class DeleteProductTest extends DataTestEveryNew {
 
 		List<PurchaseProxy> purchases = purchaseService.getActivePurchases(null);
 		Assert.assertEquals(3, purchases.size());
+		purchaseService.complitePurchase(purchases.get(0).getId());
+		List<HistoryProxy> history = commonService.getHistoryByObject(null);
+		Assert.assertEquals(history.toString(), 2, history.size());
+		Assert.assertEquals("D-001002 Покупка 1 было 0 стало 100", history.get(0).getComment());
+
+		data = service.getCurrentTasks(null);
+		rootOrder = data.getChilds().get(0);
+		Assert.assertEquals(16, rootOrder.getComplite());
 
 		service.deleteProduct(rootProduct.getId());
 
 		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		Assert.assertEquals(0, rootOrder.getChilds().size());
+		Assert.assertEquals(0, rootOrder.getComplite());
 
 		purchases = purchaseService.getActivePurchases(null);
 		Assert.assertEquals(0, purchases.size());
 
-		List<HistoryProxy> history = commonService.getHistoryByObject(null);
-		Assert.assertEquals(2, history.size());
+		history = commonService.getHistoryByObject(null);
+		Assert.assertEquals(history.toString(), 3, history.size());
 		Assert.assertEquals("I-001001 Изделие Short5 удалено из производства", history.get(0).getComment());
 	}
 
