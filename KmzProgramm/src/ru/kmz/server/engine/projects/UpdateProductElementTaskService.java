@@ -4,6 +4,7 @@ import java.util.Date;
 
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
+import ru.kmz.server.engine.projects.update.UpdateOrderStartFinishService;
 import ru.kmz.server.utils.DateUtils;
 
 public class UpdateProductElementTaskService {
@@ -21,6 +22,9 @@ public class UpdateProductElementTaskService {
 		int offset = DateUtils.diffInDays(product.getFinish(), date);
 		recUpdate(product, offset);
 		ProductElementTaskDataUtils.editFull(product);
+
+		UpdateOrderStartFinishService updateOrderStartFinishService = new UpdateOrderStartFinishService();
+		updateOrderStartFinishService.updateByOrderId(product.getOrderId());
 	}
 
 	private void recUpdate(ProductElementTask task, int offset) {

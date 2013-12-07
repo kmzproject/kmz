@@ -21,21 +21,21 @@ import ru.test.DataTestEveryNew;
 public class UpdateDateProductTest extends DataTestEveryNew {
 
 	private ProjectsModuleServiceImpl service;
+	private Date projectFinishDate;
 
 	@Before
 	public void createService() {
 		service = new ProjectsModuleServiceImpl();
+		prepareExample();
 	}
 
-	@Test
-	public void SimpleTest() {
-		Date date = DateUtils.getDate("2013/10/01");
-		Date newDate = DateUtils.getDate("2013/10/15");
+	private void prepareExample() {
+		projectFinishDate = DateUtils.getDate("2013/10/01");
 
 		Template template = TemplateTestData.createTemplateShort5();
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
-		input.setDate(date);
+		input.setDate(projectFinishDate);
 		input.setTemplateId(template.getId());
 		input.setByFinishDate(true);
 		input.setOrderId(order.getId());
@@ -46,7 +46,17 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
-		Assert.assertEquals(date, rootProduct.getPlanFinish());
+		Assert.assertEquals(projectFinishDate, rootOrder.getPlanFinish());
+		Assert.assertEquals(projectFinishDate, rootProduct.getPlanFinish());
+	}
+
+	@Test
+	public void updateOnlyDateFinish() {
+		Date newDate = DateUtils.getDate("2013/10/15");
+
+		GanttData data = service.getCurrentTasks(null);
+		GraphData rootOrder = data.getChilds().get(0);
+		GraphData rootProduct = rootOrder.getChilds().get(0);
 
 		UpdateProjectElementTaskParams params = new UpdateProjectElementTaskParams();
 		params.setFinishDate(newDate);
@@ -55,8 +65,8 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		rootProduct = rootOrder.getChilds().get(0);
+		Assert.assertEquals(newDate, rootOrder.getPlanFinish());
 		Assert.assertEquals(newDate, rootProduct.getPlanFinish());
-
 	}
 
 }

@@ -2,6 +2,7 @@ package ru.kmz.server.engine.projects;
 
 import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
+import ru.kmz.server.engine.projects.update.UpdateDoneValueService;
 import ru.kmz.server.utils.HistoryUtils;
 
 public class CompliteTaskService {

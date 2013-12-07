@@ -141,6 +141,10 @@ public class Order implements IProjectTask {
 		this.start = start;
 	}
 
+	public boolean isEmptyTime() {
+		return start == null || finish == null;
+	}
+
 	@Override
 	public void setFinish(Date finish) {
 		this.finish = finish;
