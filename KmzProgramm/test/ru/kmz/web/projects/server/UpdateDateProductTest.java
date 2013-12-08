@@ -31,6 +31,7 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 
 	private void prepareExample() {
 		projectFinishDate = DateUtils.getDate("2013/10/01");
+		Date projectStartDate = DateUtils.getDate("2013/09/28");
 
 		Template template = TemplateTestData.createTemplateShort5();
 		Order order = OrderTestData.createOrders1().get(0);
@@ -47,26 +48,62 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 		Assert.assertEquals(projectFinishDate, rootOrder.getPlanFinish());
+		Assert.assertEquals(projectStartDate, rootOrder.getPlanStart());
+
 		Assert.assertEquals(projectFinishDate, rootProduct.getPlanFinish());
+		Assert.assertEquals(projectStartDate, rootProduct.getPlanStart());
 	}
 
 	@Test
 	public void updateOnlyDateFinish() {
-		Date newDate = DateUtils.getDate("2013/10/15");
+		Date newDateFinish = DateUtils.getDate("2013/10/15");
+		Date newDateStart = DateUtils.getDate("2013/10/12");
 
 		GanttData data = service.getCurrentTasks(null);
 		GraphData rootOrder = data.getChilds().get(0);
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 
 		UpdateProjectElementTaskParams params = new UpdateProjectElementTaskParams();
-		params.setFinishDate(newDate);
+		params.setFinishDate(newDateFinish);
 		service.updateDate(rootProduct.getId(), params);
 
 		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		rootProduct = rootOrder.getChilds().get(0);
-		Assert.assertEquals(newDate, rootOrder.getPlanFinish());
-		Assert.assertEquals(newDate, rootProduct.getPlanFinish());
+		Assert.assertEquals(newDateFinish, rootOrder.getPlanFinish());
+		Assert.assertEquals(newDateStart, rootOrder.getPlanStart());
+		Assert.assertEquals(newDateFinish, rootProduct.getPlanFinish());
+		Assert.assertEquals(newDateStart, rootProduct.getPlanStart());
+
+		newDateFinish = DateUtils.getDate("2013/09/15");
+		newDateStart = DateUtils.getDate("2013/09/12");
+
+		params = new UpdateProjectElementTaskParams();
+		params.setFinishDate(newDateFinish);
+		service.updateDate(rootProduct.getId(), params);
+
+		data = service.getCurrentTasks(null);
+		rootOrder = data.getChilds().get(0);
+		rootProduct = rootOrder.getChilds().get(0);
+		Assert.assertEquals(newDateFinish, rootOrder.getPlanFinish());
+		Assert.assertEquals(newDateStart, rootOrder.getPlanStart());
+		Assert.assertEquals(newDateFinish, rootProduct.getPlanFinish());
+		Assert.assertEquals(newDateStart, rootProduct.getPlanStart());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void updateStartAndFinishDate() {
+		Date newDateFinish = DateUtils.getDate("2013/10/15");
+		Date newDateStart = DateUtils.getDate("2013/10/12");
+
+		GanttData data = service.getCurrentTasks(null);
+		GraphData rootOrder = data.getChilds().get(0);
+		GraphData rootProduct = rootOrder.getChilds().get(0);
+
+		UpdateProjectElementTaskParams params = new UpdateProjectElementTaskParams();
+		params.setFinishDate(newDateFinish);
+		params.setStartDate(newDateStart);
+		service.updateDate(rootProduct.getId(), params);
 	}
 
 }

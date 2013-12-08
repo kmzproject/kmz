@@ -16,6 +16,7 @@ import ru.kmz.server.engine.projects.update.UpdateDoneValueService;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.server.utils.HistoryUtils;
+import ru.kmz.web.common.shared.ResourceTypesConsts;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.projects.client.ProjectsModuleService;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
@@ -72,8 +73,16 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 	@Override
 	public void updateDate(long id, UpdateProjectElementTaskParams params) {
 		Date finishDate = params.getFinishDate();
-		UpdateProductElementTaskService service = new UpdateProductElementTaskService(id, finishDate);
-		service.update();
+		ProductElementTask task = ProductElementTaskDataUtils.getTask(id);
+		if (task.getResourceType().equals(ResourceTypesConsts.PRODUCT)) {
+			if (params.getStartDate() != null || params.getWorkDuration() != 0) {
+				throw new IllegalArgumentException("Заказ можно расчитывать только по конечной дате");
+			}
+			UpdateProductElementTaskService service = new UpdateProductElementTaskService(id, finishDate);
+			service.update();
+		} else {
+			throw new IllegalArgumentException("Для данного типа не предусмотренны изменения");
+		}
 	}
 
 }
