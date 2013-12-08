@@ -51,4 +51,19 @@ public class UserDataUtils {
 		}
 		return list.get(0);
 	}
+
+	@SuppressWarnings("unchecked")
+	public static List<User> getUsers() {
+		List<User> list = null;
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Query query = pm.newQuery(User.class);
+			list = (List<User>) query.execute();
+		} finally {
+			pm.close();
+		}
+		return list;
+	}
+
 }

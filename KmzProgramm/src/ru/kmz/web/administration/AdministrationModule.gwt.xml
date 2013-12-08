@@ -3,4 +3,5 @@
 <module rename-to="administrationmodule">
 	<inherits name="ru.kmz.web.common.KMZCommon" />
 	<source path="client" />
+	<source path="shared" />
 </module>

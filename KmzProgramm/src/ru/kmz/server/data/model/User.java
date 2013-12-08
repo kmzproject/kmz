@@ -5,6 +5,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.web.administration.shared.UserProxy;
+
 @PersistenceCapable
 public class User {
 
@@ -31,6 +33,13 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserProxy asProxy() {
+		UserProxy proxy = new UserProxy();
+		proxy.setId(id);
+		proxy.setUsername(username);
+		return proxy;
 	}
 
 }

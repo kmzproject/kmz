@@ -14,11 +14,11 @@
 		<property name="parentId" direction="asc" />
 		<property name="orderNum" direction="asc" />
 	</datastore-index>
-	<datastore-index kind="CalendarRecord" ancestor="false" source="auto">
+	<datastore-index kind="CalendarRecord" ancestor="false" source="manual">
 		<property name="calendarId" direction="asc" />
 		<property name="date" direction="asc" />
 	</datastore-index>
-	<datastore-index kind="CalendarRecord" ancestor="false" source="auto">
+	<datastore-index kind="CalendarRecord" ancestor="false" source="manual">
 		<property name="calendarId" direction="asc" />
 		<property name="date" direction="asc" />
 	</datastore-index>
