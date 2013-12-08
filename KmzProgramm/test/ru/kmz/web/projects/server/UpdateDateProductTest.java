@@ -64,16 +64,23 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 		GraphData rootProduct = rootOrder.getChilds().get(0);
 
 		UpdateProjectElementTaskParams params = new UpdateProjectElementTaskParams();
-		params.setFinishDate(newDateFinish);
+		params.setFinishDate(DateUtils.getDateAndTime("2013/10/15 13:01"));
 		service.updateDate(rootProduct.getId(), params);
 
 		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		rootProduct = rootOrder.getChilds().get(0);
+		GraphData element1 = rootProduct.getChilds().get(0);
+		GraphData element2 = rootProduct.getChilds().get(1);
+		GraphData element3 = rootProduct.getChilds().get(2);
 		Assert.assertEquals(newDateFinish, rootOrder.getPlanFinish());
 		Assert.assertEquals(newDateStart, rootOrder.getPlanStart());
 		Assert.assertEquals(newDateFinish, rootProduct.getPlanFinish());
 		Assert.assertEquals(newDateStart, rootProduct.getPlanStart());
+		Assert.assertEquals(newDateFinish, element1.getPlanFinish());
+		Assert.assertEquals(DateUtils.getDate("2013/10/14"), element1.getPlanStart());
+		Assert.assertEquals(DateUtils.getDate("2013/10/13"), element2.getPlanStart());
+		Assert.assertEquals(DateUtils.getDate("2013/10/12"), element3.getPlanStart());
 
 		newDateFinish = DateUtils.getDate("2013/09/15");
 		newDateStart = DateUtils.getDate("2013/09/12");
@@ -85,10 +92,17 @@ public class UpdateDateProductTest extends DataTestEveryNew {
 		data = service.getCurrentTasks(null);
 		rootOrder = data.getChilds().get(0);
 		rootProduct = rootOrder.getChilds().get(0);
+		element1 = rootProduct.getChilds().get(0);
+		element2 = rootProduct.getChilds().get(1);
+		element3 = rootProduct.getChilds().get(2);
 		Assert.assertEquals(newDateFinish, rootOrder.getPlanFinish());
 		Assert.assertEquals(newDateStart, rootOrder.getPlanStart());
 		Assert.assertEquals(newDateFinish, rootProduct.getPlanFinish());
 		Assert.assertEquals(newDateStart, rootProduct.getPlanStart());
+		Assert.assertEquals(newDateFinish, element1.getPlanFinish());
+		Assert.assertEquals(DateUtils.getDate("2013/09/14"), element1.getPlanStart());
+		Assert.assertEquals(DateUtils.getDate("2013/09/13"), element2.getPlanStart());
+		Assert.assertEquals(DateUtils.getDate("2013/09/12"), element3.getPlanStart());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
