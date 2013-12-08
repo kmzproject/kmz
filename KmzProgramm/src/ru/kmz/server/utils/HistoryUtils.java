@@ -29,6 +29,16 @@ public class HistoryUtils {
 		String TEMPLATE_EDIT = "Внесены изменения в шаблон";
 
 		String TASK_STARTED = "Работа началась";
+
+		String PRODUCT_TASK_CHANGE_FINISH_DATE = "Изменено время завершения заказа";
+	}
+
+	public static void createChangeProductFinishDate(ProductElementTask task, Date oldFinishDate) {
+		createHistory(
+				task.getId(),
+				HistoryName.PRODUCT_TASK_CHANGE_FINISH_DATE,
+				task.toString() + " преждняя дата окончания " + DateUtils.dateToString(oldFinishDate) + " ноавя дата окончания "
+						+ DateUtils.dateToString(task.getFinish()));
 	}
 
 	public static void createTaskStarted(ProductElementTask task) {

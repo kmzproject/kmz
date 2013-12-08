@@ -7,6 +7,7 @@ import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.engine.calculator.CalendarOffsetService;
 import ru.kmz.server.engine.projects.update.UpdateOrderStartFinishService;
 import ru.kmz.server.utils.DateUtils;
+import ru.kmz.server.utils.HistoryUtils;
 
 public class UpdateProductElementTaskService {
 
@@ -22,11 +23,13 @@ public class UpdateProductElementTaskService {
 
 	public void update() {
 		ProductElementTask product = ProductElementTaskDataUtils.getTaskFull(key);
+		Date oldFinishDate = product.getFinish();
 		recSetNewFinishDate(product, date);
 		ProductElementTaskDataUtils.editFull(product);
 
 		UpdateOrderStartFinishService updateOrderStartFinishService = new UpdateOrderStartFinishService();
 		updateOrderStartFinishService.updateByOrderId(product.getOrderId());
+		HistoryUtils.createChangeProductFinishDate(product, oldFinishDate);
 	}
 
 	private void recSetNewFinishDate(ProductElementTask task, Date finishDate) {
