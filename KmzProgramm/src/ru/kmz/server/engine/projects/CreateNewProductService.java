@@ -81,7 +81,7 @@ public class CreateNewProductService {
 		return task;
 	}
 
-	private Date getChildsStart(ProductElementTask task) {
+	public static Date getChildsStart(ProductElementTask task) {
 		Date startDate = task.getStart();
 		if (task.hasChild()) {
 			for (ProductElementTask t : task.getChilds()) {
