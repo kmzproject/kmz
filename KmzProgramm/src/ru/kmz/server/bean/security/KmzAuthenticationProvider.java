@@ -11,7 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import ru.kmz.server.bean.security.model.User;
+import ru.kmz.server.bean.security.model.AuthUser;
 
 @Component
 public class KmzAuthenticationProvider implements AuthenticationProvider {
@@ -24,7 +24,7 @@ public class KmzAuthenticationProvider implements AuthenticationProvider {
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
 
-		User user = userService.loadUserByUsername(username);
+		AuthUser user = userService.loadUserByUsername(username);
 
 		if (user == null) {
 			throw new BadCredentialsException("Username not found.");
