@@ -42,7 +42,9 @@ public class ProjectsChartServiceImpl extends AbstractServiceImpl implements Pro
 			}
 			if (!isWeekend) {
 				for (ProductElementTask task : tasks) {
-					if ((task.getStart().before(date) || task.getStart().equals(date)) && (task.getFinish().after(date))) {
+					Date dStart = task.getStart();
+					Date dFinish = task.getFinish();
+					if ((dStart.before(date) || dStart.equals(date)) && (dFinish.after(date))) {
 						activitiesCount++;
 					}
 				}

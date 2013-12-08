@@ -125,6 +125,18 @@ public class GetFunctioningCapacityTest1 extends DataTestEveryNew {
 		Assert.assertEquals(0, list.get(2).getActivitiesCount());
 		Assert.assertEquals(0, list.get(3).getActivitiesCount());
 
+		params.setFrom(DateUtils.getDate("2013/11/07"));
+		params.setTo(DateUtils.getDate("2013/11/11"));
+		params.setResourceType(ResourceTypes.PURCHASE);
+		list = service.getFunctioningCapacity(params);
+		Assert.assertEquals(4, list.size());
+		Assert.assertEquals("2013/11/07", list.get(0).getDay());
+		Assert.assertEquals(2, list.get(0).getActivitiesCount());
+		Assert.assertEquals("2013/11/08", list.get(1).getDay());
+		Assert.assertEquals(0, list.get(1).getActivitiesCount());
+		Assert.assertEquals("2013/11/09", list.get(2).getDay());
+		Assert.assertEquals(3, list.get(2).getActivitiesCount());
+		Assert.assertEquals("2013/11/10", list.get(3).getDay());
+		Assert.assertEquals(0, list.get(3).getActivitiesCount());
 	}
-
 }

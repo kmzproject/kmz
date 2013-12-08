@@ -146,7 +146,7 @@ public class ProductElementTaskDataUtils {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Query query = pm.newQuery(ProductElementTask.class, " resourceType == '" + resourceType + "' &&  start>=:startParam ");
+			Query query = pm.newQuery(ProductElementTask.class, " resourceType == '" + resourceType + "' ");
 			list = (List<ProductElementTask>) query.execute(from);
 		} finally {
 			pm.close();
