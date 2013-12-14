@@ -1,8 +1,8 @@
 package ru.kmz.web.template.client;
 
-import ru.kmz.web.templatecommon.client.TemplateCommonServiceAsync;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.common.client.service.TemplateCommonServiceAsync;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.shared.TemplateTreeNodeBaseProxy;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

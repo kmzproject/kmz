@@ -1,4 +1,4 @@
-package ru.kmz.web.templatecommon.server;
+package ru.kmz.web.common.server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.HistoryUtils;
+import ru.kmz.web.common.client.service.TemplateCommonService;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.template.client.TemplateModuleService;
-import ru.kmz.web.templatecommon.client.TemplateCommonService;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
 @SuppressWarnings("serial")
 public class TemplateCommonServiceImpl extends AbstractServiceImpl implements TemplateCommonService, TemplateModuleService {

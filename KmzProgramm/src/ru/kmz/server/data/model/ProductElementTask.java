@@ -14,12 +14,12 @@ import ru.kmz.server.data.constants.ProductElementTaskStates;
 import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.common.shared.ResourceTypesConsts;
+import ru.kmz.web.common.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.projectscommon.shared.ProductElementTaskProxy;
 import ru.kmz.web.projectscommon.shared.ProductProxy;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
 
 @PersistenceCapable
 public class ProductElementTask implements IProjectTask {

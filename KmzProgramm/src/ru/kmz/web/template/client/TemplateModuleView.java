@@ -4,8 +4,8 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
 import ru.kmz.web.template.client.window.TemplateNameWindow;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Label;

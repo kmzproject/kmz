@@ -1,12 +1,12 @@
-package ru.kmz.web.templatecommon.client.control;
+package ru.kmz.web.common.client.control;
 
 import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.CommonModule;
 import ru.kmz.web.common.client.data.KeyLongValueDataProperties;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.templatecommon.client.TemplateCommon;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
 
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.data.shared.ListStore;
@@ -24,7 +24,7 @@ public class TemplateComboBoxUtils {
 		templateBox.setValue(list.get(0));
 		templateBox.setWidth(220);
 
-		TemplateCommon.getService().getTemplateList(new AsyncCallbackWithErrorMessage<List<TemplateTreeDataProxy>>() {
+		CommonModule.getTemplateService().getTemplateList(new AsyncCallbackWithErrorMessage<List<TemplateTreeDataProxy>>() {
 			@Override
 			public void onSuccess(List<TemplateTreeDataProxy> result) {
 				for (TemplateTreeDataProxy proxy : result) {

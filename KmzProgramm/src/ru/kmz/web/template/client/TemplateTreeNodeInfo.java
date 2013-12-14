@@ -2,9 +2,9 @@ package ru.kmz.web.template.client;
 
 import java.text.ParseException;
 
+import ru.kmz.web.common.client.control.ResourceComboBoxUtils;
 import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.templatecommon.client.control.ResourceComboBoxUtils;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.common.shared.TemplateTreeNodeBaseProxy;
 
 import com.google.gwt.text.client.IntegerParser;
 import com.google.gwt.user.client.ui.IsWidget;

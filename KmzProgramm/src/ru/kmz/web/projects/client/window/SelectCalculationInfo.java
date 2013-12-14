@@ -3,11 +3,11 @@ package ru.kmz.web.projects.client.window;
 import java.text.ParseException;
 import java.util.Date;
 
+import ru.kmz.web.common.client.control.TemplateComboBoxUtils;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.CommonSelectWindow;
 import ru.kmz.web.ordercommon.client.control.OrderComboBoxUtils;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
-import ru.kmz.web.templatecommon.client.control.TemplateComboBoxUtils;
 
 import com.google.gwt.text.client.IntegerParser;
 import com.google.gwt.user.client.ui.HorizontalPanel;

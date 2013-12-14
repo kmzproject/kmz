@@ -10,8 +10,8 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import ru.kmz.server.data.constants.ResourceTypes;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeBaseProxy;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
+import ru.kmz.web.common.shared.TemplateTreeNodeBaseProxy;
+import ru.kmz.web.common.shared.TemplateTreeNodeFolderProxy;
 
 @PersistenceCapable
 public class ProductTemplateElement {

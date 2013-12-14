@@ -1,4 +1,4 @@
-package ru.kmz.web.templatecommon.client.control;
+package ru.kmz.web.common.client.control;
 
 import ru.kmz.web.common.client.data.KeyStringValueDataProperties;
 import ru.kmz.web.common.client.data.KeyValueData;

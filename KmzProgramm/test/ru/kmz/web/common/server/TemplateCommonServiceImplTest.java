@@ -1,4 +1,4 @@
-package ru.kmz.web.templatecommon.server;
+package ru.kmz.web.common.server;
 
 import java.util.List;
 
@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.TemplateTestData;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.server.TemplateCommonServiceImpl;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
 import ru.test.DataTestEveryNew;
 
 public class TemplateCommonServiceImplTest extends DataTestEveryNew {

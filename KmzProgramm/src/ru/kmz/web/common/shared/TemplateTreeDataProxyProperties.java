@@ -1,6 +1,5 @@
-package ru.kmz.web.templatecommon.client;
+package ru.kmz.web.common.shared;
 
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;

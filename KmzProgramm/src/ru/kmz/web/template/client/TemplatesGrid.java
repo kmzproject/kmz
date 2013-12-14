@@ -5,9 +5,9 @@ import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGrid;
-import ru.kmz.web.templatecommon.client.TemplateCommon;
-import ru.kmz.web.templatecommon.client.TemplateTreeDataProxyProperties;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.client.CommonModule;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.shared.TemplateTreeDataProxyProperties;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -52,7 +52,7 @@ public class TemplatesGrid extends CommonGrid<TemplateTreeDataProxy> {
 		RpcProxy<PagingLoadConfig, PagingLoadResult<TemplateTreeDataProxy>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<TemplateTreeDataProxy>>() {
 			@Override
 			public void load(PagingLoadConfig loadConfig, final AsyncCallback<PagingLoadResult<TemplateTreeDataProxy>> callback) {
-				TemplateCommon.getService().getTemplateList(new AsyncCallbackWithErrorMessage<List<TemplateTreeDataProxy>>() {
+				CommonModule.getTemplateService().getTemplateList(new AsyncCallbackWithErrorMessage<List<TemplateTreeDataProxy>>() {
 
 					@Override
 					public void onSuccess(List<TemplateTreeDataProxy> result) {

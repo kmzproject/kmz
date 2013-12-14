@@ -1,4 +1,4 @@
-package ru.kmz.web.templatecommon.server;
+package ru.kmz.web.common.server;
 
 import junit.framework.Assert;
 
@@ -7,9 +7,10 @@ import org.junit.Test;
 
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.Template;
+import ru.kmz.web.common.server.TemplateCommonServiceImpl;
+import ru.kmz.web.common.shared.TemplateTreeDataProxy;
+import ru.kmz.web.common.shared.TemplateTreeNodeFolderProxy;
 import ru.kmz.web.template.client.TemplateModuleService;
-import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
-import ru.kmz.web.templatecommon.shared.TemplateTreeNodeFolderProxy;
 import ru.test.DataTestEveryNew;
 
 public class CreateEditTemplateTest extends DataTestEveryNew {

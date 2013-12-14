@@ -4,11 +4,11 @@ import java.util.List;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.control.ResourceComboBoxUtils;
 import ru.kmz.web.common.client.data.KeyValueData;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.projectschart.shared.FunctioningCapacityParams;
 import ru.kmz.web.projectschart.shared.FunctioningCapacityProxy;
-import ru.kmz.web.templatecommon.client.control.ResourceComboBoxUtils;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;

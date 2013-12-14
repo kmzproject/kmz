@@ -1,4 +1,4 @@
-package ru.kmz.web.templatecommon.shared;
+package ru.kmz.web.common.shared;
 
 import java.io.Serializable;
 
