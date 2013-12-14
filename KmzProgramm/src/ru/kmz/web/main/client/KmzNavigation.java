@@ -14,6 +14,10 @@ import ru.kmz.web.projectschart.client.ProjectsChartModuleView;
 import ru.kmz.web.purchases.client.PurchasesModuleView;
 import ru.kmz.web.template.client.TemplateModuleView;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.util.Margins;
@@ -61,6 +65,17 @@ public class KmzNavigation implements IsWidget {
 			button.addSelectHandler(new NavigationSelectHandler(iKmzModule));
 			c.add(button, new BoxLayoutData(new Margins(0, 0, 5, 0)));
 		}
+
+		Anchor logoutLink = new Anchor("Выход");
+		logoutLink.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.Location.assign("j_spring_security_logout");
+			}
+		});
+
+		c.add(logoutLink);
+
 		return c;
 	}
 
