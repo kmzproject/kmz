@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import ru.kmz.server.bean.security.model.AuthUser;
+import ru.kmz.server.utils.SHA1Utils;
 
 @Component
 public class KmzAuthenticationProvider implements AuthenticationProvider {
@@ -23,6 +24,7 @@ public class KmzAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
+		password = SHA1Utils.getSHA1Hash(password);
 
 		AuthUser user = userService.loadUserByUsername(username);
 

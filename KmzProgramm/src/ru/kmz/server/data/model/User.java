@@ -5,6 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import ru.kmz.server.utils.SHA1Utils;
 import ru.kmz.web.administration.shared.UserProxy;
 
 @PersistenceCapable
@@ -32,7 +33,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = SHA1Utils.getSHA1Hash(password);
 	}
 
 	public UserProxy asProxy() {
