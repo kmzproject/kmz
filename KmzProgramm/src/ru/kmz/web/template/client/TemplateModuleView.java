@@ -4,13 +4,10 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
-import ru.kmz.web.common.client.window.ShowHistoryWindow;
 import ru.kmz.web.common.shared.TemplateTreeDataProxy;
 import ru.kmz.web.template.client.window.TemplateNameWindow;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
@@ -22,9 +19,6 @@ import com.sencha.gxt.widget.core.client.event.RowClickEvent;
 import com.sencha.gxt.widget.core.client.event.RowClickEvent.RowClickHandler;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.menu.Item;
-import com.sencha.gxt.widget.core.client.menu.Menu;
-import com.sencha.gxt.widget.core.client.menu.MenuItem;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
@@ -58,7 +52,6 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 		container.add(createToolBar());
 
 		grid = TemplatesGrid.getTemplateGrid();
-		grid.setContextMenu(getGridMenu());
 		grid.addRowClickHandler(new RowClickHandler() {
 
 			@Override
@@ -74,21 +67,6 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 		treeContainer = new HorizontalLayoutContainer();
 		container.add(treeContainer);
-	}
-
-	private Menu getGridMenu() {
-		Menu menu = new Menu();
-		MenuItem showHistory = new MenuItem("История");
-		showHistory.addSelectionHandler(new SelectionHandler<Item>() {
-			@Override
-			public void onSelection(SelectionEvent<Item> event) {
-				ShowHistoryWindow window = new ShowHistoryWindow(grid.getSelectionModel().getSelectedItem().getId());
-				window.show();
-			}
-		});
-
-		menu.add(showHistory);
-		return menu;
 	}
 
 	private ToolBar createToolBar() {

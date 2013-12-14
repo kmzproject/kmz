@@ -2,8 +2,10 @@ package ru.kmz.web.ordercommon.shared;
 
 import java.io.Serializable;
 
+import ru.kmz.web.common.shared.IHasIdProxy;
+
 @SuppressWarnings("serial")
-public class OrderProxy implements Serializable {
+public class OrderProxy implements Serializable, IHasIdProxy {
 
 	private long id;
 	private String name;

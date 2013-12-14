@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
-import ru.kmz.web.common.client.CommonGrid;
+import ru.kmz.web.common.client.CommonProxyObjectGrid;
 import ru.kmz.web.ordercommon.client.OrderCommon;
 import ru.kmz.web.ordercommon.client.OrderProxyProperties;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
@@ -20,7 +20,7 @@ import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 
-public class OrdersGrid extends CommonGrid<OrderProxy> {
+public class OrdersGrid extends CommonProxyObjectGrid<OrderProxy> {
 
 	private static final OrderProxyProperties props;
 

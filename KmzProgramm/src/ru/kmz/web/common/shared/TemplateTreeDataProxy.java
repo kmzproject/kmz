@@ -3,7 +3,7 @@ package ru.kmz.web.common.shared;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class TemplateTreeDataProxy implements Serializable {
+public class TemplateTreeDataProxy implements Serializable, IHasIdProxy {
 
 	private long id;
 	private TemplateTreeNodeFolderProxy root;

@@ -3,8 +3,10 @@ package ru.kmz.web.projectscommon.shared;
 import java.io.Serializable;
 import java.util.Date;
 
+import ru.kmz.web.common.shared.IHasIdProxy;
+
 @SuppressWarnings("serial")
-public class ProductElementTaskProxy implements Serializable {
+public class ProductElementTaskProxy implements Serializable, IHasIdProxy {
 
 	private long id;
 	private String orderName;

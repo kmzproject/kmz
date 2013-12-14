@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
-import ru.kmz.web.common.client.CommonGrid;
+import ru.kmz.web.common.client.CommonProxyObjectGrid;
 import ru.kmz.web.common.client.control.DateCellFormatColor;
 import ru.kmz.web.projectscommon.client.PurchaseProxyProperties;
 import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
@@ -22,7 +22,7 @@ import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 
-public class PurchasesGrid extends CommonGrid<PurchaseProxy> {
+public class PurchasesGrid extends CommonProxyObjectGrid<PurchaseProxy> {
 
 	private static final PurchaseProxyProperties props;
 	private ProductElementTaskGridFilter filter;

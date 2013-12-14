@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
-import ru.kmz.web.common.client.CommonGrid;
 import ru.kmz.web.common.client.CommonModule;
+import ru.kmz.web.common.client.CommonProxyObjectGrid;
 import ru.kmz.web.common.shared.TemplateTreeDataProxy;
 import ru.kmz.web.common.shared.TemplateTreeDataProxyProperties;
 
@@ -20,7 +20,7 @@ import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 
-public class TemplatesGrid extends CommonGrid<TemplateTreeDataProxy> {
+public class TemplatesGrid extends CommonProxyObjectGrid<TemplateTreeDataProxy> {
 
 	private static final TemplateTreeDataProxyProperties props;
 

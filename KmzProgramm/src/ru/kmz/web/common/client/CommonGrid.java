@@ -28,6 +28,8 @@ public abstract class CommonGrid<T> extends Grid<T> {
 		this.setLoader(loader);
 
 		this.setLoadOnInit(true);
+
+//		GridComtextMenu<T> t = null;
 	}
 
 	protected abstract PagingLoader<PagingLoadConfig, PagingLoadResult<T>> createLoader();
