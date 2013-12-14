@@ -3,7 +3,6 @@
 <module rename-to="projectschartmodules">
 	<inherits name="ru.kmz.web.common.KMZCommon" />
 	<inherits name='com.sencha.gxt.chart.Chart' />
-	<inherits name="ru.kmz.web.templatecommon.TemplateCommon" />
 	<source path="client" />
 	<source path="shared" />
 	<entry-point class="ru.kmz.web.projectschart.client.ProjectsChartModuleView" />

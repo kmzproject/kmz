@@ -34,6 +34,10 @@ public class HistoryGrid extends CommonGrid<HistoryProxy> {
 
 	private Long objectId;
 
+	public void setObjectId(long objectId) {
+		this.objectId = objectId;
+	}
+
 	public static HistoryGrid getHistoryGrid() {
 		ListStore<HistoryProxy> store = new ListStore<HistoryProxy>(props.key());
 

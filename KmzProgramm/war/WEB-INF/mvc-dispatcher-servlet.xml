@@ -31,8 +31,8 @@
 	<bean id="orderCommon" class="ru.kmz.web.ordercommon.server.OrderCommonServiceImpl" />
 	<bean id="calendarModule" class="ru.kmz.web.calendar.server.CalendarModuleServiceImpl" />
 	<bean id="commonModule" class="ru.kmz.web.common.server.CommonServiceImpl" />
+	<bean id="templateCommon" class="ru.kmz.web.common.server.TemplateCommonServiceImpl" />
 	<bean id="projectsChart" class="ru.kmz.web.projectschart.server.ProjectsChartServiceImpl" />
-	<bean id="templateCommon" class="ru.kmz.web.templatecommon.server.TemplateCommonServiceImpl" />
 	<bean id="resourcesModule" class="ru.kmz.web.resources.server.ResourcesModuleServiceImpl" />
 	<bean id="projectsModule" class="ru.kmz.web.projects.server.ProjectsModuleServiceImpl" />
 	<bean id="projectsCommon" class="ru.kmz.web.projectscommon.server.ProjectsCommonServiceImpl" />
