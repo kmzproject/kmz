@@ -2,24 +2,26 @@ package ru.kmz.web.template.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
-import ru.kmz.web.common.client.data.KeyValueData;
-import ru.kmz.web.common.client.window.IUpdatableWithValue;
+import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
 import ru.kmz.web.template.client.window.TemplateNameWindow;
-import ru.kmz.web.templatecommon.client.window.TemplateSelectWindow;
 import ru.kmz.web.templatecommon.shared.TemplateTreeDataProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.sencha.gxt.widget.core.client.box.AutoProgressMessageBox;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.Container;
 import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
+import com.sencha.gxt.widget.core.client.event.RowClickEvent;
+import com.sencha.gxt.widget.core.client.event.RowClickEvent.RowClickHandler;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
-public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatableWithValue<KeyValueData<Long>> {
+public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
 
 	private final static TemplateModuleServiceAsync service = GWT.create(TemplateModuleService.class);
 
@@ -28,6 +30,7 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 	private Container treeContainer;
 	private TemplateTreeDataProxy selectedTemplate;
 	private TextButton chancgeTemplate;
+	private TemplatesGrid grid;
 
 	@Override
 	public void onModuleLoad() {
@@ -48,6 +51,18 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 		container.add(createToolBar());
 
+		grid = TemplatesGrid.getTemplateGrid();
+		grid.addRowClickHandler(new RowClickHandler() {
+
+			@Override
+			public void onRowClick(RowClickEvent event) {
+				int rowIndex = event.getRowIndex();
+				TemplateTreeDataProxy t = (TemplateTreeDataProxy) event.getSource().getStore().get(rowIndex);
+				updateTemplateView(t.getId());
+			}
+		});
+		container.add(grid);
+
 		container.add(label = new Label());
 
 		treeContainer = new HorizontalLayoutContainer();
@@ -57,18 +72,6 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 	private ToolBar createToolBar() {
 		ToolBar toolBar = new ToolBar();
 
-		TextButton select = new TextButton("Выбрать");
-		select.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-				TemplateSelectWindow window = new TemplateSelectWindow();
-				window.setUpdatable(TemplateModuleView.this);
-				window.show();
-			}
-		});
-		toolBar.add(select);
-
 		chancgeTemplate = new TextButton("Изменить");
 		chancgeTemplate.addSelectHandler(new SelectHandler() {
 
@@ -76,22 +79,34 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 			public void onSelect(SelectEvent event) {
 				TemplateNameWindow window = new TemplateNameWindow();
 				window.setData(selectedTemplate);
+				window.setUpdatable(TemplateModuleView.this);
 				window.show();
 			}
 		});
 		chancgeTemplate.setEnabled(false);
-		toolBar.add(chancgeTemplate);
 
-		TextButton createTemplate = new TextButton("Создать");
+		TextButton createTemplate = new TextButton("Добавить");
 		createTemplate.addSelectHandler(new SelectHandler() {
 
 			@Override
 			public void onSelect(SelectEvent event) {
 				TemplateNameWindow window = new TemplateNameWindow();
+				window.setUpdatable(TemplateModuleView.this);
 				window.show();
 			}
 		});
+		TextButton refreshButton = new TextButton("Обновить");
+		refreshButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				update();
+			}
+		});
+
 		toolBar.add(createTemplate);
+		toolBar.add(chancgeTemplate);
+		toolBar.add(refreshButton);
 
 		return toolBar;
 	}
@@ -106,9 +121,10 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 		return instanse;
 	}
 
-	@Override
-	public void update(KeyValueData<Long> data) {
-		getService().getData(data.getKey(), new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>() {
+	private void updateTemplateView(long tamplateId) {
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
+		box.show();
+		getService().getData(tamplateId, new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>(box) {
 
 			@Override
 			public void onSuccess(TemplateTreeDataProxy result) {
@@ -121,8 +137,13 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 				treeContainer.add(tree);
 
 				label.setText(result.getName());
-
+				box.hide();
 			}
 		});
+	}
+
+	@Override
+	public void update() {
+		grid.updateData();
 	}
 }
