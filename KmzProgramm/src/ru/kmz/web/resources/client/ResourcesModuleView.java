@@ -1,8 +1,7 @@
 package ru.kmz.web.resources.client;
 
-import java.util.List;
-
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.resources.client.window.ResourceProperties;
 import ru.kmz.web.resources.shared.ResourceProxy;
@@ -14,7 +13,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.info.Info;
 
 public class ResourcesModuleView extends AbstarctModuleView<VerticalPanel> implements IUpdatable {
 
@@ -57,16 +55,9 @@ public class ResourcesModuleView extends AbstarctModuleView<VerticalPanel> imple
 			}
 		});
 		TextButton editButton = new TextButton("Редактировать");
-		editButton.addSelectHandler(new SelectHandler() {
-
+		editButton.addSelectHandler(new CommonGridRowSelectHandler<ResourceProxy>(grid) {
 			@Override
-			public void onSelect(SelectEvent event) {
-				List<ResourceProxy> list = grid.getSelectionModel().getSelectedItems();
-				if (list == null || list.size() != 1) {
-					Info.display("Предупреждение", "Невозможно произвести редактирование");
-					return;
-				}
-				ResourceProxy object = list.get(0);
+			protected void onSelect(ResourceProxy object) {
 				ResourceProperties window = new ResourceProperties();
 				window.setUpdatable(ResourcesModuleView.this);
 				window.setData(object);

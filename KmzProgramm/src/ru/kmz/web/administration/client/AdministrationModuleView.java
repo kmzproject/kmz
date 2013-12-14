@@ -1,12 +1,11 @@
 package ru.kmz.web.administration.client;
 
-import java.util.List;
-
 import ru.kmz.web.administration.client.window.SelectNewPasswordWindow;
 import ru.kmz.web.administration.client.window.UserPropertiesWindow;
 import ru.kmz.web.administration.shared.UserProxy;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.IUpdatableWithValue;
 
@@ -67,16 +66,11 @@ public class AdministrationModuleView extends AbstarctModuleView<VerticalLayoutC
 		});
 
 		TextButton setNewPasswordButton = new TextButton("Новый пароль");
-		setNewPasswordButton.addSelectHandler(new SelectHandler() {
+		setNewPasswordButton.addSelectHandler(new CommonGridRowSelectHandler<UserProxy>(grid) {
 
 			@Override
-			public void onSelect(SelectEvent event) {
-				List<UserProxy> list = grid.getSelectionModel().getSelectedItems();
-				if (list == null || list.size() != 1) {
-					Info.display("Предупреждение", "Невозможно произвести редактирование");
-					return;
-				}
-				final String userName = list.get(0).getUsername();
+			protected void onSelect(UserProxy selectedObject) {
+				final String userName = selectedObject.getUsername();
 				SelectNewPasswordWindow window = new SelectNewPasswordWindow();
 				window.setUpdatable(new IUpdatableWithValue<String>() {
 
@@ -91,6 +85,7 @@ public class AdministrationModuleView extends AbstarctModuleView<VerticalLayoutC
 					}
 				});
 				window.show();
+
 			}
 		});
 

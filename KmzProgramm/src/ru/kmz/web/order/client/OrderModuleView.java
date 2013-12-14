@@ -1,8 +1,7 @@
 package ru.kmz.web.order.client;
 
-import java.util.List;
-
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.order.client.window.OrderProperties;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
@@ -12,7 +11,6 @@ import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
-import com.sencha.gxt.widget.core.client.info.Info;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 
 public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer> implements IUpdatable {
@@ -62,16 +60,9 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 			}
 		});
 		TextButton editButton = new TextButton("Редактировать");
-		editButton.addSelectHandler(new SelectHandler() {
-
+		editButton.addSelectHandler(new CommonGridRowSelectHandler<OrderProxy>(grid) {
 			@Override
-			public void onSelect(SelectEvent event) {
-				List<OrderProxy> list = grid.getSelectionModel().getSelectedItems();
-				if (list == null || list.size() != 1) {
-					Info.display("Предупреждение", "Невозможно произвести редактирование");
-					return;
-				}
-				OrderProxy object = list.get(0);
+			protected void onSelect(OrderProxy object) {
 				OrderProperties window = new OrderProperties();
 				window.setUpdatable(OrderModuleView.this);
 				window.setData(object);
