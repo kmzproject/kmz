@@ -8,9 +8,15 @@ import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 
 public abstract class CommonProxyObjectGrid<T extends IHasIdProxy> extends CommonGrid<T> {
 
+	protected GridComtextMenu<T> contextMenu;
+
 	protected CommonProxyObjectGrid(ListStore<T> store, ColumnModel<T> model) {
 		super(store, model);
+		contextMenu = new GridComtextMenu<T>(this);
+		this.setContextMenu(contextMenu);
+	}
 
-		this.setContextMenu(new GridComtextMenu<T>(this));
+	public GridComtextMenu<T> getContextMenu() {
+		return contextMenu;
 	}
 }

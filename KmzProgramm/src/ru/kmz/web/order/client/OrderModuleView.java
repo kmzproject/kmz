@@ -2,6 +2,7 @@ package ru.kmz.web.order.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.CommonGridRowSelectHandler;
+import ru.kmz.web.common.client.menu.GridContextMenuItem;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.order.client.window.OrderProperties;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
@@ -40,9 +41,9 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
-		container.add(createToolBar());
-
 		grid = OrdersGrid.getOrderGrid();
+
+		container.add(createToolBar());
 		container.add(grid);
 	}
 
@@ -63,12 +64,18 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 		editButton.addSelectHandler(new CommonGridRowSelectHandler<OrderProxy>(grid) {
 			@Override
 			protected void onSelect(OrderProxy object) {
-				OrderProperties window = new OrderProperties();
-				window.setUpdatable(OrderModuleView.this);
-				window.setData(object);
-				window.show();
+				editOrder(object);
 			}
 		});
+		GridContextMenuItem<OrderProxy> editMenuItem = new GridContextMenuItem<OrderProxy>(grid, "Редактировать") {
+
+			@Override
+			protected void onSelection(OrderProxy selectedObject) {
+				editOrder(selectedObject);
+			}
+		};
+		grid.getContextMenu().add(editMenuItem);
+
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
 
@@ -82,6 +89,13 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 		toolBar.add(refreshButton);
 
 		return toolBar;
+	}
+
+	private void editOrder(OrderProxy order) {
+		OrderProperties window = new OrderProperties();
+		window.setUpdatable(OrderModuleView.this);
+		window.setData(order);
+		window.show();
 	}
 
 	@Override

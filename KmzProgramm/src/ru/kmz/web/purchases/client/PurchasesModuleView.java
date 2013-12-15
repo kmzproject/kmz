@@ -3,6 +3,7 @@ package ru.kmz.web.purchases.client;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGridRowSelectHandler;
+import ru.kmz.web.common.client.menu.GridContextMenuItem;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.PurchaseProxy;
@@ -61,30 +62,32 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 		setStartedTextButton.addSelectHandler(new CommonGridRowSelectHandler<PurchaseProxy>(grid) {
 			@Override
 			protected void onSelect(PurchaseProxy object) {
-				getService().setTaskAsStartedPersents(object.getId(), new AsyncCallbackWithErrorMessage<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						update();
-					}
-				});
+				setStarted(object);
 			}
 		});
+		GridContextMenuItem<PurchaseProxy> setStartedMenuItem = new GridContextMenuItem<PurchaseProxy>(grid, "Работа началась") {
 
-		toolBar.add(setStartedTextButton);
+			@Override
+			protected void onSelection(PurchaseProxy selectedObject) {
+				setStarted(selectedObject);
+			}
+		};
 
 		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
 		compliteTextButton.addSelectHandler(new CommonGridRowSelectHandler<PurchaseProxy>(grid) {
 			@Override
 			protected void onSelect(PurchaseProxy object) {
-				getService().complitePurchase(object.getId(), new AsyncCallbackWithErrorMessage<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						update();
-					}
-				});
+				setComplited(object);
 			}
 		});
-		toolBar.add(compliteTextButton);
+
+		GridContextMenuItem<PurchaseProxy> compliteMenuItem = new GridContextMenuItem<PurchaseProxy>(grid, "Отметить как выполненное") {
+
+			@Override
+			protected void onSelection(PurchaseProxy selectedObject) {
+				setComplited(selectedObject);
+			}
+		};
 
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
@@ -94,15 +97,39 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 				update();
 			}
 		});
-		toolBar.add(refreshButton);
 
 		dateFrom = new DateField();
-		toolBar.add(new FieldLabel(dateFrom, "Начиная с"));
-
 		dateTo = new DateField();
+
+		grid.getContextMenu().add(setStartedMenuItem);
+		grid.getContextMenu().add(compliteMenuItem);
+
+		toolBar.add(setStartedTextButton);
+		toolBar.add(compliteTextButton);
+		toolBar.add(refreshButton);
+		toolBar.add(new FieldLabel(dateFrom, "Начиная с"));
 		toolBar.add(new FieldLabel(dateTo, "по"));
 
 		return toolBar;
+	}
+
+	private void setComplited(PurchaseProxy proxy) {
+		getService().complitePurchase(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
+	}
+
+	private void setStarted(PurchaseProxy proxy) {
+		getService().setTaskAsStartedPersents(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
+
 	}
 
 	public static PurchasesModuleServiceAsync getService() {

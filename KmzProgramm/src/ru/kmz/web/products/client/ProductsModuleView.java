@@ -40,9 +40,9 @@ public class ProductsModuleView extends AbstarctModuleView<VerticalLayoutContain
 	protected void createContainer() {
 		container = new VerticalLayoutContainer();
 
+		grid = ProductsGrid.getCalculatorGrid();
 		container.add(createToolBar());
 
-		grid = ProductsGrid.getCalculatorGrid();
 		container.add(grid);
 
 	}

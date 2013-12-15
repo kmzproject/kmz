@@ -3,6 +3,7 @@ package ru.kmz.web.production.client;
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGridRowSelectHandler;
+import ru.kmz.web.common.client.menu.GridContextMenuItem;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.projectscommon.shared.ProductElementTaskGridFilter;
 import ru.kmz.web.projectscommon.shared.ProductionProxy;
@@ -61,29 +62,31 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 		setStartedTextButton.addSelectHandler(new CommonGridRowSelectHandler<ProductionProxy>(grid) {
 			@Override
 			protected void onSelect(ProductionProxy object) {
-				getService().setTaskAsStartedPersents(object.getId(), new AsyncCallbackWithErrorMessage<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						update();
-					}
-				});
+				setStarted(object);
 			}
 		});
-		toolBar.add(setStartedTextButton);
+		GridContextMenuItem<ProductionProxy> setStartedMenuItem = new GridContextMenuItem<ProductionProxy>(grid, "Работа началась") {
+
+			@Override
+			protected void onSelection(ProductionProxy selectedObject) {
+				setStarted(selectedObject);
+			}
+		};
 
 		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
 		compliteTextButton.addSelectHandler(new CommonGridRowSelectHandler<ProductionProxy>(grid) {
 			@Override
 			protected void onSelect(ProductionProxy object) {
-				getService().compliteProduction(object.getId(), new AsyncCallbackWithErrorMessage<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						update();
-					}
-				});
+				setComplited(object);
 			}
 		});
-		toolBar.add(compliteTextButton);
+		GridContextMenuItem<ProductionProxy> compliteMenuItem = new GridContextMenuItem<ProductionProxy>(grid, "Отметить как выполненное") {
+
+			@Override
+			protected void onSelection(ProductionProxy selectedObject) {
+				setComplited(selectedObject);
+			}
+		};
 
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
@@ -93,15 +96,38 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 				update();
 			}
 		});
-		toolBar.add(refreshButton);
 
 		dateFrom = new DateField();
-		toolBar.add(new FieldLabel(dateFrom, "Начиная с"));
-
 		dateTo = new DateField();
+
+		grid.getContextMenu().add(setStartedMenuItem);
+		grid.getContextMenu().add(compliteMenuItem);
+
+		toolBar.add(setStartedTextButton);
+		toolBar.add(compliteTextButton);
+		toolBar.add(refreshButton);
+		toolBar.add(new FieldLabel(dateFrom, "Начиная с"));
 		toolBar.add(new FieldLabel(dateTo, "по"));
 
 		return toolBar;
+	}
+
+	private void setComplited(ProductionProxy proxy) {
+		getService().compliteProduction(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
+	}
+
+	private void setStarted(ProductionProxy proxy) {
+		getService().setTaskAsStartedPersents(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
 	}
 
 	public static ProductionModuleServiceAsync getService() {
