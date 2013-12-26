@@ -2,6 +2,7 @@ package ru.kmz.web.template.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
+import ru.kmz.web.common.client.menu.GridContextMenuItem;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.common.client.window.ProgressOperationMessageBoxUtils;
 import ru.kmz.web.common.shared.TemplateTreeDataProxy;
@@ -61,6 +62,16 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 				updateTemplateView(t.getId());
 			}
 		});
+
+		GridContextMenuItem<TemplateTreeDataProxy> deleteMenuItem = new GridContextMenuItem<TemplateTreeDataProxy>(grid, "Удалить") {
+
+			@Override
+			protected void onSelection(TemplateTreeDataProxy selectedObject) {
+				deleteTemplate(selectedObject.getId());
+			}
+		};
+		grid.getContextMenu().add(deleteMenuItem);
+
 		container.add(grid);
 
 		container.add(label = new Label());
@@ -119,6 +130,19 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 		if (instanse == null)
 			instanse = new TemplateModuleView();
 		return instanse;
+	}
+
+	private void deleteTemplate(long tamplateId) {
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
+		box.show();
+		getService().getDeleteTemplate(tamplateId, new AsyncCallbackWithErrorMessage<Void>(box) {
+
+			@Override
+			public void onSuccess(Void result) {
+				box.hide();
+				update();
+			}
+		});
 	}
 
 	private void updateTemplateView(long tamplateId) {

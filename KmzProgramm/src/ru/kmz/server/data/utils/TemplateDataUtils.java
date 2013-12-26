@@ -106,4 +106,16 @@ public class TemplateDataUtils {
 			pm.close();
 		}
 	}
+
+	public static void deleteTemplate(Long key) {
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Template template = pm.getObjectById(Template.class, key);
+			pm.deletePersistent(template);
+		} finally {
+			pm.close();
+		}
+	}
+
 }

@@ -18,4 +18,5 @@ public interface TemplateModuleServiceAsync extends TemplateCommonServiceAsync {
 
 	void editTemplate(TemplateTreeDataProxy proxy, AsyncCallback<Void> callback);
 
+	void getDeleteTemplate(long key, AsyncCallback<Void> callback);
 }
