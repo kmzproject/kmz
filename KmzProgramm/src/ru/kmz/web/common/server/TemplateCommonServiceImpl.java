@@ -81,6 +81,8 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 
 	@Override
 	public void getDeleteTemplate(long key) {
+		Template template = TemplateDataUtils.getTemplate(key);
+		HistoryUtils.addDeleteTemplate(template);
 		TemplateDataUtils.deleteTemplate(key);
 	}
 

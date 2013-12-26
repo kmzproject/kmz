@@ -27,6 +27,7 @@ public class HistoryUtils {
 
 		String TEMPLATE_CREATE = "Создан шаблон";
 		String TEMPLATE_EDIT = "Внесены изменения в шаблон";
+		String TEMPLATE_DELETE = "Шаблон удален";
 
 		String TASK_STARTED = "Работа началась";
 
@@ -52,6 +53,10 @@ public class HistoryUtils {
 
 	public static void editTemplate(Template template) {
 		createHistory(template.getId(), HistoryName.TEMPLATE_EDIT, template.toString());
+	}
+
+	public static void addDeleteTemplate(Template template) {
+		createHistory(template.getId(), HistoryName.TEMPLATE_DELETE, template.toString());
 	}
 
 	public static void createTemplate(Template template) {
