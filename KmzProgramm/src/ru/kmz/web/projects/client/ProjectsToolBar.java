@@ -47,14 +47,6 @@ public class ProjectsToolBar implements IsWidget {
 
 	private void createButtonPanel() {
 		filterWindow = new GanttDataFilterWindow();
-		filterWindow.setUpdatable(new IUpdatable() {
-			@Override
-			public void update() {
-				filterWindow.hide();
-				projectModulesView.update();
-			}
-		});
-
 		toolBar = new ToolBar();
 
 		TextButton selectCalculationDataButton = new TextButton("Добавить новое изделиe");
@@ -91,6 +83,15 @@ public class ProjectsToolBar implements IsWidget {
 		filterButton.addSelectHandler(new SelectHandler() {
 			@Override
 			public void onSelect(SelectEvent event) {
+				filterWindow = new GanttDataFilterWindow();
+				filterWindow.setUpdatable(new IUpdatable() {
+					@Override
+					public void update() {
+						filterWindow.hide();
+						GanttDataFilter filter = filterWindow.getObject();
+						projectModulesView.update(filter);
+					}
+				});
 				filterWindow.show();
 			}
 		});

@@ -31,10 +31,12 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
 public class KmzNavigation implements IsWidget {
 
+	private static KmzNavigation instance;
 	private KmzProgramm programm;
 
 	public KmzNavigation(KmzProgramm programm) {
 		this.programm = programm;
+		instance = this;
 	}
 
 	private List<IKmzModule> getMdules() {
@@ -79,6 +81,14 @@ public class KmzNavigation implements IsWidget {
 		return c;
 	}
 
+	public void showModule(IKmzModule module) {
+		programm.addWidgetTab(module);
+	}
+
+	public static KmzNavigation getInstance() {
+		return instance;
+	}
+
 	private class NavigationSelectHandler implements SelectHandler {
 
 		private IKmzModule module;
@@ -89,7 +99,7 @@ public class KmzNavigation implements IsWidget {
 
 		@Override
 		public void onSelect(SelectEvent event) {
-			programm.addWidgetTab(module);
+			showModule(module);
 		}
 
 	}

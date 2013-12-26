@@ -4,8 +4,10 @@ import ru.kmz.web.common.client.AbstarctModuleView;
 import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.menu.GridContextMenuItem;
 import ru.kmz.web.common.client.window.IUpdatable;
+import ru.kmz.web.main.client.KmzNavigation;
 import ru.kmz.web.order.client.window.OrderProperties;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
+import ru.kmz.web.projects.client.ProjectsModuleView;
 
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
@@ -84,6 +86,17 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 				update();
 			}
 		});
+
+		GridContextMenuItem<OrderProxy> showGanttMenuItem = new GridContextMenuItem<OrderProxy>(grid, "Показать диаграмму") {
+
+			@Override
+			protected void onSelection(OrderProxy selectedObject) {
+				ProjectsModuleView.getInstance().setOrder(selectedObject.getId());
+				KmzNavigation.getInstance().showModule(ProjectsModuleView.getInstance());
+			}
+		};
+		grid.getContextMenu().add(showGanttMenuItem);
+
 		toolBar.add(addButton);
 		toolBar.add(editButton);
 		toolBar.add(refreshButton);

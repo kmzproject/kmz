@@ -85,6 +85,7 @@ public class GanttDataFilterWindow extends CommonDirectoryWindow<GanttDataFilter
 
 	@Override
 	public void setData(GanttDataFilter object) {
+
 	}
 
 	@Override
