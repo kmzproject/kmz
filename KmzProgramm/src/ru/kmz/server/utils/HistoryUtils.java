@@ -17,8 +17,10 @@ public class HistoryUtils {
 
 	private static interface HistoryName {
 		String SET_FACT = "Проставлен факт";
-		String CREATE_ORDER = "Создан заказ";
-		String EDIT_ORDER = "Изменен заказ";
+		String ORDER_CREATE = "Создан заказ";
+		String ORDER_EDITE = "Изменен заказ";
+		String ORDER_DELETE = "Удален заказ";
+
 		String CREATE_PRODUCT = "Добавлено в производство";
 		String DELETE_PRODUCT = "Удалено из производства";
 		String CALCULATE_CALENDAR = "Расчет выходных дней";
@@ -59,6 +61,10 @@ public class HistoryUtils {
 		createHistory(template.getId(), HistoryName.TEMPLATE_DELETE, template.toString());
 	}
 
+	public static void addDeleteOrder(Order order) {
+		createHistory(order.getId(), HistoryName.ORDER_DELETE, order.toString());
+	}
+
 	public static void createTemplate(Template template) {
 		createHistory(template.getId(), HistoryName.TEMPLATE_CREATE, template.toString());
 	}
@@ -89,11 +95,11 @@ public class HistoryUtils {
 	}
 
 	public static void createOrder(Order order) {
-		createHistory(order.getId(), HistoryName.CREATE_ORDER, order.toString());
+		createHistory(order.getId(), HistoryName.ORDER_CREATE, order.toString());
 	}
 
 	public static void editOrder(Order order) {
-		createHistory(order.getId(), HistoryName.EDIT_ORDER, order.toString());
+		createHistory(order.getId(), HistoryName.ORDER_EDITE, order.toString());
 	}
 
 	private static History getHistory(long key, String name, String comment) {

@@ -15,6 +15,7 @@ import ru.kmz.server.data.model.Template;
 import ru.kmz.server.utils.DateUtils;
 import ru.kmz.web.ganttcommon.shared.GanttData;
 import ru.kmz.web.ganttcommon.shared.GraphData;
+import ru.kmz.web.ordercommon.server.OrderCommonServiceImpl;
 import ru.kmz.web.projects.shared.CalculatorInputDataProxy;
 import ru.kmz.web.projects.shared.GanttDataFilter;
 import ru.test.DataTestEveryNew;
@@ -22,10 +23,12 @@ import ru.test.DataTestEveryNew;
 public class CheckOrder extends DataTestEveryNew {
 
 	private ProjectsModuleServiceImpl service;
+	private OrderCommonServiceImpl orderService;
 
 	@Before
 	public void createService() {
 		service = new ProjectsModuleServiceImpl();
+		orderService = new OrderCommonServiceImpl();
 	}
 
 	@Test
@@ -58,6 +61,10 @@ public class CheckOrder extends DataTestEveryNew {
 
 		Assert.assertEquals(startDate, rootProduct1.getPlanStart());
 		Assert.assertEquals(DateUtils.getOffsetDate(startDate, 1), rootProduct2.getPlanStart());
+
+		orderService.deleteOrder(order.getId());
+		data = service.getCurrentTasks(null);
+		Assert.assertEquals(0, data.getChilds().size());
 	}
 
 	@Test

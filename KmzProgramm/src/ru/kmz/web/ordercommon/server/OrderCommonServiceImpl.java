@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.kmz.server.data.model.Order;
+import ru.kmz.server.data.model.ProductElementTask;
 import ru.kmz.server.data.utils.OrderDataUtils;
+import ru.kmz.server.data.utils.ProductElementTaskDataUtils;
 import ru.kmz.server.services.AbstractServiceImpl;
 import ru.kmz.server.utils.HistoryUtils;
 import ru.kmz.web.ordercommon.client.OrderCommonService;
@@ -39,6 +41,17 @@ public class OrderCommonServiceImpl extends AbstractServiceImpl implements Order
 			HistoryUtils.editOrder(order);
 		}
 		return proxy;
+	}
+
+	@Override
+	public void deleteOrder(long id) {
+		Order order = OrderDataUtils.getOrder(id);
+		HistoryUtils.addDeleteOrder(order);
+		for (ProductElementTask product : order.getChilds()) {
+//			System.out.println(product + " " + product.getId());
+			ProductElementTaskDataUtils.deleteProduct(product.getId());
+		}
+		OrderDataUtils.delete(order.getId());
 	}
 
 }

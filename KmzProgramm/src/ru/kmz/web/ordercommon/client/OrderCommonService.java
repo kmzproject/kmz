@@ -14,4 +14,6 @@ public interface OrderCommonService extends RemoteService {
 
 	OrderProxy editOrder(OrderProxy proxy);
 
+	void deleteOrder(long id);
+
 }

@@ -12,4 +12,6 @@ public interface OrderCommonServiceAsync {
 
 	void editOrder(OrderProxy proxy, AsyncCallback<OrderProxy> callback);
 
+	void deleteOrder(long id, AsyncCallback<Void> callback);
+
 }

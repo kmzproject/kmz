@@ -68,6 +68,17 @@ public class OrderDataUtils {
 		}
 	}
 
+	public static void delete(Long key) {
+		PersistenceManager pm = null;
+		try {
+			pm = PMF.get().getPersistenceManager();
+			Order order = pm.getObjectById(Order.class, key);
+			pm.deletePersistent(order);
+		} finally {
+			pm.close();
+		}
+	}
+
 	public static void loadOrder(Order order) {
 		PersistenceManager pm = null;
 		try {

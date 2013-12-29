@@ -1,11 +1,13 @@
 package ru.kmz.web.order.client;
 
 import ru.kmz.web.common.client.AbstarctModuleView;
+import ru.kmz.web.common.client.AsyncCallbackWithErrorMessage;
 import ru.kmz.web.common.client.CommonGridRowSelectHandler;
 import ru.kmz.web.common.client.menu.GridContextMenuItem;
 import ru.kmz.web.common.client.window.IUpdatable;
 import ru.kmz.web.main.client.KmzNavigation;
 import ru.kmz.web.order.client.window.OrderProperties;
+import ru.kmz.web.ordercommon.client.OrderCommon;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 import ru.kmz.web.projects.client.ProjectsModuleView;
 
@@ -44,7 +46,7 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 		container = new VerticalLayoutContainer();
 
 		grid = OrdersGrid.getOrderGrid();
-
+		createContextMenu();
 		container.add(createToolBar());
 		container.add(grid);
 	}
@@ -69,14 +71,6 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 				editOrder(object);
 			}
 		});
-		GridContextMenuItem<OrderProxy> editMenuItem = new GridContextMenuItem<OrderProxy>(grid, "Редактировать") {
-
-			@Override
-			protected void onSelection(OrderProxy selectedObject) {
-				editOrder(selectedObject);
-			}
-		};
-		grid.getContextMenu().add(editMenuItem);
 
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
@@ -87,6 +81,22 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 			}
 		});
 
+		toolBar.add(addButton);
+		toolBar.add(editButton);
+		toolBar.add(refreshButton);
+
+		return toolBar;
+	}
+
+	private void createContextMenu() {
+		GridContextMenuItem<OrderProxy> editMenuItem = new GridContextMenuItem<OrderProxy>(grid, "Редактировать") {
+
+			@Override
+			protected void onSelection(OrderProxy selectedObject) {
+				editOrder(selectedObject);
+			}
+		};
+
 		GridContextMenuItem<OrderProxy> showGanttMenuItem = new GridContextMenuItem<OrderProxy>(grid, "Показать диаграмму") {
 
 			@Override
@@ -95,13 +105,19 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 				KmzNavigation.getInstance().showModule(ProjectsModuleView.getInstance());
 			}
 		};
+
+		GridContextMenuItem<OrderProxy> deleteMenuItem = new GridContextMenuItem<OrderProxy>(grid, "Удалить") {
+
+			@Override
+			protected void onSelection(OrderProxy selectedObject) {
+				deleteOrder(selectedObject);
+			}
+		};
+
+		grid.getContextMenu().add(editMenuItem);
 		grid.getContextMenu().add(showGanttMenuItem);
+		grid.getContextMenu().add(deleteMenuItem);
 
-		toolBar.add(addButton);
-		toolBar.add(editButton);
-		toolBar.add(refreshButton);
-
-		return toolBar;
 	}
 
 	private void editOrder(OrderProxy order) {
@@ -109,6 +125,15 @@ public class OrderModuleView extends AbstarctModuleView<VerticalLayoutContainer>
 		window.setUpdatable(OrderModuleView.this);
 		window.setData(order);
 		window.show();
+	}
+
+	private void deleteOrder(OrderProxy order) {
+		OrderCommon.getService().deleteOrder(order.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
 	}
 
 	@Override
