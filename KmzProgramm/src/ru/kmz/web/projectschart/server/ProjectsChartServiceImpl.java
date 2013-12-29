@@ -49,7 +49,7 @@ public class ProjectsChartServiceImpl extends AbstractServiceImpl implements Pro
 					}
 				}
 			}
-			list.add(new FunctioningCapacityProxy(DateUtils.dateToString(date), activitiesCount));
+			list.add(new FunctioningCapacityProxy(DateUtils.dateToMMDDString(date), activitiesCount));
 			date = DateUtils.getOffsetDate(date, 1);
 		}
 
