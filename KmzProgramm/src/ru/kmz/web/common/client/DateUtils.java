@@ -8,6 +8,8 @@ public class DateUtils {
 
 	public static String PATTERN = "yyyy.MM.dd";
 
+	public static String PATTERN_MM_DD = "MM.dd";
+
 	public static String getDateString(Date date) {
 		return DateTimeFormat.getFormat(PATTERN).format(date);
 	}
