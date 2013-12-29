@@ -73,17 +73,43 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 			HistoryUtils.editTemplate(template);
 		} else {
 			Template template = TemplateDataUtils.edit(new Template(proxy.getName()));
-			TemplateDataUtils.edit(new ProductTemplateElement(proxy.getName(), template));
+			TemplateDataUtils.edit(new ProductTemplateElement(template));
 			HistoryUtils.createTemplate(template);
 		}
 
 	}
 
 	@Override
-	public void getDeleteTemplate(long key) {
+	public void deleteTemplate(long key) {
 		Template template = TemplateDataUtils.getTemplate(key);
 		HistoryUtils.addDeleteTemplate(template);
 		TemplateDataUtils.deleteTemplate(key);
+	}
+
+	@Override
+	public TemplateTreeDataProxy copyTemplate(long key) {
+		Template template = TemplateDataUtils.getTemplate(key);
+		Template newTemplate = TemplateDataUtils.edit(new Template(template.getName() + " Копия"));
+		ProductTemplateElement newRootElement = TemplateDataUtils.edit(new ProductTemplateElement(newTemplate));
+		TemplateDataUtils.edit(newTemplate);
+
+		copyElement(template.getRootElement(), newRootElement);
+		TemplateDataUtils.edit(newTemplate);
+		TemplateDataUtils.edit(newRootElement);
+
+		// TODO: копировать все узлы шаблона
+		HistoryUtils.createTemplate(newTemplate);
+		return newTemplate.asProxy();
+	}
+
+	private void copyElement(ProductTemplateElement elementFrom, ProductTemplateElement elementTo) {
+		if (elementFrom.getChilds() == null)
+			return;
+		for (ProductTemplateElement chElement : elementFrom.getChilds()) {
+			ProductTemplateElement newChElement = TemplateDataUtils.edit(new ProductTemplateElement(chElement.getName(), chElement.getDuration(), chElement
+					.getResourceType(), elementTo));
+			copyElement(chElement, newChElement);
+		}
 	}
 
 }

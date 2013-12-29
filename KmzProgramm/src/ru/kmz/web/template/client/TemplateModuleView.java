@@ -63,14 +63,7 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 			}
 		});
 
-		GridContextMenuItem<TemplateTreeDataProxy> deleteMenuItem = new GridContextMenuItem<TemplateTreeDataProxy>(grid, "Удалить") {
-
-			@Override
-			protected void onSelection(TemplateTreeDataProxy selectedObject) {
-				deleteTemplate(selectedObject.getId());
-			}
-		};
-		grid.getContextMenu().add(deleteMenuItem);
+		createContextMenu();
 
 		container.add(grid);
 
@@ -78,6 +71,27 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 
 		treeContainer = new HorizontalLayoutContainer();
 		container.add(treeContainer);
+	}
+
+	private void createContextMenu() {
+		GridContextMenuItem<TemplateTreeDataProxy> copyMenuItem = new GridContextMenuItem<TemplateTreeDataProxy>(grid, "Копировать") {
+
+			@Override
+			protected void onSelection(TemplateTreeDataProxy selectedObject) {
+				copyTemplate(selectedObject.getId());
+			}
+		};
+
+		GridContextMenuItem<TemplateTreeDataProxy> deleteMenuItem = new GridContextMenuItem<TemplateTreeDataProxy>(grid, "Удалить") {
+
+			@Override
+			protected void onSelection(TemplateTreeDataProxy selectedObject) {
+				deleteTemplate(selectedObject.getId());
+			}
+		};
+
+		grid.getContextMenu().add(copyMenuItem);
+		grid.getContextMenu().add(deleteMenuItem);
 	}
 
 	private ToolBar createToolBar() {
@@ -132,10 +146,23 @@ public class TemplateModuleView extends AbstarctModuleView<VerticalLayoutContain
 		return instanse;
 	}
 
+	private void copyTemplate(long tamplateId) {
+		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
+		box.show();
+		getService().copyTemplate(tamplateId, new AsyncCallbackWithErrorMessage<TemplateTreeDataProxy>(box) {
+
+			@Override
+			public void onSuccess(TemplateTreeDataProxy result) {
+				box.hide();
+				update();
+			}
+		});
+	}
+
 	private void deleteTemplate(long tamplateId) {
 		final AutoProgressMessageBox box = ProgressOperationMessageBoxUtils.getServerRequest();
 		box.show();
-		getService().getDeleteTemplate(tamplateId, new AsyncCallbackWithErrorMessage<Void>(box) {
+		getService().deleteTemplate(tamplateId, new AsyncCallbackWithErrorMessage<Void>(box) {
 
 			@Override
 			public void onSuccess(Void result) {

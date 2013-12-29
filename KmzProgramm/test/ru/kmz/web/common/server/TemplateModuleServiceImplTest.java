@@ -6,18 +6,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.kmz.server.data.generator.TemplateTestData;
+import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
-import ru.kmz.web.common.server.TemplateCommonServiceImpl;
 import ru.kmz.web.common.shared.TemplateTreeDataProxy;
 import ru.kmz.web.common.shared.TemplateTreeNodeBaseProxy;
 import ru.kmz.web.common.shared.TemplateTreeNodeFolderProxy;
-import ru.kmz.web.template.client.TemplateModuleService;
 import ru.test.DataTestEveryNew;
 
 public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
-	private TemplateModuleService service;
+	private TemplateCommonServiceImpl service;
 
 	@Before
 	public void createService() {
@@ -93,6 +92,26 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 
 		template = TemplateDataUtils.getTemplate(template.getId());
 		Assert.assertEquals(template.getRootElement().getChilds().get(0).hasChild(), false);
+	}
+
+	@Test
+	public void copyTest() {
+		Template template = TemplateTestData.createTemplateShort2();
+		template = TemplateDataUtils.getTemplate(template.getId());
+
+		ProductTemplateElement sourceElement = template.getRootElement().getChilds().get(0);
+
+		Assert.assertEquals("Ходовая часть", sourceElement.getName());
+
+		TemplateTreeDataProxy newTemplateProxy = service.copyTemplate(template.getId());
+		Template newTemplate = TemplateDataUtils.getTemplate(newTemplateProxy.getId());
+
+		ProductTemplateElement destRootElement = newTemplate.getRootElement();
+		Assert.assertNotNull(destRootElement);
+		Assert.assertNotNull(destRootElement.getChilds());
+		ProductTemplateElement destElement = destRootElement.getChilds().get(0);
+		Assert.assertEquals("Ходовая часть", destElement.getName());
+
 	}
 
 }

@@ -58,6 +58,10 @@ public class ProductTemplateElement {
 		template.setRootElement(this);
 	}
 
+	public ProductTemplateElement(Template template) {
+		this(template.getName(), template);
+	}
+
 	public ProductTemplateElement(String name, int duration, String resourseType, ProductTemplateElement parent) {
 		this.name = name;
 		this.duration = duration;

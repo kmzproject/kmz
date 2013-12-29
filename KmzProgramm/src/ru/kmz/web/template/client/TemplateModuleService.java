@@ -19,5 +19,7 @@ public interface TemplateModuleService extends TemplateCommonService {
 
 	void editTemplate(TemplateTreeDataProxy proxy);
 
-	void getDeleteTemplate(long key);
+	void deleteTemplate(long key);
+
+	TemplateTreeDataProxy copyTemplate(long key);
 }
