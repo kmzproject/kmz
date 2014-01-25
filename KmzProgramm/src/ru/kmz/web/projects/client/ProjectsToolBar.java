@@ -115,6 +115,7 @@ public class ProjectsToolBar implements IsWidget {
 		list.add(new KeyValueData<String>(ScaleConstants.DAY, "День"));
 		list.add(new KeyValueData<String>(ScaleConstants.WEEK, "Неделя"));
 		list.add(new KeyValueData<String>(ScaleConstants.MONTH, "Месяц"));
+		list.add(new KeyValueData<String>(ScaleConstants.QUATER, "Квартал"));
 
 		ComboBox<KeyValueData<String>> scaleCombo = new ComboBox<KeyValueData<String>>(list, KeyStringValueDataProperties.prop.value());
 		scaleCombo.setForceSelection(true);

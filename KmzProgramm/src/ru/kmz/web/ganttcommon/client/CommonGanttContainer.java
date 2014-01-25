@@ -146,6 +146,8 @@ public class CommonGanttContainer implements IsWidget {
 			gantt.setStartEnd(dwStart.addDays(-delta).asDate(), dwFinish.addDays(delta * 2).asDate());
 		} else if (scale.equals(ScaleConstants.MONTH)) {
 			gantt.setStartEnd(dwStart.addMonths(-delta).asDate(), dwFinish.addMonths(delta * 2).asDate());
+		} else if (scale.equals(ScaleConstants.QUATER)) {
+			gantt.setStartEnd(dwStart.addMonths(-delta * 2).asDate(), dwFinish.addMonths(delta * 2).asDate());
 		} else if (scale.equals(ScaleConstants.WEEK)) {
 			gantt.setStartEnd(dwStart.addDays(-delta * 7).asDate(), dwFinish.addDays(delta * 14).asDate());
 		}
@@ -159,6 +161,9 @@ public class CommonGanttContainer implements IsWidget {
 		} else if (scale.equals(ScaleConstants.MONTH)) {
 			headers.add(new YearTimeAxisGenerator("yyyy"));
 			headers.add(new MonthTimeAxisGenerator("MM"));
+		} else if (scale.equals(ScaleConstants.QUATER)) {
+			headers.add(new YearTimeAxisGenerator("yyyy"));
+			headers.add(new QuaterTimeAxisGenerator("MM"));
 		} else if (scale.equals(ScaleConstants.WEEK)) {
 			headers.add(new MonthTimeAxisGenerator("dd.MM.yy"));
 			headers.add(new WeekTimeAxisGenerator("dd/MM"));
