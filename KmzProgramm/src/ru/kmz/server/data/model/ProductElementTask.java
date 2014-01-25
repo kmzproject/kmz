@@ -138,7 +138,7 @@ public class ProductElementTask implements IProjectTask {
 		if (count == 1) {
 			return name;
 		}
-		return count + "x " + name;
+		return name + " [" + count + "]";
 	}
 
 	public GraphData asGraphDataProxy() {

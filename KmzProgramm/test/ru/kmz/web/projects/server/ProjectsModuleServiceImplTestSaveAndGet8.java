@@ -43,7 +43,7 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		Assert.assertEquals(TaskType.PARENT, rootOrder.getTaskType());
 
 		GraphData rootOrderProduct = rootOrder.getChilds().get(0);
-		Assert.assertEquals("2x Изделие (I-001001)", rootOrderProduct.getName());
+		Assert.assertEquals("Изделие [2] (I-001001)", rootOrderProduct.getName());
 		Assert.assertEquals(ResourceTypes.PRODUCT, rootOrderProduct.getResourceType());
 
 		Assert.assertEquals(DateUtils.getOffsetDate(date, -14), rootOrderProduct.getPlanStart());
