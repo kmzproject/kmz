@@ -89,6 +89,7 @@ public class TemplateTree implements IsWidget {
 					public void onSuccess(TemplateTreeNodeBaseProxy result) {
 						if (item != null) {
 							tree.getStore().add(item, result);
+							tree.setExpanded(item, true);
 						} else {
 							tree.getStore().add(result);
 						}
