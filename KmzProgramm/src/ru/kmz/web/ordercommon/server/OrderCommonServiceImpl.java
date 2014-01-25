@@ -47,9 +47,10 @@ public class OrderCommonServiceImpl extends AbstractServiceImpl implements Order
 	public void deleteOrder(long id) {
 		Order order = OrderDataUtils.getOrder(id);
 		HistoryUtils.addDeleteOrder(order);
-		for (ProductElementTask product : order.getChilds()) {
-//			System.out.println(product + " " + product.getId());
-			ProductElementTaskDataUtils.deleteProduct(product.getId());
+		if (order.hasChild()) {
+			for (ProductElementTask product : order.getChilds()) {
+				ProductElementTaskDataUtils.deleteProduct(product.getId());
+			}
 		}
 		OrderDataUtils.delete(order.getId());
 	}

@@ -67,4 +67,18 @@ public class OrderCommonServiceImplTest extends DataTestEveryNew {
 		List<HistoryProxy> history = commonService.getHistoryByObject(null);
 		Assert.assertEquals(3, history.size());
 	}
+
+	@Test
+	public void deleteEmptyOrder() {
+		OrderProxy proxy = new OrderProxy();
+		proxy.setLegalNumber("legal1");
+		proxy.setCustomer("customer");
+		proxy.setName("name1");
+		proxy = service.editOrder(proxy);
+
+		service.deleteOrder(proxy.getId());
+		List<OrderProxy> list = service.getOrders();
+
+		Assert.assertEquals(0, list.size());
+	}
 }
