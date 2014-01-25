@@ -23,6 +23,8 @@ import com.sencha.gxt.widget.core.client.tree.Tree;
 public class TemplateTree implements IsWidget {
 
 	private TemplateTreeNodeFolderProxy root;
+	private CreateNoteEventHandler createNoteEventHandlerInstanse;
+	private SaveNoteEventHandler saveNoteEventHandlerInstanse;
 
 	public void setRoot(TemplateTreeNodeFolderProxy root) {
 		this.root = root;
@@ -36,6 +38,7 @@ public class TemplateTree implements IsWidget {
 	public Widget asWidget() {
 		if (container != null)
 			return container;
+
 		container = new HorizontalPanel();
 		container.setSpacing(10);
 
@@ -60,10 +63,25 @@ public class TemplateTree implements IsWidget {
 	}
 
 	private void createEditContainer() {
+		createNoteEventHandlerInstanse = new CreateNoteEventHandler();
+		saveNoteEventHandlerInstanse = new SaveNoteEventHandler();
+
 		VerticalPanel editContainer = new VerticalPanel();
 		container.add(editContainer);
 
-		infoContainer = new TemplateTreeNodeInfo();
+		infoContainer = new TemplateTreeNodeInfo(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+				if (item == null) {
+					createNoteEventHandlerInstanse.onSelect(null);
+				} else {
+					saveNoteEventHandlerInstanse.onSelect(null);
+				}
+			}
+		});
+
 		editContainer.add(infoContainer);
 
 		HorizontalPanel buttonsContainer = new HorizontalPanel();
@@ -71,32 +89,7 @@ public class TemplateTree implements IsWidget {
 		editContainer.add(buttonsContainer);
 
 		TextButton addNodeButton = new TextButton("Добавить узел");
-		addNodeButton.addSelectHandler(new SelectHandler() {
-			@Override
-			public void onSelect(SelectEvent event) {
-				final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
-				long parentId;
-				if (item == null) {
-					parentId = root.getId();
-				} else {
-					parentId = item.getId();
-				}
-				TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy();
-				infoContainer.fillValue(proxy);
-				TemplateModuleView.getService().createNewTemplateTreeNode(parentId, proxy, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
-
-					@Override
-					public void onSuccess(TemplateTreeNodeBaseProxy result) {
-						if (item != null) {
-							tree.getStore().add(item, result);
-							tree.setExpanded(item, true);
-						} else {
-							tree.getStore().add(result);
-						}
-					}
-				});
-			}
-		});
+		addNodeButton.addSelectHandler(createNoteEventHandlerInstanse);
 		buttonsContainer.add(addNodeButton);
 
 		TextButton deleteNodeButton = new TextButton("Удалить узел");
@@ -119,25 +112,7 @@ public class TemplateTree implements IsWidget {
 		buttonsContainer.add(deleteNodeButton);
 
 		TextButton save = new TextButton("Сохранить");
-		save.addSelectHandler(new SelectHandler() {
-
-			@Override
-			public void onSelect(SelectEvent event) {
-				TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
-				if (item == null) {
-					Info.display("Error", "Не выбран удел для сохранения");
-					return;
-				}
-				infoContainer.fillValue(item);
-				tree.refresh(item);
-				TemplateModuleView.getService().save(item, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
-					@Override
-					public void onSuccess(TemplateTreeNodeBaseProxy result) {
-						Info.display("сохранение", "Сохранения произведено");
-					}
-				});
-			}
-		});
+		save.addSelectHandler(saveNoteEventHandlerInstanse);
 		buttonsContainer.add(save);
 
 	}
@@ -186,6 +161,60 @@ public class TemplateTree implements IsWidget {
 		public String getKey(TemplateTreeNodeBaseProxy item) {
 			return (item instanceof TemplateTreeNodeFolderProxy ? "f-" : "m-") + item.getId();
 		}
+	}
+
+	private class CreateNoteEventHandler implements SelectHandler {
+		@Override
+		public void onSelect(SelectEvent event) {
+			final TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+			long parentId;
+			if (item == null) {
+				parentId = root.getId();
+			} else {
+				parentId = item.getId();
+			}
+			TemplateTreeNodeBaseProxy proxy = infoContainer.fillValue(new TemplateTreeNodeBaseProxy());
+			if (proxy == null) {
+				return;
+			}
+
+			TemplateModuleView.getService().createNewTemplateTreeNode(parentId, proxy, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
+
+				@Override
+				public void onSuccess(TemplateTreeNodeBaseProxy result) {
+					if (item != null) {
+						tree.getStore().add(item, result);
+						tree.setExpanded(item, true);
+					} else {
+						tree.getStore().add(result);
+					}
+				}
+			});
+		}
+
+	}
+
+	private class SaveNoteEventHandler implements SelectHandler {
+		@Override
+		public void onSelect(SelectEvent event) {
+			TemplateTreeNodeBaseProxy item = tree.getSelectionModel().getSelectedItem();
+			if (item == null) {
+				Info.display("Error", "Не выбран удел для сохранения");
+				return;
+			}
+			item = infoContainer.fillValue(item);
+			if (item == null) {
+				return;
+			}
+			tree.refresh(item);
+			TemplateModuleView.getService().save(item, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
+				@Override
+				public void onSuccess(TemplateTreeNodeBaseProxy result) {
+					Info.display("сохранение", "Сохранения произведено");
+				}
+			});
+		}
+
 	}
 
 }
