@@ -53,7 +53,7 @@ public class TemplateTreeNodeInfo implements IsWidget {
 		resourceType.setValue(new KeyValueData<String>(value.getResourceType()));
 	}
 
-	public void saveValue(TemplateTreeNodeBaseProxy proxy) {
+	public void fillValue(TemplateTreeNodeBaseProxy proxy) {
 		proxy.setName(name.getValue());
 		try {
 			proxy.setDuration(IntegerParser.instance().parse(duration.getValue()));

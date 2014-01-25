@@ -81,7 +81,9 @@ public class TemplateTree implements IsWidget {
 				} else {
 					parentId = item.getId();
 				}
-				TemplateModuleView.getService().createNewTemplateTreeNode(parentId, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
+				TemplateTreeNodeBaseProxy proxy = new TemplateTreeNodeBaseProxy();
+				infoContainer.fillValue(proxy);
+				TemplateModuleView.getService().createNewTemplateTreeNode(parentId, proxy, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
 
 					@Override
 					public void onSuccess(TemplateTreeNodeBaseProxy result) {
@@ -125,7 +127,7 @@ public class TemplateTree implements IsWidget {
 					Info.display("Error", "Не выбран удел для сохранения");
 					return;
 				}
-				infoContainer.saveValue(item);
+				infoContainer.fillValue(item);
 				tree.refresh(item);
 				TemplateModuleView.getService().save(item, new AsyncCallbackWithErrorMessage<TemplateTreeNodeBaseProxy>() {
 					@Override

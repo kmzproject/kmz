@@ -3,7 +3,6 @@ package ru.kmz.web.common.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
 import ru.kmz.server.data.utils.TemplateDataUtils;
@@ -39,9 +38,10 @@ public class TemplateCommonServiceImpl extends AbstractServiceImpl implements Te
 	 *            - id узла или шублона если узел верхнего уровня
 	 */
 	@Override
-	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentKey) {
+	public TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentKey, TemplateTreeNodeBaseProxy proxy) {
 		ProductTemplateElement parentElement = TemplateDataUtils.getProducteTemplateElement(parentKey);
-		ProductTemplateElement element = new ProductTemplateElement("Новый узел", 0, ResourceTypes.PURCHASE, parentElement);
+
+		ProductTemplateElement element = new ProductTemplateElement(proxy.getName(), proxy.getDuration(), proxy.getResourceType(), parentElement);
 		element = TemplateDataUtils.edit(element);
 		return element.asProxy();
 	}

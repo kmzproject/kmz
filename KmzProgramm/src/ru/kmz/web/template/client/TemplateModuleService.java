@@ -11,7 +11,7 @@ public interface TemplateModuleService extends TemplateCommonService {
 
 	TemplateTreeDataProxy getData(long key);
 
-	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentKey);
+	TemplateTreeNodeBaseProxy createNewTemplateTreeNode(long parentKey, TemplateTreeNodeBaseProxy proxy);
 
 	void deleteTemplateTreeNode(long key);
 

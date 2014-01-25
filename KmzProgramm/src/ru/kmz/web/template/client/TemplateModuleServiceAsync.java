@@ -10,7 +10,7 @@ public interface TemplateModuleServiceAsync extends TemplateCommonServiceAsync {
 
 	void getData(long key, AsyncCallback<TemplateTreeDataProxy> callback);
 
-	void createNewTemplateTreeNode(long parentKey, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
+	void createNewTemplateTreeNode(long parentKey, TemplateTreeNodeBaseProxy proxy, AsyncCallback<TemplateTreeNodeBaseProxy> callback);
 
 	void deleteTemplateTreeNode(long key, AsyncCallback<Void> callback);
 

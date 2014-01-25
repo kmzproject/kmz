@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ru.kmz.server.data.constants.ResourceTypes;
 import ru.kmz.server.data.generator.TemplateTestData;
 import ru.kmz.server.data.model.ProductTemplateElement;
 import ru.kmz.server.data.model.Template;
@@ -59,11 +60,20 @@ public class TemplateModuleServiceImplTest extends DataTestEveryNew {
 	@Test
 	public void createNewTemplateTreeNodeTest() {
 		Template template = TemplateTestData.createTemplateShort2();
-		TemplateTreeNodeBaseProxy newNodeProxy = service.createNewTemplateTreeNode(template.getRootElement().getId());
+
+		TemplateTreeNodeBaseProxy proxtSrc = new TemplateTreeNodeBaseProxy();
+		proxtSrc.setDuration(13);
+		proxtSrc.setName("Тестовый узел 1");
+		proxtSrc.setResourceType(ResourceTypes.PRODUCT);
+		TemplateTreeNodeBaseProxy newNodeProxy = service.createNewTemplateTreeNode(template.getRootElement().getId(), proxtSrc);
 
 		template = TemplateDataUtils.getTemplate(template.getId());
-		Assert.assertEquals(template.getRootElement().getChilds().get(1).getName(), "Новый узел");
-		Assert.assertEquals(template.getRootElement().getChilds().get(1).getId(), newNodeProxy.getId());
+
+		ProductTemplateElement element = template.getRootElement().getChilds().get(1);
+		Assert.assertEquals(element.getName(), "Тестовый узел 1");
+		Assert.assertEquals(element.getResourceType(), ResourceTypes.PRODUCT);
+		Assert.assertEquals(element.getDuration(), 13);
+		Assert.assertEquals(element.getId(), newNodeProxy.getId());
 	}
 
 	@Test
