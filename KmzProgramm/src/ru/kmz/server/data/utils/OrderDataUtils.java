@@ -46,7 +46,7 @@ public class OrderDataUtils {
 	@SuppressWarnings("unchecked")
 	private static int getMaxOrderNumber(PersistenceManager pm) {
 		Query q = pm.newQuery(Order.class);
-		q.setOrdering("number");
+		q.setOrdering("number DESC");
 		q.setRange(0, 1);
 		List<Order> list = (List<Order>) q.execute();
 		if (list.size() == 0)
