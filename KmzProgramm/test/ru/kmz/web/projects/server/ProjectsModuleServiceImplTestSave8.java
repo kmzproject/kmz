@@ -43,7 +43,7 @@ public class ProjectsModuleServiceImplTestSave8 extends DataTestEveryNew {
 		input.setOrderId(orderId);
 		service.save(input);
 
-		order = OrderDataUtils.getOrder(orderId);
+		order = OrderDataUtils.getOrderAndLoadAllChild(orderId);
 
 		Assert.assertEquals(1, order.getChilds().size());
 		Assert.assertEquals("Изделие", order.getChilds().get(0).getName());

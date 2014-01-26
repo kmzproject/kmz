@@ -30,7 +30,7 @@ public class UpdateOrderStartFinishService {
 	}
 
 	public void updateByOrderId(long orderId) {
-		Order order = OrderDataUtils.getOrder(orderId);
+		Order order = OrderDataUtils.getOrderAndLoadAllChild(orderId);
 		order.setStart(null);
 		order.setFinish(null);
 		OrderDataUtils.edit(order);

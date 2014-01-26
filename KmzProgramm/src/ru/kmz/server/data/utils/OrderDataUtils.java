@@ -1,6 +1,9 @@
 package ru.kmz.server.data.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -11,8 +14,21 @@ import ru.kmz.server.data.model.ProductElementTask;
 
 public class OrderDataUtils {
 
-	@SuppressWarnings("unchecked")
+	private static Map<Long, Order> orderCache = null;
+
+	static void cleanCache() {
+		orderCache = null;
+	}
+
 	public static List<Order> getAllOrders() {
+		if (orderCache == null) {
+			initOrderCache();
+		}
+		return new ArrayList<Order>(orderCache.values());
+	}
+
+	@SuppressWarnings("unchecked")
+	private static void initOrderCache() {
 		List<Order> list = null;
 		PersistenceManager em = null;
 		try {
@@ -23,11 +39,16 @@ public class OrderDataUtils {
 		} finally {
 			em.close();
 		}
-		return list;
-
+		orderCache = new HashMap<Long, Order>();
+		for (Order order : list) {
+			orderCache.put(order.getId(), order);
+		}
 	}
 
 	public static Order edit(Order order) {
+		if (orderCache == null) {
+			initOrderCache();
+		}
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
@@ -36,7 +57,8 @@ public class OrderDataUtils {
 				number++;
 				order.setNumber(number);
 			}
-			pm.makePersistent(order);
+			order = pm.makePersistent(order);
+			orderCache.put(order.getId(), (Order) order.clone());
 		} finally {
 			pm.close();
 		}
@@ -45,6 +67,7 @@ public class OrderDataUtils {
 
 	@SuppressWarnings("unchecked")
 	private static int getMaxOrderNumber(PersistenceManager pm) {
+		// TODO: сделать использование кеша
 		Query q = pm.newQuery(Order.class);
 		q.setOrdering("number DESC");
 		q.setRange(0, 1);
@@ -57,10 +80,18 @@ public class OrderDataUtils {
 	}
 
 	public static Order getOrder(Long key) {
+		if (orderCache == null) {
+			initOrderCache();
+		}
+		Order order = orderCache.get(key);
+		return (Order) order.clone();
+	}
+
+	public static Order getOrderAndLoadAllChild(Long key) {
 		PersistenceManager pm = null;
 		try {
 			pm = PMF.get().getPersistenceManager();
-			Order order = pm.getObjectById(Order.class, key);
+			Order order = getOrder(key);
 			loadAllChild(pm, order);
 			return order;
 		} finally {
@@ -73,6 +104,7 @@ public class OrderDataUtils {
 		try {
 			pm = PMF.get().getPersistenceManager();
 			Order order = pm.getObjectById(Order.class, key);
+			orderCache.remove(order.getId());
 			pm.deletePersistent(order);
 		} finally {
 			pm.close();

@@ -47,7 +47,7 @@ public class ProjectsModuleServiceImpl extends AbstractServiceImpl implements Pr
 		CreateNewProductService service = new CreateNewProductService();
 
 		long orderId = input.getOrderId();
-		Order order = OrderDataUtils.getOrder(orderId);
+		Order order = OrderDataUtils.getOrderAndLoadAllChild(orderId);
 		service.setOrder(order);
 		service.setCount(input.getCount());
 		service.setUseWeekend(input.isUseWeekend());

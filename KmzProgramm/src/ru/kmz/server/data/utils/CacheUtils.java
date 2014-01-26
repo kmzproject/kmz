@@ -5,5 +5,6 @@ public class CacheUtils {
 	public static void cleanAllCaches() {
 		HistoryDataUtils.cleanCache();
 		CalendarDataUtils.cleanCache();
+		OrderDataUtils.cleanCache();
 	}
 }

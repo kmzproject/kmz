@@ -16,7 +16,7 @@ import ru.kmz.web.ganttcommon.shared.GraphData;
 import ru.kmz.web.ordercommon.shared.OrderProxy;
 
 @PersistenceCapable
-public class Order implements IProjectTask {
+public class Order implements IProjectTask, Cloneable {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -168,5 +168,17 @@ public class Order implements IProjectTask {
 	@Override
 	public boolean isFolder() {
 		return true;
+	}
+
+	@Override
+	public Object clone() {
+		try {
+			Order clone = (Order) super.clone();
+			clone.childs = null;
+			return clone;
+		} catch (CloneNotSupportedException ex) {
+			return null;
+		}
+
 	}
 }

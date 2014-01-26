@@ -19,7 +19,7 @@ public class UpdateDoneValueService {
 	}
 
 	public void updateByOrderId(long orderId) {
-		Order order = OrderDataUtils.getOrder(orderId);
+		Order order = OrderDataUtils.getOrderAndLoadAllChild(orderId);
 		calculatePersentsDone(order);
 	}
 
