@@ -28,7 +28,7 @@ public class OrderComboBoxUtils {
 			@Override
 			public void onSuccess(List<OrderProxy> result) {
 				for (OrderProxy proxy : result) {
-					list.add(new KeyValueData<Long>(proxy.getId(), proxy.getName()));
+					list.add(new KeyValueData<Long>(proxy.getId(), proxy.getNameAndCode()));
 				}
 			}
 

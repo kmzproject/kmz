@@ -24,6 +24,10 @@ public class OrderProxy implements Serializable, IHasIdProxy {
 		return name;
 	}
 
+	public String getNameAndCode() {
+		return name + " (" + code + ")";
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
