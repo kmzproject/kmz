@@ -77,6 +77,15 @@ public class ProjectsToolBar implements IsWidget {
 		});
 		toolBar.add(showAll);
 
+		TextButton hideAll = new TextButton("Свернуть все");
+		hideAll.addSelectHandler(new SelectHandler() {
+			@Override
+			public void onSelect(SelectEvent event) {
+				projectModulesView.getGantt().collapseAll();
+			}
+		});
+		toolBar.add(hideAll);
+
 		toolBar.add(new FieldLabel(getScaleComboBox(), "Масштаб"));
 
 		TextButton filterButton = new TextButton("Фильтр");

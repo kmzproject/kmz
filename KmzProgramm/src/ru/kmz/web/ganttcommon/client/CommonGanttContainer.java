@@ -110,6 +110,10 @@ public class CommonGanttContainer implements IsWidget {
 		((TreeGrid<Task>) gantt.getLeftGrid()).expandAll();
 	}
 
+	public void collapseAll() {
+		((TreeGrid<Task>) gantt.getLeftGrid()).collapseAll();
+	}
+
 	public void changeScale(String scale) {
 		this.scale = scale;
 		GanttConfig c = gantt.getConfig();
