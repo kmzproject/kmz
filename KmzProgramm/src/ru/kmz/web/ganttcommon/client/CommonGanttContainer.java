@@ -207,8 +207,16 @@ public class CommonGanttContainer implements IsWidget {
 		column2.setWidth(50);
 		column2.setSortable(true);
 		column2.setResizable(true);
-		column2.setCell(new DateCell(DateTimeFormat.getFormat("MM/dd")));
+		column2.setCell(new DateCell(DateTimeFormat.getFormat("dd/MM")));
 		configs.add(column2);
+
+		ColumnConfig<Task, Date> columnFinish = new ColumnConfig<Task, Date>(TaskProps.props.endDateTime());
+		columnFinish.setHeader("Кон.");
+		columnFinish.setWidth(50);
+		columnFinish.setSortable(true);
+		columnFinish.setResizable(true);
+		columnFinish.setCell(new DateCell(DateTimeFormat.getFormat("dd/MM")));
+		configs.add(columnFinish);
 
 		ColumnConfig<Task, String> column3 = new ColumnConfig<Task, String>(TaskProps.props.durationCol());
 		column3.setHeader("Продолж.");

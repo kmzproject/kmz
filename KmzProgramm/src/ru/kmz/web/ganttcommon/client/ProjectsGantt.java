@@ -6,7 +6,7 @@ public class ProjectsGantt extends CommonGanttContainer {
 
 	public ProjectsGantt(GanttData data, GanttTaskContextMenuHandler handler) {
 		super(data, handler);
-		showPercentDone = true;
+		showPercentDone = false;
 	}
 
 }
