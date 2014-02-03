@@ -24,7 +24,12 @@ public class OrderDataUtils {
 		if (orderCache == null) {
 			initOrderCache();
 		}
-		return new ArrayList<Order>(orderCache.values());
+		List<Order> orders = new ArrayList<Order>();
+		for (Order order : orderCache.values()) {
+			Order outputOrder = (Order) order.clone();
+			orders.add(outputOrder);
+		}
+		return orders;
 	}
 
 	@SuppressWarnings("unchecked")

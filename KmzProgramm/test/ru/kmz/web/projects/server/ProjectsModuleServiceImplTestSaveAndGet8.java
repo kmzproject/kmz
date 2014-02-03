@@ -66,6 +66,8 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		Assert.assertEquals(1, data.getChilds().size());
 		GraphData rootOrder = data.getChilds().get(0);
 
+		Assert.assertEquals(1, rootOrder.getChilds().size());
+
 		Assert.assertEquals("Тестовый заказ 1 (Z-001)", rootOrder.getName());
 		Assert.assertEquals(DateUtils.getOffsetDate(date, -7), rootOrder.getPlanStart());
 		Assert.assertEquals(date, rootOrder.getPlanFinish());
@@ -89,6 +91,11 @@ public class ProjectsModuleServiceImplTestSaveAndGet8 extends DataTestEveryNew {
 		Assert.assertEquals("Вал часть 2 (B-001004)", prepare2.getName());
 		Assert.assertEquals(DateUtils.getOffsetDate(date, -6), prepare2.getPlanStart());
 		Assert.assertEquals(DateUtils.getOffsetDate(date, -4), prepare2.getPlanFinish());
+
+		data = service.getCurrentTasks(null);
+		rootOrder = data.getChilds().get(0);
+		Assert.assertEquals(1, rootOrder.getChilds().size());
+
 	}
 
 }
