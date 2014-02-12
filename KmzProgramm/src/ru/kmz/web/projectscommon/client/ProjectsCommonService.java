@@ -10,4 +10,6 @@ public interface ProjectsCommonService extends RemoteService {
 
 	void setTaskAsStartedPersents(long id);
 
+	void setTaskAsPlannedPersents(long id);
+
 }

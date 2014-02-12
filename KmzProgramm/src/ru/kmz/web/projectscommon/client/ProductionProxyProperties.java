@@ -16,7 +16,7 @@ public interface ProductionProxyProperties extends PropertyAccess<ProductionProx
 	@Path("name")
 	ValueProvider<ProductionProxy, String> name();
 
-	ValueProvider<ProductionProxy, String> orderName();
+	ValueProvider<ProductionProxy, String> orderNameAndCode();
 
 	ValueProvider<ProductionProxy, Date> planStart();
 

@@ -35,7 +35,7 @@ public class ProductsGrid extends CommonProxyObjectGrid<ProductProxy> {
 		ListStore<ProductProxy> store = new ListStore<ProductProxy>(props.key());
 
 		ColumnConfig<ProductProxy, String> codeCol = new ColumnConfig<ProductProxy, String>(props.code(), 50, "Код");
-		ColumnConfig<ProductProxy, String> orderNameCol = new ColumnConfig<ProductProxy, String>(props.orderName(), 100, "Название заказа");
+		ColumnConfig<ProductProxy, String> orderNameCol = new ColumnConfig<ProductProxy, String>(props.orderNameAndCode(), 100, "Название заказа");
 		ColumnConfig<ProductProxy, String> nameCol = new ColumnConfig<ProductProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<ProductProxy, Date> startCol = new ColumnConfig<ProductProxy, Date>(props.planStart(), 200, "Дата начала");
 		startCol.setCell(new DateCellFormatColor());

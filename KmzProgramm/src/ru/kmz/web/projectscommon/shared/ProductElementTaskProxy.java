@@ -9,7 +9,7 @@ import ru.kmz.web.common.shared.IHasIdProxy;
 public class ProductElementTaskProxy implements Serializable, IHasIdProxy {
 
 	private long id;
-	private String orderName;
+	private String orderNameAndCode;
 	private String name;
 	private Date planStart;
 	private Date planFinish;
@@ -40,16 +40,16 @@ public class ProductElementTaskProxy implements Serializable, IHasIdProxy {
 		return taskState;
 	}
 
-	public void setOrderName(String orderName) {
-		this.orderName = orderName;
+	public void setOrderNameAndCode(String orderNameAndCode) {
+		this.orderNameAndCode = orderNameAndCode;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public String getOrderName() {
-		return orderName;
+	public String getOrderNameAndCode() {
+		return orderNameAndCode;
 	}
 
 	public String getName() {

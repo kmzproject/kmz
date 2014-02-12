@@ -54,7 +54,7 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		Assert.assertEquals("Покупка 3", purchases.get(2).getName());
 		Assert.assertEquals("D-001004", purchases.get(2).getCode());
 
-		Assert.assertEquals("Тестовый заказ 1", purchases.get(0).getOrderName());
+		Assert.assertEquals("Тестовый заказ 1 (Z-001)", purchases.get(0).getOrderNameAndCode());
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class PurchasesTest1 extends DataTestEveryNew {
 	}
 
 	@Test
-	public void taskStartedTest() {
+	public void taskStartedAndPlannedTest() {
 		Template template = TemplateTestData.createTemplateShort5();
 		Order order = OrderTestData.createOrders1().get(0);
 		CalculatorInputDataProxy input = new CalculatorInputDataProxy();
@@ -113,6 +113,12 @@ public class PurchasesTest1 extends DataTestEveryNew {
 		purchases = service.getActivePurchases(null);
 		Assert.assertEquals(3, purchases.size());
 		Assert.assertEquals("В работе", purchases.get(0).getTaskState());
+
+		service.setTaskAsPlannedPersents(purchases.get(0).getId());
+		purchases = service.getActivePurchases(null);
+		Assert.assertEquals(3, purchases.size());
+		Assert.assertEquals("Запланировано", purchases.get(0).getTaskState());
+
 	}
 
 	@Test

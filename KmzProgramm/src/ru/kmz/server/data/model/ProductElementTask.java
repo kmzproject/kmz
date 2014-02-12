@@ -204,6 +204,14 @@ public class ProductElementTask implements IProjectTask {
 		return false;
 	}
 
+	public boolean setTaskStatePlanned() {
+		if (taskState != null && (taskState.equals(ProductElementTaskStates.STARTED) || taskState.equals(ProductElementTaskStates.FINISHED))) {
+			this.taskState = ProductElementTaskStates.PLANNED;
+			return true;
+		}
+		return false;
+	}
+
 	public int getDone() {
 		return done;
 	}

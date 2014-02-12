@@ -170,6 +170,10 @@ public class Order implements IProjectTask, Cloneable {
 		return true;
 	}
 
+	public String getNameAndCode() {
+		return getName() + " (" + getCode() + ")";
+	}
+
 	@Override
 	public Object clone() {
 		try {

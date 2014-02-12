@@ -35,7 +35,7 @@ public class PurchasesGrid extends CommonProxyObjectGrid<PurchaseProxy> {
 		ListStore<PurchaseProxy> store = new ListStore<PurchaseProxy>(props.key());
 
 		ColumnConfig<PurchaseProxy, String> codeCol = new ColumnConfig<PurchaseProxy, String>(props.code(), 50, "Код");
-		ColumnConfig<PurchaseProxy, String> orderNameCol = new ColumnConfig<PurchaseProxy, String>(props.orderName(), 100, "Название заказа");
+		ColumnConfig<PurchaseProxy, String> orderNameCol = new ColumnConfig<PurchaseProxy, String>(props.orderNameAndCode(), 100, "Название заказа");
 		ColumnConfig<PurchaseProxy, String> nameCol = new ColumnConfig<PurchaseProxy, String>(props.name(), 200, "Закупка");
 		ColumnConfig<PurchaseProxy, String> taskStateCol = new ColumnConfig<PurchaseProxy, String>(props.taskState(), 100, "Состояние");
 		ColumnConfig<PurchaseProxy, Date> startCol = new ColumnConfig<PurchaseProxy, Date>(props.planStart(), 200, "Дата начала");

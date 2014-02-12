@@ -53,7 +53,7 @@ public class ProductionTest1 extends DataTestEveryNew {
 		Assert.assertEquals("Сборка 3", productions.get(2).getName());
 		Assert.assertEquals("A-001004", productions.get(2).getCode());
 
-		Assert.assertEquals("Тестовый заказ 1", productions.get(0).getOrderName());
+		Assert.assertEquals("Тестовый заказ 1 (Z-001)", productions.get(0).getOrderNameAndCode());
 	}
 
 	@Test

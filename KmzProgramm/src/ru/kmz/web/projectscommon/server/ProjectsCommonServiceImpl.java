@@ -39,6 +39,15 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 	}
 
 	@Override
+	public void setTaskAsPlannedPersents(long id) {
+		ProductElementTask task = ProductElementTaskDataUtils.getTask(id);
+		if (task.setTaskStatePlanned()) {
+			ProductElementTaskDataUtils.edit(task);
+			HistoryUtils.createTaskPlanned(task);
+		}
+	}
+
+	@Override
 	public List<PurchaseProxy> getActivePurchases(ProductElementTaskGridFilter filter) {
 		if (filter == null) {
 			filter = new ProductElementTaskGridFilter();
@@ -50,7 +59,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 			Order order = OrderDataUtils.getOrder(task.getOrderId());
 
 			PurchaseProxy proxy = task.asPurchaseProxy();
-			proxy.setOrderName(order.getName());
+			proxy.setOrderNameAndCode(order.getNameAndCode());
 			proxyList.add(proxy);
 		}
 
@@ -75,7 +84,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 			Order order = OrderDataUtils.getOrder(task.getOrderId());
 
 			ProductProxy proxy = task.asProductProxy();
-			proxy.setOrderName(order.getName());
+			proxy.setOrderNameAndCode(order.getNameAndCode());
 			proxyList.add(proxy);
 		}
 		return proxyList;
@@ -105,7 +114,7 @@ public class ProjectsCommonServiceImpl extends AbstractServiceImpl implements Pu
 			Order order = OrderDataUtils.getOrder(task.getOrderId());
 
 			ProductionProxy proxy = task.asProductionProxy();
-			proxy.setOrderName(order.getName());
+			proxy.setOrderNameAndCode(order.getNameAndCode());
 			proxyList.add(proxy);
 		}
 		return proxyList;

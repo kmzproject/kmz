@@ -73,6 +73,14 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 			}
 		};
 
+		GridContextMenuItem<PurchaseProxy> setPlannedMenuItem = new GridContextMenuItem<PurchaseProxy>(grid, "Работа запланирована") {
+
+			@Override
+			protected void onSelection(PurchaseProxy selectedObject) {
+				setPlanned(selectedObject);
+			}
+		};
+
 		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
 		compliteTextButton.addSelectHandler(new CommonGridRowSelectHandler<PurchaseProxy>(grid) {
 			@Override
@@ -102,6 +110,7 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 		dateTo = new DateField();
 
 		grid.getContextMenu().add(setStartedMenuItem);
+		grid.getContextMenu().add(setPlannedMenuItem);
 		grid.getContextMenu().add(compliteMenuItem);
 
 		toolBar.add(setStartedTextButton);
@@ -129,7 +138,15 @@ public class PurchasesModuleView extends AbstarctModuleView<VerticalLayoutContai
 				update();
 			}
 		});
+	}
 
+	private void setPlanned(PurchaseProxy proxy) {
+		getService().setTaskAsPlannedPersents(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
 	}
 
 	public static PurchasesModuleServiceAsync getService() {

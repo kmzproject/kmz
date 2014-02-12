@@ -32,6 +32,7 @@ public class HistoryUtils {
 		String TEMPLATE_DELETE = "Шаблон удален";
 
 		String TASK_STARTED = "Работа началась";
+		String TASK_PLANNED = "Работа запланирована";
 
 		String PRODUCT_TASK_CHANGE_FINISH_DATE = "Изменено время завершения заказа";
 	}
@@ -46,6 +47,10 @@ public class HistoryUtils {
 
 	public static void createTaskStarted(ProductElementTask task) {
 		createHistory(task.getId(), HistoryName.TASK_STARTED, task.toString() + " работа началась");
+	}
+
+	public static void createTaskPlanned(ProductElementTask task) {
+		createHistory(task.getId(), HistoryName.TASK_PLANNED, task.toString() + " работа запланирована");
 	}
 
 	public static void editTemplate(Long templateId) {

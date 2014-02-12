@@ -72,6 +72,13 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 				setStarted(selectedObject);
 			}
 		};
+		GridContextMenuItem<ProductionProxy> setPlannedMenuItem = new GridContextMenuItem<ProductionProxy>(grid, "Работа запланирована") {
+
+			@Override
+			protected void onSelection(ProductionProxy selectedObject) {
+				setPlanned(selectedObject);
+			}
+		};
 
 		TextButton compliteTextButton = new TextButton("Отметить как выполненное");
 		compliteTextButton.addSelectHandler(new CommonGridRowSelectHandler<ProductionProxy>(grid) {
@@ -101,6 +108,7 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 		dateTo = new DateField();
 
 		grid.getContextMenu().add(setStartedMenuItem);
+		grid.getContextMenu().add(setPlannedMenuItem);
 		grid.getContextMenu().add(compliteMenuItem);
 
 		toolBar.add(setStartedTextButton);
@@ -123,6 +131,15 @@ public class ProductionModuleView extends AbstarctModuleView<VerticalLayoutConta
 
 	private void setStarted(ProductionProxy proxy) {
 		getService().setTaskAsStartedPersents(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				update();
+			}
+		});
+	}
+
+	private void setPlanned(ProductionProxy proxy) {
+		getService().setTaskAsPlannedPersents(proxy.getId(), new AsyncCallbackWithErrorMessage<Void>() {
 			@Override
 			public void onSuccess(Void result) {
 				update();

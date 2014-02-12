@@ -17,7 +17,7 @@ public interface ProductProxyProperties extends PropertyAccess<ProductProxy> {
 	@Path("name")
 	ValueProvider<ProductProxy, String> name();
 
-	ValueProvider<ProductProxy, String> orderName();
+	ValueProvider<ProductProxy, String> orderNameAndCode();
 
 	ValueProvider<ProductProxy, Date> planStart();
 

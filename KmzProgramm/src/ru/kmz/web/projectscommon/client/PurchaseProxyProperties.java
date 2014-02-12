@@ -16,7 +16,7 @@ public interface PurchaseProxyProperties extends PropertyAccess<PurchaseProxy> {
 	@Path("name")
 	ValueProvider<PurchaseProxy, String> name();
 
-	ValueProvider<PurchaseProxy, String> orderName();
+	ValueProvider<PurchaseProxy, String> orderNameAndCode();
 
 	ValueProvider<PurchaseProxy, Date> planStart();
 

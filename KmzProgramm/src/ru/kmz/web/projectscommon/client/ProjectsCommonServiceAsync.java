@@ -8,4 +8,5 @@ public interface ProjectsCommonServiceAsync {
 
 	void setTaskAsStartedPersents(long id, AsyncCallback<Void> callback);
 
+	void setTaskAsPlannedPersents(long id, AsyncCallback<Void> callback);
 }

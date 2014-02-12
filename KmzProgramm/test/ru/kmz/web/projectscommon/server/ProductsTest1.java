@@ -49,6 +49,6 @@ public class ProductsTest1 extends DataTestEveryNew {
 		Assert.assertEquals(DateUtils.getDate("2013/10/07"), products.get(0).getPlanStart());
 		Assert.assertEquals(date, products.get(0).getPlanFinish());
 
-		Assert.assertEquals("Тестовый заказ 1", products.get(0).getOrderName());
+		Assert.assertEquals("Тестовый заказ 1 (Z-001)", products.get(0).getOrderNameAndCode());
 	}
 }
